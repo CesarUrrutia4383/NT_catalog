@@ -1,0 +1,68 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.marcas {
+  margin-top: 100px;
+  margin-bottom: 100px;
+
+  .logos-container {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+
+    .logo-item {
+      padding: 1rem;
+      width: 140px;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      border-radius: 10%;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+      &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 25px #ff8f1c;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+        transition: transform 0.4s ease;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .logos-container {
+      gap: 2rem;
+
+      .logo-item {
+        width: 100px;
+
+        img {
+          max-width: 90%;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .logos-container {
+      gap: 1.5rem;
+
+      .logo-item {
+        width: 80px;
+
+        img {
+          max-width: 90%;
+        }
+      }
+    }
+  }
+}

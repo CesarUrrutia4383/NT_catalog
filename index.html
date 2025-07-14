@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <link rel="icon" href="/assets/img/logo3.png" type="image/png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neumatics Tool</title>
+  </head>
+  <body>
+    <div class="contenedor-header">
+      <header>
+        <a href="#" class="logo">
+          <img src="./public/assets/img/logo1.png" alt="Logo Neumatics Tool" />
+        </a>
+        <nav class="navbar">
+          <a href="#">Catalogo</a>
+          <a href="contact.html">Contacto</a>
+          <a href="#">Ayuda</a>
+          <a href="#" class="boton"
+            >Cotizar
+            <div class="icono">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0z"
+                />
+              </svg>
+            </div>
+          </a>
+        </nav>
+      </header>
+      <div class="hero" data-aos="fade-up">
+        <div class="col-1" data-aos="fade-right" data-aos-delay="200">
+          <h1 class="titulo">POTENCIA PARA CONSTRUIR EL FUTURO</h1>
+          <p class="descripcion">
+            MINERÍA | CONSTRUCCIÓN | AGRÍCOLA | TRANSPORTE
+          </p>
+          <div class="botones" data-aos="fade-left" data-aos-delay="400">
+            <button class="boton transparente" id="btn-video">
+              Conócenos
+              <div class="icono">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-play-btn-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m6.79-6.907A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z"
+                  />
+                </svg>
+              </div>
+            </button>
+            <div class="estadisticas" data-aos="zoom-in" data-aos-delay="600">
+              <p>
+                <span class="icono">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-bookmark-check-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5m8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"
+                    />
+                  </svg>
+                </span>
+                MAS DE 20 AÑOS EN EL MERCADO
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-2" data-aos="fade-left" data-aos-delay="300">
+          <div class="slideshow" id="slideshow">
+            <div class="slides" id="slides">
+              <div class="slide">
+                <img src="./assets/img/slide1.jpg" alt="" />
+              </div>
+              <div class="slide">
+                <img src="./assets/img/slide2.jpg" alt="" />
+              </div>
+              <div class="slide">
+                <img src="./assets/img/slide3.jpg" alt="" />
+              </div>
+              <div class="slide">
+                <img src="./assets/img/slide4.jpeg" alt="" />
+              </div>
+              <div class="slide">
+                <img src="./assets/img/slide5.jpeg" alt="" />
+              </div>
+            </div>
+            <div class="indicadores" id="indicadores">
+              <button class="indicador active"></button>
+              <button class="indicador"></button>
+              <button class="indicador"></button>
+              <button class="indicador"></button>
+              <button class="indicador"></button>
+            </div>
+          </div>
+        </div>
+        <div class="overlay-video" id="overlay-video">
+          <div class="video" data-aos="zoom-in">
+            <iframe
+              src="https://www.youtube.com/embed/xTeGFxuU-7w?si=O8wjDEKhJDPf-1G5"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            >
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contenedor">
+      <main>
+        <section class="caracteristicas" data-aos="fade-up" data-aos-duration="1200">
+          <h2 class="titulo1">Nosotros</h2>
+          <div class="grid">
+            <div class="previews" id="previews" data-aos="fade-right" data-aos-delay="300">
+              <img
+                class="thumb active"
+                src="./assets/img/caracteristica8.png"
+                alt=""
+                data-id="1"
+              />
+              <img
+                class="thumb"
+                src="./assets/img/caracteristica6.png"
+                alt=""
+                data-id="2"
+              />
+              <img
+                class="thumb"
+                src="./assets/img/caracteristica5.jpeg"
+                alt=""
+                data-id="3"
+              />
+              <img
+                class="thumb"
+                src="./assets/img/caracteristica7.png"
+                alt=""
+                data-id="4"
+              />
+            </div>
+            <div class="tabs" id="tabs" data-aos="fade-left" data-aos-delay="500">
+              <div class="tab active" data-id="1">
+                <div class="icono">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-double-left"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                    />
+                  </svg>
+                </div>
+                <div class="info">
+                  <h3>Neumatics Tool</h3>
+                  <p>
+                    Neumatics Tool cuenta con logística propia y flota
+                    disponible para entregar equipos en Durango y otras regiones
+                    mineras estratégicas de México.
+                  </p>
+                </div>
+              </div>
+              <div class="tab" data-id="2">
+                <div class="icono">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-double-left"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                    />
+                  </svg>
+                </div>
+                <div class="info">
+                  <h3>Variedad de equipos especializados</h3>
+                  <p>
+                    Contamos con una amplia flota, perforadoras,
+                    retroexcavadoras, montacargas, bombas. Cubrimos un gran
+                    sector para la Minería y Construcción
+                  </p>
+                </div>
+              </div>
+              <div class="tab" data-id="3">
+                <div class="icono">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-double-left"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                    />
+                  </svg>
+                </div>
+                <div class="info">
+                  <h3>Atravesando fronteras</h3>
+                  <p>
+                    La capacidad de cobertura de Neumatics Tool en zonas remotas
+                    y su disponibilidad para atender proyectos de minería y
+                    construcción en todo el país. Con presencia en Durango hasta
+                    el sector minero nacional.
+                  </p>
+                </div>
+              </div>
+              <div class="tab" data-id="4">
+                <div class="icono">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-double-left"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+                    />
+                  </svg>
+                </div>
+                <div class="info">
+                  <h3>Durabilidad y mantenimiento</h3>
+                  <p>
+                    Maquinaria robusta, que garantiza larga vida útil y menor
+                    frecuencia de mantenimientos, reduciendo costos altos y
+                    aumentando la disponibilidad en terreno.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="marcas" data-aos="fade-up" data-aos-duration="1200">
+          <h2 class="titulo1">Conoce nuestras marcas</h2>
+          <div class="logos-container" data-aos="zoom-in" data-aos-delay="300">
+            <div class="logo-item">
+              <img src="./assets/img/atlascopco.png" alt="Logo 1" />
+            </div>
+            <div class="logo-item">
+              <img src="./assets/img/epiroc.png" alt="Logo 2" />
+            </div>
+            <div class="logo-item">
+              <img src="./assets/img/goodyear.png" alt="Logo 3" />
+            </div>
+            <div class="logo-item">
+              <img src="./assets/img/makita.png" alt="Logo 4" />
+            </div>
+            <div class="logo-item">
+              <img src="./assets/img/cipsa.png" alt="Logo 5" />
+            </div>
+            <div class="logo-item">
+              <img src="./assets/img/continental.png" alt="Logo 6" />
+            </div>
+            <div class="logo-item">
+              <img src="./assets/img/husqvarna.png" alt="Logo 7" />
+            </div>
+            <div class="logo-item">
+              <img src="./assets/img/wacker.png" alt="Logo 8" />
+            </div>
+            <div class="logo-item">
+              <img src="./assets/img/mpower.png" alt="Logo 9" />
+            </div>
+            <div class="logo-item">
+              <img src="./assets/img/pisotec.png" alt="Logo 10" />
+            </div>
+            <!-- Agrega más si lo necesitas -->
+          </div>
+        </section>
+      </main>
+      <footer class="footer" data-aos="fade-up" data-aos-offset="100">
+        <div class="logo">
+          <a href="#top">
+            <img src="./assets/img/logo3.png" alt="Logo Neumatics Tool" /> <!--Redirige al tope para volver a la sección principal-->
+          </a>
+          <p>© 2025 Neumatics Tools. Todos los derechos reservados.</p>
+        </div>
+        <nav class="links">
+          <a href="#">Términos y Condiciones</a>
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Ayuda</a>
+        </nav>
+      </footer>
+    </div>
+    <!-- Añadimos los scripts de AOS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 500,
+        once: false
+      });
+    </script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
