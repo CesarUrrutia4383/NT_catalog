@@ -1,0 +1,55 @@
+.mision-vision {
+  background: linear-gradient(135deg, #FD9F40 0%, #FFFFFF 100%);
+  padding: 60px 20px;
+  margin-bottom: 40px;
+  border-radius: 30px;
+  color: #000;
+  text-align: center;
+  overflow: visible;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+
+  .grid-mv {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+
+    .bloque {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      transform-origin: center;
+      will-change: transform;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.08);
+        box-shadow: 0 15px 30px rgba(255, 143, 28, 0.5);
+      }
+
+      h3 {
+        color: #FF8F1C;
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+      }
+
+      p {
+        color: #333;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+    }
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+
+      .bloque {
+        width: 48%;
+      }
+    }
+  }
+}

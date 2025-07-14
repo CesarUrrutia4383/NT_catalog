@@ -8,6 +8,7 @@ import "./css/caracteristicas.css";
 import "./css/footer.css";
 import "./css/marcas.css";
 import "./css/contacto.css";
+import "./css/mision-vision.css"
 
 //FUNCIONES DE JAVASCRIPT
 import "./js/video.js";
