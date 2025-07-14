@@ -16,8 +16,8 @@
   <body>
     <div class="contenedor-header">
       <header>
-        <a href="#" class="logo">
-          <img src="./public/assets/img/logo1.png" alt="Logo Neumatics Tool" />
+        <a class="logo">
+          <img src="/assets/img/logo1.png" alt="Logo Neumatics Tool" />
         </a>
         <nav class="navbar">
           <a href="#">Catalogo</a>
@@ -70,7 +70,7 @@
                 </svg>
               </div>
             </button>
-            <div class="estadisticas" data-aos="zoom-in" data-aos-delay="600">
+            <div class="estadisticas" data-aos="zoom-in" data-aos-delay="200">
               <p>
                 <span class="icono">
                   <svg
@@ -96,19 +96,19 @@
           <div class="slideshow" id="slideshow">
             <div class="slides" id="slides">
               <div class="slide">
-                <img src="./assets/img/slide1.jpg" alt="" />
+                <img src="./assets/img/slide1.jpg" alt="" loading="lazy" />
               </div>
               <div class="slide">
-                <img src="./assets/img/slide2.jpg" alt="" />
+                <img src="./assets/img/slide2.jpg" alt="" loading="lazy" />
               </div>
               <div class="slide">
-                <img src="./assets/img/slide3.jpg" alt="" />
+                <img src="./assets/img/slide3.jpg" alt="" loading="lazy" />
               </div>
               <div class="slide">
-                <img src="./assets/img/slide4.jpeg" alt="" />
+                <img src="./assets/img/slide4.jpeg" alt="" loading="lazy" />
               </div>
               <div class="slide">
-                <img src="./assets/img/slide5.jpeg" alt="" />
+                <img src="./assets/img/slide5.jpeg" alt="" loading="lazy" />
               </div>
             </div>
             <div class="indicadores" id="indicadores">
@@ -137,20 +137,22 @@
     </div>
     <div class="contenedor">
       <main>
-        <section class="caracteristicas" data-aos="fade-up" data-aos-duration="1200">
+        <section class="caracteristicas" data-aos="fade-up" data-aos-duration="200">
           <h2 class="titulo1">Nosotros</h2>
           <div class="grid">
-            <div class="previews" id="previews" data-aos="fade-right" data-aos-delay="300">
+            <div class="previews" id="previews" data-aos="fade-right" data-aos-delay="100">
               <img
                 class="thumb active"
                 src="./assets/img/caracteristica8.png"
                 alt=""
                 data-id="1"
+                loading="lazy"
               />
               <img
                 class="thumb"
                 src="./assets/img/caracteristica6.png"
                 alt=""
+                loading="lazy"
                 data-id="2"
               />
               <img
@@ -158,15 +160,17 @@
                 src="./assets/img/caracteristica5.jpeg"
                 alt=""
                 data-id="3"
+                loading="lazy"
               />
               <img
                 class="thumb"
                 src="./assets/img/caracteristica7.png"
                 alt=""
+                loading="lazy"
                 data-id="4"
               />
             </div>
-            <div class="tabs" id="tabs" data-aos="fade-left" data-aos-delay="500">
+            <div class="tabs" id="tabs" data-aos="fade-left" data-aos-delay="100">
               <div class="tab active" data-id="1">
                 <div class="icono">
                   <svg
@@ -287,44 +291,44 @@
             </div>
           </div>
         </section>
-        <section class="marcas" data-aos="fade-up" data-aos-duration="1200">
+        <section class="marcas" data-aos="fade-up" data-aos-duration="100">
           <h2 class="titulo1">Conoce nuestras marcas</h2>
           <div class="logos-container" data-aos="zoom-in" data-aos-delay="300">
             <div class="logo-item">
-              <img src="./assets/img/atlascopco.png" alt="Logo 1" />
+              <img src="./assets/img/atlascopco.png" alt="Logo 1" loading="lazy" />
             </div>
             <div class="logo-item">
-              <img src="./assets/img/epiroc.png" alt="Logo 2" />
+              <img src="./assets/img/epiroc.png" alt="Logo 2" loading="lazy" />
             </div>
             <div class="logo-item">
-              <img src="./assets/img/goodyear.png" alt="Logo 3" />
+              <img src="./assets/img/goodyear.png" alt="Logo 3" loading="lazy" />
             </div>
             <div class="logo-item">
-              <img src="./assets/img/makita.png" alt="Logo 4" />
+              <img src="./assets/img/makita.png" alt="Logo 4" loading="lazy" />
             </div>
             <div class="logo-item">
-              <img src="./assets/img/cipsa.png" alt="Logo 5" />
+              <img src="./assets/img/cipsa.png" alt="Logo 5" loading="lazy" />
             </div>
             <div class="logo-item">
-              <img src="./assets/img/continental.png" alt="Logo 6" />
+              <img src="./assets/img/continental.png" alt="Logo 6" loading="lazy" />
             </div>
             <div class="logo-item">
-              <img src="./assets/img/husqvarna.png" alt="Logo 7" />
+              <img src="./assets/img/husqvarna.png" alt="Logo 7" loading="lazy" />
             </div>
             <div class="logo-item">
-              <img src="./assets/img/wacker.png" alt="Logo 8" />
+              <img src="./assets/img/wacker.png" alt="Logo 8" loading="lazy" />
             </div>
             <div class="logo-item">
-              <img src="./assets/img/mpower.png" alt="Logo 9" />
+              <img src="./assets/img/mpower.png" alt="Logo 9" loading="lazy" />
             </div>
             <div class="logo-item">
-              <img src="./assets/img/pisotec.png" alt="Logo 10" />
+              <img src="./assets/img/pisotec.png" alt="Logo 10" loading="lazy" />
             </div>
             <!-- Agrega más si lo necesitas -->
           </div>
         </section>
       </main>
-      <footer class="footer" data-aos="fade-up" data-aos-offset="100">
+      <footer class="footer">
         <div class="logo">
           <a href="#top">
             <img src="./assets/img/logo3.png" alt="Logo Neumatics Tool" /> <!--Redirige al tope para volver a la sección principal-->
@@ -338,12 +342,12 @@
         </nav>
       </footer>
     </div>
-    <!-- Añadimos los scripts de AOS -->
+    <!-- Añadimos los scripts de AOS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
       AOS.init({
         duration: 500,
-        once: false
+        once: true
       });
     </script>
     <script type="module" src="/src/main.js"></script>

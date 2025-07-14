@@ -21,5 +21,13 @@ import 'aos/dist/aos.css';
 
 AOS.init({
   duration: 1000,
-  once: false
+  once: true
 });
+
+//EXPORT PARA VISUALIZACION LOCAL
+export default {
+  server: {
+    host: true,  // esto equivale a 0.0.0.0, hace visible el servidor en la red local
+    port: 3000,  // el puerto que uses
+  },
+};
