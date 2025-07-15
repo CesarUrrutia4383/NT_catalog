@@ -48,31 +48,30 @@
         </nav>
       </header>
 
-      <section class="catalogo" id="catalogo">
-  <h2 class="titulo1" data-aos="fade-up">Catálogo de Productos</h2>
+<section class="catalogo" id="catalogo">
+  <h2 class="titulo1">Catálogo de Productos</h2>
 
-  <div class="filtros" data-aos="fade-up" data-aos-delay="100">
+  <div class="filtros" data-aos="fade-up">
     <div class="filtro">
-      <label for="filtro-marca">Marca</label>
-      <select id="filtro-marca">
+      <label for="marca">Marca</label>
+      <select id="marca">
         <option value="">Todas</option>
-        <!-- opciones dinámicas -->
       </select>
     </div>
 
     <div class="filtro">
-      <label for="filtro-proposito">Propósito</label>
-      <select id="filtro-proposito">
+      <label for="proposito">Propósito</label>
+      <select id="proposito">
         <option value="">Todos</option>
-        <!-- opciones dinámicas -->
       </select>
     </div>
   </div>
 
-  <div class="productos-grid" id="productos-grid" data-aos="fade-up" data-aos-delay="200">
-    <!-- Productos cargados por JS -->
+  <div class="productos-grid" id="productos-grid" data-aos="fade-up" data-aos-delay="100">
+    <!-- Aquí se insertan los productos dinámicamente -->
   </div>
 </section>
+
 
 
 
@@ -100,5 +99,6 @@
       });
     </script>
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/js/catalog.js"></script>
   </body>
 </html>
