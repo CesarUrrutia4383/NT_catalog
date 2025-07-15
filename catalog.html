@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <link rel="icon" href="/assets/img/logo3.png" type="image/png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neumatics Tool</title>
+  </head>
+  <body>
+    <div class="contenedor-header">
+      <header data-aos="fade-down">
+        <a href="index.html" class="logo">
+          <img src="./assets/img/logo1.png" alt="Logo Neumatics Tool"/>
+        </a>
+        <nav class="navbar" data-aos="fade-left">
+            <a href="index.html">Inicio</a>
+            <a href="contact.html">Contacto</a>
+          <a href="#">Ayuda</a>
+          <a href="#" class="boton">
+            Cotizar
+            <div class="icono">
+              <!-- Ícono de cotizar -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0z"
+                />
+              </svg>
+            </div>
+          </a>
+        </nav>
+      </header>
+
+      <section class="catalogo" id="catalogo">
+  <h2 class="titulo1" data-aos="fade-up">Catálogo de Productos</h2>
+
+  <div class="filtros" data-aos="fade-up" data-aos-delay="100">
+    <div class="filtro">
+      <label for="filtro-marca">Marca</label>
+      <select id="filtro-marca">
+        <option value="">Todas</option>
+        <!-- opciones dinámicas -->
+      </select>
+    </div>
+
+    <div class="filtro">
+      <label for="filtro-proposito">Propósito</label>
+      <select id="filtro-proposito">
+        <option value="">Todos</option>
+        <!-- opciones dinámicas -->
+      </select>
+    </div>
+  </div>
+
+  <div class="productos-grid" id="productos-grid" data-aos="fade-up" data-aos-delay="200">
+    <!-- Productos cargados por JS -->
+  </div>
+</section>
+
+
+
+      <footer class="footer">
+        <div class="logo">
+          <a href="#top">
+            <img src="./assets/img/logo3.png" alt="Logo Neumatics Tool" />
+          </a>
+          <p>© 2025 Neumatics Tools. Todos los derechos reservados.</p>
+        </div>
+        <nav class="links">
+          <a href="#">Términos y Condiciones</a>
+          <a href="#">Política de Privacidad</a>
+          <a href="#">Ayuda</a>
+        </nav>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 500,
+        once: true
+      });
+    </script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
