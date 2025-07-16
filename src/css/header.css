@@ -1,6 +1,14 @@
-html {
-  scroll-behavior: smooth;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+body, html {
+  width: 100%;
+  overflow-x: hidden; /* 👈 Esto es clave */
+}
+
 
 .contenedor-header {
   width: 90%;
@@ -98,5 +106,73 @@ header {
         padding: 10px;
       }
     }
+  }
+}
+/* ========== SLIDER GENERAL (ESCRITORIO) ========== */
+.col-2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.slideshow {
+  width: 100%;
+  max-width: 1000px;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+
+/* ========== RESPONSIVE MÓVILES: TEXTO IZQUIERDA, SLIDER DERECHA ========== */
+@media screen and (max-width: 768px) {
+  .col-2 {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .texto-lado {
+    flex: 1;
+    padding-right: 10px;
+  }
+
+  .slideshow {
+    flex: 1;
+    /* Cambiar aspecto para que sea más cuadrado y ancho suficiente */
+    aspect-ratio: 4 / 3; /* mejor proporción para ver la imagen */
+    min-width: 300px;    /* ancho mínimo para que no se achique mucho */
+    max-width: 70vw;     /* ancho máximo relativo al viewport */
+    border-radius: 0;
+  }
+
+  .slide img {
+    border-radius: 0;
+    object-fit: contain; /* para que la imagen no se recorte y se vea completa */
   }
 }

@@ -17,10 +17,6 @@ import "./js/slideshow.js";
 import "./js/caracteristicas.js";
 import "./js/aos_init.js";
 import "./js/catalog.js";
-import "../backend/config/db.js";
-import "../backend/routes/products.js";
-import "../backend/controllers/productsController.js";
-import "../backend/app.js";
 
 //AOS PARA ANIMACIONES
 import AOS from 'aos';

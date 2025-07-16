@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run dev-frontend\" \"npm run dev-backend\"",
-    "dev-frontend": "vite",
-  "dev-backend": "nodemon backend/app.js"
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "concurrently": "^9.2.0",
