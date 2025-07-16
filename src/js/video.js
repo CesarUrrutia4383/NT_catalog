@@ -1,19 +1,23 @@
 const btnVideo = document.getElementById('btn-video');
 const overlayVideo = document.getElementById('overlay-video');
+const closeBtn = document.getElementById('close-video');
+const iframe = overlayVideo.querySelector('iframe');
+const originalSrc = iframe.src;
 
-// Detectar si es dispositivo móvil
+// Dispositivo móvil
 const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
 
 btnVideo.addEventListener('click', () => {
   if (isMobile) {
-    // En móvil, redirigir a YouTube
     window.location.href = 'https://www.youtube.com/watch?v=xTeGFxuU-7w';
   } else {
-    // En escritorio, mostrar overlay con video
     overlayVideo.classList.add('active');
+    iframe.src = originalSrc;
   }
 });
 
-overlayVideo.addEventListener('click', () => {
+closeBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
   overlayVideo.classList.remove('active');
+  iframe.src = ''; // Detener el video al cerrar
 });

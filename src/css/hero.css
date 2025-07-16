@@ -60,25 +60,27 @@ html {
                 width: 24px;
                 height: 24px;
 
-                .icono svg {
-                    width: 1.5rem;
-                    height: 1.5rem;
-                    margin-right: 0.5rem;
-                    vertical-align: middle;
+                svg {
+                    width: 100%;
+                    height: 100%;
                 }
             }
-        }
-    }
-
-
+            .iconolist svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
 
 /* Para móviles (pantallas de menos de 768px) */
 @media (max-width: 768px) {
-  .icono svg {
+  .iconolist svg {
     width: 2rem;
     height: 2rem;
   }
 }
+        }
+    }
 
     .col-2 {
         position: relative;
@@ -135,33 +137,86 @@ html {
         }
     }
 
-    .overlay-video {
-        background: rgba(0, 0, 0, 0.9);
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        display: none;
-        align-items: center;
-        justify-content: center;
+.overlay-video {
+  background: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 
-        &.active {
-            display: flex;
-        }
+  /* Fade to transparent hacia la derecha */
+  mask-image: linear-gradient(to right, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent);
 
-        .video {
-            width: 98%;
-            max-width: 900px;
-            background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
 
-            iframe {
-                width: 100%;
-                vertical-align: top;
-                aspect-ratio: 16/9;
-            }
-        }
-    }
+.overlay-video.active {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-video .video {
+  width: 95%;
+  max-width: 800px;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  animation: fadeScaleIn 0.3s ease;
+}
+
+@keyframes fadeScaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.overlay-video iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  border: none;
+}
+
+/* Botón cerrar fuera del video */
+.close-video-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  text-align: center;
+  line-height: 42px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.close-video-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+
+
 
     @media screen and (max-width: 768px) {
         &{
