@@ -15,7 +15,8 @@ import "./css/catalog.css";
 import "./js/video.js";
 import "./js/slideshow.js";
 import "./js/caracteristicas.js";
-import "./js/aos_init.js"
+import "./js/aos_init.js";
+import "./js/catalog.js";
 
 //AOS PARA ANIMACIONES
 import AOS from 'aos';
