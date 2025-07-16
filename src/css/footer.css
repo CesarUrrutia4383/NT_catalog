@@ -4,7 +4,7 @@ html {
 
 .footer {
     background: #FF8F1C;
-background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgba(246, 235, 223, 1) 92%);
+background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
     color: #fff;
     padding: 20px;
     border-radius: 20px;

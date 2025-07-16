@@ -1,12 +1,16 @@
 .mision-vision {
-  background: linear-gradient(135deg, #FD9F40 0%, #FFFFFF 100%);
-  padding: 60px 20px;
-  margin-bottom: 40px;
-  border-radius: 30px;
-  color: #000;
-  text-align: center;
-  overflow: visible;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    background: #FF8F1C;
+background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
+padding: 60px 20px;
+margin-bottom: 40px;
+border-radius: 30px;
+color: #000;
+text-align: center;
+overflow: visible;
+box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+
+
+
 
   .grid-mv {
     display: flex;

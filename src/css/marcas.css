@@ -38,31 +38,32 @@ html {
     }
   }
 
-  @media screen and (max-width: 768px) {
-    .logos-container {
-      gap: 2rem;
+ @media screen and (max-width: 768px) {
+  .logos-container {
+    gap: 2rem;
 
-      .logo-item {
-        width: 100px;
+    .logo-item {
+      width: 110px;
 
-        img {
-          max-width: 90%;
-        }
+      img {
+        max-width: 95%; /* Más amplitud sin deformar */
       }
     }
   }
+}
 
-  @media screen and (max-width: 500px) {
-    .logos-container {
-      gap: 1.5rem;
+@media screen and (max-width: 500px) {
+  .logos-container {
+    gap: 1.2rem;
 
-      .logo-item {
-        width: 80px;
+    .logo-item {
+      width: 100px;
 
-        img {
-          max-width: 90%;
-        }
+      img {
+        max-width: 95%;
       }
     }
   }
+}
+
 }

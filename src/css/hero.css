@@ -3,8 +3,8 @@ html {
 }
 
 .hero {
-    background: #FF8F1C;
-    background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgba(246, 235, 223, 1) 92%);
+        background: #FF8F1C;
+background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
     display: grid;
     grid-template-columns: 55% 45%;
     gap: 20px;
