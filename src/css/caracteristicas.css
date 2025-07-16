@@ -114,3 +114,30 @@ html {
     }
   }
 }
+/* Para las imágenes previews */
+.previews .thumb {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.previews .thumb.active {
+  opacity: 1;
+  pointer-events: auto;
+  position: relative;
+}
+
+/* Para tabs, transición de fondo o color */
+.tabs .tab {
+  transition: background-color 0.4s ease, color 0.4s ease;
+  cursor: pointer;
+}
+
+.tabs .tab.active {
+  background-color: #ff8f1c; /* naranja para activo */
+  color: white;
+}
