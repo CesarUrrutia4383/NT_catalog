@@ -147,6 +147,20 @@ header {
   display: block;
   border-radius: 10px;
 }
+.icono svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Para móviles (pantallas de menos de 768px) */
+@media (max-width: 768px) {
+  .icono svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}
 
 /* ========== RESPONSIVE MÓVILES: TEXTO IZQUIERDA, SLIDER DERECHA ========== */
 @media screen and (max-width: 768px) {
