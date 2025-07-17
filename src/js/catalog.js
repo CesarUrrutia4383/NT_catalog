@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:4000/routes/productos';
+const API_URL = 'https://nt-backapis.onrender.com/routes/productos';
 
 const grid = document.getElementById('productos-grid');
 const filtroMarca = document.getElementById('marca');
