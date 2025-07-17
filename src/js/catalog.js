@@ -1,8 +1,9 @@
-const API_URL = 'https://nt-backapis.onrender.com/routes/productos';
+const API_URL = 'http://localhost:4000/routes/productos';
 
 const grid = document.getElementById('productos-grid');
 const filtroMarca = document.getElementById('marca');
 const filtroProposito = document.getElementById('proposito');
+const cantidadProductos = document.getElementById('cantidad');
 
 async function obtenerProductos() {
   const res = await fetch(API_URL);
@@ -43,6 +44,8 @@ function mostrarProductos(productos) {
       <h3>${p.nombre}</h3>
       <p>Marca: ${p.marca}</p>
       <p>Propósito: ${p.proposito}</p>
+      <br>
+      <p>UNIDADES DISPONIBLES: ${p.cantidad}</p>
     `;
     grid.appendChild(card);
   });
