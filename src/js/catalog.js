@@ -1,5 +1,4 @@
-const API_URL = 'https://nt-backapis.onrender.com/routes/productos';
-
+const API_URL = import.meta.env.VITE_API_URL;
 const grid = document.getElementById('productos-grid');
 const filtroMarca = document.getElementById('marca');
 const filtroProposito = document.getElementById('proposito');
@@ -44,7 +43,6 @@ function mostrarProductos(productos) {
       <h3>${p.nombre}</h3>
       <p>Marca: ${p.marca}</p>
       <p>Propósito: ${p.proposito}</p>
-      <br>
       <p>UNIDADES DISPONIBLES: ${p.cantidad}</p>
     `;
     grid.appendChild(card);
