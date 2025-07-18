@@ -104,3 +104,493 @@
   color: #555;
   margin-bottom: 6px;
 }
+
+/* Loader Spinner */
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #ff8f1c;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Modal de producto ampliado */
+.modal-producto {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(30,30,30,0.78) !important;
+  z-index: 2000 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  /* Sin blur, solo fondo oscuro */
+}
+/* Fondo y estilo del modal del carrito */
+.modal-contenido {
+  background: #f9f9fc;
+  border-radius: 18px;
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+  max-width: 480px;
+  width: 96vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  border: 2px solid #ff8f1c;
+  position: relative;
+  text-align: center;
+  margin: 0 auto;
+}
+.modal-cerrar {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 2rem;
+  color: #ff8f1c;
+  cursor: pointer;
+}
+/* Ajuste de campos en el modal del carrito */
+.modal-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-bottom: 0.5rem;
+}
+#nombre-cliente, #telefono-cliente {
+  min-width: 120px;
+  max-width: 180px;
+  width: 100%;
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+@media (max-width: 600px) {
+  .modal-acciones {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  #nombre-cliente, #telefono-cliente {
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+#modal-cantidad {
+  padding: 0.3rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 60px;
+}
+#agregar-carrito {
+  background: #ff8f1c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+#agregar-carrito:hover {
+  background: #e67500;
+}
+
+/* Botón flotante del carrito */
+.btn-carrito {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: #ff8f1c;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.8rem 1.8rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  cursor: pointer;
+  z-index: 1200;
+  transition: background 0.2s;
+}
+.btn-carrito:hover {
+  background: #e67500;
+}
+
+/* Botón de cotización destacado */
+#cotizar-pdf {
+  background: linear-gradient(90deg, #ff8f1c 60%, #ffb347 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(255,143,28,0.13);
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s, transform 0.2s, opacity 0.3s, box-shadow 0.3s;
+}
+#cotizar-pdf:hover {
+  background: linear-gradient(90deg, #e67500 60%, #ff8f1c 100%);
+  transform: scale(1.05);
+}
+#cotizar-pdf:disabled {
+  filter: grayscale(0.3) brightness(0.95);
+  box-shadow: none;
+  transition: opacity 0.3s, filter 0.3s;
+}
+
+/* Mejoras tabla carrito con edición de cantidad */
+#carrito-listado table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 1.04rem;
+}
+#carrito-listado th, #carrito-listado td {
+  border-bottom: 1px solid #f2f2f2;
+  padding: 0.7rem 0.5rem;
+  text-align: left;
+  font-size: 1.04rem;
+}
+#carrito-listado th {
+  background: #ff8f1c;
+  color: #fff;
+  font-weight: bold;
+  border-bottom: 2px solid #ff8f1c;
+}
+#carrito-listado tr:last-child td {
+  border-bottom: none;
+}
+#carrito-listado td {
+  background: #fff;
+}
+.cantidad-editar {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+/* Eliminar flechas de los inputs de cantidad */
+.cantidad-editar input[type='number']::-webkit-inner-spin-button,
+.cantidad-editar input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.cantidad-editar input[type='number'] {
+  -moz-appearance: textfield;
+}
+.cantidad-editar input[type='number'] {
+  width: 48px;
+  padding: 0.2rem 0.3rem;
+  border-radius: 6px;
+  border: 1px solid #ff8f1c;
+  text-align: center;
+  font-size: 1rem;
+}
+.cantidad-editar button {
+  background: #ff8f1c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.2rem 0.7rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cantidad-editar button:hover {
+  background: #e67500;
+}
+#carrito-listado .eliminar-producto {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+#carrito-listado .eliminar-producto:hover {
+  background: #c0392b;
+}
+@media (max-width: 600px) {
+  #carrito-listado table, #carrito-listado thead, #carrito-listado tbody, #carrito-listado th, #carrito-listado td, #carrito-listado tr {
+    display: block;
+    width: 100%;
+  }
+  #carrito-listado tr { margin-bottom: 1rem; }
+  #carrito-listado th { display: none; }
+  #carrito-listado td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    min-height: 2.2em;
+    box-sizing: border-box;
+  }
+  #carrito-listado td:before {
+    position: absolute;
+    left: 0.7rem;
+    top: 0.7rem;
+    width: 45%;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #ff8f1c;
+    content: attr(data-label);
+  }
+}
+
+/* Animación modal fade-in */
+.modal-producto {
+  animation: modalFadeIn 0.35s cubic-bezier(.4,0,.2,1);
+}
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Animación slide-up para el contenido del modal */
+.modal-contenido {
+  animation: modalSlideUp 0.5s cubic-bezier(.4,0,.2,1);
+}
+@keyframes modalSlideUp {
+  from { transform: translateY(60px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Animaciones generales de fade para la página */
+.fade-in {
+  animation: modalFadeIn 0.35s cubic-bezier(.4,0,.2,1);
+}
+.fade-out {
+  animation: modalFadeOut 0.35s cubic-bezier(.4,0,.2,1);
+}
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modalFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Modal de producto seleccionado */
+#modal-producto .modal-contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  background: #fffdfa;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  border: 2px solid #ff8f1c;
+  max-width: 400px;
+  width: 96vw;
+}
+#modal-info img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255,143,28,0.10);
+  background: #fff7e6;
+}
+#modal-info h3 {
+  color: #ff8f1c;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+#modal-info p {
+  color: #444;
+  font-size: 1.05rem;
+  margin-bottom: 0.3rem;
+}
+.modal-acciones {
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+.cantidad-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cantidad-btn {
+  background: #ff8f1c;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(255,143,28,0.10);
+}
+.cantidad-btn:hover {
+  background: #e67500;
+  transform: scale(1.08);
+}
+#modal-cantidad {
+  width: 60px;
+  text-align: center;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: 1.5px solid #ff8f1c;
+  padding: 0.4rem 0.2rem;
+  margin: 0 0.2rem;
+}
+#agregar-carrito {
+  background: linear-gradient(90deg, #ff8f1c 60%, #ffb347 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.6rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(255,143,28,0.13);
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: background 0.2s, transform 0.2s;
+}
+#agregar-carrito:hover {
+  background: linear-gradient(90deg, #e67500 60%, #ff8f1c 100%);
+  transform: scale(1.05);
+}
+
+/* Modal del carrito más ancho */
+#modal-carrito .modal-contenido {
+  max-width: 650px;
+  width: 98vw;
+}
+
+/* Eliminar flechas de los inputs de cantidad en todo el sitio */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Modal visor PDF responsivo */
+#modal-pdf {
+  border-radius: 0 !important;
+}
+#modal-pdf .modal-contenido {
+  border-radius: 22px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  background: #fff;
+  overflow: hidden;
+}
+@media (max-width: 700px) {
+  #modal-pdf, #modal-pdf .modal-contenido {
+    border-radius: 0 !important;
+  }
+  #modal-pdf .modal-cerrar {
+    width: 38px;
+    height: 38px;
+    font-size: 1.7rem;
+  }
+}
+#modal-pdf iframe {
+  width: 100%;
+  height: 80vh;
+  min-height: 350px;
+  border: none;
+  display: block;
+  background: #f9f9fc;
+  border-radius: 0 0 16px 16px;
+}
+#modal-pdf .modal-cerrar {
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  border: 2px solid #ff8f1c;
+  color: #ff8f1c;
+  font-size: 2.2rem;
+  font-weight: bold;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+#modal-pdf .modal-cerrar:hover {
+  background: #ff8f1c;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(255,143,28,0.13);
+}
+#modal-pdf #descargar-pdf {
+  background: #ff8f1c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 1rem 1.5rem 1rem auto;
+  transition: background 0.2s;
+}
+#modal-pdf #descargar-pdf:hover {
+  background: #e67500;
+}
+
+/* Toast de notificación */
+#toast-container .toast {
+  background: #ff8f1c;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  min-width: 220px;
+  max-width: 90vw;
+  text-align: center;
+  opacity: 0.97;
+  z-index: 3001;
+  animation: toastIn 0.4s cubic-bezier(.4,0,.2,1);
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-30px) scale(0.95); }
+  to { opacity: 0.97; transform: translateY(0) scale(1); }
+}
+
+/* Animaciones AOS para la página */
+[data-aos] {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 0.7s;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+[data-aos].aos-animate {
+  opacity: 1;
+}

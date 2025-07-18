@@ -48,8 +48,8 @@
         </nav>
       </header>
 
-<section class="catalogo" id="catalogo">
-  <h2 class="titulo1">Catálogo de Productos</h2>
+<section class="catalogo" id="catalogo" data-aos="fade-up">
+  <h2 class="titulo1" data-aos="fade-down">Catálogo de Productos</h2>
 
   <div class="filtros" data-aos="fade-up">
     <div class="filtro">
@@ -67,12 +67,69 @@
     </div>
   </div>
 
+  <div id="loader" style="display:none; text-align:center; padding:2rem;" data-aos="fade-in">
+    <div class="spinner"></div>
+    <p>Cargando productos...</p>
+  </div>
+
   <div class="productos-grid" id="productos-grid" data-aos="fade-up">
     <!-- Aquí se insertan los productos dinámicamente -->
   </div>
 </section>
 
+      <!-- Botón flotante para ver el carrito -->
+      <button id="ver-carrito" class="btn-carrito">
+        🛒 Ver Carrito (<span id="carrito-cantidad">0</span>)
+      </button>
 
+      <!-- Modal de producto ampliado -->
+      <div id="modal-producto" class="modal-producto" style="display:none;" data-aos="zoom-in">
+        <div class="modal-contenido">
+          <span class="modal-cerrar" id="cerrar-modal">&times;</span>
+          <div id="modal-info">
+            <!-- Aquí se inserta la info del producto -->
+          </div>
+          <div class="modal-acciones">
+            <label for="modal-cantidad">Cantidad:</label>
+            <input type="number" id="modal-cantidad" min="1" value="1" style="width:60px;">
+            <button id="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal del carrito -->
+      <div id="modal-carrito" class="modal-producto" style="display:none;" data-aos="zoom-in">
+        <div class="modal-contenido">
+          <span class="modal-cerrar" id="cerrar-modal-carrito">&times;</span>
+          <h3>Carrito de Cotización</h3>
+          <div id="carrito-listado">
+            <!-- Aquí se listan los productos del carrito -->
+          </div>
+          <div class="modal-acciones">
+            <label for="nombre-cliente" style="margin-right:0.5rem; font-weight:bold; color:#ff8f1c;">Nombre del cliente (requerido):</label>
+            <input type="text" id="nombre-cliente" placeholder="Ej: Juan Pérez" style="width:140px; margin-right:1rem;" required />
+            <label for="telefono-cliente" style="margin-right:0.5rem; font-weight:bold; color:#ff8f1c;">Teléfono de contacto (requerido):</label>
+            <input type="tel" id="telefono-cliente" placeholder="Ej: 5551234567" style="width:140px; margin-right:1rem;" required />
+          </div>
+          <div class="modal-acciones">
+            <button id="cotizar-pdf">Cotizar (Generar PDF)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal visor PDF -->
+      <div id="modal-pdf" class="modal-producto" style="display:none; z-index:2000; background:rgba(0,0,0,0.7);" data-aos="zoom-in">
+        <span class="modal-cerrar" id="cerrar-modal-pdf" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:2100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
+        <div class="modal-contenido" style="max-width:900px; width:98vw; padding:0;">
+          <iframe id="iframe-pdf" style="width:100%;height:80vh;border:none;display:block;"></iframe>
+          <div style="text-align:right;padding:1rem;">
+            <button id="descargar-pdf" style="background:#ff8f1c;color:#fff;border:none;border-radius:8px;padding:0.6rem 1.5rem;font-size:1.1rem;font-weight:bold;cursor:pointer;">Descargar PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenedor de notificaciones toast -->
+      <div id="toast-container" style="position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:3000;display:flex;flex-direction:column;align-items:center;gap:0.5rem;"></div>
 
 
       <footer class="footer">
