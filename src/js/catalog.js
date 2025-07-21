@@ -357,7 +357,8 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   }
   // Mostrar PDF generado por el backend en un modal
   try {
-    const response = await fetch(import.meta.env.VITE_API_PDF,'?descargar=1', {
+    const API_PDF_DOWNLOAD = import.meta.env.VITE_API_PDF_DOWNLOAD;
+    const response = await fetch(`${API_PDF_DOWNLOAD}?descargar=1`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ carrito, nombre: nombreCliente, telefono: telefonoCliente })
