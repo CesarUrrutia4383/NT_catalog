@@ -357,7 +357,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   }
   // Mostrar PDF generado por el backend en un modal
   try {
-    const response = await fetch(import.meta.env.API_PDF_DOWNLOAD, {
+    const response = await fetch(import.meta.env.API_PDF,'?descargar=1', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ carrito, nombre: nombreCliente, telefono: telefonoCliente })
