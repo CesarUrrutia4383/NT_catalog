@@ -357,7 +357,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   }
   // Mostrar PDF generado por el backend en un modal
   try {
-    const response = await fetch(import.meta.env.API_PDF,'?descargar=1', {
+    const response = await fetch(import.meta.env.VITE_API_PDF,'?descargar=1', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ carrito, nombre: nombreCliente, telefono: telefonoCliente })
@@ -422,7 +422,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function enviarCotizacionBackend({carrito, nombre, telefono}) {
-  return fetch(import.meta.env.API_PDF, {
+  return fetch(import.meta.env.VITE_API_PDF, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
