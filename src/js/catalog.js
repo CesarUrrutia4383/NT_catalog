@@ -201,6 +201,7 @@ function mostrarCarrito() {
           carrito[idx].cantidad--;
           guardarCarrito();
           mostrarCarrito();
+          actualizarCarritoCantidad(); // <-- Actualiza el contador
         }
       });
     });
@@ -212,6 +213,7 @@ function mostrarCarrito() {
           carrito[idx].cantidad++;
           guardarCarrito();
           mostrarCarrito();
+          actualizarCarritoCantidad(); // <-- Actualiza el contador
         }
       });
     });
@@ -225,6 +227,7 @@ function mostrarCarrito() {
         carrito[idx].cantidad = val;
         guardarCarrito();
         mostrarCarrito();
+        actualizarCarritoCantidad(); // <-- Actualiza el contador
       });
     });
     document.querySelectorAll('.eliminar-producto').forEach(btn => {
@@ -255,8 +258,13 @@ function actualizarBotonCotizar() {
   }
 }
 
+// Al abrir el modal del carrito, si el input de teléfono está vacío, poner el combo en México y el input vacío
 btnVerCarrito.addEventListener('click', () => {
   mostrarCarrito();
+  const codigoPais = document.getElementById('codigo-pais');
+  const telefonoInput = document.getElementById('telefono-cliente');
+  if (codigoPais) codigoPais.value = '52';
+  if (telefonoInput) telefonoInput.value = '';
   modalCarrito.classList.add('fade-in');
   setTimeout(() => modalCarrito.classList.remove('fade-in'), 700);
 });
@@ -294,9 +302,19 @@ actualizarBotonCotizar();
 function validarCamposCotizacion() {
   const nombreInput = document.getElementById('nombre-cliente');
   const telefonoInput = document.getElementById('telefono-cliente');
+  const codigoPais = document.getElementById('codigo-pais');
   const btn = document.getElementById('cotizar-pdf');
   const nombreValido = nombreInput.value.trim().length > 0;
-  const telefonoValido = /^\d{7,15}$/.test(telefonoInput.value.trim());
+  let telefono = telefonoInput.value.trim();
+  let codigo = codigoPais ? codigoPais.value : '52';
+  let telefonoValido = false;
+  // Solo dígitos
+  telefono = telefono.replace(/\D/g, '');
+  if (codigo === '52') {
+    telefonoValido = telefono.length === 10;
+  } else {
+    telefonoValido = telefono.length >= 7 && telefono.length <= 15;
+  }
   if (nombreValido && telefonoValido) {
     btn.disabled = false;
     btn.style.opacity = '1';
@@ -312,13 +330,18 @@ function validarCamposCotizacion() {
 ['input', 'change'].forEach(evt => {
   document.getElementById('nombre-cliente').addEventListener(evt, validarCamposCotizacion);
   document.getElementById('telefono-cliente').addEventListener(evt, validarCamposCotizacion);
+  const codigoPais = document.getElementById('codigo-pais');
+  if (codigoPais) codigoPais.addEventListener(evt, validarCamposCotizacion);
 });
 
 // Preparar evento para cotizar PDF (implementación siguiente paso)
 btnCotizarPDF.addEventListener('click', async (e) => {
   const nombreInput = document.getElementById('nombre-cliente');
   const telefonoInput = document.getElementById('telefono-cliente');
-  if (!nombreInput.value.trim() || !/^[0-9]{7,15}$/.test(telefonoInput.value.trim())) {
+  const codigoPais = document.getElementById('codigo-pais');
+  let telefono = telefonoInput.value.trim().replace(/\D/g, '');
+  let codigo = codigoPais ? codigoPais.value : '52';
+  if (!nombreInput.value.trim() || (codigo === '52' ? telefono.length !== 10 : (telefono.length < 7 || telefono.length > 15))) {
     e.preventDefault();
     validarCamposCotizacion();
     return;
@@ -328,7 +351,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     return;
   }
   const nombreCliente = nombreInput.value.trim();
-  const telefonoCliente = telefonoInput.value.trim();
+  const telefonoCliente = `+${codigo} ${telefono}`;
   let error = false;
   if (!nombreCliente) {
     nombreInput.focus();
@@ -336,7 +359,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     setTimeout(() => nombreInput.style.borderColor = '', 1200);
     error = true;
   }
-  if (!telefonoCliente.match(/^[0-9]{7,15}$/)) {
+  if ((codigo === '52' && telefono.length !== 10) || (codigo !== '52' && (telefono.length < 7 || telefono.length > 15))) {
     telefonoInput.focus();
     telefonoInput.style.borderColor = 'red';
     setTimeout(() => telefonoInput.style.borderColor = '', 1200);

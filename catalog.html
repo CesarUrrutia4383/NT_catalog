@@ -109,7 +109,22 @@
             <label for="nombre-cliente" style="margin-right:0.5rem; font-weight:bold; color:#ff8f1c;">Nombre del cliente (requerido):</label>
             <input type="text" id="nombre-cliente" placeholder="Ej: Juan Pérez" style="width:140px; margin-right:1rem;" required />
             <label for="telefono-cliente" style="margin-right:0.5rem; font-weight:bold; color:#ff8f1c;">Teléfono de contacto (requerido):</label>
-            <input type="tel" id="telefono-cliente" placeholder="Ej: 5551234567" style="width:140px; margin-right:1rem;" required />
+            <div style="display: flex; align-items: center; gap: 0.3rem;">
+              <select id="codigo-pais" style="width: 70px; padding: 0.2rem 0.3rem; font-size: 1rem;">
+                <option value="52" data-flag="🇲🇽" selected>🇲🇽 +52</option>
+                <option value="1" data-flag="🇺🇸">🇺🇸 +1</option>
+                <option value="54" data-flag="🇦🇷">🇦🇷 +54</option>
+                <option value="57" data-flag="🇨🇴">🇨🇴 +57</option>
+                <option value="34" data-flag="🇪🇸">🇪🇸 +34</option>
+                <option value="55" data-flag="🇧🇷">🇧🇷 +55</option>
+                <option value="56" data-flag="🇨🇱">🇨🇱 +56</option>
+                <option value="591" data-flag="🇧🇴">🇧🇴 +591</option>
+                <option value="507" data-flag="🇵🇦">🇵🇦 +507</option>
+                <option value="593" data-flag="🇪🇨">🇪🇨 +593</option>
+                <!-- Agrega más países si lo deseas -->
+              </select>
+              <input type="tel" id="telefono-cliente" placeholder="1234567890" style="width:120px;" required />
+            </div>
           </div>
           <div class="modal-acciones">
             <button id="cotizar-pdf">Cotizar (Generar PDF)</button>
