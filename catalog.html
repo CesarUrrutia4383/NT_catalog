@@ -9,7 +9,7 @@
       rel="stylesheet"
     />
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-    <link rel="icon" href="/assets/img/logo3.png" type="image/png" />
+    <link rel="icon" href="/assets/img/logo1.png" type="image/png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Neumatics Tool</title>
   </head>
@@ -124,6 +124,14 @@
                 <!-- Agrega más países si lo deseas -->
               </select>
               <input type="tel" id="telefono-cliente" placeholder="1234567890" style="width:120px;" required />
+            </div>
+            <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.3rem;">
+              <label for="servicio-solicitado" style="font-weight:bold; color:#ff8f1c;">Selecciona el servicio a solicitar:</label>
+              <select id="servicio-solicitado" style="width: 200px; padding: 0.4rem 0.6rem; font-size: 1rem; border-radius: 6px; border: 1px solid #ccc;">
+                <option value="venta" selected>Venta</option>
+                <option value="renta">Renta</option>
+                <option value="servicio">Órdenes de Servicio</option>
+              </select>
             </div>
           </div>
           <div class="modal-acciones">

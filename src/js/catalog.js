@@ -339,6 +339,8 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   const nombreInput = document.getElementById('nombre-cliente');
   const telefonoInput = document.getElementById('telefono-cliente');
   const codigoPais = document.getElementById('codigo-pais');
+  const servicioSelect = document.getElementById('servicio-solicitado');
+  const servicio = servicioSelect ? servicioSelect.value : 'venta';
   let telefono = telefonoInput.value.trim().replace(/\D/g, '');
   let codigo = codigoPais ? codigoPais.value : '52';
   if (!nombreInput.value.trim() || (codigo === '52' ? telefono.length !== 10 : (telefono.length < 7 || telefono.length > 15))) {
@@ -352,6 +354,12 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   }
   const nombreCliente = nombreInput.value.trim();
   const telefonoCliente = `+${codigo} ${telefono}`;
+  // Definir el destino del correo según el servicio
+  let destinoCorreo = '';
+  if (servicio === 'venta') destinoCorreo = 'ventas@neumaticstools.com';
+  else if (servicio === 'renta') destinoCorreo = 'rentas@neumaticstools.com';
+  else if (servicio === 'servicio') destinoCorreo = 'servicio@neumaticstools.com';
+
   let error = false;
   if (!nombreCliente) {
     nombreInput.focus();
@@ -384,7 +392,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     const response = await fetch(`${API_PDF_DOWNLOAD}?descargar=1`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ carrito, nombre: nombreCliente, telefono: telefonoCliente })
+      body: JSON.stringify({ carrito, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo })
     });
     if (!response.ok) throw new Error('No se pudo generar el PDF');
     const pdfBlob = await response.blob();
@@ -406,7 +414,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       URL.revokeObjectURL(url);
     };
     // Después de mostrar el PDF, enviar la cotización por correo
-    enviarCotizacionBackend({ carrito, nombre: nombreCliente, telefono: telefonoCliente })
+    enviarCotizacionBackend({ carrito, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo })
       .then(() => {
         setTimeout(() => {
           showToast('Cotización generada y enviada. La empresa se pondrá en contacto contigo.', 5500);
@@ -445,14 +453,16 @@ window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('fade-in');
 });
 
-function enviarCotizacionBackend({carrito, nombre, telefono}) {
+function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo}) {
   return fetch(import.meta.env.VITE_API_PDF, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       carrito,
       nombre,
-      telefono
+      telefono,
+      servicio,
+      destinoCorreo
     })
   });
 }
