@@ -33,8 +33,14 @@ function closeModal(modal) {
 }
 
 async function obtenerProductos() {
-  const res = await fetch(API_URL);
-  return res.json();
+  try {
+    const res = await fetch(API_URL);
+    if (!res.ok) throw new Error('No se pudo obtener productos');
+    return await res.json();
+  } catch (e) {
+    showToast('Error al obtener productos');
+    return [];
+  }
 }
 
 function llenarFiltros(productos) {
@@ -175,25 +181,25 @@ function mostrarCarrito() {
   if (carrito.length === 0) {
     carritoListado.innerHTML = '<p>El carrito está vacío.</p>';
   } else {
-    let tabla = `<table><thead><tr><th>Producto</th><th>Marca</th><th>Propósito</th><th>Cantidad</th><th>Eliminar</th></tr></thead><tbody>`;
+    let tabla = `<div class="carrito-table-responsive"><table class="carrito-table"><thead><tr><th>Producto</th><th>Marca</th><th>Propósito</th><th>Cantidad</th><th>Eliminar</th></tr></thead><tbody>`;
     tabla += carrito.map((item, idx) => `
       <tr>
-        <td data-label="Producto">${item.nombre}</td>
-        <td data-label="Marca">${item.marca}</td>
-        <td data-label="Propósito">${item.proposito}</td>
-        <td data-label="Cantidad">
-          <div class="cantidad-editar">
-            <button class="restar-cantidad" data-idx="${idx}">-</button>
+        <td class="carrito-td-producto">${item.nombre}</td>
+        <td class="carrito-td-marca">${item.marca}</td>
+        <td class="carrito-td-proposito">${item.proposito}</td>
+        <td class="carrito-td-cantidad">
+          <div class="carrito-cantidad-control">
+            <button class="restar-cantidad" data-idx="${idx}" aria-label="Restar">-</button>
             <input type="number" class="input-cantidad" data-idx="${idx}" min="1" max="${item.cantidad_disponible || 99}" value="${item.cantidad}" />
-            <button class="sumar-cantidad" data-idx="${idx}">+</button>
+            <button class="sumar-cantidad" data-idx="${idx}" aria-label="Sumar">+</button>
           </div>
         </td>
-        <td data-label="Eliminar"><button class="eliminar-producto" data-idx="${idx}">Eliminar</button></td>
+        <td class="carrito-td-eliminar"><button class="eliminar-producto" data-idx="${idx}" aria-label="Eliminar">🗑️</button></td>
       </tr>
     `).join('');
-    tabla += '</tbody></table>';
+    tabla += '</tbody></table></div>';
     carritoListado.innerHTML = tabla;
-    // Eventos para editar cantidad
+    // Eventos para editar cantidad y eliminar igual que antes...
     document.querySelectorAll('.restar-cantidad').forEach(btn => {
       btn.addEventListener('click', () => {
         const idx = parseInt(btn.getAttribute('data-idx'), 10);
@@ -201,7 +207,7 @@ function mostrarCarrito() {
           carrito[idx].cantidad--;
           guardarCarrito();
           mostrarCarrito();
-          actualizarCarritoCantidad(); // <-- Actualiza el contador
+          actualizarCarritoCantidad();
         }
       });
     });
@@ -213,7 +219,7 @@ function mostrarCarrito() {
           carrito[idx].cantidad++;
           guardarCarrito();
           mostrarCarrito();
-          actualizarCarritoCantidad(); // <-- Actualiza el contador
+          actualizarCarritoCantidad();
         }
       });
     });
@@ -227,7 +233,7 @@ function mostrarCarrito() {
         carrito[idx].cantidad = val;
         guardarCarrito();
         mostrarCarrito();
-        actualizarCarritoCantidad(); // <-- Actualiza el contador
+        actualizarCarritoCantidad();
       });
     });
     document.querySelectorAll('.eliminar-producto').forEach(btn => {
@@ -355,10 +361,10 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   const nombreCliente = nombreInput.value.trim();
   const telefonoCliente = `+${codigo} ${telefono}`;
   // Definir el destino del correo según el servicio
-  let destinoCorreo = '';
-  if (servicio === 'venta') destinoCorreo = 'ventas@neumaticstools.com';
-  else if (servicio === 'renta') destinoCorreo = 'rentas@neumaticstools.com';
-  else if (servicio === 'servicio') destinoCorreo = 'servicio@neumaticstools.com';
+  let destinoCorreo = [];
+  if (servicio === 'venta') destinoCorreo = ['ventas@neumaticstools.com'];
+  else if (servicio === 'renta') destinoCorreo = ['rentas@neumaticstools.com', 'admin@neumaticstools.com'];
+  else if (servicio === 'servicio') destinoCorreo = ['servicio@neumaticstools.com', 'soporte@neumaticstools.com'];
 
   let error = false;
   if (!nombreCliente) {
@@ -451,6 +457,7 @@ function filtrar(productos) {
 // Animación fade-in para la página
 window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('fade-in');
+  btnLogin.style.display = '';
 });
 
 function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo}) {
@@ -492,3 +499,93 @@ function showToast(msg, duration = 5500) {
     setTimeout(() => container.removeChild(toast), 400);
   }, duration);
 }
+
+// --- Autenticación y administración ---
+const btnLogin = document.getElementById('btn-login');
+const btnLogout = document.getElementById('btn-logout');
+const modalLogin = document.getElementById('modal-login');
+const cerrarModalLogin = document.getElementById('cerrar-modal-login');
+const formLogin = document.getElementById('form-login');
+const loginError = document.getElementById('login-error');
+
+let usuarioAutenticado = false;
+
+async function verificarRedLocal() {
+  try {
+    const res = await fetch('/usuarios/login', { method: 'OPTIONS' });
+    console.log('OPTIONS /usuarios/login status:', res.status);
+    if (res.status === 200) {
+      btnLogin.style.display = '';
+      console.log('Botón de login mostrado');
+    } else {
+      console.log('No se muestra el botón, status:', res.status);
+    }
+  } catch (e) {
+    console.log('Error en fetch OPTIONS /usuarios/login', e);
+  }
+}
+btnLogin.addEventListener('click', (e) => {
+  e.preventDefault();
+  modalLogin.style.display = 'flex';
+});
+cerrarModalLogin.addEventListener('click', () => {
+  modalLogin.style.display = 'none';
+  loginError.style.display = 'none';
+});
+
+// Cambia login/logout a URL absoluta y credentials: 'include'
+formLogin.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const nombre = document.getElementById('login-nombre').value;
+  const contrasena = document.getElementById('login-contrasena').value;
+  try {
+    const res = await fetch('http://localhost:4000/usuarios/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ nombre, contrasena })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      usuarioAutenticado = true;
+      btnLogin.style.display = 'none';
+      btnLogout.style.display = '';
+      modalLogin.style.display = 'none';
+      loginError.style.display = 'none';
+      mostrarAdmin();
+    } else {
+      loginError.textContent = data.message || 'Error de autenticación';
+      loginError.style.display = '';
+    }
+  } catch (err) {
+    loginError.textContent = 'Error de red';
+    loginError.style.display = '';
+  }
+});
+
+btnLogout.addEventListener('click', async (e) => {
+  e.preventDefault();
+  await fetch('http://localhost:4000/usuarios/logout', { credentials: 'include' });
+  usuarioAutenticado = false;
+  btnLogin.style.display = '';
+  btnLogout.style.display = 'none';
+  ocultarAdmin();
+});
+
+// Eliminar panel de administración y CRUD de productos/usuarios
+// Eliminar funciones mostrarAdmin, ocultarAdmin, cargarUsuariosAdmin, cargarProductosAdmin, y los formularios relacionados
+// Eliminar eventos y código de edición/eliminación/agregado de productos y usuarios
+// Mantener solo la lógica de mostrar productos y actualizar el catálogo
+
+// Mantener funciones:
+// - obtenerProductos
+// - llenarFiltros
+// - mostrarProductos
+// - actualizarCatalogo
+// - showToast
+// - lógica de carrito y cotización
+
+// Actualización automática del catálogo cada 30 segundos
+setInterval(() => {
+  actualizarCatalogo();
+}, 30000); // 30,000 ms = 30 segundos
