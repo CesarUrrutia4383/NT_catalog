@@ -375,11 +375,12 @@
       </div>
     </div>
     <!-- Modal Política de Privacidad -->
-    <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7);">
-      <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem; position:relative;">
+    <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
+      <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem; position:relative; background:#fff; border-radius:12px; box-shadow:0 2px 16px rgba(0,0,0,0.18);">
         <span class="modal-cerrar" id="cerrar-modal-privacidad" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
         <h2>Política de Privacidad</h2>
-        <p>Política de privacidad<br><br>
+        <div class="legal-content" style="max-height:60vh; overflow-y:auto; font-size:1rem; color:#333;">
+          <p>Política de privacidad<br><br>
           En cumplimiento a lo previsto en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (en lo sucesivo "la Ley"). Nos permitimos informarle lo siguiente:<br><br>
           <b>1.- RESPONSABLE DE LOS DATOS PERSONSALES</b><br><br>
           NEUMATIC'S TOOL "En lo sucesivo "RESPONSABLE", señalando para efectos del presente Aviso de Privacidad el Domicilio ubicado en Av. La Salle 105, Colonia La Esmeralda, Código Postal 34105 en la ciudad de Durango, Dgo, será el responsable de los datos personales que le sean proporcionados por las personas físicas o morales a quienes correspondan los mismos (en lo sucesivo el "TITULAR").<br><br>
@@ -431,6 +432,7 @@
           El presente Aviso de Privacidad, así como el manejo en general de la Ley que haga el RESPONSABLE, se rige por la legislación vigente y aplicable en los Estados Unidos Mexicanos, cualquier controversia que se suscite con motivo de su aplicación deberá ventilarse ante el Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI) o ante los Órganos Jurisdiccionales competentes en Durango, Durango, México
           </p>
         </div>
+      </div>
     </div>
     <!-- Añadimos los scripts de AOS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>

@@ -34,7 +34,7 @@ function closeModal(modal) {
 
 async function obtenerProductos() {
   try {
-    const res = await fetch('/routes/productos');
+    const res = await fetch(import.meta.env.VITE_API_URL);
     if (!res.ok) throw new Error('No se pudo obtener productos');
     return await res.json();
   } catch (e) {
@@ -72,7 +72,7 @@ function mostrarProductos(productos) {
   productos.forEach((p, idx) => {
     const card = document.createElement('div');
     card.className = 'producto';
-    const imagen = p.imagen_base64 ? p.imagen_base64 : '/assets/img/logo1.png';
+    const imagen = p.imagen_base64 ? p.imagen_base64 : '/assets/img/logo3.png';
     card.innerHTML = `
       <img src="${imagen}" alt="${p.nombre}" />
       <h3>${p.nombre}</h3>
@@ -97,7 +97,7 @@ let carrito = [];
 
 function mostrarModalProducto(producto) {
   productoActual = producto;
-  const imagen = producto.imagen_base64 ? producto.imagen_base64 : '/assets/img/logo1.png';
+  const imagen = producto.imagen_base64 ? producto.imagen_base64 : '/assets/img/logo3.png';
   modalInfo.innerHTML = `
     <img src="${imagen}" alt="${producto.nombre}" />
     <h3>${producto.nombre}</h3>
@@ -512,3 +512,17 @@ function showToast(msg, duration = 5500) {
 setInterval(() => {
   actualizarCatalogo();
 }, 30000); // 30,000 ms = 30 segundos
+
+// Función para actualizar el catálogo automáticamente
+async function actualizarCatalogo() {
+  loader.style.display = 'block';
+  grid.style.display = 'none';
+  const productos = await obtenerProductos();
+  // Limpiar filtros antes de volver a llenarlos
+  filtroMarca.innerHTML = '<option value="">Todas</option>';
+  filtroProposito.innerHTML = '<option value="">Todos</option>';
+  llenarFiltros(productos);
+  mostrarProductos(productos);
+  loader.style.display = 'none';
+  grid.style.display = '';
+}
