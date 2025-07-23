@@ -364,9 +364,9 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   const telefonoCliente = `+${codigo} ${telefono}`;
   // Definir el destino del correo según el servicio
   let destinoCorreo = [];
-  if (servicio === 'venta') destinoCorreo = ['ventas@neumaticstools.com'];
-  else if (servicio === 'renta') destinoCorreo = ['rentas@neumaticstools.com', 'admin@neumaticstools.com'];
-  else if (servicio === 'servicio') destinoCorreo = ['servicio@neumaticstools.com', 'soporte@neumaticstools.com'];
+  if (servicio === 'venta') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
+  else if (servicio === 'renta') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
+  else if (servicio === 'servicio') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
 
   let error = false;
   if (!nombreCliente) {
@@ -397,7 +397,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   // Mostrar PDF generado por el backend en un modal
   try {
     const API_PDF_DOWNLOAD = import.meta.env.VITE_API_PDF_DOWNLOAD;
-    const response = await fetch(`${API_PDF_DOWNLOAD}?descargar=1`, {
+    const response = await fetch(`${import.meta.env.VITE_API_PDF_DOWNLOAD}?descargar=1`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ carrito, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo })
