@@ -34,7 +34,7 @@ function closeModal(modal) {
 
 async function obtenerProductos() {
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch('/routes/productos');
     if (!res.ok) throw new Error('No se pudo obtener productos');
     return await res.json();
   } catch (e) {
@@ -72,8 +72,9 @@ function mostrarProductos(productos) {
   productos.forEach((p, idx) => {
     const card = document.createElement('div');
     card.className = 'producto';
+    const imagen = p.imagen_base64 ? p.imagen_base64 : '/assets/img/logo1.png';
     card.innerHTML = `
-      <img src="${p.imagen_base64}" alt="${p.nombre}" />
+      <img src="${imagen}" alt="${p.nombre}" />
       <h3>${p.nombre}</h3>
       <p>Marca: ${p.marca}</p>
       <p>Propósito: ${p.proposito}</p>
@@ -96,8 +97,9 @@ let carrito = [];
 
 function mostrarModalProducto(producto) {
   productoActual = producto;
+  const imagen = producto.imagen_base64 ? producto.imagen_base64 : '/assets/img/logo1.png';
   modalInfo.innerHTML = `
-    <img src="${producto.imagen_base64}" alt="${producto.nombre}" />
+    <img src="${imagen}" alt="${producto.nombre}" />
     <h3>${producto.nombre}</h3>
     <p>Marca: ${producto.marca}</p>
     <p>Propósito: ${producto.proposito}</p>
@@ -457,7 +459,6 @@ function filtrar(productos) {
 // Animación fade-in para la página
 window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('fade-in');
-  btnLogin.style.display = '';
 });
 
 function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo}) {
@@ -500,90 +501,12 @@ function showToast(msg, duration = 5500) {
   }, duration);
 }
 
-// --- Autenticación y administración ---
-const btnLogin = document.getElementById('btn-login');
-const btnLogout = document.getElementById('btn-logout');
-const modalLogin = document.getElementById('modal-login');
-const cerrarModalLogin = document.getElementById('cerrar-modal-login');
-const formLogin = document.getElementById('form-login');
-const loginError = document.getElementById('login-error');
-
-let usuarioAutenticado = false;
-
-async function verificarRedLocal() {
-  try {
-    const res = await fetch('/usuarios/login', { method: 'OPTIONS' });
-    console.log('OPTIONS /usuarios/login status:', res.status);
-    if (res.status === 200) {
-      btnLogin.style.display = '';
-      console.log('Botón de login mostrado');
-    } else {
-      console.log('No se muestra el botón, status:', res.status);
-    }
-  } catch (e) {
-    console.log('Error en fetch OPTIONS /usuarios/login', e);
-  }
-}
-btnLogin.addEventListener('click', (e) => {
-  e.preventDefault();
-  modalLogin.style.display = 'flex';
-});
-cerrarModalLogin.addEventListener('click', () => {
-  modalLogin.style.display = 'none';
-  loginError.style.display = 'none';
-});
-
-// Cambia login/logout a URL absoluta y credentials: 'include'
-formLogin.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const nombre = document.getElementById('login-nombre').value;
-  const contrasena = document.getElementById('login-contrasena').value;
-  try {
-    const res = await fetch('http://localhost:4000/usuarios/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ nombre, contrasena })
-    });
-    const data = await res.json();
-    if (res.ok) {
-      usuarioAutenticado = true;
-      btnLogin.style.display = 'none';
-      btnLogout.style.display = '';
-      modalLogin.style.display = 'none';
-      loginError.style.display = 'none';
-      mostrarAdmin();
-    } else {
-      loginError.textContent = data.message || 'Error de autenticación';
-      loginError.style.display = '';
-    }
-  } catch (err) {
-    loginError.textContent = 'Error de red';
-    loginError.style.display = '';
-  }
-});
-
-btnLogout.addEventListener('click', async (e) => {
-  e.preventDefault();
-  await fetch('http://localhost:4000/usuarios/logout', { credentials: 'include' });
-  usuarioAutenticado = false;
-  btnLogin.style.display = '';
-  btnLogout.style.display = 'none';
-  ocultarAdmin();
-});
-
-// Eliminar panel de administración y CRUD de productos/usuarios
-// Eliminar funciones mostrarAdmin, ocultarAdmin, cargarUsuariosAdmin, cargarProductosAdmin, y los formularios relacionados
-// Eliminar eventos y código de edición/eliminación/agregado de productos y usuarios
-// Mantener solo la lógica de mostrar productos y actualizar el catálogo
-
-// Mantener funciones:
-// - obtenerProductos
-// - llenarFiltros
-// - mostrarProductos
-// - actualizarCatalogo
-// - showToast
-// - lógica de carrito y cotización
+// Eliminar todas las referencias y funciones relacionadas con login, logout y administración.
+// Eliminar variables:
+// const btnLogin, btnLogout, modalLogin, cerrarModalLogin, formLogin, loginError, usuarioAutenticado, verificarRedLocal, mostrarAdmin, ocultarAdmin, cargarUsuariosAdmin, cargarProductosAdmin
+// Eliminar listeners y funciones asociadas.
+// Eliminar comentarios de administración.
+// Mantener solo la lógica de catálogo y cotización para el cliente.
 
 // Actualización automática del catálogo cada 30 segundos
 setInterval(() => {
