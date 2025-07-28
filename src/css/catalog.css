@@ -535,12 +535,74 @@
 }
 #modal-carrito .campo-grupo input,
 #modal-carrito .campo-grupo select {
-  width: auto;
   min-width: 120px;
-  max-width: 220px;
-  margin: 0;
-  flex: 0 1 220px;
+  max-width: 180px;
+  width: 100%;
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
+
+#modal-carrito .campo-grupo textarea {
+  min-width: 120px;
+  max-width: 180px;
+  width: 100%;
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+#modal-carrito .campo-grupo textarea:focus {
+  outline: none;
+  border-color: #ff8f1c;
+  box-shadow: 0 0 0 2px rgba(255, 143, 28, 0.2);
+}
+
+#grupo-descripcion-servicio {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+#grupo-descripcion-servicio label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+#descripcion-servicio {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+#descripcion-servicio:focus {
+  outline: none;
+  border-color: #ff8f1c;
+  box-shadow: 0 0 0 3px rgba(255, 143, 28, 0.1);
+}
+
+#descripcion-servicio::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
 #modal-carrito .grupo-contacto {
   display: flex;
   flex-direction: row;

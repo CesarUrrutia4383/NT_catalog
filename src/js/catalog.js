@@ -365,20 +365,40 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   const telefonoInput = document.getElementById('telefono-cliente');
   const codigoPais = document.getElementById('codigo-pais');
   const servicioSelect = document.getElementById('servicio-solicitado');
+  const descripcionServicio = document.getElementById('descripcion-servicio');
   const servicio = servicioSelect ? servicioSelect.value : 'venta';
   let telefono = telefonoInput.value.trim().replace(/\D/g, '');
   let codigo = codigoPais ? codigoPais.value : '52';
+  
   if (!nombreInput.value.trim() || (codigo === '52' ? telefono.length !== 10 : (telefono.length < 7 || telefono.length > 15))) {
     e.preventDefault();
     validarCamposCotizacion();
     return;
   }
+  
   if (!carrito || carrito.length === 0) {
     showToast('No hay productos en el carrito para cotizar.');
     return;
   }
+  
+  // Validar descripción si es orden de servicio
+  let descripcion = '';
+  if (servicio === 'servicio') {
+    descripcion = descripcionServicio ? descripcionServicio.value.trim() : '';
+    if (!descripcion) {
+      if (descripcionServicio) {
+        descripcionServicio.focus();
+        descripcionServicio.style.borderColor = 'red';
+        setTimeout(() => descripcionServicio.style.borderColor = '', 1200);
+      }
+      showToast('Por favor, describe brevemente el servicio que necesitas.');
+      return;
+    }
+  }
+  
   const nombreCliente = nombreInput.value.trim();
   const telefonoCliente = `+${codigo} ${telefono}`;
+  
   // Definir el destino del correo según el servicio
   let destinoCorreo = [];
   if (servicio === 'venta') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
@@ -399,6 +419,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     error = true;
   }
   if (error) return;
+  
   // Verificar disponibilidad de stock
   let disponibilidadOk = true;
   console.log('Verificando disponibilidad del carrito:', carrito);
@@ -416,13 +437,14 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     showToast('Uno o más productos no tienen suficiente disponibilidad.');
     return;
   }
+  
   // Mostrar PDF generado por el backend en un modal
   try {
     const API_PDF_DOWNLOAD = import.meta.env.VITE_API_PDF_DOWNLOAD;
     const response = await fetch(`${import.meta.env.VITE_API_PDF_DOWNLOAD}?descargar=1`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ carrito, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo })
+      body: JSON.stringify({ carrito, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo, descripcion })
     });
     if (!response.ok) throw new Error('No se pudo generar el PDF');
     const pdfBlob = await response.blob();
@@ -444,7 +466,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       URL.revokeObjectURL(url);
     };
     // Después de mostrar el PDF, enviar la cotización por correo
-    enviarCotizacionBackend({ carrito, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo })
+    enviarCotizacionBackend({ carrito, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo, descripcion })
       .then(() => {
         setTimeout(() => {
           showToast('Cotización generada y enviada. La empresa se pondrá en contacto contigo.', 5500);
@@ -455,6 +477,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
           mostrarCarrito();
           nombreInput.value = '';
           telefonoInput.value = '';
+          if (descripcionServicio) descripcionServicio.value = '';
         }, 300);
       })
       .catch(() => {
@@ -483,7 +506,7 @@ window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('fade-in');
 });
 
-function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo}) {
+function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo, descripcion}) {
   return fetch(import.meta.env.VITE_API_PDF, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -492,7 +515,8 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
       nombre,
       telefono,
       servicio,
-      destinoCorreo
+      destinoCorreo,
+      descripcion
     })
   });
 }
