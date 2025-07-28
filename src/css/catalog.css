@@ -554,8 +554,9 @@
   border: 1px solid #ccc;
   font-size: 1rem;
   box-sizing: border-box;
-  resize: vertical;
-  min-height: 80px;
+  resize: none;
+  min-height: 120px;
+  height: 120px;
   font-family: inherit;
 }
 
@@ -582,13 +583,14 @@
 
 #descripcion-servicio {
   width: 100%;
-  min-height: 80px;
+  min-height: 120px;
+  height: 120px;
   padding: 0.75rem;
   border: 2px solid #ddd;
   border-radius: 8px;
   font-size: 0.95rem;
   line-height: 1.4;
-  resize: vertical;
+  resize: none;
   transition: border-color 0.2s ease;
 }
 

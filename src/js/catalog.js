@@ -359,6 +359,39 @@ function validarCamposCotizacion() {
   if (codigoPais) codigoPais.addEventListener(evt, validarCamposCotizacion);
 });
 
+// Limitar caracteres del teléfono según el país seleccionado
+function actualizarMaxLengthTelefono() {
+  const codigoPais = document.getElementById('codigo-pais');
+  const telefonoInput = document.getElementById('telefono-cliente');
+  if (codigoPais && telefonoInput) {
+    const codigo = codigoPais.value;
+    if (codigo === '52') {
+      telefonoInput.maxLength = 10; // México: 10 dígitos
+    } else {
+      telefonoInput.maxLength = 15; // Otros países: hasta 15 dígitos
+    }
+  }
+}
+
+// Aplicar limitación al cambiar el país
+document.addEventListener('DOMContentLoaded', () => {
+  const codigoPais = document.getElementById('codigo-pais');
+  if (codigoPais) {
+    codigoPais.addEventListener('change', actualizarMaxLengthTelefono);
+    // Aplicar limitación inicial
+    actualizarMaxLengthTelefono();
+  }
+  
+  // Validar que solo se ingresen números en el teléfono
+  const telefonoInput = document.getElementById('telefono-cliente');
+  if (telefonoInput) {
+    telefonoInput.addEventListener('input', (e) => {
+      // Remover caracteres que no sean números
+      e.target.value = e.target.value.replace(/\D/g, '');
+    });
+  }
+});
+
 // Preparar evento para cotizar PDF (implementación siguiente paso)
 btnCotizarPDF.addEventListener('click', async (e) => {
   const nombreInput = document.getElementById('nombre-cliente');
