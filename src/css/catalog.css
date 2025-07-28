@@ -1063,3 +1063,18 @@ input[type='number'] {
   align-self: center;
   margin-top: 1.2rem;
 }
+
+/* Estilos para el código de producto en el carrito */
+.codigo-producto-carrito {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.info-producto-carrito {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 4px;
+  font-style: italic;
+}

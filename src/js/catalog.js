@@ -74,11 +74,12 @@ function mostrarProductos(productos) {
     card.className = 'producto';
     const imagen = p.imagen_base64 ? p.imagen_base64 : '/assets/img/logo3.png';
     card.innerHTML = `
-      <img src="${imagen}" alt="${p.nombre}" />
-      <h3>${p.nombre}</h3>
+      <img src="${imagen}" alt="${p.nombre_producto || p.nombre}" />
+      <h3>${p.nombre_producto || p.nombre}</h3>
+      <p>Código: ${p.codigo_producto || 'N/A'}</p>
       <p>Marca: ${p.marca}</p>
       <p>Propósito: ${p.proposito}</p>
-      <p>UNIDADES DISPONIBLES: ${p.cantidad}</p>
+      <p>UNIDADES DISPONIBLES: ${p.existencias || p.cantidad}</p>
       <p class="info-producto">${p.info ? p.info : ''}</p>
     `;
     card.addEventListener('click', () => mostrarModalProducto(p));
@@ -100,11 +101,12 @@ function mostrarModalProducto(producto) {
   productoActual = producto;
   const imagen = producto.imagen_base64 ? producto.imagen_base64 : '/assets/img/logo3.png';
   modalInfo.innerHTML = `
-    <img src="${imagen}" alt="${producto.nombre}" />
-    <h3>${producto.nombre}</h3>
+    <img src="${imagen}" alt="${producto.nombre_producto || producto.nombre}" />
+    <h3>${producto.nombre_producto || producto.nombre}</h3>
+    <p>Código: ${producto.codigo_producto || 'N/A'}</p>
     <p>Marca: ${producto.marca}</p>
     <p>Propósito: ${producto.proposito}</p>
-    <p>UNIDADES DISPONIBLES: ${producto.cantidad}</p>
+    <p>UNIDADES DISPONIBLES: ${producto.existencias || producto.cantidad}</p>
     <p class="info-producto">${producto.info ? producto.info : ''}</p>
   `;
   // Generar controles de cantidad y botón
@@ -112,7 +114,7 @@ function mostrarModalProducto(producto) {
   acciones.innerHTML = `
     <div class="cantidad-control" id="cantidad-control">
       <button type="button" class="cantidad-btn" id="btn-restar">-</button>
-      <input type="number" id="modal-cantidad" min="1" value="1" max="${producto.cantidad}" />
+      <input type="number" id="modal-cantidad" min="1" value="1" max="${producto.existencias || producto.cantidad}" />
       <button type="button" class="cantidad-btn" id="btn-sumar">+</button>
     </div>
     <button id="agregar-carrito">Agregar al carrito</button>
@@ -126,12 +128,12 @@ function mostrarModalProducto(producto) {
   document.getElementById('btn-sumar').onclick = () => {
     const input = document.getElementById('modal-cantidad');
     let val = parseInt(input.value, 10) || 1;
-    if (val < producto.cantidad) input.value = val + 1;
+    if (val < (producto.existencias || producto.cantidad)) input.value = val + 1;
   };
   document.getElementById('agregar-carrito').onclick = () => {
     const cantidad = parseInt(document.getElementById('modal-cantidad').value, 10);
     if (!productoActual || isNaN(cantidad) || cantidad < 1) return;
-    if (cantidad > productoActual.cantidad) {
+    if (cantidad > (productoActual.existencias || productoActual.cantidad)) {
       showToast('No hay suficientes unidades disponibles.');
       return;
     }
@@ -160,7 +162,7 @@ window.addEventListener('click', (e) => {
 btnAgregarCarrito.addEventListener('click', () => {
   const cantidad = parseInt(inputCantidad.value, 10);
   if (!productoActual || isNaN(cantidad) || cantidad < 1) return;
-  if (cantidad > productoActual.cantidad) {
+      if (cantidad > (productoActual.existencias || productoActual.cantidad)) {
     showToast('No hay suficientes unidades disponibles.');
     return;
   }
@@ -189,7 +191,8 @@ function mostrarCarrito() {
     tabla += carrito.map((item, idx) => `
       <tr>
         <td class="carrito-td-producto">
-          ${item.nombre}
+          ${item.nombre_producto || item.nombre}
+          ${item.codigo_producto ? `<div class='codigo-producto-carrito'>Código: ${item.codigo_producto}</div>` : ''}
           ${item.info ? `<div class='info-producto-carrito'>${item.info}</div>` : ''}
         </td>
         <td class="carrito-td-marca">${item.marca}</td>
@@ -197,7 +200,7 @@ function mostrarCarrito() {
         <td class="carrito-td-cantidad">
           <div class="carrito-cantidad-control">
             <button class="restar-cantidad" data-idx="${idx}" aria-label="Restar">-</button>
-            <input type="number" class="input-cantidad" data-idx="${idx}" min="1" max="${item.cantidad}" value="${item.cantidad}" />
+            <input type="number" class="input-cantidad" data-idx="${idx}" min="1" max="${item.existencias || item.cantidad}" value="${item.cantidad}" />
             <button class="sumar-cantidad" data-idx="${idx}" aria-label="Sumar">+</button>
           </div>
         </td>
@@ -221,7 +224,7 @@ function mostrarCarrito() {
     document.querySelectorAll('.sumar-cantidad').forEach(btn => {
       btn.addEventListener('click', () => {
         const idx = parseInt(btn.getAttribute('data-idx'), 10);
-        const max = carrito[idx].cantidad_disponible || 99;
+        const max = carrito[idx].existencias || carrito[idx].cantidad_disponible || 99;
         if (carrito[idx].cantidad < max) {
           carrito[idx].cantidad++;
           guardarCarrito();
@@ -235,7 +238,7 @@ function mostrarCarrito() {
         const idx = parseInt(input.getAttribute('data-idx'), 10);
         let val = parseInt(input.value, 10);
         if (isNaN(val) || val < 1) val = 1;
-        const max = carrito[idx].cantidad_disponible || 99;
+        const max = carrito[idx].existencias || carrito[idx].cantidad_disponible || 99;
         if (val > max) val = max;
         carrito[idx].cantidad = val;
         guardarCarrito();
@@ -390,7 +393,8 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   // Simular verificación de disponibilidad (puedes reemplazar por fetch a backend)
   let disponibilidadOk = true;
   for (const item of carrito) {
-    if (item.cantidad > item.cantidad_disponible) {
+    const stockDisponible = item.existencias || item.cantidad_disponible || 0;
+    if (item.cantidad > stockDisponible) {
       disponibilidadOk = false;
       break;
     }
