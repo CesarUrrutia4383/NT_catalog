@@ -79,6 +79,7 @@ function mostrarProductos(productos) {
       <p>Marca: ${p.marca}</p>
       <p>Propósito: ${p.proposito}</p>
       <p>UNIDADES DISPONIBLES: ${p.cantidad}</p>
+      <p class="info-producto">${p.info ? p.info : ''}</p>
     `;
     card.addEventListener('click', () => mostrarModalProducto(p));
     grid.appendChild(card);
@@ -104,6 +105,7 @@ function mostrarModalProducto(producto) {
     <p>Marca: ${producto.marca}</p>
     <p>Propósito: ${producto.proposito}</p>
     <p>UNIDADES DISPONIBLES: ${producto.cantidad}</p>
+    <p class="info-producto">${producto.info ? producto.info : ''}</p>
   `;
   // Generar controles de cantidad y botón
   const acciones = modalInfo.parentElement.querySelector('.modal-acciones');
@@ -186,13 +188,16 @@ function mostrarCarrito() {
     let tabla = `<div class="carrito-table-responsive"><table class="carrito-table"><thead><tr><th>Producto</th><th>Marca</th><th>Propósito</th><th>Cantidad</th><th>Eliminar</th></tr></thead><tbody>`;
     tabla += carrito.map((item, idx) => `
       <tr>
-        <td class="carrito-td-producto">${item.nombre}</td>
+        <td class="carrito-td-producto">
+          ${item.nombre}
+          ${item.info ? `<div class='info-producto-carrito'>${item.info}</div>` : ''}
+        </td>
         <td class="carrito-td-marca">${item.marca}</td>
         <td class="carrito-td-proposito">${item.proposito}</td>
         <td class="carrito-td-cantidad">
           <div class="carrito-cantidad-control">
             <button class="restar-cantidad" data-idx="${idx}" aria-label="Restar">-</button>
-            <input type="number" class="input-cantidad" data-idx="${idx}" min="1" max="${item.cantidad_disponible || 99}" value="${item.cantidad}" />
+            <input type="number" class="input-cantidad" data-idx="${idx}" min="1" max="${item.cantidad}" value="${item.cantidad}" />
             <button class="sumar-cantidad" data-idx="${idx}" aria-label="Sumar">+</button>
           </div>
         </td>
@@ -396,6 +401,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   }
   // Mostrar PDF generado por el backend en un modal
   try {
+    const API_PDF_DOWNLOAD = import.meta.env.VITE_API_PDF_DOWNLOAD;
     const response = await fetch(`${import.meta.env.VITE_API_PDF_DOWNLOAD}?descargar=1`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -525,3 +531,24 @@ async function actualizarCatalogo() {
   loader.style.display = 'none';
   grid.style.display = '';
 }
+
+// Mostrar/ocultar campo de descripción de servicio según selección
+const servicioSelect = document.getElementById('servicio-solicitado');
+const grupoDescripcionServicio = document.getElementById('grupo-descripcion-servicio');
+const descripcionServicio = document.getElementById('descripcion-servicio');
+if (servicioSelect) {
+  servicioSelect.addEventListener('change', () => {
+    if (servicioSelect.value === 'servicio') {
+      grupoDescripcionServicio.style.display = '';
+    } else {
+      grupoDescripcionServicio.style.display = 'none';
+      descripcionServicio.value = '';
+    }
+  });
+}
+
+// Limpiar campo de descripción al cerrar el modal del carrito
+cerrarModalCarrito.addEventListener('click', () => {
+  modalCarrito.style.display = 'none';
+  if (descripcionServicio) descripcionServicio.value = '';
+});
