@@ -140,7 +140,13 @@ function mostrarModalProducto(producto) {
     if (idx > -1) {
       carrito[idx].cantidad += cantidad;
     } else {
-      carrito.push({ ...productoActual, cantidad });
+      const nuevoItem = { 
+        ...productoActual, 
+        cantidad,
+        stock_disponible: productoActual.existencias || productoActual.cantidad || productoActual.cantidad_disponible || 0
+      };
+      console.log('Agregando producto al carrito:', nuevoItem);
+      carrito.push(nuevoItem);
     }
     closeModal(modal);
     actualizarCarritoCantidad();
@@ -169,7 +175,13 @@ btnAgregarCarrito.addEventListener('click', () => {
   if (idx > -1) {
     carrito[idx].cantidad += cantidad;
   } else {
-    carrito.push({ ...productoActual, cantidad });
+    const nuevoItem = { 
+      ...productoActual, 
+      cantidad,
+      stock_disponible: productoActual.existencias || productoActual.cantidad || productoActual.cantidad_disponible || 0
+    };
+    console.log('Agregando producto al carrito (btn):', nuevoItem);
+    carrito.push(nuevoItem);
   }
   modal.style.display = 'none';
   actualizarCarritoCantidad();
@@ -221,7 +233,7 @@ function mostrarCarrito() {
     document.querySelectorAll('.sumar-cantidad').forEach(btn => {
       btn.addEventListener('click', () => {
         const idx = parseInt(btn.getAttribute('data-idx'), 10);
-        const max = carrito[idx].existencias || carrito[idx].cantidad_disponible || 99;
+        const max = carrito[idx].stock_disponible || carrito[idx].existencias || carrito[idx].cantidad_disponible || 99;
         if (carrito[idx].cantidad < max) {
           carrito[idx].cantidad++;
           guardarCarrito();
@@ -235,7 +247,7 @@ function mostrarCarrito() {
         const idx = parseInt(input.getAttribute('data-idx'), 10);
         let val = parseInt(input.value, 10);
         if (isNaN(val) || val < 1) val = 1;
-        const max = carrito[idx].existencias || carrito[idx].cantidad_disponible || 99;
+        const max = carrito[idx].stock_disponible || carrito[idx].existencias || carrito[idx].cantidad_disponible || 99;
         if (val > max) val = max;
         carrito[idx].cantidad = val;
         guardarCarrito();
@@ -387,15 +399,19 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     error = true;
   }
   if (error) return;
-  // Simular verificación de disponibilidad (puedes reemplazar por fetch a backend)
+  // Verificar disponibilidad de stock
   let disponibilidadOk = true;
+  console.log('Verificando disponibilidad del carrito:', carrito);
   for (const item of carrito) {
-    const stockDisponible = item.existencias || item.cantidad_disponible || 0;
+    const stockDisponible = item.stock_disponible || item.existencias || item.cantidad_disponible || item.cantidad || 0;
+    console.log(`Producto: ${item.nombre_producto || item.nombre}, Cantidad solicitada: ${item.cantidad}, Stock disponible: ${stockDisponible}`);
     if (item.cantidad > stockDisponible) {
+      console.log('❌ Stock insuficiente');
       disponibilidadOk = false;
       break;
     }
   }
+  console.log('Disponibilidad OK:', disponibilidadOk);
   if (!disponibilidadOk) {
     showToast('Uno o más productos no tienen suficiente disponibilidad.');
     return;
