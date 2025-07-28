@@ -28,22 +28,11 @@ La estructura de base de datos debe incluir los siguientes campos:
 <h3>${p.nombre_producto || p.nombre}</h3>
 ```
 
-### 2. Campo faltante: `codigo_producto`
+### 2. Campo `codigo_producto` (Eliminado del frontend)
 
-**Problema**: El código no manejaba el campo `codigo_producto` de la estructura de BD.
+**Decisión**: El campo `codigo_producto` se mantiene en la base de datos para uso interno, pero se eliminó del frontend ya que no es información relevante para el cliente final.
 
-**Solución**: Se agregó soporte para mostrar el código del producto:
-
-```javascript
-// En las tarjetas de productos
-<p>Código: ${p.codigo_producto || 'N/A'}</p>
-
-// En el modal de producto
-<p>Código: ${producto.codigo_producto || 'N/A'}</p>
-
-// En el carrito
-${item.codigo_producto ? `<div class='codigo-producto-carrito'>Código: ${item.codigo_producto}</div>` : ''}
-```
+**Razón**: Los códigos de producto son información técnica interna que puede confundir al cliente y no aporta valor a la experiencia de usuario.
 
 ### 3. Validaciones de stock
 
@@ -59,18 +48,11 @@ if (cantidad > productoActual.cantidad) {
 if (cantidad > (productoActual.existencias || productoActual.cantidad)) {
 ```
 
-### 4. Estilos CSS agregados
+### 4. Estilos CSS
 
-Se agregaron estilos para el nuevo campo de código de producto:
+Se mantienen los estilos para la información del producto:
 
 ```css
-.codigo-producto-carrito {
-  font-size: 0.8rem;
-  color: #888;
-  margin-top: 2px;
-  font-weight: 500;
-}
-
 .info-producto-carrito {
   font-size: 0.85rem;
   color: #666;
@@ -87,7 +69,7 @@ Se agregaron estilos para el nuevo campo de código de producto:
    - Actualización del carrito para mostrar código de producto
 
 2. **`src/css/catalog.css`**:
-   - Agregados estilos para el código de producto en el carrito
+   - Mantenidos estilos para información del producto (eliminados estilos de código)
 
 ## Compatibilidad
 
@@ -95,9 +77,9 @@ El código mantiene compatibilidad hacia atrás, por lo que funcionará tanto co
 
 ## Funcionalidades Aseguradas
 
-- ✅ Visualización de productos con código
+- ✅ Visualización de productos (sin código técnico)
 - ✅ Filtros por marca y propósito
 - ✅ Validación de existencias al agregar al carrito
-- ✅ Mostrar código de producto en el carrito
 - ✅ Generación de cotizaciones con información completa
-- ✅ Compatibilidad con estructura de BD anterior y nueva 
+- ✅ Compatibilidad con estructura de BD anterior y nueva
+- ✅ Interfaz limpia y enfocada en el cliente 

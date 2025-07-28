@@ -76,7 +76,6 @@ function mostrarProductos(productos) {
     card.innerHTML = `
       <img src="${imagen}" alt="${p.nombre_producto || p.nombre}" />
       <h3>${p.nombre_producto || p.nombre}</h3>
-      <p>Código: ${p.codigo_producto || 'N/A'}</p>
       <p>Marca: ${p.marca}</p>
       <p>Propósito: ${p.proposito}</p>
       <p>UNIDADES DISPONIBLES: ${p.existencias || p.cantidad}</p>
@@ -103,7 +102,6 @@ function mostrarModalProducto(producto) {
   modalInfo.innerHTML = `
     <img src="${imagen}" alt="${producto.nombre_producto || producto.nombre}" />
     <h3>${producto.nombre_producto || producto.nombre}</h3>
-    <p>Código: ${producto.codigo_producto || 'N/A'}</p>
     <p>Marca: ${producto.marca}</p>
     <p>Propósito: ${producto.proposito}</p>
     <p>UNIDADES DISPONIBLES: ${producto.existencias || producto.cantidad}</p>
@@ -192,7 +190,6 @@ function mostrarCarrito() {
       <tr>
         <td class="carrito-td-producto">
           ${item.nombre_producto || item.nombre}
-          ${item.codigo_producto ? `<div class='codigo-producto-carrito'>Código: ${item.codigo_producto}</div>` : ''}
           ${item.info ? `<div class='info-producto-carrito'>${item.info}</div>` : ''}
         </td>
         <td class="carrito-td-marca">${item.marca}</td>
