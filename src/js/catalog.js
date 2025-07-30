@@ -100,12 +100,36 @@ function mostrarModalProducto(producto) {
   productoActual = producto;
   const imagen = producto.imagen_base64 ? producto.imagen_base64 : '/assets/img/logo3.png';
   modalInfo.innerHTML = `
-    <img src="${imagen}" alt="${producto.nombre_producto || producto.nombre}" />
-    <h3>${producto.nombre_producto || producto.nombre}</h3>
-    <p>Marca: ${producto.marca}</p>
-    <p>Propósito: ${producto.proposito}</p>
-    <p>UNIDADES DISPONIBLES: ${producto.existencias || producto.cantidad}</p>
-    <p class="info-producto">${producto.info ? producto.info : ''}</p>
+    <div class="modal-producto-layout">
+      <div class="modal-producto-imagen">
+        <img src="${imagen}" alt="${producto.nombre_producto || producto.nombre}" />
+      </div>
+      <div class="modal-producto-info">
+        <h3>${producto.nombre_producto || producto.nombre}</h3>
+        
+        <div class="info-item">
+          <span class="info-label">Marca:</span>
+          <span class="info-value">${producto.marca}</span>
+        </div>
+        
+        <div class="info-item">
+          <span class="info-label">Propósito:</span>
+          <span class="info-value">${producto.proposito}</span>
+        </div>
+        
+        <div class="info-item">
+          <span class="info-label">Unidades Disponibles:</span>
+          <span class="info-value stock">${producto.existencias || producto.cantidad}</span>
+        </div>
+        
+        ${producto.info ? `
+        <div class="info-item info-descripcion">
+          <span class="info-label">Descripción:</span>
+          <span class="info-value">${producto.info}</span>
+        </div>
+        ` : ''}
+      </div>
+    </div>
   `;
   // Generar controles de cantidad y botón
   const acciones = modalInfo.parentElement.querySelector('.modal-acciones');
@@ -357,39 +381,6 @@ function validarCamposCotizacion() {
   document.getElementById('telefono-cliente').addEventListener(evt, validarCamposCotizacion);
   const codigoPais = document.getElementById('codigo-pais');
   if (codigoPais) codigoPais.addEventListener(evt, validarCamposCotizacion);
-});
-
-// Limitar caracteres del teléfono según el país seleccionado
-function actualizarMaxLengthTelefono() {
-  const codigoPais = document.getElementById('codigo-pais');
-  const telefonoInput = document.getElementById('telefono-cliente');
-  if (codigoPais && telefonoInput) {
-    const codigo = codigoPais.value;
-    if (codigo === '52') {
-      telefonoInput.maxLength = 10; // México: 10 dígitos
-    } else {
-      telefonoInput.maxLength = 15; // Otros países: hasta 15 dígitos
-    }
-  }
-}
-
-// Aplicar limitación al cambiar el país
-document.addEventListener('DOMContentLoaded', () => {
-  const codigoPais = document.getElementById('codigo-pais');
-  if (codigoPais) {
-    codigoPais.addEventListener('change', actualizarMaxLengthTelefono);
-    // Aplicar limitación inicial
-    actualizarMaxLengthTelefono();
-  }
-  
-  // Validar que solo se ingresen números en el teléfono
-  const telefonoInput = document.getElementById('telefono-cliente');
-  if (telefonoInput) {
-    telefonoInput.addEventListener('input', (e) => {
-      // Remover caracteres que no sean números
-      e.target.value = e.target.value.replace(/\D/g, '');
-    });
-  }
 });
 
 // Preparar evento para cotizar PDF (implementación siguiente paso)
