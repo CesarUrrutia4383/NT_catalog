@@ -19,6 +19,26 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init({ duration: 600, once: false });
 
+// Función para validar URLs de Cloudinary
+function isValidCloudinaryUrl(url) {
+  if (!url) return false;
+  
+  // Verificar si es una URL válida de Cloudinary
+  const cloudinaryPattern = /^https:\/\/res\.cloudinary\.com\/[^\/]+\/image\/upload\/.*$/;
+  return cloudinaryPattern.test(url);
+}
+
+// Función para obtener imagen con fallback
+function getImageUrl(producto) {
+  if (producto.imagen_url && isValidCloudinaryUrl(producto.imagen_url)) {
+    console.log('Usando URL de Cloudinary:', producto.imagen_url);
+    return producto.imagen_url;
+  } else {
+    console.log('Usando imagen por defecto para:', producto.nombre_producto || producto.nombre);
+    return '/assets/img/logo3.png';
+  }
+}
+
 // Refrescar AOS tras mostrar/ocultar modales
 function openModal(modal) {
   modal.style.display = 'flex';
@@ -69,12 +89,25 @@ function llenarFiltros(productos) {
 
 function mostrarProductos(productos) {
   grid.innerHTML = '';
+  console.log('Productos recibidos:', productos); // Debug log
+  
   productos.forEach((p, idx) => {
     const card = document.createElement('div');
     card.className = 'producto';
-    const imagen = p.imagen_url ? p.imagen_url : '/assets/img/logo3.png';
+    
+    // Debug log para cada producto
+    console.log(`Producto ${idx}:`, {
+      nombre: p.nombre_producto || p.nombre,
+      imagen_url: p.imagen_url,
+      tiene_imagen: !!p.imagen_url,
+      es_url_valida: isValidCloudinaryUrl(p.imagen_url)
+    });
+    
+    const imagen = getImageUrl(p);
+    
     card.innerHTML = `
-      <img src="${imagen}" alt="${p.nombre_producto || p.nombre}" />
+      <img src="${imagen}" alt="${p.nombre_producto || p.nombre}" 
+           onerror="this.src='/assets/img/logo3.png'; console.log('Error cargando imagen:', this.src);" />
       <h3>${p.nombre_producto || p.nombre}</h3>
       <p>Marca: ${p.marca}</p>
       <p>Propósito: ${p.proposito}</p>
@@ -98,11 +131,21 @@ let carrito = [];
 
 function mostrarModalProducto(producto) {
   productoActual = producto;
-  const imagen = producto.imagen_url ? producto.imagen_url : '/assets/img/logo3.png';
+  
+  // Debug log para el modal
+  console.log('Producto en modal:', {
+    nombre: producto.nombre_producto || producto.nombre,
+    imagen_url: producto.imagen_url,
+    tiene_imagen: !!producto.imagen_url,
+    es_url_valida: isValidCloudinaryUrl(producto.imagen_url)
+  });
+  
+  const imagen = getImageUrl(producto);
   modalInfo.innerHTML = `
     <div class="modal-producto-layout">
       <div class="modal-producto-imagen">
-        <img src="${imagen}" alt="${producto.nombre_producto || producto.nombre}" />
+        <img src="${imagen}" alt="${producto.nombre_producto || producto.nombre}" 
+             onerror="this.src='/assets/img/logo3.png'; console.log('Error cargando imagen en modal:', this.src);" />
       </div>
       <div class="modal-producto-info">
         <h3>${producto.nombre_producto || producto.nombre}</h3>
@@ -175,6 +218,7 @@ function mostrarModalProducto(producto) {
     closeModal(modal);
     actualizarCarritoCantidad();
     guardarCarrito();
+    mostrarNotificacionProducto(productoActual, cantidad);
   };
   modal.style.display = 'flex';
 }
@@ -210,6 +254,7 @@ btnAgregarCarrito.addEventListener('click', () => {
   modal.style.display = 'none';
   actualizarCarritoCantidad();
   guardarCarrito();
+  mostrarNotificacionProducto(productoActual, cantidad);
 });
 
 function actualizarCarritoCantidad() {
@@ -617,3 +662,30 @@ cerrarModalCarrito.addEventListener('click', () => {
   modalCarrito.style.display = 'none';
   if (descripcionServicio) descripcionServicio.value = '';
 });
+
+// Función para mostrar notificación de producto agregado al carrito
+function mostrarNotificacionProducto(producto, cantidad) {
+  // Crear la notificación si no existe
+  let notificacion = document.querySelector('.notificacion-carrito');
+  if (!notificacion) {
+    notificacion = document.createElement('div');
+    notificacion.className = 'notificacion-carrito';
+    document.body.appendChild(notificacion);
+  }
+
+  // Configurar el contenido de la notificación
+  notificacion.innerHTML = `
+    <div class="icono">✅</div>
+    <div class="texto">¡${cantidad} ${cantidad === 1 ? 'unidad' : 'unidades'} de "${producto.nombre_producto || producto.nombre}" agregada${cantidad === 1 ? '' : 's'} al carrito!</div>
+  `;
+
+  // Mostrar la notificación
+  setTimeout(() => {
+    notificacion.classList.add('mostrar');
+  }, 100);
+
+  // Ocultar la notificación después de 3 segundos
+  setTimeout(() => {
+    notificacion.classList.remove('mostrar');
+  }, 3000);
+}
