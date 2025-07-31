@@ -72,7 +72,7 @@ function mostrarProductos(productos) {
   productos.forEach((p, idx) => {
     const card = document.createElement('div');
     card.className = 'producto';
-    const imagen = p.imagen_base64 ? p.imagen_base64 : '/assets/img/logo3.png';
+    const imagen = p.imagen_url ? p.imagen_url : '/assets/img/logo3.png';
     card.innerHTML = `
       <img src="${imagen}" alt="${p.nombre_producto || p.nombre}" />
       <h3>${p.nombre_producto || p.nombre}</h3>
@@ -98,7 +98,7 @@ let carrito = [];
 
 function mostrarModalProducto(producto) {
   productoActual = producto;
-  const imagen = producto.imagen_base64 ? producto.imagen_base64 : '/assets/img/logo3.png';
+  const imagen = producto.imagen_url ? producto.imagen_url : '/assets/img/logo3.png';
   modalInfo.innerHTML = `
     <div class="modal-producto-layout">
       <div class="modal-producto-imagen">
