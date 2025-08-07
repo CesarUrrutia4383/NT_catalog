@@ -1,34 +1,26 @@
-const logosContainer = document.querySelector('.logos-container');
+document.addEventListener('DOMContentLoaded', () => {
+  const logosContainer = document.querySelector('.logos-grid');
 
-if (logosContainer) {
-  const logoItems = Array.from(logosContainer.querySelectorAll('.logo-item'));
-  let currentLogo = 0;
-  let autoLogoChange;
+  if (logosContainer) {
+    const logoItems = Array.from(logosContainer.querySelectorAll('.logo-item'));
+    let currentIndex = 0;
 
-  function setActiveLogo(index) {
-    logoItems.forEach((logo, i) => {
-      logo.classList.toggle('active', i === index);
-    });
-    currentLogo = index;
+    function setActiveLogo(index) {
+      logoItems.forEach((logo, i) => {
+        logo.classList.toggle('active', i === index);
+      });
+    }
+
+    if (logoItems.length > 0) {
+      // Start the animation
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % logoItems.length;
+        setActiveLogo(currentIndex);
+      }, 1000);
+    } else {
+      console.log("No se encontraron logos para animar.");
+    }
+  } else {
+    console.log("No se encontró el contenedor de logos.");
   }
-
-  function startAutoChange() {
-    if (autoLogoChange) return; // evitar duplicados
-    autoLogoChange = setInterval(() => {
-      let nextLogo = (currentLogo + 1) % logoItems.length;
-      setActiveLogo(nextLogo);
-    }, 3000);
-  }
-
-  function stopAutoChange() {
-    clearInterval(autoLogoChange);
-    autoLogoChange = null;
-  }
-
-  // Inicializar
-  setActiveLogo(0);
-  startAutoChange();
-
-  logosContainer.addEventListener('mouseenter', stopAutoChange);
-  logosContainer.addEventListener('mouseleave', startAutoChange);
-}
+});

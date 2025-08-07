@@ -64,7 +64,7 @@ a {
 .titulo1 {
     font-size: 60px;
     font-weight: 600;
-    color: #000000;
+    color: var(--naranja-primario);
     text-align: center;
     margin-bottom: 40px;
     letter-spacing: 3px; /* Añadido para separar las letras */

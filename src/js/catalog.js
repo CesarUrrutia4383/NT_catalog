@@ -88,34 +88,51 @@ function llenarFiltros(productos) {
 }
 
 function mostrarProductos(productos) {
-  grid.innerHTML = '';
-  console.log('Productos recibidos:', productos); // Debug log
-  
-  productos.forEach((p, idx) => {
-    const card = document.createElement('div');
-    card.className = 'producto';
-    
-    // Debug log para cada producto
-    console.log(`Producto ${idx}:`, {
-      nombre: p.nombre_producto || p.nombre,
-      imagen_url: p.imagen_url,
-      tiene_imagen: !!p.imagen_url,
-      es_url_valida: isValidCloudinaryUrl(p.imagen_url)
-    });
-    
-    const imagen = getImageUrl(p);
-    
-    card.innerHTML = `
-      <img src="${imagen}" alt="${p.nombre_producto || p.nombre}" 
-           onerror="this.src='/assets/img/logo3.png'; console.log('Error cargando imagen:', this.src);" />
-      <h3>${p.nombre_producto || p.nombre}</h3>
-      <p>Marca: ${p.marca}</p>
-      <p>Propósito: ${p.proposito}</p>
-      <p>UNIDADES DISPONIBLES: ${p.existencias || p.cantidad}</p>
-      <p class="info-producto">${p.info ? p.info : ''}</p>
-    `;
-    card.addEventListener('click', () => mostrarModalProducto(p));
-    grid.appendChild(card);
+  const existingProductCards = Array.from(grid.children);
+  const newProductIds = new Set(productos.map(p => p.id)); // Asume que cada producto tiene un 'id' único
+
+  // Eliminar productos que ya no existen en la nueva lista
+  existingProductCards.forEach(card => {
+    const productId = card.dataset.productId;
+    if (productId && !newProductIds.has(productId)) {
+      grid.removeChild(card);
+    }
+  });
+
+  // Crear o actualizar productos
+  productos.forEach(p => {
+    let card = grid.querySelector(`[data-product-id="${p.id}"]`);
+
+    if (card) {
+      // Actualizar contenido de la tarjeta existente
+      const imagen = getImageUrl(p);
+      const newInnerHTML = `
+        <img src="${imagen}" alt="${p.nombre_producto || p.nombre}"
+             onerror="this.src='/assets/img/logo3.png'; console.log('Error cargando imagen:', this.src);" />
+        <h3>${p.nombre_producto || p.nombre}</h3>
+        <p><b>Marca:</b> ${p.marca}</p>
+      `;
+      // Solo actualizar innerHTML si el contenido ha cambiado para evitar redibujados innecesarios
+      if (card.innerHTML.trim() !== newInnerHTML.trim()) {
+        card.innerHTML = newInnerHTML;
+      }
+      // Asegurarse de que el event listener siga funcionando (aunque ya debería estar)
+      card.onclick = () => mostrarModalProducto(p);
+    } else {
+      // Crear nueva tarjeta si no existe
+      card = document.createElement('div');
+      card.className = 'producto';
+      card.dataset.productId = p.id; // Añadir un data-attribute para identificar el producto
+      const imagen = getImageUrl(p);
+      card.innerHTML = `
+        <img src="${imagen}" alt="${p.nombre_producto || p.nombre}"
+             onerror="this.src='/assets/img/logo3.png'; console.log('Error cargando imagen:', this.src);" />
+        <h3>${p.nombre_producto || p.nombre}</h3>
+        <p><b>Marca:</b> ${p.marca}</p>
+      `;
+      card.addEventListener('click', () => mostrarModalProducto(p));
+      grid.appendChild(card);
+    }
   });
 }
 
@@ -158,11 +175,6 @@ function mostrarModalProducto(producto) {
         <div class="info-item">
           <span class="info-label">Propósito:</span>
           <span class="info-value">${producto.proposito}</span>
-        </div>
-        
-        <div class="info-item">
-          <span class="info-label">Unidades Disponibles:</span>
-          <span class="info-value stock">${producto.existencias || producto.cantidad}</span>
         </div>
         
         ${producto.info ? `
@@ -271,7 +283,6 @@ function mostrarCarrito() {
       <tr>
         <td class="carrito-td-producto">
           ${item.nombre_producto || item.nombre}
-          ${item.info ? `<div class='info-producto-carrito'>${item.info}</div>` : ''}
         </td>
         <td class="carrito-td-marca">${item.marca}</td>
         <td class="carrito-td-proposito">${item.proposito}</td>
@@ -393,22 +404,55 @@ cargarCarrito();
 actualizarCarritoCantidad();
 actualizarBotonCotizar();
 
+const telefonoInput = document.getElementById('telefono-cliente');
+const codigoPais = document.getElementById('codigo-pais');
+
+// Objeto con las longitudes de teléfono por país
+const longitudesTelefono = {
+  '52': 10, // México
+  '1': 10,  // USA/Canadá
+  '54': 10, // Argentina
+  '57': 10, // Colombia
+  '34': 9,  // España
+  '55': 11, // Brasil
+  '56': 9,  // Chile
+  '591': 8, // Bolivia
+  '507': 8, // Panamá
+  '593': 9  // Ecuador
+};
+
+// Función para actualizar el maxlength del teléfono
+function actualizarMaxlength() {
+  const codigo = codigoPais.value;
+  telefonoInput.maxLength = longitudesTelefono[codigo] || 15; // 15 como fallback
+}
+
+// Listener para limpiar el input de teléfono (solo números)
+telefonoInput.addEventListener('input', () => {
+  telefonoInput.value = telefonoInput.value.replace(/\D/g, '');
+});
+
+// Listener para cambiar el maxlength al cambiar de país
+codigoPais.addEventListener('change', () => {
+  telefonoInput.value = ''; // Limpiar el campo al cambiar de país
+  actualizarMaxlength();
+  validarCamposCotizacion();
+});
+
+// Inicializar maxlength al cargar la página
+actualizarMaxlength();
+
 function validarCamposCotizacion() {
   const nombreInput = document.getElementById('nombre-cliente');
-  const telefonoInput = document.getElementById('telefono-cliente');
-  const codigoPais = document.getElementById('codigo-pais');
   const btn = document.getElementById('cotizar-pdf');
   const nombreValido = nombreInput.value.trim().length > 0;
-  let telefono = telefonoInput.value.trim();
-  let codigo = codigoPais ? codigoPais.value : '52';
-  let telefonoValido = false;
-  // Solo dígitos
-  telefono = telefono.replace(/\D/g, '');
-  if (codigo === '52') {
-    telefonoValido = telefono.length === 10;
-  } else {
-    telefonoValido = telefono.length >= 7 && telefono.length <= 15;
-  }
+  
+  const codigo = codigoPais.value;
+  const telefono = telefonoInput.value.trim();
+  const longitudRequerida = longitudesTelefono[codigo] || 10;
+
+  const telefonoValido = telefono.length === longitudRequerida;
+
   if (nombreValido && telefonoValido) {
     btn.disabled = false;
     btn.style.opacity = '1';
@@ -510,10 +554,18 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   // Mostrar PDF generado por el backend en un modal
   try {
     const API_PDF_DOWNLOAD = import.meta.env.VITE_API_PDF_DOWNLOAD;
+    const carritoParaEnviar = carrito.map(item => ({
+      id: item.id,
+      nombre: item.nombre_producto || item.nombre,
+      marca: item.marca,
+      proposito: item.proposito,
+      cantidad: item.cantidad
+    }));
+
     const response = await fetch(`${import.meta.env.VITE_API_PDF_DOWNLOAD}?descargar=1`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ carrito, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo, descripcion })
+      body: JSON.stringify({ carrito: carritoParaEnviar, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo, descripcion })
     });
     if (!response.ok) throw new Error('No se pudo generar el PDF');
     const pdfBlob = await response.blob();
@@ -535,7 +587,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       URL.revokeObjectURL(url);
     };
     // Después de mostrar el PDF, enviar la cotización por correo
-    enviarCotizacionBackend({ carrito, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo, descripcion })
+    enviarCotizacionBackend({ carrito: carritoParaEnviar, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo, descripcion })
       .then(() => {
         setTimeout(() => {
           showToast('Cotización generada y enviada. La empresa se pondrá en contacto contigo.', 5500);
@@ -576,11 +628,12 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo, descripcion}) {
+  const carritoSimplificado = carrito.map(item => ({ id: item.id, nombre: item.nombre, marca: item.marca, proposito: item.proposito, cantidad: item.cantidad }));
   return fetch(import.meta.env.VITE_API_PDF, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      carrito,
+      carrito: carritoSimplificado,
       nombre,
       telefono,
       servicio,
@@ -630,16 +683,12 @@ setInterval(() => {
 
 // Función para actualizar el catálogo automáticamente
 async function actualizarCatalogo() {
-  loader.style.display = 'block';
-  grid.style.display = 'none';
   const productos = await obtenerProductos();
   // Limpiar filtros antes de volver a llenarlos
   filtroMarca.innerHTML = '<option value="">Todas</option>';
   filtroProposito.innerHTML = '<option value="">Todos</option>';
   llenarFiltros(productos);
   mostrarProductos(productos);
-  loader.style.display = 'none';
-  grid.style.display = '';
 }
 
 // Mostrar/ocultar campo de descripción de servicio según selección

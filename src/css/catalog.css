@@ -25,7 +25,7 @@
   text-align: center;
   margin-bottom: 40px;
   font-size: 2.2rem;
-  color: #333;
+  color: var(--naranja-primario);
 }
 
 .filtros {
@@ -196,11 +196,12 @@
 }
 .modal-cerrar {
   position: absolute;
-  top: 12px;
-  right: 18px;
+  top: 15px;
+  right: 15px;
   font-size: 2rem;
   color: #ff8f1c;
   cursor: pointer;
+  z-index: 100; /* Asegura que el botón esté siempre encima */
 }
 /* Ajuste de campos en el modal del carrito */
 .modal-acciones {
@@ -988,6 +989,7 @@ input[type='number'] {
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   background: #fff;
   overflow: hidden;
+  position: relative;
 }
 @media (max-width: 700px) {
   #modal-pdf, #modal-pdf .modal-contenido {

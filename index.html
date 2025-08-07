@@ -9,6 +9,7 @@
       rel="stylesheet"
     />
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./src/css/mision-vision.css" />
     <link rel="icon" href="/assets/img/logo1.png" type="image/png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Neumatics Tool</title>
@@ -317,38 +318,17 @@
 
         <section class="marcas" data-aos="fade-up" data-aos-duration="100">
           <h2 class="titulo1">Conoce nuestras marcas</h2>
-          <div class="logos-container" data-aos="zoom-in" data-aos-delay="300">
-            <div class="logo-item">
-              <img src="./assets/img/atlascopco.png" alt="Logo 1" loading="lazy" />
-            </div>
-            <div class="logo-item">
-              <img src="./assets/img/epiroc.png" alt="Logo 2" loading="lazy" />
-            </div>
-            <div class="logo-item">
-              <img src="./assets/img/goodyear.png" alt="Logo 3" loading="lazy" />
-            </div>
-            <div class="logo-item">
-              <img src="./assets/img/makita.png" alt="Logo 4" loading="lazy" />
-            </div>
-            <div class="logo-item">
-              <img src="./assets/img/cipsa.png" alt="Logo 5" loading="lazy" />
-            </div>
-            <div class="logo-item">
-              <img src="./assets/img/continental.png" alt="Logo 6" loading="lazy" />
-            </div>
-            <div class="logo-item">
-              <img src="./assets/img/husqvarna.png" alt="Logo 7" loading="lazy" />
-            </div>
-            <div class="logo-item">
-              <img src="./assets/img/wacker.png" alt="Logo 8" loading="lazy" />
-            </div>
-            <div class="logo-item">
-              <img src="./assets/img/mpower.png" alt="Logo 9" loading="lazy" />
-            </div>
-            <div class="logo-item">
-              <img src="./assets/img/pisotec.png" alt="Logo 10" loading="lazy" />
-            </div>
-            <!-- Agrega más si lo necesitas -->
+          <div class="logos-grid">
+            <div class="logo-item"><img src="./assets/img/atlascopco.png" alt="Logo 1" loading="lazy" /></div>
+            <div class="logo-item"><img src="./assets/img/epiroc.png" alt="Logo 2" loading="lazy" /></div>
+            <div class="logo-item"><img src="./assets/img/goodyear.png" alt="Logo 3" loading="lazy" /></div>
+            <div class="logo-item"><img src="./assets/img/makita.png" alt="Logo 4" loading="lazy" /></div>
+            <div class="logo-item"><img src="./assets/img/cipsa.png" alt="Logo 5" loading="lazy" /></div>
+            <div class="logo-item"><img src="./assets/img/continental.png" alt="Logo 6" loading="lazy" /></div>
+            <div class="logo-item"><img src="./assets/img/husqvarna.png" alt="Logo 7" loading="lazy" /></div>
+            <div class="logo-item"><img src="./assets/img/wacker.png" alt="Logo 8" loading="lazy" /></div>
+            <div class="logo-item"><img src="./assets/img/mpower.png" alt="Logo 9" loading="lazy" /></div>
+            <div class="logo-item"><img src="./assets/img/pisotec.png" alt="Logo 10" loading="lazy" /></div>
           </div>
         </section>
       </main>
@@ -462,6 +442,34 @@
       window.addEventListener('click', function(e) {
         if (e.target === document.getElementById('modal-terminos')) document.getElementById('modal-terminos').style.display = 'none';
         if (e.target === document.getElementById('modal-privacidad')) document.getElementById('modal-privacidad').style.display = 'none';
+      });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const logosContainer = document.querySelector('.logos-grid');
+
+        if (logosContainer) {
+          const logoItems = Array.from(logosContainer.querySelectorAll('.logo-item'));
+          let currentIndex = 0;
+
+          function setActiveLogo(index) {
+            logoItems.forEach((logo, i) => {
+              logo.classList.toggle('active', i === index);
+            });
+          }
+
+          if (logoItems.length > 0) {
+            // Start the animation
+            setInterval(() => {
+              currentIndex = (currentIndex + 1) % logoItems.length;
+              setActiveLogo(currentIndex);
+            }, 1000);
+          } else {
+            console.log("No se encontraron logos para animar.");
+          }
+        } else {
+          console.log("No se encontró el contenedor de logos.");
+        }
       });
     </script>
   </body>

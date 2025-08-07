@@ -6,14 +6,15 @@ html {
         background: #FF8F1C;
 background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
     display: grid;
-    grid-template-columns: 55% 45%;
+    grid-template-columns: 50% 50%;
     gap: 20px;
     border-radius: 20px;
     color: #ffffff;
     position: relative;
     z-index: 1;
-    padding: 120px;
-    margin-bottom: 20px;
+    padding: 120px 80px;
+    margin-bottom: 150px;
+    min-height: 500px;
 
     .col-1 {
         display: flex;
@@ -26,6 +27,7 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             font-weight: 800;
             text-align: left;
             margin: 0;
+            color: #FFFFFF;
         }
 
         .descripcion {
@@ -80,9 +82,14 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
         .slideshow {
             position: absolute;
             border-radius: 10px;
-            width: 90%;
+            width: 75%;
+            height: 600px;
             overflow: hidden; 
             top: -50px;
+            bottom: -150px;
+            right: 10%;
+            transform: translateX(5%);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
 
             .slides {
                 display: flex;
@@ -93,7 +100,7 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
 
                     img {
                         width: 100%;
-                        height: 100%;
+                        height: 600px;
                         object-fit: cover;
                         vertical-align: top;
                     }
