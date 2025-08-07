@@ -12,6 +12,7 @@
     <link rel="icon" href="/assets/img/logo1.png" type="image/png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Neumatics Tool</title>
+    <link rel="stylesheet" href="/src/css/estilos.css">
   </head>
   <body>
     <div class="contenedor-header">
@@ -23,29 +24,6 @@
             <a href="index.html">Inicio</a>
             <a href="contact.html">Contacto</a>
           <a href="#">Ayuda</a>
-          <a href="#" class="boton">
-            Cotizar
-            <div class="icono">
-              <!-- Ícono de cotizar -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5"
-                />
-                <path
-                  fill-rule="evenodd"
-                  d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0z"
-                />
-              </svg>
-            </div>
-          </a>
-          <!-- Eliminar los botones de inicio/cierre de sesión -->
         </nav>
       </header>
 
@@ -184,10 +162,10 @@
 
       <!-- Modal Política de Privacidad -->
       <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
-        <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem; position:relative; background:#fff; border-radius:12px; box-shadow:0 2px 16px rgba(0,0,0,0.18);">
+        <div class="modal-contenido">
           <span class="modal-cerrar" id="cerrar-modal-privacidad">&times;</span>
           <h2>Política de Privacidad</h2>
-          <div class="legal-content" style="max-height:60vh; overflow-y:auto; font-size:1rem; color:#333;">
+          <div class="legal-content">
             <p>Política de privacidad<br><br>
 En cumplimiento a lo previsto en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (en lo sucesivo "la Ley"). Nos permitimos informarle lo siguiente:<br><br>
 <b>1.- RESPONSABLE DE LOS DATOS PERSONSALES</b><br><br>
@@ -198,7 +176,7 @@ I. Cuando el TITULAR los proporcione personal o directamente,<br>
 II. Cuando el RESPONSABLE los obtenga de forma indirecta,<br>
 III. Cuando el TITULAR utilice el sitio de internet o los servicios en línea del RESPONSABLE y/o<br>
 IV. Cuando se obtenga por el RESPONSABLE a través de las fuentes permitidas por la legislación.<br><br>
-Para aquellas personas que tengan el carácter de contacto de algún TITULAR se les informa que el RESPONSABLE únicamente requiere sus Datos Personales correspondientes a: datos de identificación, nombre completo y fotografía (identificación oficial así como la imagen del TITULAR al ingresar a las instalaciones del RESPONABLE a través de las cámaras de video vigilancia y seguridad), domicilio (comprobante de domicilio), teléfono fijo, teléfono celular, número de fax, correo electrónico, nacionalidad, fecha y lugar de nacimiento, estado civil, Registro Federal de Contribuyentes (RFC), Clave Única de Registro de Población (CURP), cargo, información bancaria, información técnica, firma autógrafa y/o electrónica, actividad económica, Datos Personales de los que los contactos son TITULARES en términos del presente Aviso de Privacidad.<br><br>
+Para aquellas personas que tengan el carácter de contacto de algún TITULAR se les informa que el RESPONSABLE únicamente requiere sus Datos Personales correspondientes a: datos de identificación, nombre completo y fotografía (identificación oficial así como la imagen del TITULAR al ingresar a las instalaciones del RESPONSIBLE a través de las cámaras de video vigilancia y seguridad), domicilio (comprobante de domicilio), teléfono fijo, teléfono celular, número de fax, correo electrónico, nacionalidad, fecha y lugar de nacimiento, estado civil, Registro Federal de Contribuyentes (RFC), Clave Única de Registro de Población (CURP), cargo, información bancaria, información técnica, firma autógrafa y/o electrónica, actividad económica, Datos Personales de los que los contactos son TITULARES en términos del presente Aviso de Privacidad.<br><br>
 Ahora bien, para aquellas personas que tengan el carácter de beneficiarios del Servicio de algún TITULAR se les informa que el RESPONSABLE requerirá sus Datos Personales correspondientes al llenado de diversos formatos requeridos, los cuales pueden ser algunos de los siguientes: datos de identificación, nombre completo y fotografía (identificación oficial así como la imagen del TITULAR al ingresar a las instalaciones del RESPONSABLE a través de las cámaras de video vigilancia y seguridad), domicilio (comprobante de domicilio), teléfono fijo, teléfono celular, número de Fax, correo electrónico, nacionalidad, fecha y lugar de nacimiento, estado civil, Registro Federal de Contribuyentes (RFC), Clave Única de Registro de Población (CURP), cargo, información bancaria, información técnica, firma autógrafa y/o electrónica, actividad económica, y además que resulten importantes únicamente indispensables, ateniéndose al principio de minimización de recopilación de Datos Personales de los que los beneficiarios son TITULARES en términos del presente Aviso de Privacidad.<br><br>
 LOS TITULARES que hayan proporcionado al RESPONSABLE los Datos Personales de los beneficiarios o contactos, deberán notificar a éstos últimos TITULARES haber proporcionado sus Datos Personales al RESPONSABLE y el contenido del presente Aviso de Privacidad, lo anterior, con independencia de la notificación que el RESPONSABLE hará a dichos TITULARES del Aviso de Privacidad al primer contacto que tenga con éstos últimos.<br><br>
 Es responsabilidad del TITULAR de los Datos Personales, el garantizar que los datos que facilite personal o directamente al RESPONSABLE sean veraces y completos, así como de notificar al RESPONSABLE cualquier modificación a los mismos.<br><br>
@@ -269,3 +247,5 @@ El presente Aviso de Privacidad, así como el manejo en general de la Ley que ha
     <script type="module" src="/src/js/catalog.js"></script>
   </body>
 </html>
+
+          
