@@ -10,10 +10,10 @@
       rel="stylesheet"
     />
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./src/css/mision-vision.css" />
     <link rel="icon" href="/assets/img/logo1.png" type="image/png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Neumatics Tool</title>
+    
   </head>
   <body>
     <div class="contenedor-header">
@@ -296,6 +296,7 @@
           <h2 class="titulo1">Misión y Visión</h2>
           <div class="grid-mv">
       <div class="bloque" data-aos="fade-right" data-aos-delay="100">
+        <div class="bloque-contenido">
           <h3>Misión</h3>
             <p>
               Ser un proveedor confiable de equipos e insumos del sector minero y de la construcción, 
@@ -303,15 +304,18 @@
               comprometidos con una productividad sustentable, ofreciendo calidad y excelencia en 
               nuestros productos y servicios
             </p>
+        </div>
       </div>
       <div class="bloque" data-aos="fade-left" data-aos-delay="100">
-        <h3>Visión</h3>
-          <p>
-            Ser un proveedor confiable de equipos e insumos del sector minero y de la construcción, 
-            brindando un servicio integral, así como un asesoramiento personalizado y profesional; 
-            comprometidos con una productividad sustentable, ofreciendo calidad y excelencia en nuestros 
-            productos y servicios
-          </p>
+        <div class="bloque-contenido">
+          <h3>Visión</h3>
+            <p>
+              Ser un proveedor confiable de equipos e insumos del sector minero y de la construcción, 
+              brindando un servicio integral, así como un asesoramiento personalizado y profesional; 
+              comprometidos con una productividad sustentable, ofreciendo calidad y excelencia en nuestros 
+              productos y servicios
+            </p>
+        </div>
       </div>
     </div>
     </section>
@@ -323,12 +327,11 @@
             <div class="logo-item" data-aos="fade-up" data-aos-delay="200"><img src="./assets/img/epiroc.png" alt="Logo 2" loading="lazy" /></div>
             <div class="logo-item" data-aos="fade-up" data-aos-delay="300"><img src="./assets/img/goodyear.png" alt="Logo 3" loading="lazy" /></div>
             <div class="logo-item" data-aos="fade-up" data-aos-delay="400"><img src="./assets/img/makita.png" alt="Logo 4" loading="lazy" /></div>
-            <div class="logo-item" data-aos="fade-up" data-aos-delay="500"><img src="./assets/img/cipsa.png" alt="Logo 5" loading="lazy" /></div>
-            <div class="logo-item" data-aos="fade-up" data-aos-delay="100"><img src="./assets/img/continental.png" alt="Logo 6" loading="lazy" /></div>
-            <div class="logo-item" data-aos="fade-up" data-aos-delay="200"><img src="./assets/img/husqvarna.png" alt="Logo 7" loading="lazy" /></div>
-            <div class="logo-item" data-aos="fade-up" data-aos-delay="300"><img src="./assets/img/wacker.png" alt="Logo 8" loading="lazy" /></div>
-            <div class="logo-item" data-aos="fade-up" data-aos-delay="400"><img src="./assets/img/mpower.png" alt="Logo 9" loading="lazy" /></div>
-            <div class="logo-item" data-aos="fade-up" data-aos-delay="500"><img src="./assets/img/pisotec.png" alt="Logo 10" loading="lazy" /></div>
+            <div class="logo-item" data-aos="fade-up" data-aos-delay="100"><img src="./assets/img/continental.png" alt="Logo 5" loading="lazy" /></div>
+            <div class="logo-item" data-aos="fade-up" data-aos-delay="200"><img src="./assets/img/husqvarna.png" alt="Logo 6" loading="lazy" /></div>
+            <div class="logo-item" data-aos="fade-up" data-aos-delay="300"><img src="./assets/img/wacker.png" alt="Logo 7" loading="lazy" /></div>
+            <div class="logo-item" data-aos="fade-up" data-aos-delay="400"><img src="./assets/img/fleetguard.png" alt="Logo 8" loading="lazy" /></div>
+            <div class="logo-item" data-aos="fade-up" data-aos-delay="500"><img src="./assets/img/pisotec.png" alt="Logo 9" loading="lazy" /></div>
           </div>
         </section>
       </main>
@@ -366,7 +369,7 @@
     <!-- Modal Términos y Condiciones -->
     <div id="modal-terminos" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7);">
       <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem; position:relative;">
-        <span class="modal-cerrar" id="cerrar-modal-terminos" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
+        <span class="modal-cerrar" id="cerrar-modal-terminos" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index=3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
         <h2>Términos y Condiciones</h2>
         <p>Este es un texto de ejemplo para los Términos y Condiciones. Aquí puedes colocar toda la información legal relevante para el uso de tu sitio web, servicios, limitaciones de responsabilidad, etc.</p>
       </div>
@@ -374,7 +377,7 @@
     <!-- Modal Política de Privacidad -->
     <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
       <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem; position:relative; background:#fff; border-radius:12px; box-shadow:0 2px 16px rgba(0,0,0,0.18);">
-        <span class="modal-cerrar" id="cerrar-modal-privacidad" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
+        <span class="modal-cerrar" id="cerrar-modal-privacidad" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index=3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
         <h2>Política de Privacidad</h2>
         <div class="legal-content" style="max-height:60vh; overflow-y:auto; font-size:1rem; color:#333;">
           <p>Política de privacidad<br><br>
@@ -419,7 +422,7 @@
           El RESPONSABLE dará respuesta a las solicitudes del TITULAR de la información, siempre y cuando no se actualice alguna de las excepciones contenidas en la Ley, y el solicitante cumpla con lo dispuesto en el artículo 29 de dicho ordenamiento legal que establece los requisitos que debe contener las solicitudes presentadas por los Titulares.<br><br>
           Para que el RESPONSABLE de trámite a la solicitud del TITULAR referente al acceso, rectificación, revocación, cancelación, oposición y/o limitación del uso o divulgación de sus datos, éste último deberá adjuntar a su solicitud la siguiente información y documentación.<br><br>
           I. Nombre del TITULAR y domicilio u otro medio para que el RESPONSABLE le comunique la respuesta a su solicitud.<br>
-          II. Los documentos con los que acredite su identidad o su personalidad en caso de la representación legal del TITULAR (identificación oficial del TITULAR o del representante legal y poder de este último).<br>
+          II. Los documentos con los que acredite su identidad o su personalidad en caso de la representation legal del TITULAR (identificación oficial del TITULAR o del representante legal y poder de este último).<br>
           III. La descripción clara y precisa de los Datos Personales respecto de los que se busca ejercer el derecho al acceso, rectificación, revocación, cancelación, oposición, limitación del uso o divulgación, así como cualquier otro dato o documento que pueda facilitar la localización de los Datos Personales.<br><br>
           El RESPONSABLE dará respuesta a la solicitud del TITULAR referente al acceso, rectificación, revocación, cancelación, oposición y/o limitación del uso o divulgación de sus datos dentro de los plazos establecidos en la Ley, es decir, dentro de los veinte (20 días siguientes contados a partir de que reciba la solicitud del TITULAR, plazo que podrá ser ampliado por el RESPONSABLE de acuerdo con lo dispuesto por el artículo 32 de la Ley.<br><br>
           La obligación de acceso a la información se dará por cumplida por el RESPONSABLE cuando, en caso de que sea solicitado por el TITULAR, se ponga a disposición de este último sus Datos Personales en el domicilio del RESPONSABLE durante el plazo de 15 (quince) días hábiles siguientes a que se le comunique al TITULAR la respuesta a su solicitud o bien a través de alguna de las formas establecidas en el artículo 33 de la Ley, mismas que en la respuesta a su solicitud se le notificarán al TITULAR.<br><br>

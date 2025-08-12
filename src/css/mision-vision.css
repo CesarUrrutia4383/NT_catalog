@@ -25,12 +25,19 @@
     text-align: left;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     color: #333;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .bloque:hover {
-    transform: translateY(-10px);
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.bloque-contenido {
+    transition: transform 0.3s ease;
+}
+
+.bloque:hover .bloque-contenido {
+    transform: scale(1.05);
 }
 
 .bloque h3 {
@@ -44,4 +51,10 @@
     margin: 5px 0;
     color: #555;
     line-height: 1.6;
+}
+
+@media screen and (max-width: 768px) {
+  .grid-mv {
+    grid-template-columns: 1fr;
+  }
 }

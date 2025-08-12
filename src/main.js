@@ -2,14 +2,11 @@
 import "./css/normalize.css";
 import "./css/variables.css";
 import "./css/estilos.css";
-import "./css/header.css";
 import "./css/hero.css";
-import "./css/caracteristicas.css";
-import "./css/footer.css";
-import "./css/marcas.css";
 import "./css/contacto.css";
-import "./css/mision-vision.css"
 import "./css/catalog.css";
+import "./css/marcas.css";
+import "./css/responsive.css";
 
 //FUNCIONES DE JAVASCRIPT
 import "./js/video.js";

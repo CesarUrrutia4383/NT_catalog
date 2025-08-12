@@ -151,23 +151,12 @@ header {
 /* ========== RESPONSIVE MÓVILES: TEXTO IZQUIERDA, SLIDER DERECHA ========== */
 @media screen and (max-width: 768px) {
   .col-2 {
-    flex-wrap: nowrap;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
     padding: 10px;
   }
 
-  .texto-lado {
-    flex: 1;
-    padding-right: 10px;
-  }
-
   .slideshow {
-    flex: 1;
-    /* Cambiar aspecto para que sea más cuadrado y ancho suficiente */
-    aspect-ratio: 4 / 3; /* mejor proporción para ver la imagen */
-    min-width: 300px;    /* ancho mínimo para que no se achique mucho */
-    max-width: 70vw;     /* ancho máximo relativo al viewport */
+    max-width: 100%;
     border-radius: 0;
   }
 
