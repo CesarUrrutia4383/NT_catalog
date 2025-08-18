@@ -1,4 +1,4 @@
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.carrusel-slide');
     const sucursales = document.querySelectorAll('.sucursal');
     let currentSlide = 0;
@@ -39,8 +39,19 @@ window.onload = function () {
         showSlide(currentSlide);
         startCarousel();
 
+        // Listener para las tarjetas de sucursal
         sucursales.forEach((sucursal, index) => {
             sucursal.addEventListener('click', () => {
+                stopCarousel();
+                currentSlide = index;
+                showSlide(currentSlide);
+                resetCarouselTimeout();
+            });
+        });
+
+        // Listener para las imágenes del carrusel
+        slides.forEach((slide, index) => {
+            slide.addEventListener('click', () => {
                 stopCarousel();
                 currentSlide = index;
                 showSlide(currentSlide);
@@ -55,4 +66,4 @@ window.onload = function () {
             once: true,
         });
     }
-};
+});
