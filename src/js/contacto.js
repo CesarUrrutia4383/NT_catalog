@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+window.onload = function () {
     const slides = document.querySelectorAll('.carrusel-slide');
     const sucursales = document.querySelectorAll('.sucursal');
     let currentSlide = 0;
@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function startCarousel() {
-        stopCarousel(); // Asegurarse de que no haya intervalos duplicados
-        intervalId = setInterval(nextSlide, 5000); // Cambia de slide cada 5 segundos
+        stopCarousel();
+        intervalId = setInterval(nextSlide, 5000);
     }
 
     function stopCarousel() {
@@ -32,30 +32,27 @@ document.addEventListener('DOMContentLoaded', function () {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             startCarousel();
-        }, 10000); // Reiniciar después de 10 segundos de inactividad
+        }, 10000);
     }
 
-    // Iniciar el carrusel
-    if (slides.length > 0) {
+    if (slides.length > 0 && sucursales.length > 0) {
         showSlide(currentSlide);
         startCarousel();
+
+        sucursales.forEach((sucursal, index) => {
+            sucursal.addEventListener('click', () => {
+                stopCarousel();
+                currentSlide = index;
+                showSlide(currentSlide);
+                resetCarouselTimeout();
+            });
+        });
     }
 
-    // Manejar clics en las tarjetas de sucursal
-    sucursales.forEach((sucursal, index) => {
-        sucursal.addEventListener('click', () => {
-            stopCarousel();
-            currentSlide = index;
-            showSlide(currentSlide);
-            resetCarouselTimeout();
-        });
-    });
-
-    // Inicializar AOS
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 800, // Duración de la animación
-            once: true, // La animación solo ocurre una vez
+            duration: 800,
+            once: true,
         });
     }
-});
+};
