@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.carrusel-slide');
     const sucursales = document.querySelectorAll('.sucursal');
     let currentSlide = 0;
-    let intervalId = null;
-    let timeoutId = null;
+    let intervalId;
+    let timeoutId;
 
     function showSlide(index) {
         slides.forEach((slide, i) => {
@@ -20,49 +20,42 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function startCarousel() {
-        stopCarousel();
-        intervalId = setInterval(nextSlide, 5000);
+        stopCarousel(); // Asegurarse de que no haya intervalos duplicados
+        intervalId = setInterval(nextSlide, 5000); // Cambia de slide cada 5 segundos
     }
 
     function stopCarousel() {
-        if (intervalId) clearInterval(intervalId);
-        intervalId = null;
+        clearInterval(intervalId);
     }
 
     function resetCarouselTimeout() {
-        if (timeoutId) clearTimeout(timeoutId);
+        clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             startCarousel();
-        }, 10000);
+        }, 10000); // Reiniciar después de 10 segundos de inactividad
     }
 
-    if (slides.length > 0 && sucursales.length > 0) {
+    // Iniciar el carrusel
+    if (slides.length > 0) {
         showSlide(currentSlide);
         startCarousel();
-
-        sucursales.forEach((sucursal, index) => {
-            sucursal.addEventListener('click', () => {
-                stopCarousel();
-                currentSlide = index;
-                showSlide(currentSlide);
-                resetCarouselTimeout();
-            });
-        });
-
-        slides.forEach((slide, index) => {
-            slide.addEventListener('click', () => {
-                stopCarousel();
-                currentSlide = index;
-                showSlide(currentSlide);
-                resetCarouselTimeout();
-            });
-        });
     }
 
+    // Manejar clics en las tarjetas de sucursal
+    sucursales.forEach((sucursal, index) => {
+        sucursal.addEventListener('click', () => {
+            stopCarousel();
+            currentSlide = index;
+            showSlide(currentSlide);
+            resetCarouselTimeout();
+        });
+    });
+
+    // Inicializar AOS
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 800,
-            once: true,
+            duration: 800, // Duración de la animación
+            once: true, // La animación solo ocurre una vez
         });
     }
 });
