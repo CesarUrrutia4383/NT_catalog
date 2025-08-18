@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.carrusel-slide');
     const sucursales = document.querySelectorAll('.sucursal');
     let currentSlide = 0;
-    let intervalId;
-    let timeoutId;
+    let intervalId = null;
+    let timeoutId = null;
 
     function showSlide(index) {
         slides.forEach((slide, i) => {
@@ -25,11 +25,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function stopCarousel() {
-        clearInterval(intervalId);
+        if (intervalId) clearInterval(intervalId);
+        intervalId = null;
     }
 
     function resetCarouselTimeout() {
-        clearTimeout(timeoutId);
+        if (timeoutId) clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
             startCarousel();
         }, 10000);
@@ -39,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
         showSlide(currentSlide);
         startCarousel();
 
-        // Listener para las tarjetas de sucursal
         sucursales.forEach((sucursal, index) => {
             sucursal.addEventListener('click', () => {
                 stopCarousel();
@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // Listener para las imágenes del carrusel
         slides.forEach((slide, index) => {
             slide.addEventListener('click', () => {
                 stopCarousel();
