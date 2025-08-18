@@ -1,0 +1,96 @@
+.marcas {
+  padding: 40px 0;
+  background-color: transparent;
+  margin-bottom: 120px;
+}
+
+.marcas .titulo1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  color: var(--naranja-primario);
+}
+
+.logos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  padding: 32px 0 56px 0;
+}
+
+.logo-item {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 10px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  min-height: 120px;
+  border: 2px solid transparent;
+  opacity: 0.7;
+  transition: box-shadow 0.3s, border 0.3s, transform 0.3s, opacity 0.3s;
+}
+
+.logo-item img {
+  max-width: 180px;
+  max-height: 100px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: grayscale(0.2);
+  transition: filter 0.3s, transform 0.3s;
+}
+
+.logo-item.active,
+.logo-item:hover,
+.logo-item:focus {
+  box-shadow: 0 4px 24px rgba(255,143,28,0.18);
+  border: 2px solid #ff8f1c;
+  transform: scale(1.08);
+  opacity: 1;
+  z-index: 2;
+}
+
+.logo-item.active img,
+.logo-item:hover img,
+.logo-item:focus img {
+  filter: none;
+  transform: scale(1.08);
+}
+
+@media screen and (max-width: 768px) {
+  .logos-grid {
+    gap: 18px;
+    padding-bottom: 32px;
+  }
+  .logo-item {
+    min-width: 150px;
+    min-height: 100px;
+    padding: 8px 6px;
+  }
+  .logo-item img {
+    max-width: 120px;
+    max-height: 80px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logos-grid {
+    gap: 10px;
+    padding-bottom: 18px;
+  }
+  .logo-item {
+    min-width: 120px;
+    min-height: 80px;
+    padding: 6px 4px;
+  }
+  .logo-item img {
+    max-width: 100px;
+    max-height: 60px;
+  }
+}

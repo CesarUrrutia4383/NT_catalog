@@ -1,0 +1,11 @@
+html {
+  scroll-behavior: smooth;
+}
+/* ========================================================================== */
+:root {
+    --naranja-primario: #FF8F1C;
+    --naranja-primario-hover: #f17a00;
+    --naranja-secundario: #b85d00;
+    --azul-boton: #364963;
+
+}

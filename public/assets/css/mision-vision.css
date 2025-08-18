@@ -1,0 +1,60 @@
+.mision-vision .titulo1 {
+    color: #FFFFFF;
+}
+
+.mision-vision {
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
+    border-radius: 20px;
+    color: #ffffff;
+    margin-bottom: 60px; /* Separación del footer */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.grid-mv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.bloque {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: left;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    color: #333;
+    transition: box-shadow 0.3s ease;
+}
+
+.bloque:hover {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.bloque-contenido {
+    transition: transform 0.3s ease;
+}
+
+.bloque:hover .bloque-contenido {
+    transform: scale(1.05);
+}
+
+.bloque h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--naranja-primario);
+    text-align: center;
+}
+
+.bloque p {
+    margin: 5px 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+@media screen and (max-width: 768px) {
+  .grid-mv {
+    grid-template-columns: 1fr;
+  }
+}

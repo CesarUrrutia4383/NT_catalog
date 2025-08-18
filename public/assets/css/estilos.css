@@ -1,0 +1,86 @@
+html {
+  scroll-behavior: smooth;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Nunito Sans", sans-serif;
+    background-color: hsla(31.304347826086914, 56%, 91%, 1);
+    background-image: radial-gradient(circle at 3% 101%, hsla(31.304347826086914, 56%, 91%, 1) 13.797574811818231%, transparent 65%), radial-gradient(circle at 98% 98%, hsla(31.304347826086914, 56%, 91%, 1) 15%, transparent 63.310997437284335%), radial-gradient(circle at 46% 98%, hsla(31.304347826086914, 56%, 91%, 1) 20.593893049449022%, transparent 49.606606188780056%), radial-gradient(circle at 3% 6%, hsla(31.304347826086914, 56%, 91%, 1) 15%, transparent 65%), radial-gradient(circle at 97% 7%, hsla(31.304347826086914, 56%, 91%, 1) 15%, transparent 65%);
+    background-blend-mode: normal, normal, normal, normal, normal;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.boton {
+    display: inline-flex;
+    padding: 10px 15px;
+    background: #000000;
+    transition: 0.2s ease all;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    gap: 10px;
+
+    .icono {
+        width: 18px;
+        height: 18px;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+    }
+
+    &:hover {
+        text-decoration: none;
+        background-color: var(--naranja-secundario);
+    }
+}
+
+.contenedor {
+    width: 95%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.titulo1 {
+    font-size: 60px;
+    font-weight: 600;
+    color: var(--naranja-primario);
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 3px; /* Añadido para separar las letras */
+}
+
+#modal-privacidad .modal-contenido {
+    max-width: 900px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+#modal-privacidad .legal-content {
+    max-height: 60vh;
+    overflow-y: auto;
+    font-size: 1rem;
+    color: #333;
+    padding-right: 15px;
+}

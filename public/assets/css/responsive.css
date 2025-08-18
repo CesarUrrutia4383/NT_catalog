@@ -1,0 +1,417 @@
+/* Archivo CSS generado con todas las correcciones de estilos para dispositivos mviles */
+
+/* Reglas generales para el cuerpo y el html */
+body, html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Estilos para la seccion de marcas */
+.marcas {
+  padding: 40px 0;
+  background-color: transparent;
+  margin-bottom: 120px;
+}
+
+.logos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 0 16px 0;
+  background: transparent;
+  border-radius: 18px;
+  box-shadow: none;
+}
+
+/* Estilos para la seccion de mision y vision */
+.mision-vision .titulo1 {
+  color: #FFFFFF;
+}
+
+.mision-vision {
+  padding: 80px 20px;
+  text-align: center;
+  background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
+  border-radius: 20px;
+  color: #ffffff;
+  margin-bottom: 60px; /* Separación del footer */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.grid-mv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+.bloque {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: left;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  color: #333;
+  transition: box-shadow 0.3s ease;
+}
+
+.bloque:hover {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.bloque-contenido {
+  transition: transform 0.3s ease;
+}
+
+.bloque:hover .bloque-contenido {
+  transform: scale(1.05);
+}
+
+.bloque h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: var(--naranja-primario);
+  text-align: center;
+}
+
+.bloque p {
+  margin: 5px 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Estilos para el header */
+.contenedor-header {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+header {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+header .logo {
+  display: inline-block;
+  background-color: #000000;
+  padding: 10px;
+  width: auto;
+  height: 110px;
+  border-radius: 10px 0px 0px 0px;
+  position: relative;
+}
+
+header .logo img {
+  height: 100%;
+}
+
+header .logo::before {
+  content: "";
+  display: block;
+  width: 100%;
+  background-color: #000000;
+  height: 20px;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+}
+
+header .logo::after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-top: 110px solid transparent;
+  border-right: 110px solid transparent;
+  border-bottom: 110px solid #000000;
+  right: -110px;
+  top: -110px;
+}
+
+header .navbar {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+header .navbar a {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 800;
+  border-radius: 5px;
+}
+
+header .navbar a.boton {
+  font-weight: 500;
+}
+
+/* Estilos para el slider */
+.col-2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.slideshow {
+  width: 100%;
+  max-width: 1000px;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+
+/* Estilos para la seccion de caracteristicas */
+.caracteristicas {
+  margin-top: 200px;
+  margin-bottom: 100px;
+}
+
+.caracteristicas .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.caracteristicas .grid .previews {
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.caracteristicas .grid .previews .thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  vertical-align: top;
+  transition: 0.5s ease all;
+}
+
+.caracteristicas .grid .previews .thumb.active {
+  opacity: 1;
+}
+
+.caracteristicas .grid .tabs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.caracteristicas .grid .tabs .tab {
+  background: #fff;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.caracteristicas .grid .tabs .tab.active {
+  background: var(--naranja-primario-hover);
+  color: #fff;
+}
+
+.caracteristicas .grid .tabs .tab.active .icono {
+  color: #ffffff;
+}
+
+.caracteristicas .grid .tabs .tab .icono {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  color: var(--naranja-secundario);
+}
+
+.caracteristicas .grid .tabs .tab .icono svg {
+  width: 30px;
+  height: 30px;
+}
+
+.caracteristicas .grid .tabs .tab .info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Estilos para el footer */
+.footer {
+  background: #FF8F1C;
+  background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
+  color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer .logo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer .logo img {
+  width: 20vw;
+  max-width: 100px;
+}
+
+.footer .logo p {
+  margin-bottom: 0;
+  color: #000000;
+}
+
+.footer .links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer .links a {
+  color: #000000;
+}
+
+.footer .social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.footer .social-icons a {
+  color: #000;
+  transition: transform 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  transform: scale(1.1);
+}
+
+/* Media queries para hacer la pagina responsive */
+@media screen and (max-width: 768px) {
+  .grid-mv {
+    grid-template-columns: 1fr;
+  }
+
+  .contenedor-header {
+    width: 100%;
+    max-width: none;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  header .logo {
+    border-radius: 5px;
+  }
+
+  header .logo::before {
+    display: none;
+  }
+
+  header .logo::after {
+    display: none;
+  }
+
+  header .navbar {
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+  .col-2 {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .slideshow {
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .slide img {
+    border-radius: 0;
+    object-fit: contain; /* para que la imagen no se recorte y se vea completa */
+  }
+
+  .caracteristicas {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .caracteristicas .grid .tabs .tab .icono {
+    display: none;
+  }
+
+  .footer {
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .footer .logo {
+    align-items: center;
+    order: 2;
+  }
+
+  .footer .links {
+    justify-content: center;
+    order: 1;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .caracteristicas .grid {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .caracteristicas .grid .tabs {
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+}
