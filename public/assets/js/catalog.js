@@ -57,12 +57,10 @@ let marcasYPropositos = {};
 
 function llenarFiltros(productos) {
   const marcas = new Set();
-  const propositos = new Set();
   marcasYPropositos = {};
 
   productos.forEach(p => {
     marcas.add(p.marca);
-    propositos.add(p.proposito);
     if (!marcasYPropositos[p.marca]) {
       marcasYPropositos[p.marca] = new Set();
     }
@@ -77,22 +75,25 @@ function llenarFiltros(productos) {
     filtroMarca.appendChild(option);
   });
 
-  actualizarFiltroProposito();
+  actualizarFiltroProposito(productos);
 }
 
-function actualizarFiltroProposito() {
+function actualizarFiltroProposito(productos) {
   const marcaSeleccionada = filtroMarca.value;
   const propositoSeleccionado = filtroProposito.value;
-  
+
   filtroProposito.innerHTML = '<option value="">Todos los propósitos</option>';
-  
+
   let propositosDisponibles = new Set();
-  if (marcaSeleccionada && marcasYPropositos[marcaSeleccionada]) {
-    propositosDisponibles = marcasYPropositos[marcaSeleccionada];
+  if (marcaSeleccionada) {
+    productos.forEach(p => {
+      if (p.marca === marcaSeleccionada) {
+        propositosDisponibles.add(p.proposito);
+      }
+    });
   } else {
-    // Si no hay marca seleccionada, mostrar todos los propósitos
-    Object.values(marcasYPropositos).forEach(set => {
-      set.forEach(p => propositosDisponibles.add(p));
+    productos.forEach(p => {
+      propositosDisponibles.add(p.proposito);
     });
   }
 
@@ -103,15 +104,13 @@ function actualizarFiltroProposito() {
     filtroProposito.appendChild(option);
   });
 
-  // Restaurar selección si es posible
   if ([...propositosDisponibles].some(p => p === propositoSeleccionado)) {
     filtroProposito.value = propositoSeleccionado;
   }
 }
 
-
 function mostrarProductos(productos) {
-  grid.innerHTML = ''; // Limpiar la cuadrícula
+  grid.innerHTML = '';
   productos.forEach(p => {
     const card = document.createElement('div');
     card.className = 'producto';
@@ -222,7 +221,6 @@ function mostrarCarrito() {
     tabla += '</tbody></table></div>';
     carritoListado.innerHTML = tabla;
     
-    // Event listeners for cart actions
     carritoListado.querySelectorAll('.restar-cantidad').forEach(btn => {
       btn.onclick = () => {
         const idx = btn.dataset.idx;
@@ -329,8 +327,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (savedMarca) {
     filtroMarca.value = savedMarca;
-    actualizarFiltroProposito(); // Actualizar propósitos según la marca guardada
   }
+  actualizarFiltroProposito(productos);
   if (savedProposito) {
     filtroProposito.value = savedProposito;
   }
@@ -341,7 +339,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   grid.style.display = '';
 
   filtroMarca.addEventListener('change', () => {
-    actualizarFiltroProposito();
+    actualizarFiltroProposito(productos);
     filtrarYGuardar(productos);
   });
   filtroProposito.addEventListener('change', () => filtrarYGuardar(productos));
@@ -375,7 +373,6 @@ function mostrarNotificacionProducto(producto, cantidad) {
   setTimeout(() => notificacion.classList.remove('mostrar'), 3000);
 }
 
-// Resto de la lógica de cotización...
 const telefonoInput = document.getElementById('telefono-cliente');
 const codigoPais = document.getElementById('codigo-pais');
 const longitudesTelefono = { '52': 10, '1': 10, '54': 10, '57': 10, '34': 9, '55': 11, '56': 9, '591': 8, '507': 8, '593': 9 };
@@ -430,10 +427,8 @@ function validarCamposCotizacion() {
 });
 
 btnCotizarPDF.addEventListener('click', async (e) => {
-  // ... (lógica de cotización existente)
 });
 
-// Actualización automática del catálogo
 setInterval(async () => {
   const productos = await obtenerProductos();
   llenarFiltros(productos);
