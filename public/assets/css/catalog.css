@@ -481,22 +481,13 @@
   max-width: 1000px;
   width: 96vw;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  border: 3px solid #ff8f1c;
   position: relative;
   text-align: center;
   margin: 0 auto;
-}
-
-#modal-producto .modal-contenido::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  background: linear-gradient(45deg, #ff8f1c, #ff6b1c);
-  border-radius: 20px;
-  z-index: -1;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  border-image: linear-gradient(45deg, #ff8f1c, #ff6b1c) 1;
 }
 
 /* Nuevo layout horizontal para el modal de producto */
@@ -516,7 +507,6 @@
   width: 350px;
   height: 350px;
   background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
-  border: 3px solid #ff8f1c;
   box-shadow: 0 8px 25px rgba(255, 143, 28, 0.15);
   border-radius: 15px;
   padding: 10px;
@@ -526,19 +516,6 @@
   align-items: center;
   justify-content: center;
   margin-top: 2rem;
-}
-
-.modal-producto-imagen::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  background: linear-gradient(45deg, #ff8f1c, #ff6b1c);
-  border-radius: 17px;
-  z-index: -1;
-  transition: opacity 0.3s ease;
 }
 
 .modal-producto-imagen img {
@@ -791,22 +768,13 @@
   max-width: 900px;
   width: 96vw;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  border: 3px solid #ff8f1c;
   position: relative;
   text-align: center;
   margin: 0 auto;
-}
-
-#modal-carrito .modal-contenido::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  background: linear-gradient(45deg, #ff8f1c, #ff6b1c);
-  border-radius: 20px;
-  z-index: -1;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  border-image: linear-gradient(45deg, #ff8f1c, #ff6b1c) 1;
 }
 #carrito-listado, .carrito-table-responsive {
   flex: 1 1 auto;
