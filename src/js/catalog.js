@@ -712,12 +712,19 @@ setInterval(() => {
 
 // Función para actualizar el catálogo automáticamente
 async function actualizarCatalogo() {
+  const marcaActual = filtroMarca.value;
+  const propositoActual = filtroProposito.value;
+
   const productos = await obtenerProductos();
   // Limpiar filtros antes de volver a llenarlos
   filtroMarca.innerHTML = '<option value="">Todas</option>';
   filtroProposito.innerHTML = '<option value="">Todos</option>';
   llenarFiltros(productos);
-  mostrarProductos(productos);
+
+  filtroMarca.value = marcaActual;
+  filtroProposito.value = propositoActual;
+
+  filtrar(productos, false);
 }
 
 // Mostrar/ocultar campo de descripción de servicio según selección
