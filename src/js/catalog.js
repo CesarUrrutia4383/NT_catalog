@@ -610,9 +610,24 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   }
 });
 
-function filtrar(productos) {
+function filtrar(productos, actualizarURL = true) {
   const marca = filtroMarca.value;
   const proposito = filtroProposito.value;
+
+  if (actualizarURL) {
+    const params = new URLSearchParams(window.location.search);
+    if (marca) {
+      params.set('marca', marca);
+    } else {
+      params.delete('marca');
+    }
+    if (proposito) {
+      params.set('proposito', proposito);
+    } else {
+      params.delete('proposito');
+    }
+    history.pushState({}, '', `${window.location.pathname}?${params.toString()}`);
+  }
 
   const filtrados = productos.filter(p =>
     (marca === '' || p.marca === marca) &&
@@ -620,6 +635,19 @@ function filtrar(productos) {
   );
 
   mostrarProductos(filtrados);
+}
+
+function aplicarFiltrosDesdeURL() {
+  const params = new URLSearchParams(window.location.search);
+  const marca = params.get('marca');
+  const proposito = params.get('proposito');
+
+  if (marca) {
+    filtroMarca.value = marca;
+  }
+  if (proposito) {
+    filtroProposito.value = proposito;
+  }
 }
 
 // Animación fade-in para la página
@@ -648,7 +676,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   grid.style.display = 'none';
   const productos = await obtenerProductos();
   llenarFiltros(productos);
-  mostrarProductos(productos);
+  aplicarFiltrosDesdeURL();
+  filtrar(productos, false);
   loader.style.display = 'none';
   grid.style.display = '';
 
