@@ -1,4 +1,7 @@
-/* Archivo CSS generado con todas las correcciones de estilos para dispositivos mviles */
+/**
+ * @fileoverview Estilos responsivos para dispositivos móviles.
+ * Incluye media queries y ajustes para diferentes tamaños de pantalla.
+ */
 
 /* Reglas generales para el cuerpo y el html */
 body, html {
@@ -10,7 +13,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Estilos para la seccion de marcas */
+/* Estilos para la sección de marcas */
 .marcas {
   padding: 40px 0;
   background-color: transparent;
@@ -31,7 +34,7 @@ html {
   box-shadow: none;
 }
 
-/* Estilos para la seccion de mision y vision */
+/* Estilos para la sección de misión y visión */
 .mision-vision .titulo1 {
   color: #FFFFFF;
 }
@@ -196,7 +199,7 @@ header .navbar a.boton {
   border-radius: 10px;
 }
 
-/* Estilos para la seccion de caracteristicas */
+/* Estilos para la sección de características */
 .caracteristicas {
   margin-top: 200px;
   margin-bottom: 100px;

@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Estilos para la página de catálogo de productos.
+ * Incluye grid de productos, modales, carrito, filtros y animaciones.
+ */
+
+/* Logo de la página en el catálogo */
 .logo-page {
   position: absolute;       /* o fixed, según conveniencia */
   top: 40px;                /* ajusta según donde quieres que aparezca */
@@ -9,6 +15,7 @@
   pointer-events: none;     /* para que no interfiera con clicks */
 }
 
+/* Contenedor principal del catálogo */
 .catalogo {
   position: relative;       /* necesario para controlar z-index */
   z-index: 10;              /* más alto para que esté encima */
@@ -64,6 +71,7 @@
   box-shadow: 0 0 5px rgba(230, 117, 0, 0.4);
 }
 
+/* Grid de productos */
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -71,6 +79,7 @@
   padding-top: 20px;
 }
 
+/* Tarjeta de producto individual */
 .producto {
   background: #ffffff;
   border-radius: 20px;

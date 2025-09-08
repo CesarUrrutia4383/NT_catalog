@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Contiene la lógica para la página de catálogo de productos.
+ * Maneja la obtención, filtrado y visualización de productos, así como el carrito de compras y generación de cotizaciones.
+ * @author Neumatics Tool
+ */
+
 const API_URL = import.meta.env.VITE_API_URL;
 const grid = document.getElementById('productos-grid');
 const filtroMarca = document.getElementById('marca');
@@ -10,25 +16,29 @@ const cerrarModalCarrito = document.getElementById('cerrar-modal-carrito');
 const carritoListado = document.getElementById('carrito-listado');
 const btnCotizarPDF = document.getElementById('cotizar-pdf');
 const carritoCantidad = document.getElementById('carrito-cantidad');
-// Eliminar importación de jsPDF y logoBase64
-// import jsPDF from 'jspdf';
-// const logoBase64 = undefined;
 
-// Inicializar AOS
+// Inicializa AOS para animaciones
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init({ duration: 600, once: false });
 
-// Función para validar URLs de Cloudinary
+/**
+ * Valida si una URL es válida y pertenece a Cloudinary.
+ * @param {string} url - La URL a validar.
+ * @returns {boolean} - True si es una URL válida de Cloudinary, false en caso contrario.
+ */
 function isValidCloudinaryUrl(url) {
   if (!url) return false;
   
-  // Verificar si es una URL válida de Cloudinary
   const cloudinaryPattern = /^https:\/\/res\.cloudinary\.com\/[^\/]+\/image\/upload\/.*$/;
   return cloudinaryPattern.test(url);
 }
 
-// Función para obtener imagen con fallback
+/**
+ * Obtiene la URL de la imagen para un producto, con fallback a una imagen por defecto.
+ * @param {object} producto - El objeto producto.
+ * @returns {string} - La URL de la imagen.
+ */
 function getImageUrl(producto) {
   if (producto.imagen_url && isValidCloudinaryUrl(producto.imagen_url)) {
     console.log('Usando URL de Cloudinary:', producto.imagen_url);
@@ -39,19 +49,31 @@ function getImageUrl(producto) {
   }
 }
 
-// Refrescar AOS tras mostrar/ocultar modales
+/**
+ * Abre un modal con animación de fade-in.
+ * @param {HTMLElement} modal - El elemento modal a abrir.
+ */
 function openModal(modal) {
   modal.style.display = 'flex';
   modal.classList.remove('fade-out');
   modal.classList.add('fade-in');
   if (window.AOS) setTimeout(() => AOS.refreshHard(), 10);
 }
+
+/**
+ * Cierra un modal con animación de fade-out.
+ * @param {HTMLElement} modal - El elemento modal a cerrar.
+ */
 function closeModal(modal) {
   modal.classList.remove('fade-in');
   modal.classList.add('fade-out');
   setTimeout(() => { modal.style.display = 'none'; if (window.AOS) AOS.refreshHard(); }, 350);
 }
 
+/**
+ * Obtiene los productos desde la API.
+ * @returns {Promise<Array>} - Promesa que resuelve en un array de productos.
+ */
 async function obtenerProductos() {
   try {
     const res = await fetch(import.meta.env.VITE_API_URL);
@@ -63,6 +85,10 @@ async function obtenerProductos() {
   }
 }
 
+/**
+ * Llena los filtros de marca y propósito con los valores disponibles.
+ * @param {Array} productos - Array de productos.
+ */
 function llenarFiltros(productos) {
   const marcas = new Set();
   const propositos = new Set();
@@ -87,6 +113,10 @@ function llenarFiltros(productos) {
   });
 }
 
+/**
+ * Muestra los productos en el grid.
+ * @param {Array} productos - Array de productos.
+ */
 function mostrarProductos(productos) {
   const existingProductCards = Array.from(grid.children);
   const newProductIds = new Set(productos.map(p => p.id)); // Asume que cada producto tiene un 'id' único
@@ -136,7 +166,7 @@ function mostrarProductos(productos) {
   });
 }
 
-// Modal y carrito
+// Variables para modal y carrito
 const modal = document.getElementById('modal-producto');
 const modalInfo = document.getElementById('modal-info');
 const cerrarModal = document.getElementById('cerrar-modal');
@@ -146,10 +176,13 @@ const btnAgregarCarrito = document.getElementById('agregar-carrito');
 let productoActual = null;
 let carrito = [];
 
+/**
+ * Muestra el modal con la información del producto.
+ * @param {object} producto - El objeto producto.
+ */
 function mostrarModalProducto(producto) {
   productoActual = producto;
   
-  // Debug log para el modal
   console.log('Producto en modal:', {
     nombre: producto.nombre_producto || producto.nombre,
     imagen_url: producto.imagen_url,
@@ -186,7 +219,7 @@ function mostrarModalProducto(producto) {
       </div>
     </div>
   `;
-  // Generar controles de cantidad y botón
+  
   const acciones = modalInfo.parentElement.querySelector('.modal-acciones');
   acciones.innerHTML = `
     <div class="cantidad-control" id="cantidad-control">
@@ -196,7 +229,7 @@ function mostrarModalProducto(producto) {
     </div>
     <button id="agregar-carrito">Agregar al carrito</button>
   `;
-  // Asignar eventos a los controles
+  
   document.getElementById('btn-restar').onclick = () => {
     const input = document.getElementById('modal-cantidad');
     let val = parseInt(input.value, 10) || 1;
@@ -214,7 +247,7 @@ function mostrarModalProducto(producto) {
       showToast('No hay suficientes unidades disponibles.');
       return;
     }
-    // Buscar si ya está en el carrito
+    
     const idx = carrito.findIndex(item => item.id === productoActual.id);
     if (idx > -1) {
       carrito[idx].cantidad += cantidad;
@@ -250,7 +283,7 @@ btnAgregarCarrito.addEventListener('click', () => {
     showToast('No hay suficientes unidades disponibles.');
     return;
   }
-  // Buscar si ya está en el carrito
+  
   const idx = carrito.findIndex(item => item.id === productoActual.id);
   if (idx > -1) {
     carrito[idx].cantidad += cantidad;
@@ -269,11 +302,17 @@ btnAgregarCarrito.addEventListener('click', () => {
   mostrarNotificacionProducto(productoActual, cantidad);
 });
 
+/**
+ * Actualiza el indicador de cantidad en el carrito.
+ */
 function actualizarCarritoCantidad() {
   const total = carrito.reduce((sum, item) => sum + item.cantidad, 0);
   carritoCantidad.textContent = total;
 }
 
+/**
+ * Muestra el modal del carrito de compras.
+ */
 function mostrarCarrito() {
   if (carrito.length === 0) {
     carritoListado.innerHTML = '<p>El carrito está vacío.</p>';
@@ -298,7 +337,7 @@ function mostrarCarrito() {
     `).join('');
     tabla += '</tbody></table></div>';
     carritoListado.innerHTML = tabla;
-    // Eventos para editar cantidad y eliminar igual que antes...
+    
     document.querySelectorAll('.restar-cantidad').forEach(btn => {
       btn.addEventListener('click', () => {
         const idx = parseInt(btn.getAttribute('data-idx'), 10);
@@ -350,6 +389,9 @@ function mostrarCarrito() {
   openModal(modalCarrito);
 }
 
+/**
+ * Actualiza el estado del botón de cotizar según el contenido del carrito.
+ */
 function actualizarBotonCotizar() {
   const btn = document.getElementById('cotizar-pdf');
   if (!carrito || carrito.length === 0) {
@@ -363,7 +405,6 @@ function actualizarBotonCotizar() {
   }
 }
 
-// Al abrir el modal del carrito, si el input de teléfono está vacío, poner el combo en México y el input vacío
 btnVerCarrito.addEventListener('click', () => {
   mostrarCarrito();
   const codigoPais = document.getElementById('codigo-pais');
@@ -380,15 +421,20 @@ window.addEventListener('click', (e) => {
   if (e.target === modalCarrito) modalCarrito.style.display = 'none';
 });
 
-// Actualizar contador cada vez que se agrega al carrito
 btnAgregarCarrito.addEventListener('click', () => {
   actualizarCarritoCantidad();
 });
 
-// Inicializar contador al cargar
+/**
+ * Guarda el carrito de compras en localStorage.
+ */
 function guardarCarrito() {
   localStorage.setItem('carrito', JSON.stringify(carrito));
 }
+
+/**
+ * Carga el carrito de compras desde localStorage.
+ */
 function cargarCarrito() {
   const data = localStorage.getItem('carrito');
   if (data) {
@@ -399,7 +445,7 @@ function cargarCarrito() {
     }
   }
 }
-// Cargar carrito al iniciar
+
 cargarCarrito();
 actualizarCarritoCantidad();
 actualizarBotonCotizar();
@@ -407,7 +453,6 @@ actualizarBotonCotizar();
 const telefonoInput = document.getElementById('telefono-cliente');
 const codigoPais = document.getElementById('codigo-pais');
 
-// Objeto con las longitudes de teléfono por país
 const longitudesTelefono = {
   '52': 10, // México
   '1': 10,  // USA/Canadá
@@ -421,27 +466,29 @@ const longitudesTelefono = {
   '593': 9  // Ecuador
 };
 
-// Función para actualizar el maxlength del teléfono
+/**
+ * Actualiza el atributo maxlength del input de teléfono según el país seleccionado.
+ */
 function actualizarMaxlength() {
   const codigo = codigoPais.value;
   telefonoInput.maxLength = longitudesTelefono[codigo] || 15; // 15 como fallback
 }
 
-// Listener para limpiar el input de teléfono (solo números)
 telefonoInput.addEventListener('input', () => {
   telefonoInput.value = telefonoInput.value.replace(/\D/g, '');
 });
 
-// Listener para cambiar el maxlength al cambiar de país
 codigoPais.addEventListener('change', () => {
-  telefonoInput.value = ''; // Limpiar el campo al cambiar de país
+  telefonoInput.value = ''; 
   actualizarMaxlength();
   validarCamposCotizacion();
 });
 
-// Inicializar maxlength al cargar la página
 actualizarMaxlength();
 
+/**
+ * Valida los campos del formulario de cotización y habilita/deshabilita el botón de cotizar.
+ */
 function validarCamposCotizacion() {
   const nombreInput = document.getElementById('nombre-cliente');
   const btn = document.getElementById('cotizar-pdf');
@@ -464,7 +511,6 @@ function validarCamposCotizacion() {
   }
 }
 
-// Validar en tiempo real
 ['input', 'change'].forEach(evt => {
   document.getElementById('nombre-cliente').addEventListener(evt, validarCamposCotizacion);
   document.getElementById('telefono-cliente').addEventListener(evt, validarCamposCotizacion);
@@ -472,7 +518,6 @@ function validarCamposCotizacion() {
   if (codigoPais) codigoPais.addEventListener(evt, validarCamposCotizacion);
 });
 
-// Preparar evento para cotizar PDF (implementación siguiente paso)
 btnCotizarPDF.addEventListener('click', async (e) => {
   const nombreInput = document.getElementById('nombre-cliente');
   const telefonoInput = document.getElementById('telefono-cliente');
@@ -494,7 +539,6 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     return;
   }
   
-  // Validar descripción si es orden de servicio
   let descripcion = '';
   if (servicio === 'servicio') {
     descripcion = descripcionServicio ? descripcionServicio.value.trim() : '';
@@ -512,7 +556,6 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   const nombreCliente = nombreInput.value.trim();
   const telefonoCliente = `+${codigo} ${telefono}`;
   
-  // Definir el destino del correo según el servicio
   let destinoCorreo = [];
   if (servicio === 'venta') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
   else if (servicio === 'renta') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
@@ -533,7 +576,6 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   }
   if (error) return;
   
-  // Verificar disponibilidad de stock
   let disponibilidadOk = true;
   console.log('Verificando disponibilidad del carrito:', carrito);
   for (const item of carrito) {
@@ -551,7 +593,6 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     return;
   }
   
-  // Mostrar PDF generado por el backend en un modal
   try {
     const API_PDF_DOWNLOAD = import.meta.env.VITE_API_PDF_DOWNLOAD;
     const carritoParaEnviar = carrito.map(item => ({
@@ -586,12 +627,12 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       iframePDF.src = '';
       URL.revokeObjectURL(url);
     };
-    // Después de mostrar el PDF, enviar la cotización por correo
+    
     enviarCotizacionBackend({ carrito: carritoParaEnviar, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo, descripcion })
       .then(() => {
         setTimeout(() => {
           showToast('Cotización generada y enviada. La empresa se pondrá en contacto contigo.', 5500);
-          // Reiniciar carrito
+          
           carrito = [];
           guardarCarrito();
           actualizarCarritoCantidad();
@@ -610,6 +651,11 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   }
 });
 
+/**
+ * Filtra los productos según la marca y propósito seleccionados.
+ * @param {Array} productos - Array de productos.
+ * @param {boolean} [actualizarURL=true] - Indica si se debe actualizar la URL con los parámetros de filtro.
+ */
 function filtrar(productos, actualizarURL = true) {
   const marca = filtroMarca.value;
   const proposito = filtroProposito.value;
@@ -637,6 +683,9 @@ function filtrar(productos, actualizarURL = true) {
   mostrarProductos(filtrados);
 }
 
+/**
+ * Aplica los filtros desde los parámetros de la URL.
+ */
 function aplicarFiltrosDesdeURL() {
   const params = new URLSearchParams(window.location.search);
   const marca = params.get('marca');
@@ -650,11 +699,15 @@ function aplicarFiltrosDesdeURL() {
   }
 }
 
-// Animación fade-in para la página
 window.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('fade-in');
 });
 
+/**
+ * Envía la cotización al backend.
+ * @param {object} data - Datos de la cotización.
+ * @returns {Promise<Response>} - Respuesta del fetch.
+ */
 function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo, descripcion}) {
   const carritoSimplificado = carrito.map(item => ({ id: item.id, nombre: item.nombre, marca: item.marca, proposito: item.proposito, cantidad: item.cantidad }));
   return fetch(import.meta.env.VITE_API_PDF, {
@@ -685,6 +738,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   filtroProposito.addEventListener('change', () => filtrar(productos));
 });
 
+/**
+ * Muestra una notificación tipo toast.
+ * @param {string} msg - Mensaje a mostrar.
+ * @param {number} [duration=5500] - Duración del toast en milisegundos.
+ */
 function showToast(msg, duration = 5500) {
   const container = document.getElementById('toast-container');
   const toast = document.createElement('div');
@@ -698,25 +756,22 @@ function showToast(msg, duration = 5500) {
   }, duration);
 }
 
-// Eliminar todas las referencias y funciones relacionadas con login, logout y administración.
-// Eliminar variables:
-// const btnLogin, btnLogout, modalLogin, cerrarModalLogin, formLogin, loginError, usuarioAutenticado, verificarRedLocal, mostrarAdmin, ocultarAdmin, cargarUsuariosAdmin, cargarProductosAdmin
-// Eliminar listeners y funciones asociadas.
-// Eliminar comentarios de administración.
-// Mantener solo la lógica de catálogo y cotización para el cliente.
-
-// Actualización automática del catálogo cada 30 segundos
+/**
+ * Actualiza el catálogo automáticamente cada 30 segundos.
+ */
 setInterval(() => {
   actualizarCatalogo();
 }, 30000); // 30,000 ms = 30 segundos
 
-// Función para actualizar el catálogo automáticamente
+/**
+ * Obtiene los productos y actualiza el catálogo.
+ */
 async function actualizarCatalogo() {
   const marcaActual = filtroMarca.value;
   const propositoActual = filtroProposito.value;
 
   const productos = await obtenerProductos();
-  // Limpiar filtros antes de volver a llenarlos
+  
   filtroMarca.innerHTML = '<option value="">Todas</option>';
   filtroProposito.innerHTML = '<option value="">Todos</option>';
   llenarFiltros(productos);
@@ -727,7 +782,6 @@ async function actualizarCatalogo() {
   filtrar(productos, false);
 }
 
-// Mostrar/ocultar campo de descripción de servicio según selección
 const servicioSelect = document.getElementById('servicio-solicitado');
 const grupoDescripcionServicio = document.getElementById('grupo-descripcion-servicio');
 const descripcionServicio = document.getElementById('descripcion-servicio');
@@ -742,15 +796,17 @@ if (servicioSelect) {
   });
 }
 
-// Limpiar campo de descripción al cerrar el modal del carrito
 cerrarModalCarrito.addEventListener('click', () => {
   modalCarrito.style.display = 'none';
   if (descripcionServicio) descripcionServicio.value = '';
 });
 
-// Función para mostrar notificación de producto agregado al carrito
+/**
+ * Muestra una notificación cuando un producto es agregado al carrito.
+ * @param {object} producto - El objeto producto.
+ * @param {number} cantidad - La cantidad agregada.
+ */
 function mostrarNotificacionProducto(producto, cantidad) {
-  // Crear la notificación si no existe
   let notificacion = document.querySelector('.notificacion-carrito');
   if (!notificacion) {
     notificacion = document.createElement('div');
@@ -758,18 +814,15 @@ function mostrarNotificacionProducto(producto, cantidad) {
     document.body.appendChild(notificacion);
   }
 
-  // Configurar el contenido de la notificación
   notificacion.innerHTML = `
     <div class="icono">✅</div>
     <div class="texto">¡${cantidad} ${cantidad === 1 ? 'unidad' : 'unidades'} de "${producto.nombre_producto || producto.nombre}" agregada${cantidad === 1 ? '' : 's'} al carrito!</div>
   `;
 
-  // Mostrar la notificación
   setTimeout(() => {
     notificacion.classList.add('mostrar');
   }, 100);
 
-  // Ocultar la notificación después de 3 segundos
   setTimeout(() => {
     notificacion.classList.remove('mostrar');
   }, 3000);

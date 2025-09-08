@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Maneja el carrusel de sucursales en la página de contacto.
+ * Controla la navegación automática y manual entre las slides.
+ */
+
 document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.carrusel-slide');
     const sucursales = document.querySelectorAll('.sucursal');
@@ -5,6 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let intervalId;
     let timeoutId;
 
+    /**
+     * Muestra el slide y la sucursal correspondiente al índice.
+     * @param {number} index - Índice del slide a mostrar.
+     */
     function showSlide(index) {
         slides.forEach((slide, i) => {
             slide.classList.toggle('active', i === index);
@@ -14,20 +23,32 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    /**
+     * Muestra el siguiente slide en el carrusel.
+     */
     function nextSlide() {
         currentSlide = (currentSlide + 1) % slides.length;
         showSlide(currentSlide);
     }
 
+    /**
+     * Inicia el carrusel automático.
+     */
     function startCarousel() {
         stopCarousel(); // Asegurarse de que no haya intervalos duplicados
         intervalId = setInterval(nextSlide, 5000); // Cambia de slide cada 5 segundos
     }
 
+    /**
+     * Detiene el carrusel automático.
+     */
     function stopCarousel() {
         clearInterval(intervalId);
     }
 
+    /**
+     * Reinicia el timeout del carrusel.
+     */
     function resetCarouselTimeout() {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {

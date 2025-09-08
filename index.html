@@ -1,41 +1,68 @@
+<!--
+Author: Neumatics Tool
+Date: 2024
+Description: Main page of the Neumatics Tool website, a company that sells and rents machinery for construction and mining.
+-->
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <!-- METADATOS -->
+    <!-- Verificación de Google -->
     <meta name="google-site-verification" content="vueEwZ7HGKV5hIB4GWrf14g_in4wqBFLLxFOKc59low" />
+    <!-- Codificación de caracteres -->
     <meta charset="UTF-8" />
+    <!-- Vista para dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Título de la página -->
     <title>Neumatics Tool | Venta y Renta de Maquinaria para Construcción y Minería</title>
+    <!-- Descripción de la página -->
     <meta name="description" content="En Neumatics Tool ofrecemos la mejor maquinaria para construcción y minería en México. Venta y renta de equipos de las mejores marcas. ¡Contáctanos!" />
+    <!-- Palabras clave -->
     <meta name="keywords" content="maquinaria para construccion, maquinaria para mineria, renta de maquinaria, venta de maquinaria, neumatics tool, atlas copco, epiroc, goodyear, makita, continental, husqvarna, wacker, fleetguard, gates, shindaiwa, pisotec" />
+    <!-- Robots de búsqueda -->
     <meta name="robots" content="index, follow" />
+    <!-- Open Graph para redes sociales -->
     <meta property="og:title" content="Neumatics Tool | Venta y Renta de Maquinaria para Construcción y Minería" />
     <meta property="og:description" content="En Neumatics Tool ofrecemos la mejor maquinaria para construcción y minería en México. Venta y renta de equipos de las mejores marcas. ¡Contáctanos!" />
     <meta property="og:image" content="https://www.neumaticstool.com/assets/img/logo1.png" />
     <meta property="og:url" content="https://www.neumaticstool.com" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Neumatics Tool" />
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Neumatics Tool | Venta y Renta de Maquinaria para Construcción y Minería" />
     <meta name="twitter:description" content="En Neumatics Tool ofrecemos la mejor maquinaria para construcción y minería en México. Venta y renta de equipos de las mejores marcas. ¡Contáctanos!" />
     <meta name="twitter:image" content="https://www.neumaticstool.com/assets/img/logo1.png" />
+    <!-- URL canónica -->
     <link rel="canonical" href="https://www.neumaticstool.com" />
+    <!-- Autor -->
     <meta name="author" content="Neumatics Tool">
+    <!-- Color del tema -->
     <meta name="theme-color" content="#ffffff">
+
+    <!-- FUENTES Y ESTILOS -->
+    <!-- Preconexión a Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fuente Nunito Sans -->
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
       rel="stylesheet"
     />
+    <!-- Estilos de AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- Favicon -->
     <link rel="icon" href="/assets/img/logo1.png" type="image/png" />
   </head>
   <body>
+    <!-- ENCABEZADO -->
     <div class="contenedor-header">
       <header data-aos="fade-down">
+        <!-- Logo -->
         <a class="logo">
           <img src="/assets/img/logo1.png" alt="Logo Neumatics Tool" />
         </a>
+        <!-- Navegación -->
         <nav class="navbar" data-aos="fade-left">
           <a href="contact.html">Contacto</a>
           <a href="#">Ayuda</a>
@@ -62,6 +89,7 @@
           </a>
         </nav>
       </header>
+      <!-- SECCIÓN HERO -->
       <div class="hero" data-aos="fade-up">
         <div class="col-1" data-aos="fade-right">
           <h1 class="titulo">POTENCIA PARA CONSTRUIR EL FUTURO</h1>
@@ -69,6 +97,7 @@
             MINERÍA | CONSTRUCCIÓN | AGRÍCOLA | TRANSPORTE
           </p>
           <div class="botones" data-aos="fade-left">
+            <!-- Botón para abrir el video -->
             <button class="boton transparente" id="btn-video">
               Conócenos
               <div class="icono">
@@ -86,6 +115,7 @@
                 </svg>
               </div>
             </button>
+            <!-- Estadísticas -->
             <div class="estadisticas" data-aos="zoom-in">
               <p>
                 <span class="iconolist">
@@ -108,6 +138,7 @@
             </div>
           </div>
         </div>
+        <!-- Slideshow de imágenes -->
         <div class="col-2" data-aos="fade-left" data-aos-delay="300">
           <div class="slideshow" id="slideshow">
             <div class="slides" id="slides">
@@ -127,6 +158,7 @@
                 <img src="./assets/img/slide5.jpeg" alt="Equipos para construcción" loading="lazy" />
               </div>
             </div>
+            <!-- Indicadores del slideshow -->
             <div class="indicadores" id="indicadores">
               <button class="indicador active"></button>
               <button class="indicador"></button>
@@ -136,26 +168,30 @@
             </div>
           </div>
         </div>
+        <!-- Overlay para el video -->
         <div class="overlay-video" id="overlay-video">
-      <button id="close-video" class="close-video-btn">&times;</button>
-      <div class="video" data-aos="zoom-in">  
+          <button id="close-video" class="close-video-btn">&times;</button>
+          <div class="video" data-aos="zoom-in">  
             <iframe
-            src="https://www.youtube.com/embed/bL_aQxQxkkY?si=7Zt92TsB5ZkEhdwr"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+              src="https://www.youtube.com/embed/bL_aQxQxkkY?si=7Zt92TsB5ZkEhdwr"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
             ></iframe>
           </div>
         </div>
       </div>
     </div>
+    <!-- CONTENIDO PRINCIPAL -->
     <div class="contenedor">
       <main>
+        <!-- SECCIÓN CARACTERÍSTICAS -->
         <section class="caracteristicas" data-aos="fade-up">
           <h2 class="titulo1">Nosotros</h2>
           <div class="grid">
+            <!-- Previews de las características -->
             <div class="previews" id="previews" data-aos="zoom-out" data-aos-delay="200">
               <img
                 class="thumb active"
@@ -186,6 +222,7 @@
                 data-id="4"
               />
             </div>
+            <!-- Pestañas con la información de las características -->
             <div class="tabs" id="tabs" data-aos="zoom-in">
               <div class="tab active" data-id="1">
                 <div class="icono">
@@ -307,28 +344,29 @@
             </div>
           </div>
         </section>
+        <!-- SECCIÓN MISIÓN Y VISIÓN -->
         <section class="mision-vision" data-aos="fade-up">
           <h2 class="titulo1">Misión y Visión</h2>
           <div class="grid-mv">
-      <div class="bloque" data-aos="fade-right" data-aos-delay="100">
-        <div class="bloque-contenido">
-          <h3>Misión</h3>
-            <p>
-              Ser un proveedor confiable de equipos e insumos del sector minero y de la construcción, brindando un servicio integral, así como un asesoramiento personalizado y profesional; comprometidos con una productividad sustentable, ofreciendo calidad y excelencia en nuestros productos y servicios.
-            </p>
-        </div>
-      </div>
-      <div class="bloque" data-aos="fade-left" data-aos-delay="100">
-        <div class="bloque-contenido">
-          <h3>Visión</h3>
-            <p>
-              Consolidarnos como el principal proveedor del sector minero y constructor a nivel nacional, proveyendo productos y servicios con los más altos estándares de calidad en el ramo, siendo nuestros clientes atendidos por personal altamente capacitado, regidos siempre baja una conciencia social y ambiental responsable.
-            </p>
-        </div>
-      </div>
-    </div>
-    </section>
-
+            <div class="bloque" data-aos="fade-right" data-aos-delay="100">
+              <div class="bloque-contenido">
+                <h3>Misión</h3>
+                <p>
+                  Ser un proveedor confiable de equipos e insumos del sector minero y de la construcción, brindando un servicio integral, así como un asesoramiento personalizado y profesional; comprometidos con una productividad sustentable, ofreciendo calidad y excelencia en nuestros productos y servicios.
+                </p>
+              </div>
+            </div>
+            <div class="bloque" data-aos="fade-left" data-aos-delay="100">
+              <div class="bloque-contenido">
+                <h3>Visión</h3>
+                <p>
+                  Consolidarnos como el principal proveedor del sector minero y constructor a nivel nacional, proveyendo productos y servicios con los más altos estándares de calidad en el ramo, siendo nuestros clientes atendidos por personal altamente capacitado, regidos siempre baja una conciencia social y ambiental responsable.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- SECCIÓN MARCAS -->
         <section class="marcas" data-aos="fade-up">
           <h2 class="titulo1" data-aos="zoom-in">Conoce nuestras marcas</h2>
           <div class="logos-grid">
@@ -346,6 +384,7 @@
           </div>
         </section>
       </main>
+      <!-- PIE DE PÁGINA -->
       <footer class="footer">
         <div class="logo">
           <a href="#top">
@@ -357,6 +396,7 @@
           <a href="#" id="link-terminos">Términos y Condiciones</a>
           <a href="#" id="link-privacidad">Política de Privacidad</a>
           <a href="#">Ayuda</a>
+          <!-- Iconos de redes sociales -->
           <div class="social-icons">
             <a href="https://www.facebook.com/profile.php?id=61578918880067" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -377,6 +417,7 @@
         </nav>
       </footer>
     </div>
+    <!-- MODALES -->
     <!-- Modal Términos y Condiciones -->
     <div id="modal-terminos" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7);">
       <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem; position:relative;">
@@ -445,37 +486,73 @@
         </div>
       </div>
     </div>
-    <!-- Añadimos los scripts de AOS (Animate On Scroll) -->
+    <!-- SCRIPTS -->
+    <!-- Script de AOS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
+      /**
+       * @description Inicializa la librería AOS (Animate On Scroll) con una duración de 500ms y se ejecuta cada vez que se hace scroll.
+       * @see https://github.com/michalsnik/aos
+       */
       AOS.init({
         duration: 500,
         once: false
       });
     </script>
+    <!-- Script principal de la aplicación -->
     <script type="module" src="/src/main.js"></script>
     <script>
-      // Script para abrir/cerrar los modales legales
+      /**
+       * @fileoverview Script para abrir y cerrar los modales de términos y condiciones y política de privacidad.
+       * @author Neumatics Tool
+       */
+
+      /**
+       * @description Abre el modal de términos y condiciones al hacer clic en el enlace correspondiente.
+       * @param {Event} e - Evento de clic.
+       */
       document.getElementById('link-terminos').onclick = function(e) {
         e.preventDefault();
         document.getElementById('modal-terminos').style.display = 'flex';
       };
+
+      /**
+       * @description Abre el modal de política de privacidad al hacer clic en el enlace correspondiente.
+       * @param {Event} e - Evento de clic.
+       */
       document.getElementById('link-privacidad').onclick = function(e) {
         e.preventDefault();
         document.getElementById('modal-privacidad').style.display = 'flex';
       };
+
+      /**
+      * @description Cierra el modal de términos y condiciones al hacer clic en el botón de cerrar.
+      */
       document.getElementById('cerrar-modal-terminos').onclick = function() {
         document.getElementById('modal-terminos').style.display = 'none';
       };
+
+      /**
+      * @description Cierra el modal de política de privacidad al hacer clic en el botón de cerrar.
+      */
       document.getElementById('cerrar-modal-privacidad').onclick = function() {
         document.getElementById('modal-privacidad').style.display = 'none';
       };
+
+      /**
+       * @description Cierra los modales al hacer clic fuera de ellos.
+       * @param {Event} e - Evento de clic.
+       */
       window.addEventListener('click', function(e) {
         if (e.target === document.getElementById('modal-terminos')) document.getElementById('modal-terminos').style.display = 'none';
         if (e.target === document.getElementById('modal-privacidad')) document.getElementById('modal-privacidad').style.display = 'none';
       });
     </script>
     <script>
+      /**
+       * @fileoverview Script para animar los logos de las marcas.
+       * @author Neumatics Tool
+       */
       document.addEventListener('DOMContentLoaded', () => {
         const logosContainer = document.querySelector('.logos-grid');
 
@@ -483,6 +560,10 @@
           const logoItems = Array.from(logosContainer.querySelectorAll('.logo-item'));
           let currentIndex = 0;
 
+          /**
+           * @description Activa el logo correspondiente al índice actual.
+           * @param {number} index - Índice del logo a activar.
+           */
           function setActiveLogo(index) {
             logoItems.forEach((logo, i) => {
               logo.classList.toggle('active', i === index);
@@ -490,7 +571,7 @@
           }
 
           if (logoItems.length > 0) {
-            // Start the animation
+            // Inicia la animación
             setInterval(() => {
               currentIndex = (currentIndex + 1) % logoItems.length;
               setActiveLogo(currentIndex);

@@ -1,41 +1,65 @@
+<!--
+Author: Neumatics Tool
+Date: 2024
+Description: Catalog page of the Neumatics Tool website, where the products for sale and rent are displayed.
+-->
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <!-- METADATOS -->
     <meta charset="UTF-8" />
+    <!-- Preconexión a Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fuente Nunito Sans -->
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
       rel="stylesheet"
     />
+    <!-- Estilos de AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- Favicon -->
     <link rel="icon" href="/assets/img/logo1.png" type="image/png" />
+    <!-- Vista para dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Título de la página -->
     <title>Catálogo de Maquinaria | Neumatics Tool</title>
+    <!-- Descripción de la página -->
     <meta name="description" content="Explore nuestro catálogo de maquinaria para construcción y minería. Encuentre equipos de las mejores marcas para venta y renta." />
+    <!-- Palabras clave -->
     <meta name="keywords" content="catálogo maquinaria, maquinaria construcción, maquinaria minería, venta de maquinaria, renta de maquinaria, neumatics tool" />
+    <!-- Robots de búsqueda -->
     <meta name="robots" content="index, follow" />
+    <!-- Open Graph para redes sociales -->
     <meta property="og:title" content="Catálogo de Productos | Neumatics Tool" />
     <meta property="og:description" content="Explore nuestro catálogo de productos para construcción y minería. Encuentre equipos de las mejores marcas para venta y renta." />
     <meta property="og:image" content="https://www.neumaticstool.com/assets/img/logo1.png" />
     <meta property="og:url" content="https://www.neumaticstool.com/catalog.html" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Neumatics Tool" />
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Catálogo de Maquinaria | Neumatics Tool" />
     <meta name="twitter:description" content="Explore nuestro catálogo de maquinaria para construcción y minería. Encuentre equipos de las mejores marcas para venta y renta." />
     <meta name="twitter:image" content="https://www.neumaticstool.com/assets/img/logo1.png" />
+    <!-- URL canónica -->
     <link rel="canonical" href="https://www.neumaticstool.com/catalog.html" />
+    <!-- Autor -->
     <meta name="author" content="Neumatics Tool">
+    <!-- Color del tema -->
     <meta name="theme-color" content="#ffffff">
+    <!-- Hoja de estilos principal -->
     <link rel="stylesheet" href="/src/css/estilos.css">
   </head>
   <body>
+    <!-- ENCABEZADO -->
     <div class="contenedor-header">
       <header data-aos="fade-down">
+        <!-- Logo -->
         <a href="index.html" class="logo">
           <img src="./assets/img/logo1.png" alt="Logo Neumatics Tool"/>
         </a>
+        <!-- Navegación -->
         <nav class="navbar" data-aos="fade-left">
             <a href="index.html">Inicio</a>
             <a href="contact.html">Contacto</a>
@@ -43,40 +67,45 @@
         </nav>
       </header>
 
-<section class="catalogo" id="catalogo" data-aos="fade-up">
-  <h2 class="titulo1" data-aos="fade-down">Catálogo de Productos</h2>
+      <!-- SECCIÓN DE CATÁLOGO -->
+      <section class="catalogo" id="catalogo" data-aos="fade-up">
+        <h2 class="titulo1" data-aos="fade-down">Catálogo de Productos</h2>
 
-  <div class="filtros" data-aos="fade-up">
-    <div class="filtro">
-      <label for="marca">Marca</label>
-      <select id="marca">
-        <option value="">Todas</option>
-      </select>
-    </div>
+        <!-- Filtros de búsqueda -->
+        <div class="filtros" data-aos="fade-up">
+          <div class="filtro">
+            <label for="marca">Marca</label>
+            <select id="marca">
+              <option value="">Todas</option>
+            </select>
+          </div>
 
-    <div class="filtro">
-      <label for="proposito">Propósito</label>
-      <select id="proposito">
-        <option value="">Todos</option>
-      </select>
-    </div>
-  </div>
+          <div class="filtro">
+            <label for="proposito">Propósito</label>
+            <select id="proposito">
+              <option value="">Todos</option>
+            </select>
+          </div>
+        </div>
 
-  <div id="loader" style="display:none; text-align:center; padding:2rem;" data-aos="fade-in">
-    <div class="spinner"></div>
-    <p>Cargando productos...</p>
-  </div>
+        <!-- Loader -->
+        <div id="loader" style="display:none; text-align:center; padding:2rem;" data-aos="fade-in">
+          <div class="spinner"></div>
+          <p>Cargando productos...</p>
+        </div>
 
-  <div class="productos-grid" id="productos-grid" data-aos="fade-up">
-    <!-- Aquí se insertan los productos dinámicamente -->
-  </div>
-</section>
+        <!-- Grid de productos -->
+        <div class="productos-grid" id="productos-grid" data-aos="fade-up">
+          <!-- Aquí se insertan los productos dinámicamente -->
+        </div>
+      </section>
 
       <!-- Botón flotante para ver el carrito -->
       <button id="ver-carrito" class="btn-carrito">
         🛒 Ver Carrito (<span id="carrito-cantidad">0</span>)
       </button>
 
+      <!-- MODALES -->
       <!-- Modal de producto ampliado -->
       <div id="modal-producto" class="modal-producto" style="display:none;" data-aos="zoom-in">
         <div class="modal-contenido">
@@ -105,6 +134,7 @@
             </div>
           </div>
           <div class="carrito-modal-der">
+            <!-- Formulario de cotización -->
             <form class="form-cotizacion" autocomplete="off" onsubmit="return false;">
               <div class="campo-grupo">
                 <label for="nombre-cliente">Nombre:</label>
@@ -156,12 +186,10 @@
         </div>
       </div>
 
-      <!-- Eliminar el modal de login y su formulario -->
-
       <!-- Contenedor de notificaciones toast -->
       <div id="toast-container" style="position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:3000;display:flex;flex-direction:column;align-items:center;gap:0.5rem;"></div>
 
-
+      <!-- PIE DE PÁGINA -->
       <footer class="footer">
         <div class="logo">
           <a href="#top">
@@ -268,17 +296,27 @@ El presente Aviso de Privacidad, así como el manejo en general de la Ley que ha
         });
       </script>
 
-    <!-- Scripts -->
+    <!-- SCRIPTS -->
+    <!-- Script de AOS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
+      /**
+       * @description Inicializa la librería AOS (Animate On Scroll) con una duración de 500ms y se ejecuta una sola vez.
+       * @see https://github.com/michalsnik/aos
+       */
       AOS.init({
         duration: 500,
         once: true
       });
     </script>
+    <!-- Script principal de la aplicación -->
     <script type="module" src="/src/main.js"></script>
+    <!-- Script del catálogo -->
     <script type="module" src="/src/js/catalog.js"></script>
     <script>
+      /**
+       * @description Cierra el modal del visor de PDF.
+       */
       document.getElementById('cerrar-modal-pdf').onclick = function() {
         document.getElementById('modal-pdf').style.display = 'none';
       };

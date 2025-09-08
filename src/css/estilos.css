@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Estilos generales para el sitio web de Neumatics Tool.
+ * Incluye reset, configuración básica, enlaces, botones y elementos comunes.
+ */
+
+/* Reset y configuración básica */
 html {
   scroll-behavior: smooth;
 }
@@ -10,6 +16,7 @@ html {
     padding: 0;
 }
 
+/* Estilos para el cuerpo de la página */
 body {
     font-family: "Nunito Sans", sans-serif;
     background-color: hsla(31.304347826086914, 56%, 91%, 1);
@@ -17,6 +24,7 @@ body {
     background-blend-mode: normal, normal, normal, normal, normal;
 }
 
+/* Estilos para enlaces */
 a {
     text-decoration: none;
     color: #000000;
@@ -25,6 +33,7 @@ a {
     }
 }
 
+/* Estilos para botones */
 .boton {
     display: inline-flex;
     padding: 10px 15px;
@@ -55,12 +64,14 @@ a {
     }
 }
 
+/* Contenedor principal */
 .contenedor {
     width: 95%;
     max-width: 1200px;
     margin: auto;
 }
 
+/* Título principal */
 .titulo1 {
     font-size: 60px;
     font-weight: 600;
@@ -70,6 +81,7 @@ a {
     letter-spacing: 3px; /* Añadido para separar las letras */
 }
 
+/* Estilos para el modal de privacidad */
 #modal-privacidad .modal-contenido {
     max-width: 900px;
     max-height: 80vh;

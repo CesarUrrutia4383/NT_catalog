@@ -1,42 +1,66 @@
+<!--
+Author: Neumatics Tool
+Date: 2024
+Description: Contact page of the Neumatics Tool website, where the different branches and their information are displayed.
+-->
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <!-- METADATOS -->
     <meta charset="UTF-8" />
+    <!-- Preconexión a Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fuente Nunito Sans -->
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
       rel="stylesheet"
     />
+    <!-- Estilos de AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- Favicon -->
     <link rel="icon" href="/assets/img/logo1.png" type="image/png" />
+    <!-- Vista para dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Título de la página -->
     <title>Contacto y Sucursales | Neumatics Tool</title>
+    <!-- Descripción de la página -->
     <meta name="description" content="Póngase en contacto con Neumatics Tool. Encuentre la ubicación de nuestras sucursales en Durango, México, y nuestros datos de contacto." />
+    <!-- Palabras clave -->
     <meta name="keywords" content="contacto neumatics tool, sucursales neumatics tool, neumatics tool durango, telefono neumatics tool, direccion neumatics tool" />
+    <!-- Robots de búsqueda -->
     <meta name="robots" content="index, follow" />
+    <!-- Open Graph para redes sociales -->
     <meta property="og:title" content="Contacto y Sucursales | Neumatics Tool" />
     <meta property="og:description" content="Póngase en contacto con Neumatics Tool. Encuentre la ubicación de nuestras sucursales en Durango, México, y nuestros datos de contacto." />
     <meta property="og:image" content="https://www.neumaticstool.com/assets/img/logo1.png" />
     <meta property="og:url" content="https://www.neumaticstool.com/contact.html" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Neumatics Tool" />
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Contacto y Sucursales | Neumatics Tool" />
     <meta name="twitter:description" content="Póngase en contacto con Neumatics Tool. Encuentre la ubicación de nuestras sucursales en Durango, México, y nuestros datos de contacto." />
     <meta name="twitter:image" content="https://www.neumaticstool.com/assets/img/logo1.png" />
+    <!-- URL canónica -->
     <link rel="canonical" href="https://www.neumaticstool.com/contact.html" />
+    <!-- Autor -->
     <meta name="author" content="Neumatics Tool">
+    <!-- Color del tema -->
     <meta name="theme-color" content="#ffffff">
+    <!-- Hojas de estilo -->
     <link rel="stylesheet" href="/src/css/estilos.css" />
     <link rel="stylesheet" href="/src/css/contacto.css" />
   </head>
   <body>
+    <!-- ENCABEZADO -->
     <div class="contenedor-header">
       <header data-aos="fade-down">
+        <!-- Logo -->
         <a href="index.html" class="logo">
           <img src="./assets/img/logo1.png" alt="Logo Neumatics Tool"/>
         </a>
+        <!-- Navegación -->
         <nav class="navbar" data-aos="fade-left">
             <a href="index.html">Inicio</a>
           <a href="#">Ayuda</a>
@@ -65,9 +89,11 @@
         </nav>
       </header>
 
+      <!-- SECCIÓN DE CONTACTO -->
       <section class="contacto" id="contacto" data-aos="fade-up">
         <h2 class="titulo1" data-aos="zoom-in">Nuestras Sucursales</h2>
         <div class="sucursales-contenedor">
+          <!-- Carrusel de imágenes de las sucursales -->
           <div class="sucursales-carrusel" data-aos="fade-right">
             <div id="slide-0" class="carrusel-slide active">
               <img src="./assets/img/sucursal_divminera.jpg" alt="NeumaticsTool Division Minera" />
@@ -82,6 +108,7 @@
               <div class="carrusel-texto">Sucursal La Salle</div>
             </div>
           </div>
+          <!-- Información de las sucursales -->
           <div class="sucursales-info" data-aos="fade-left">
             <div id="sucursal-0" class="sucursal" data-aos="fade-up" data-aos-delay="100">
               <h3>NeumaticsTool Division Minera</h3>
@@ -108,6 +135,7 @@
         </div>
       </section>
 
+      <!-- PIE DE PÁGINA -->
       <footer class="footer">
         <div class="logo">
           <a href="#top">
@@ -139,7 +167,7 @@
         </nav>
       </footer>
 
-      <!-- Modal Política de Privacidad -->
+      <!-- MODAL DE POLÍTICA DE PRIVACIDAD -->
       <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
         <div class="modal-contenido">
           <span class="modal-cerrar" id="cerrar-modal-privacidad">&times;</span>
@@ -202,29 +230,56 @@ El presente Aviso de Privacidad, así como el manejo en general de la Ley que ha
 
     </div>
 
-    <!-- Scripts -->
+    <!-- SCRIPTS -->
+    <!-- Script de AOS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
+      /**
+       * @description Inicializa la librería AOS (Animate On Scroll) con una duración de 500ms y se ejecuta una sola vez.
+       * @see https://github.com/michalsnik/aos
+       */
       AOS.init({
         duration: 500,
         once: true
       });
     </script>
+    <!-- Script principal de la aplicación -->
     <script type="module" src="/src/main.js"></script>
     <script>
-      // Script para abrir/cerrar el modal de privacidad
+      /**
+       * @fileoverview Script para abrir y cerrar el modal de política de privacidad.
+       * @author Neumatics Tool
+       */
+
+      /**
+       * @description Abre el modal de política de privacidad al hacer clic en el enlace correspondiente.
+       * @param {Event} e - Evento de clic.
+       */
       document.getElementById('link-privacidad').onclick = function(e) {
         e.preventDefault();
         document.getElementById('modal-privacidad').style.display = 'flex';
       };
+
+      /**
+       * @description Cierra el modal de política de privacidad al hacer clic en el botón de cerrar.
+       */
       document.getElementById('cerrar-modal-privacidad').onclick = function() {
         document.getElementById('modal-privacidad').style.display = 'none';
       };
+
+      /**
+       * @description Cierra el modal de política de privacidad al hacer clic fuera de él.
+       * @param {Event} e - Evento de clic.
+       */
       window.addEventListener('click', function(e) {
         if (e.target === document.getElementById('modal-privacidad')) document.getElementById('modal-privacidad').style.display = 'none';
       });
     </script>
     <script>
+      /**
+       * @fileoverview Script para el carrusel de sucursales.
+       * @author Neumatics Tool
+       */
       document.addEventListener('DOMContentLoaded', function () {
           const slides = document.querySelectorAll('.carrusel-slide');
           const sucursales = document.querySelectorAll('.sucursal');
@@ -232,6 +287,10 @@ El presente Aviso de Privacidad, así como el manejo en general de la Ley que ha
           let intervalId;
           let timeoutId;
 
+        /**
+         * @description Muestra el slide y la información de la sucursal correspondiente al índice.
+         * @param {number} index - Índice del slide a mostrar.
+         */
         function showSlide(index) {
             slides.forEach((slide, i) => {
                 slide.classList.toggle('active', i === index);
@@ -241,20 +300,32 @@ El presente Aviso de Privacidad, así como el manejo en general de la Ley que ha
             });
         }
 
+        /**
+         * @description Muestra el siguiente slide en el carrusel.
+         */
         function nextSlide() {
             currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
         }
 
+        /**
+         * @description Inicia el carrusel.
+         */
         function startCarousel() {
             stopCarousel(); // Asegurarse de que no haya intervalos duplicados
             intervalId = setInterval(nextSlide, 5000); // Cambia de slide cada 5 segundos
         }
 
+        /**
+         * @description Detiene el carrusel.
+         */
         function stopCarousel() {
             clearInterval(intervalId);
         }
 
+        /**
+         * @description Reinicia el timeout del carrusel.
+         */
         function resetCarouselTimeout() {
             clearTimeout(timeoutId);
             timeoutId = setTimeout(() => {
