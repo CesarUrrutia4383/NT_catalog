@@ -35,6 +35,40 @@ AOS.init({
 });
 
 /**
+ * @description Directiva de seguridad para prevenir la inspección de código.
+ * Deshabilita el menú contextual derecho y atajos de teclado para herramientas de desarrollador.
+ */
+
+// Deshabilitar menú contextual derecho
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+
+// Deshabilitar atajos de teclado para herramientas de desarrollador
+document.addEventListener('keydown', function(e) {
+  // F12
+  if (e.keyCode === 123) {
+    e.preventDefault();
+  }
+  // Ctrl+Shift+I (Inspeccionar elemento)
+  if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+    e.preventDefault();
+  }
+  // Ctrl+U (Ver fuente)
+  if (e.ctrlKey && e.keyCode === 85) {
+    e.preventDefault();
+  }
+  // Ctrl+Shift+C (Inspeccionar elemento alternativo)
+  if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+    e.preventDefault();
+  }
+  // Ctrl+Shift+J (Consola)
+  if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+    e.preventDefault();
+  }
+});
+
+/**
  * @description Exporta la configuración del servidor para desarrollo local.
  * Hace visible el servidor en la red local en el puerto 3000.
  */
