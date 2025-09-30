@@ -513,11 +513,11 @@
 /* Nuevo layout horizontal para el modal de producto */
 .modal-producto-layout {
   display: flex;
-  gap: 3rem;
+  gap: 1.5rem;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 900px;
+  max-width: 700px;
   margin: 0 auto;
   flex-wrap: wrap;
 }
@@ -554,10 +554,10 @@
 .modal-producto-info {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  max-width: 450px;
+  gap: 1rem;
+  max-width: 350px;
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .modal-producto-info h3 {
