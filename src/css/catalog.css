@@ -483,23 +483,38 @@
 }
 
 /* Modal de producto seleccionado */
+/* Modal de producto seleccionado */
 #modal-producto .modal-contenido {
   background: #f9f9fc;
   border-radius: 18px;
   padding: 2.5rem 2rem 2rem 2rem;
   max-width: 1000px;
   width: 96vw;
-  max-height: 90vh;        /* mantiene límite al alto */
-  overflow-y: auto;        /* asegura que el contenido se ajuste */
+  max-height: 90vh;           /* mantiene límite al alto */
+  overflow: hidden;           /* evita que el modal completo tenga scroll */
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   border: 3px solid #ff8f1c;
   position: relative;
   text-align: center;
   margin: 0 auto;
-  display: flex;           /* ayuda a distribuir internamente */
-  flex-direction: column;  /* para que la info + acciones queden en orden */
-  justify-content: flex-start;
+  display: flex;              /* organiza internamente */
+  flex-direction: column;     /* info arriba, acciones abajo */
+  justify-content: space-between; /* asegura que las acciones queden dentro */
 }
+
+/* Contenedor de información con scroll propio */
+#modal-info {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+/* Acciones siempre visibles al final */
+#modal-producto .modal-acciones {
+  flex-shrink: 0;
+  margin-top: 1rem;
+}
+
 
 
 #modal-producto .modal-contenido::before {
