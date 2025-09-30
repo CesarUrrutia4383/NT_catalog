@@ -120,10 +120,10 @@
   object-fit: contain;
   border-radius: 12px;
   margin-bottom: 15px;
-  border: none;
-  background: none;
-  padding: 0;
-  box-shadow: none;
+  border: 3px solid #ff8f1c;
+  background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
+  padding: 15px;
+  box-shadow: 0 4px 16px rgba(255, 143, 28, 0.2);
   transition: all 0.3s ease;
   position: relative;
 }
@@ -512,7 +512,7 @@
 .modal-producto-layout {
   display: flex;
   gap: 3rem;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 900px;
@@ -534,7 +534,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5rem;
+  margin-top: 350px;
 }
 
 .modal-producto-imagen img {
