@@ -514,8 +514,8 @@
 .modal-producto-layout {
   display: flex;
   gap: 1.5rem;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
   max-width: 700px;
   margin: 0 auto;
@@ -557,7 +557,7 @@
   gap: 1rem;
   max-width: 350px;
   width: 100%;
-  margin-top: 1.5rem;
+  margin-top: 0;
 }
 
 .modal-producto-info h3 {
