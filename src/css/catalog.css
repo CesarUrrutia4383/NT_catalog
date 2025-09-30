@@ -483,23 +483,21 @@
 }
 
 /* Modal de producto seleccionado */
-/* Modal de producto seleccionado */
 #modal-producto .modal-contenido {
   background: #f9f9fc;
   border-radius: 18px;
-  padding: 2.5rem 2rem 2rem 2rem;
-  max-width: 1000px;
+  padding: 2rem;
+  max-width: 900px;
   width: 96vw;
-  max-height: 90vh;           /* mantiene límite al alto */
-  overflow: hidden;           /* evita que el modal completo tenga scroll */
+  max-height: 90vh;
+  overflow: hidden; /* evita scroll general */
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   border: 3px solid #ff8f1c;
   position: relative;
-  text-align: center;
   margin: 0 auto;
-  display: flex;              /* organiza internamente */
-  flex-direction: column;     /* info arriba, acciones abajo */
-  justify-content: space-between; /* asegura que las acciones queden dentro */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Contenedor de información con scroll propio */
@@ -510,9 +508,14 @@
 }
 
 /* Acciones siempre visibles al final */
+/* Acciones abajo fijas */
 #modal-producto .modal-acciones {
   flex-shrink: 0;
   margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
 }
 
 
@@ -530,15 +533,10 @@
 }
 
 /* Nuevo layout horizontal para el modal de producto */
-.modal-producto-layout {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
-  flex-wrap: nowrap;
+.modal-producto-imagen img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .modal-producto-imagen {
@@ -571,20 +569,21 @@
 }
 
 .modal-producto-info {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  max-width: 350px;
-  width: 100%;
-  margin-top: 0;
+  gap: 0.8rem;
+  text-align: left;
+  overflow-y: auto; /* solo la info scrollea si es larga */
+  max-height: 60vh; /* límite para no empujar las acciones */
 }
 
 .modal-producto-info h3 {
   color: #ff8f1c;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   text-align: left;
-  margin: 0 0 0.8rem 0;
+  margin-bottom: 0.5rem;
   padding: 0;
   line-height: 1.2;
   text-shadow: 0 2px 4px rgba(255, 143, 28, 0.1);
