@@ -513,9 +513,10 @@
 /* Nuevo layout horizontal para el modal de producto */
 .modal-producto-layout {
   display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-  justify-content: flex-start;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 96vw;
   margin: 0 auto;
