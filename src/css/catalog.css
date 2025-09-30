@@ -489,14 +489,18 @@
   padding: 2.5rem 2rem 2rem 2rem;
   max-width: 1000px;
   width: 96vw;
-  max-height: 90vh;
-  overflow-y: visible;
+  max-height: 90vh;        /* mantiene límite al alto */
+  overflow-y: auto;        /* asegura que el contenido se ajuste */
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   border: 3px solid #ff8f1c;
   position: relative;
   text-align: center;
   margin: 0 auto;
+  display: flex;           /* ayuda a distribuir internamente */
+  flex-direction: column;  /* para que la info + acciones queden en orden */
+  justify-content: flex-start;
 }
+
 
 #modal-producto .modal-contenido::before {
   content: '';
