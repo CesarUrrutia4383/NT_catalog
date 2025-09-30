@@ -532,65 +532,6 @@
   z-index: -1;
 }
 
-/* Nuevo layout horizontal para el modal de producto */
-.modal-producto-imagen img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.modal-producto-imagen {
-  flex-shrink: 0;
-  width: 250px;
-  height: 250px;
-  background: white;
-  border: 3px solid #ff8f1c;
-  box-shadow: 0 8px 25px rgba(255, 143, 28, 0.15);
-  border-radius: 15px;
-  padding: 10px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0;
-}
-
-.modal-producto-imagen img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 0;
-  transition: transform 0.3s ease;
-}
-
-.modal-producto-imagen img:hover {
-  transform: scale(1.05);
-}
-
-.modal-producto-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  text-align: left;
-  overflow-y: auto; /* solo la info scrollea si es larga */
-  max-height: 60vh; /* límite para no empujar las acciones */
-}
-
-.modal-producto-info h3 {
-  color: #ff8f1c;
-  font-size: 1.4rem;
-  font-weight: bold;
-  text-align: left;
-  margin-bottom: 0.5rem;
-  padding: 0;
-  line-height: 1.2;
-  text-shadow: 0 2px 4px rgba(255, 143, 28, 0.1);
-  width: 100%;
-  position: relative;
-}
-
 /* Estilos para las etiquetas de información */
 .info-item {
   display: flex;
@@ -636,87 +577,7 @@
   font-style: italic;
 }
 
-/* Responsive para el modal de producto */
-@media (max-width: 768px) {
-  .modal-producto-layout {
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-  }
 
-  .modal-producto-imagen {
-    width: 280px;
-    height: 280px;
-    padding: 8px;
-    margin-top: 3rem;
-  }
-
-  .modal-producto-imagen img {
-    width: 100%;
-    height: 100%;
-  }
-
-  .modal-producto-info {
-    gap: 1.2rem;
-    max-width: 100%;
-    text-align: center;
-    margin-top: 1rem;
-  }
-
-  .modal-producto-info h3 {
-    font-size: 1.5rem;
-    top: 1.5rem;
-  }
-
-  .info-item {
-    padding: 0.8rem;
-  }
-
-  .info-label {
-    font-size: 0.9rem;
-  }
-
-  .info-value {
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  #modal-producto .modal-contenido {
-    padding: 1.5rem 1rem;
-    max-width: 95vw;
-  }
-
-  .modal-producto-imagen {
-    width: 250px;
-    height: 250px;
-    padding: 6px;
-    margin-top: 2.5rem;
-  }
-
-  .modal-producto-imagen img {
-    width: 100%;
-    height: 100%;
-  }
-
-  .modal-producto-info h3 {
-    font-size: 1.3rem;
-    top: 1rem;
-  }
-
-  .info-item {
-    padding: 0.6rem;
-  }
-
-  .info-label {
-    font-size: 0.85rem;
-  }
-
-  .info-value {
-    font-size: 1rem;
-  }
-}
 
 #modal-info img {
   width: 100%;
@@ -740,11 +601,12 @@
   margin-bottom: 0.3rem;
 }
 .modal-acciones {
-  margin-top: 1.2rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.7rem;
+  margin-bottom: 0.5rem;
 }
 .cantidad-control {
   display: flex;
