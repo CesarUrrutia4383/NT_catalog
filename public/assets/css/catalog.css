@@ -523,7 +523,7 @@
 .modal-producto-imagen {
   flex-shrink: 0;
   width: 350px;
-  height: 350px;
+  max-height: 80vh;
   background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
   border: 3px solid #ff8f1c;
   box-shadow: 0 8px 25px rgba(255, 143, 28, 0.15);
