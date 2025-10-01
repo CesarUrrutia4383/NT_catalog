@@ -153,6 +153,8 @@ function mostrarProductos(productos) {
       card = document.createElement('div');
       card.className = 'producto';
       card.dataset.productId = p.id; // Añadir un data-attribute para identificar el producto
+      card.setAttribute('data-aos', 'fade-up');
+      card.setAttribute('data-aos-delay', '50');
       const imagen = getImageUrl(p);
       card.innerHTML = `
         <img src="${imagen}" alt="${p.nombre_producto || p.nombre}"
