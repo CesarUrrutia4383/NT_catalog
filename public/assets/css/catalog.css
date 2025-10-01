@@ -182,7 +182,8 @@
   right: 0 !important;
   bottom: 0 !important;
   width: 100vw !important;
-  height: 100vh !important;
+  /* height: auto !important; */
+  min-height: 100vh !important;
   background: rgba(30,30,30,0.78) !important;
   z-index: 2000 !important;
   display: flex;
@@ -493,6 +494,8 @@
   position: relative;
   text-align: center;
   margin: 0 auto;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 #modal-producto .modal-contenido::before {
