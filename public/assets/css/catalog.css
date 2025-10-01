@@ -521,8 +521,7 @@
 
 .modal-producto-imagen {
   flex-shrink: 0;
-  width: 350px;
-  height: 350px;
+  width: 280px;
   background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
   border: 3px solid #ff8f1c;
   box-shadow: 0 8px 25px rgba(255, 143, 28, 0.15);
@@ -575,16 +574,11 @@
   font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
-  margin: 0;
+  margin: 0 0 1.5rem 0;
   padding: 0;
   line-height: 1.2;
   text-shadow: 0 2px 4px rgba(255, 143, 28, 0.1);
   width: 100%;
-  position: absolute;
-  top: 2rem;
-  left: 0;
-  right: 0;
-  z-index: 10;
 }
 
 /* Estilos para las etiquetas de información */
