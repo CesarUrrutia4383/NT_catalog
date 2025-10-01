@@ -188,6 +188,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
 }
 /* Fondo y estilo del modal del carrito */
 .modal-contenido {
@@ -488,8 +489,6 @@
   padding: 2.5rem 2rem 2rem 2rem;
   max-width: 1000px;
   width: 96vw;
-  max-height: 90vh;
-  overflow-y: auto;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   border: 3px solid #ff8f1c;
   position: relative;
@@ -513,7 +512,7 @@
 .modal-producto-layout {
   display: flex;
   gap: 3rem;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
   max-width: 900px;
@@ -524,7 +523,7 @@
 .modal-producto-imagen {
   flex-shrink: 0;
   width: 350px;
-  max-height: 80vh;
+  height: 350px;
   background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
   border: 3px solid #ff8f1c;
   box-shadow: 0 8px 25px rgba(255, 143, 28, 0.15);
@@ -535,6 +534,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 2rem;
 }
 
 .modal-producto-imagen::before {
@@ -568,18 +568,24 @@
   gap: 1.5rem;
   max-width: 450px;
   width: 100%;
+  margin-top: 2rem;
 }
 
-.modal-producto-titulo {
+.modal-producto-info h3 {
   color: #ff8f1c;
   font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
-  margin: 0 0 1.5rem 0;
+  margin: 0;
   padding: 0;
   line-height: 1.2;
   text-shadow: 0 2px 4px rgba(255, 143, 28, 0.1);
   width: 100%;
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  right: 0;
+  z-index: 10;
 }
 
 /* Estilos para las etiquetas de información */
@@ -655,8 +661,9 @@
     margin-top: 1rem;
   }
 
-  .modal-producto-titulo {
+  .modal-producto-info h3 {
     font-size: 1.5rem;
+    top: 1.5rem;
   }
 
   .info-item {
@@ -690,8 +697,9 @@
     height: 100%;
   }
 
-  .modal-producto-titulo {
+  .modal-producto-info h3 {
     font-size: 1.3rem;
+    top: 1rem;
   }
 
   .info-item {
