@@ -185,13 +185,13 @@
 }
 /* Fondo y estilo del modal del carrito */
 .modal-contenido {
-  background: #f9f9fc;
+  background: #fff; /* Changed to pure white for warm look */
   border-radius: 18px;
   padding: 2.2rem 1.5rem 1.5rem 1.5rem;
   max-width: 480px;
   width: 96vw;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  border: 2px solid #ccc; /* Changed from orange to light gray */
+  box-shadow: 0 0 15px 3px rgba(255, 143, 28, 0.3); /* Warm orange glow */
+  border: 2px solid #ff8f1c; /* Orange border */
   position: relative;
   text-align: center;
   margin: 0 auto;
