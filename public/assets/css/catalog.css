@@ -523,7 +523,7 @@
   /* Removed box-shadow to eliminate black line */
   box-shadow: none;
   border-radius: 15px;
-  padding: 10px;
+  padding: 0; /* Removed padding to eliminate black line */
   position: relative;
   overflow: hidden;
   display: flex;
