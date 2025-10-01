@@ -192,24 +192,24 @@ function mostrarModalProducto(producto) {
   
   const imagen = getImageUrl(producto);
   modalInfo.innerHTML = `
+    <h3 class="modal-producto-titulo">${producto.nombre_producto || producto.nombre}</h3>
     <div class="modal-producto-layout">
       <div class="modal-producto-imagen">
-        <img src="${imagen}" alt="${producto.nombre_producto || producto.nombre}" 
+        <img src="${imagen}" alt="${producto.nombre_producto || producto.nombre}"
              onerror="this.src='/assets/img/logo3.png'; console.log('Error cargando imagen en modal:', this.src);" />
       </div>
       <div class="modal-producto-info">
-        <h3>${producto.nombre_producto || producto.nombre}</h3>
-        
+
         <div class="info-item">
           <span class="info-label">Marca:</span>
           <span class="info-value">${producto.marca}</span>
         </div>
-        
+
         <div class="info-item">
           <span class="info-label">Propósito:</span>
           <span class="info-value">${producto.proposito}</span>
         </div>
-        
+
         ${producto.info ? `
         <div class="info-item info-descripcion">
           <span class="info-label">Descripción:</span>
