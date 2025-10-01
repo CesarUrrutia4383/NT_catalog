@@ -176,7 +176,7 @@
   width: 100vw !important;
   /* height: auto !important; */
   min-height: 100vh !important;
-  background: rgba(30,30,30,0.78) !important;
+  background: rgba(255, 255, 255, 0.9) !important; /* Changed from dark to light transparent */
   z-index: 2000 !important;
   display: flex;
   align-items: center;
@@ -523,6 +523,7 @@
   /* Removed box-shadow to eliminate black line */
   box-shadow: none;
   border-radius: 15px;
+  padding-left: 0px;
   position: relative;
   overflow: hidden;
   display: flex;
