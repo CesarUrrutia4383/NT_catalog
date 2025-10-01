@@ -520,7 +520,8 @@
   width: 280px;
   background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
   border: 3px solid #ff8f1c;
-  box-shadow: 0 8px 25px rgba(255, 143, 28, 0.15);
+  /* Removed box-shadow to eliminate black line */
+  box-shadow: none;
   border-radius: 15px;
   padding: 10px;
   position: relative;
@@ -550,6 +551,8 @@
   height: 100%;
   object-fit: contain;
   border-radius: 12px;
+  /* Removed box-shadow to eliminate black line */
+  box-shadow: none;
   transition: transform 0.3s ease;
 }
 
