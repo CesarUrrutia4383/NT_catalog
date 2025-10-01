@@ -489,6 +489,8 @@
   padding: 2.5rem 2rem 2rem 2rem;
   max-width: 1000px;
   width: 96vw;
+  max-height: 80vh;
+  overflow: hidden;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   border: 3px solid #ff8f1c;
   position: relative;
