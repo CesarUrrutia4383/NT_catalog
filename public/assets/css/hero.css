@@ -214,21 +214,33 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
   transform: scale(1.1);
 }
 
+    @media screen and (max-width: 1024px) and (min-width: 769px) {
+        .hero {
+            padding: 100px 40px;
 
+            .col-2 .slideshow {
+                width: 80%;
+                height: 500px;
 
+                .slide img {
+                    height: 500px;
+                }
+            }
+        }
+    }
 
     @media screen and (max-width: 768px) {
-        
+
         &{
             display: flex;
             flex-direction: column;
             gap: 20px;
             padding: 60px 16px; /* ✅ Espacio lateral */
             border-radius: 20px; /* ✅ Se conservan las esquinas */
-            margin: 10px; 
+            margin: 10px;
 
             .col-1 {
-                order: 2;
+                order: 1;
                 text-align: center;
 
                 .titulo {
@@ -244,7 +256,7 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
                     flex-direction: column;
                     gap: 20px;
                     justify-content: center;
-                    
+
                     p {
                         gap: 10px;
 
@@ -257,13 +269,16 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             }
 
             .col-2 {
-                order: 1;
+                order: 2;
                 display: flex;
                 justify-content: center;
+                align-items: center;
 
                 .slideshow {
                     position: relative;
-                    width: 60%;
+                    width: 80%;
+                    height: auto;
+                    max-height: 400px;
                 }
             }
         }
@@ -272,6 +287,43 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             margin-right: 0;
             text-align: center;
             align-self: center; /* ✅ Centra solo este botón */
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        & {
+            padding: 40px 12px;
+
+            .col-1 {
+                .titulo {
+                    font-size: 24px;
+                }
+
+                .descripcion {
+                    font-size: 18px;
+                }
+
+                .botones {
+                    gap: 15px;
+                }
+
+                .estadisticas {
+                    margin-top: 30px;
+
+                    p {
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            .col-2 .slideshow {
+                width: 90%;
+                max-height: 300px;
+
+                .slide img {
+                    height: 300px;
+                }
+            }
         }
     }
 }

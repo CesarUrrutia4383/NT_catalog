@@ -103,12 +103,35 @@ html {
         gap: 5px;
 
         .tabs {
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr;
           gap: 5px;
         }
 
         .previews {
-          
+
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    & {
+      margin-top: 20px;
+      margin-bottom: 20px;
+
+      .grid {
+        gap: 10px;
+
+        .tabs .tab .info {
+          padding: 15px;
+
+          h3 {
+            font-size: 1.4rem;
+          }
+
+          p {
+            font-size: 0.9rem;
+          }
         }
       }
     }

@@ -411,7 +411,91 @@ header .navbar a.boton {
   }
 
   .caracteristicas .grid .tabs {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 5px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .contenedor-header {
+    width: 95%;
+  }
+
+  header .navbar {
+    gap: 20px;
+  }
+
+  .hero {
+    padding: 40px 12px;
+    margin-bottom: 100px;
+  }
+
+  .col-1 .titulo {
+    font-size: 24px;
+  }
+
+  .col-1 .descripcion {
+    font-size: 18px;
+  }
+
+  .col-2 .slideshow {
+    width: 90%;
+    height: 300px;
+  }
+
+  .slide img {
+    height: 300px;
+  }
+
+  .caracteristicas {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .caracteristicas .grid {
+    gap: 10px;
+  }
+
+  .caracteristicas .grid .tabs .tab .info {
+    padding: 15px;
+  }
+
+  .caracteristicas .grid .tabs .tab .info h3 {
+    font-size: 1.4rem;
+  }
+
+  .caracteristicas .grid .tabs .tab .info p {
+    font-size: 0.9rem;
+  }
+
+  .mision-vision {
+    padding: 60px 15px;
+    margin-bottom: 40px;
+  }
+
+  .bloque {
+    padding: 20px;
+  }
+
+  .bloque h3 {
+    font-size: 1.6rem;
+  }
+
+  .marcas {
+    padding: 30px 0;
+    margin-bottom: 80px;
+  }
+
+  .logos-grid {
+    gap: 20px;
+  }
+
+  .footer {
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+
+  .footer .logo img {
+    width: 15vw;
   }
 }
