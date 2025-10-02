@@ -5,11 +5,12 @@ html {
 .caracteristicas {
   margin-top: 200px;
   margin-bottom: 100px;
+  padding: 0 20px;
 
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 25px;
 
     .previews {
       border-radius: 5px;
@@ -38,7 +39,7 @@ html {
     .tabs {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 10px;
+      gap: 15px;
 
       .tab {
         background: #fff;
@@ -47,6 +48,7 @@ html {
         grid-template-columns: auto 1fr;
         cursor: pointer;
         overflow: hidden;
+        padding: 15px;
 
         &.active {
           background: var(--naranja-primario-hover);
@@ -100,15 +102,11 @@ html {
     & {
       .grid {
         grid-template-columns: 1fr;
-        gap: 5px;
+        gap: 15px;
 
         .tabs {
           grid-template-columns: 1fr;
-          gap: 5px;
-        }
-
-        .previews {
-
+          gap: 10px;
         }
       }
     }

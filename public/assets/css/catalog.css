@@ -24,6 +24,7 @@
   margin-bottom: 60px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
 
@@ -77,6 +78,8 @@
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 2rem;
   padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 /* Tarjeta de producto individual */
@@ -174,14 +177,14 @@
   right: 0 !important;
   bottom: 0 !important;
   width: 100vw !important;
-  /* height: auto !important; */
   min-height: 100vh !important;
-  background: rgba(255, 255, 255, 0.9) !important; /* Changed from dark to light transparent */
+  background: rgba(255, 255, 255, 0.95) !important; /* Changed from dark to light transparent */
   z-index: 2000 !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible !important;
+  overflow-y: auto !important;
+  padding: 20px;
 }
 /* Fondo y estilo del modal del carrito */
 .modal-contenido {
@@ -195,6 +198,8 @@
   position: relative;
   text-align: center;
   margin: 0 auto;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 .modal-cerrar {
   position: absolute;
