@@ -276,7 +276,7 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
 
                 .slideshow {
                     position: relative;
-                    width: 80%;
+                    width: 100%;
                     height: auto;
                     max-height: 400px;
                 }
