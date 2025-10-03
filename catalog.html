@@ -1,0 +1,331 @@
+<!--
+Author: Neumatics Tool
+Date: 2024
+Description: Catalog page of the Neumatics Tool website, where the products for sale and rent are displayed.
+-->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- METADATOS -->
+    <meta charset="UTF-8" />
+    <!-- Preconexión a Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fuente Nunito Sans -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Estilos de AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/img/logo1.png" type="image/png" />
+    <!-- Vista para dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Título de la página -->
+    <title>Catálogo de Maquinaria | Neumatics Tool</title>
+    <!-- Descripción de la página -->
+    <meta name="description" content="Explore nuestro catálogo de maquinaria para construcción y minería. Encuentre equipos de las mejores marcas para venta y renta." />
+    <!-- Palabras clave -->
+    <meta name="keywords" content="catálogo maquinaria, maquinaria construcción, maquinaria minería, venta de maquinaria, renta de maquinaria, neumatics tool" />
+    <!-- Robots de búsqueda -->
+    <meta name="robots" content="index, follow" />
+    <!-- Open Graph para redes sociales -->
+    <meta property="og:title" content="Catálogo de Productos | Neumatics Tool" />
+    <meta property="og:description" content="Explore nuestro catálogo de productos para construcción y minería. Encuentre equipos de las mejores marcas para venta y renta." />
+    <meta property="og:image" content="https://www.neumaticstool.com/assets/img/logo1.png" />
+    <meta property="og:url" content="https://www.neumaticstool.com/catalog.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Neumatics Tool" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Catálogo de Maquinaria | Neumatics Tool" />
+    <meta name="twitter:description" content="Explore nuestro catálogo de maquinaria para construcción y minería. Encuentre equipos de las mejores marcas para venta y renta." />
+    <meta name="twitter:image" content="https://www.neumaticstool.com/assets/img/logo1.png" />
+    <!-- URL canónica -->
+    <link rel="canonical" href="https://www.neumaticstool.com/catalog.html" />
+    <!-- Autor -->
+    <meta name="author" content="Neumatics Tool">
+    <!-- Color del tema -->
+    <meta name="theme-color" content="#ffffff">
+    <!-- Hoja de estilos principal -->
+    <link rel="stylesheet" href="/src/css/estilos.css">
+    <!-- Estilos del catálogo -->
+    <link rel="stylesheet" href="public/assets/css/catalog.css">
+    <!-- Estilos responsivos unificados -->
+    <link rel="stylesheet" href="/assets/css/responsive-unified.css">
+  </head>
+  <body>
+    <!-- ENCABEZADO -->
+    <div class="contenedor-header">
+      <header data-aos="fade-down">
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+          <img src="/assets/img/logo1.png" alt="Logo Neumatics Tool"/>
+        </a>
+        <!-- Navegación -->
+        <nav class="navbar" data-aos="fade-left">
+            <a href="index.html">Inicio</a>
+            <a href="contact.html">Contacto</a>
+          <a href="#">Ayuda</a>
+        </nav>
+      </header>
+
+      <!-- SECCIÓN DE CATÁLOGO -->
+      <section class="catalogo" id="catalogo" data-aos="fade-up">
+        <h2 class="titulo1" data-aos="fade-down">Catálogo de Productos</h2>
+
+        <!-- Filtros de búsqueda -->
+        <div class="filtros" data-aos="fade-up">
+          <div class="filtro">
+            <label for="marca">Marca</label>
+            <select id="marca">
+              <option value="">Todas</option>
+            </select>
+          </div>
+
+          <div class="filtro">
+            <label for="proposito">Propósito</label>
+            <select id="proposito">
+              <option value="">Todos</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Loader -->
+        <div id="loader" style="display:none; text-align:center; padding:2rem;" data-aos="fade-in">
+          <div class="spinner"></div>
+          <p>Cargando productos...</p>
+        </div>
+
+        <!-- Grid de productos -->
+        <div class="productos-grid" id="productos-grid" data-aos="fade-up">
+          <!-- Aquí se insertan los productos dinámicamente -->
+        </div>
+      </section>
+
+      <!-- Botón flotante para ver el carrito -->
+      <button id="ver-carrito" class="btn-carrito">
+        🛒 Ver Carrito (<span id="carrito-cantidad">0</span>)
+      </button>
+
+      <!-- MODALES -->
+      <!-- Modal de producto ampliado -->
+<div id="modal-producto" class="modal-producto" style="display:none;">
+  <div class="modal-contenido">
+          <span class="modal-cerrar" id="cerrar-modal">&times;</span>
+          <div id="modal-info">
+            <!-- Aquí se inserta la info del producto -->
+          </div>
+          <div class="modal-acciones">
+            <label for="modal-cantidad">Cantidad:</label>
+            <input type="number" id="modal-cantidad" min="1" value="1" style="width:60px;">
+            <button id="agregar-carrito">Agregar al carrito</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal del carrito -->
+<div id="modal-carrito" class="modal-producto" style="display:none;">
+  <div class="modal-contenido">
+          <span class="modal-cerrar" id="cerrar-modal-carrito">&times;</span>
+          <h3>Carrito de Cotización</h3>
+          <div class="carrito-modal-flex">
+            <div class="carrito-modal-izq">
+              <div id="carrito-listado">
+                <!-- Aquí se listan los productos del carrito -->
+              </div>
+            </div>
+          </div>
+          <div class="carrito-modal-der">
+            <!-- Formulario de cotización -->
+            <form class="form-cotizacion" autocomplete="off" onsubmit="return false;">
+              <div class="campo-grupo">
+                <label for="nombre-cliente">Nombre:</label>
+                <input type="text" id="nombre-cliente" placeholder="Ej: Juan Pérez" required />
+              </div>
+              <div class="campo-grupo">
+                <label for="telefono-cliente">Teléfono:</label>
+                <select id="codigo-pais">
+                  <option value="52" data-flag="🇲🇽" selected>🇲🇽 +52</option>
+                  <option value="1" data-flag="🇺🇸">
+                  <option value="54" data-flag="🇦🇷">🇦🇷 +54</option>
+                  <option value="57" data-flag="🇨🇴">🇨🇴 +57</option>
+                  <option value="34" data-flag="🇪🇸">🇪🇸 +34</option>
+                  <option value="55" data-flag="🇧🇷">🇧🇷 +55</option>
+                  <option value="56" data-flag="🇨🇱">🇨🇱 +56</option>
+                  <option value="591" data-flag="🇧🇴">🇧🇴 +591</option>
+                  <option value="507" data-flag="🇵🇦">🇵🇦 +507</option>
+                  <option value="593" data-flag="🇪🇨">🇪🇨 +593</option>
+                </select>
+                <input type="tel" id="telefono-cliente" placeholder="1234567890" required />
+              </div>
+              <div class="campo-grupo">
+                <label for="servicio-solicitado" required>Servicio:</label>
+                <select id="servicio-solicitado">
+                  <option value="" selected>Selecciona un servicio</option>
+                  <option value="venta">Venta</option>
+                  <option value="renta">Renta</option>
+                  <option value="servicio">Órdenes de Servicio</option>
+                </select>
+              </div>
+              <div class="campo-grupo" id="grupo-descripcion-servicio" style="display:none;">
+                <label for="descripcion-servicio">Descripción del servicio solicitado:</label>
+                <textarea id="descripcion-servicio" rows="3" maxlength="300" placeholder="Describe brevemente el servicio que necesitas..."></textarea>
+              </div>
+              <button id="cotizar-pdf" type="button">Cotizar (Generar PDF)</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal visor PDF -->
+<div id="modal-pdf" class="modal-producto" style="display:none; z-index:2000; background:rgba(0,0,0,0.7);">
+  <div class="modal-contenido" style="max-width:900px; width:98vw; padding:0;" data-aos="fade-up" data-aos-delay="100">
+          <span class="modal-cerrar" id="cerrar-modal-pdf" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
+          <iframe id="iframe-pdf" style="width:100%;height:80vh;border:none;display:block;"></iframe>
+          <div style="text-align:right;padding:1rem;">
+            <button id="descargar-pdf" style="background:#ff8f1c;color:#fff;border:none;border-radius:8px;padding:0.6rem 1.5rem;font-size:1.1rem;font-weight:bold;cursor:pointer;">Descargar PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenedor de notificaciones toast -->
+      <div id="toast-container" style="position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:3000;display:flex;flex-direction:column;align-items:center;gap:0.5rem;"></div>
+
+      <!-- PIE DE PÁGINA -->
+      <footer class="footer">
+        <div class="logo">
+          <a href="#top">
+            <img src="/assets/img/logo3.png" alt="Logo Neumatics Tool" /> <!--Redirige al tope para volver a la sección principal-->
+          </a>
+          <p>© 2025 Neumatics Tools. Todos los derechos reservados.</p>
+        </div>
+        <nav class="links">
+          <a href="#" id="link-terminos">Términos y Condiciones</a>
+          <a href="#" id="link-privacidad">Política de Privacidad</a>
+          <a href="#">Ayuda</a>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=61578918880067" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+              </svg>
+            </a>
+            <a href="https://youtube.com/@neumaticstool?si=GJkpGTiJAGF2fXex" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/neumaticstooldivisionminera?utm_source=ig_web_button_share_sheet&igsh=MWJ0OThxNm9ybHlqMQ==" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+              </svg>
+            </a>
+          </div>
+        </nav>
+      </footer>
+
+      <!-- Modal Política de Privacidad -->
+<div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
+  <div class="modal-contenido" data-aos="fade-up" data-aos-delay="100">
+          <span class="modal-cerrar" id="cerrar-modal-privacidad">&times;</span>
+          <h2>Política de Privacidad</h2>
+          <div class="legal-content">
+            <p>Política de privacidad<br><br>
+En cumplimiento a lo previsto en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (en lo sucesivo "la Ley"). Nos permitimos informarle lo siguiente:<br><br>
+<b>1.- RESPONSABLE DE LOS DATOS PERSONSALES</b><br><br>
+NEUMATIC'S TOOL "En lo sucesivo "RESPONSABLE", señalando para efectos del presente Aviso de Privacidad el Domicilio ubicado en Av. La Salle 105, Colonia La Esmeralda, Código Postal 34105 en la ciudad de Durango, Dgo, será el responsable de los datos personales que le sean proporcionados por las personas físicas o morales a quienes correspondan los mismos (en lo sucesivo el "TITULAR").<br><br>
+<b>2.- DATOS PERSONALES QUE SE SOLICITAN DEL TITULAR</b><br><br>
+Para las finalidades señaladas en el presente aviso de Privacidad, el RESPONSABLE podrá redactar los Datos Personales del TITULAR como son: datos de identificación, nombre completo y fotografía (identificación oficial así como la imagen del TITULAR al ingresar a las instalaciones del RESPONSABLE a través de las cámaras de video vigilancia y seguridad), domicilio (comprobante de domicilio), teléfono fijo, teléfono celular, número de fax, correo electrónico, nacionalidad, fecha y lugar de nacimiento, estado civil, Registro Federal de Contribuyentes (RFC), Clave Única de Registro de Población (CURP), cargo, información bancaria, información técnica, firma autógrafa y/o electrónica, actividad económica (en adelante y en su conjunto los Datos Personales) de alguna de las siguientes formas:<br>
+I. Cuando el TITULAR los proporcione personal o directamente,<br>
+II. Cuando el RESPONSABLE los obtenga de forma indirecta,<br>
+III. Cuando el TITULAR utilice el sitio de internet o los servicios en línea del RESPONSABLE y/o<br>
+IV. Cuando se obtenga por el RESPONSABLE a través de las fuentes permitidas por la legislación.<br><br>
+Para aquellas personas que tengan el carácter de contacto de algún TITULAR se les informa que el RESPONSABLE únicamente requiere sus Datos Personales correspondientes a: datos de identificación, nombre completo y fotografía (identificación oficial así como la imagen del TITULAR al ingresar a las instalaciones del RESPONSIBLE a través de las cámaras de video vigilancia y seguridad), domicilio (comprobante de domicilio), teléfono fijo, teléfono celular, número de fax, correo electrónico, nacionalidad, fecha y lugar de nacimiento, estado civil, Registro Federal de Contribuyentes (RFC), Clave Única de Registro de Población (CURP), cargo, información bancaria, información técnica, firma autógrafa y/o electrónica, actividad económica, Datos Personales de los que los contactos son TITULARES en términos del presente Aviso de Privacidad.<br><br>
+Ahora bien, para aquellas personas que tengan el carácter de beneficiarios del Servicio de algún TITULAR se les informa que el RESPONSABLE requerirá sus Datos Personales correspondientes al llenado de diversos formatos requeridos, los cuales pueden ser algunos de los siguientes: datos de identificación, nombre completo y fotografía (identificación oficial así como la imagen del TITULAR al ingresar a las instalaciones del RESPONSABLE a través de las cámaras de video vigilancia y seguridad), domicilio (comprobante de domicilio), teléfono fijo, teléfono celular, número de Fax, correo electrónico, nacionalidad, fecha y lugar de nacimiento, estado civil, Registro Federal de Contribuyentes (RFC), Clave Única de Registro de Población (CURP), cargo, información bancaria, información técnica, firma autógrafa y/o electrónica, actividad económica, y además que resulten importantes únicamente indispensables, ateniéndose al principio de minimización de recopilación de Datos Personales de los que los beneficiarios son TITULARES en términos del presente Aviso de Privacidad.<br><br>
+LOS TITULARES que hayan proporcionado al RESPONSABLE los Datos Personales de los beneficiarios o contactos, deberán notificar a éstos últimos TITULARES haber proporcionado sus Datos Personales al RESPONSABLE y el contenido del presente Aviso de Privacidad, lo anterior, con independencia de la notificación que el RESPONSABLE hará a dichos TITULARES del Aviso de Privacidad al primer contacto que tenga con éstos últimos.<br><br>
+Es responsabilidad del TITULAR de los Datos Personales, el garantizar que los datos que facilite personal o directamente al RESPONSABLE sean veraces y completos, así como de notificar al RESPONSABLE cualquier modificación a los mismos.<br><br>
+<b>3.- FINALIDADES PARA LAS QUE SE RECABAN LOS DATOS PERSOSALES</b><br><br>
+La información de Datos Personales, que es recolectada por el responsable del TITULAR tendrá el uso que se describe a continuación:<br>
+I. Para la relación correspondiente a la prestación de los servicios por el RESPONSABLE.<br>
+II. Para el cumplimiento de los contratos que celebre el RESPONSABLE con el TITULAR.<br>
+III. Para la identificación del TITULAR.<br>
+IV. Para la administración de los Servicios.<br>
+V. Para el análisis de los Servicios.<br>
+VI. Para la actualización de datos del TITULAR.<br>
+VII. Para llenar diversos formatos.<br>
+VIII. Para contactar al TITULAR en su carácter del beneficiario para dar cumplimiento a los Servicios.<br>
+IX. Para proporcionar seguridad a las instalaciones del RESPONSABLE y a los TITULARES que ingresen a éstas últimas.<br>
+X. Con el propósito de contar con información indispensable y suficiente para controlar el ingreso ordenado, gradual y cauto a las oficinas del RESPONSABLE cuidando la salud de las personas que ingresen y respetando las acciones y políticas gubernamentales y protocolos internos.<br><br>
+Dichas finalidades son necesarias para cumplir las obligaciones derivadas de la relación jurídica que tenga el RESPONSABLE con el TITULAR de contacto de los TITULARES se les informa que el RESPONSABLE únicamente requiere sus Datos Personales para la finalidad establecida en los incisos III), VI), VII) y IX) anteriores, finalidades que son necesarias para cumplir la relación profesional de su designación como beneficiarios.<br><br>
+Por otra parte, para aquellos TITULARES que tengan el carácter de beneficiarios se les informa que el RESPONSABLE únicamente requiere sus Datos Personales para la finalidad establecida en los incisos III), VI), VII), VIII) y IX) anteriores, finalidades que son necesarias para cumplir la relación profesional que en su caso tengan estos TITULARES con el RESPONSABLE derivado de su designación como beneficiarios.<br><br>
+Asimismo, dentro del uso que el RESPONSABLE dará a la información del TITULAR está I), el ofrecimiento y promoción de los servicios, II) envío de boletines, invitaciones e información de los Servicios, así como III) evaluar la calidad de los Servicios, finalidades que no necesariamente se requieren para cumplir con las obligaciones derivadas de la relación profesional que tenga el RESPONSABLE con el TITULAR, por lo que, en caso de que el TITULAR no esté de acuerdo en que el RESPONSABLE utilice sus Datos Personales para dichas finalidades deberá manifestar su oposición de acuerdo a lo dispuesto en la sección 5 del presente Aviso de Privacidad, ya que, en caso de que el TITULAR no manifieste su oposición se entenderá que otorga su consentimiento al RESPONSABLE.<br><br>
+<b>4.- TEMPORALIDAD, REMISIONES Y TRANSFERENCIAS.</b><br><br>
+La temporalidad del manejo de los Datos Personales del TITULAR, dependerá de la relación profesional que se tenga celebrada con el RESPONSABLE, así como de las obligaciones exigidas por la legislación vigente las autoridades competentes y las políticas internas del RESPONSABLE, sin embargo, en relación a los datos Personales correspondientes a la imagen del Titular que es captada por las cámaras de video vigilancia, dicha información es conservada por el RESPONSABLE únicamente por un plazo de 30 (treinta) a 60 (sesenta) días hábiles posteriores a la fecha en la que se obtiene.<br><br>
+La información que sea entregada al RESPONSABLE será resguardada, conservada y protegida por este último de acuerdo a lo dispuesto por la legislación vigente y las políticas internas del RESPONSABLE para efecto de mantener la confidencialidad de dicha información.<br><br>
+De acuerdo a lo dispuesto por la Ley, el RESPONSABLE dará acceso a los Datos Personales del TITULAR (a través de remisiones) a aquellas personas que tengan el carácter de Encargados como pueden ser prestadores de servicios, o socios de negocios del RESPONSABLE, que tengan una relación profesional con éste último, que derivado de dicha relación profesional necesiten conocer la información y asuman el compromiso de mantenerla bajo un estricto orden de confidencialidad y seguridad reconociendo además los términos y condiciones del presente Aviso de Privacidad y comprometiéndose a dar cumplimiento a los mismos.<br><br>
+Si el Titular no manifiesta su oposición para que sus Datos Personales sean transferidos a través de alguno de los medios establecidos en la sección 5 del presente Aviso de Privacidad se entenderá que ha otorgado su consentimiento para ello.<br><br>
+En caso de que los Datos Personales resguardados sean requeridos por una autoridad de cualquier índole o deban ser entregados a ésta última de acuerdo con la legislación vigente, estos datos se pondrán a su disposición dentro del estricto cumplimiento a la Ley, transferencia que no requiere del consentimiento del TITULAR de acuerdo con lo dispuesto en el artículo 37 de dicho ordenamiento legal.<br><br>
+<b>5.- DERECHOS DE ACCESO, RECTIFICACIÓN, CANCELACIÓN, OPOSICIÓN, REVOCACIÓN Y LIMITANCIÓN DE LOS DATOS PERSONALES.</b><br><br>
+Los TITULARES de la información tendrán derecho a solicitar el acceso, rectificación, renovación, cancelación u oposición, así como limitar el uso o divulgación de sus datos, mediante:<br><br>
+a.- Solicitud escrita dirigida a NEUMATIC'S TOOL, al siguiente domicilio Av. La Salle 105, Colonia La Esmeralda, Código Postal 34105 en la ciudad de Durango, Durango, de lunes a viernes de 9:00 a 17:00 horas.<br><br>
+b.- Solicitud formulada al correo electrónico: contabilidad@naumaticstool.com.<br><br>
+El RESPONSABLE dará respuesta a las solicitudes del TITULAR de la información, siempre y cuando no se actualice alguna de las excepciones contenidas en la Ley, y el solicitante cumpla con lo dispuesto en el artículo 29 de dicho ordenamiento legal que establece los requisitos que debe contener las solicitudes presentadas por los Titulares.<br><br>
+Para que el RESPONSABLE de trámite a la solicitud del TITULAR referente al acceso, rectificación, revocación, cancelación, oposición y/o limitación del uso o divulgación de sus datos, éste último deberá adjuntar a su solicitud la siguiente información y documentación.<br><br>
+I. Nombre del TITULAR y domicilio u otro medio para que el RESPONSABLE le comunique la respuesta a su solicitud.<br>
+II. Los documentos con los que acredite su identidad o su personalidad en caso de la representación legal del TITULAR (identificación oficial del TITULAR o del representante legal y poder de este último).<br>
+III. La descripción clara y precisa de los Datos Personales respecto de los que se busca ejercer el derecho al acceso, rectificación, revocación, cancelación, oposición, limitación del uso o divulgación, así como cualquier otro dato o documento que pueda facilitar la localización de los Datos Personales.<br><br>
+El RESPONSABLE dará respuesta a la solicitud del TITULAR referente al acceso, rectificación, revocación, cancelación, oposición y/o limitación del uso o divulgación de sus datos dentro de los plazos establecidos en la Ley, es decir, dentro de los veinte (20 días siguientes contados a partir de que reciba la solicitud del TITULAR, plazo que podrá ser ampliado por el RESPONSABLE de acuerdo con lo dispuesto por el artículo 32 de la Ley.<br><br>
+La obligación de acceso a la información se dará por cumplida por el RESPONSABLE cuando, en caso de que sea solicitado por el TITULAR, se ponga a disposición de este último sus Datos Personales en el domicilio del RESPONSABLE durante el plazo de 15 (quince) días hábiles siguientes a que se le comunique al TITULAR la respuesta a su solicitud o bien a través de alguna de las formas establecidas en el artículo 33 de la Ley, mismas que en la respuesta a su solicitud se le notificarán al TITULAR.<br><br>
+<b>6.- MODIFICACIONES AL AVISO DE PRIVACIDAD</b><br><br>
+En el supuesto, de que el RESPONSABLE, requiera usar Datos Personales con fines distintos a los pactados o convenidos al tenor de la relación profesional que se tiene con el TITULAR y en el presente Aviso de Privacidad o bien requiera del TITULAR Datos Personales distintos a los señalados en el presente Aviso de Privacidad, se notificará al TITULAR en forma escrita, telefónica, electrónica, o por cualquier medio óptico, sonoro, visual u otro que la tecnología permita ahora o en lo futuro explicando los nuevos usos que pretenda darle a dicha información a fin de obtener su consentimiento en términos de la Ley. Con el presente Aviso de Privacidad, los TITULARES de la información quedan debidamente informados de los datos que se recabaron de ellos y con qué fines.<br><br>
+El RESPONSABLE, se reserva el derecho a modificar el presente Aviso de Privacidad para adaptarlo a novedades legislativas o jurisprudenciales, así como a prácticas comerciales.<br><br>
+El presente Aviso de Privacidad, así como el manejo en general de la Ley que haga el RESPONSABLE, se rige por la legislación vigente y aplicable en los Estados Unidos Mexicanos, cualquier controversia que se suscite con motivo de su aplicación deberá ventilarse ante el Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI) o ante los Órganos Jurisdiccionales competentes en Durango, Durango, México
+</p>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        // Script para abrir/cerrar el modal de privacidad
+        document.getElementById('link-privacidad').onclick = function(e) {
+          e.preventDefault();
+          document.getElementById('modal-privacidad').style.display = 'flex';
+        };
+        document.getElementById('cerrar-modal-privacidad').onclick = function() {
+          document.getElementById('modal-privacidad').style.display = 'none';
+        };
+        window.addEventListener('click', function(e) {
+          if (e.target === document.getElementById('modal-privacidad')) document.getElementById('modal-privacidad').style.display = 'none';
+        });
+      </script>
+
+    <!-- SCRIPTS -->
+    <!-- Script de AOS (Animate On Scroll) -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      /**
+       * @description Inicializa la librería AOS (Animate On Scroll) con una duración de 500ms y se ejecuta una sola vez.
+       * @see https://github.com/michalsnik/aos
+       */
+      AOS.init({
+        duration: 500,
+        once: true
+      });
+    </script>
+    <!-- Script principal de la aplicación -->
+    <script type="module" src="/src/main.js"></script>
+    <!-- Script del catálogo -->
+    <script type="module" src="/src/js/catalog.js"></script>
+    <script>
+      /**
+       * @description Cierra el modal del visor de PDF.
+       */
+      document.getElementById('cerrar-modal-pdf').onclick = function() {
+        document.getElementById('modal-pdf').style.display = 'none';
+      };
+    </script>
+  </body>
+</html>
+
+          

@@ -1,0 +1,17 @@
+/**
+ * @fileoverview Variables CSS para colores y estilos globales.
+ * Define las variables de color utilizadas en el sitio web.
+ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========================================================================== */
+/* Variables de color */
+:root {
+    --naranja-primario: #FF8F1C; /* Color principal naranja */
+    --naranja-primario-hover: #f17a00; /* Hover para elementos principales */
+    --naranja-secundario: #b85d00; /* Color secundario naranja */
+    --azul-boton: #364963; /* Color azul para botones */
+}
