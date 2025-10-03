@@ -80,15 +80,16 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
         position: relative;
 
         .slideshow {
-            position: absolute;
+            position: relative; /* Changed from absolute to relative */
             border-radius: 10px;
-            width: 75%;
-            height: 600px;
+            width: 100%; /* Changed from 75% to 100% */
+            max-width: 1000px; /* Added max-width consistent with header.css */
+            height: 500px; /* Changed from 600px to 500px */
             overflow: hidden; 
-            top: -50px;
-            bottom: -150px;
-            right: 10%;
-            transform: translateX(5%);
+            top: auto; /* Removed top offset */
+            bottom: auto; /* Removed bottom offset */
+            right: auto; /* Removed right offset */
+            transform: none; /* Removed transform */
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
 
             .slides {
@@ -100,7 +101,7 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
 
                     img {
                         width: 100%;
-                        height: 600px;
+                        height: 500px; /* Changed from 600px to 500px */
                         object-fit: cover;
                         vertical-align: top;
                     }
@@ -299,11 +300,6 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
         }
         #btn-video {
             margin-left: 0;
-            margin-right: 0;
-            text-align: center;
-            align-self: center; /* ✅ Centra solo este botón */
-        }
-    }
 
     @media screen and (max-width: 480px) {
         & {
@@ -349,3 +345,4 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
         }
     }
 }
+    }}
