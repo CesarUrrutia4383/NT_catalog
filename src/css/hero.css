@@ -12,7 +12,8 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
     color: #ffffff;
     position: relative;
     z-index: 1;
-    padding: 130px 40px 80px 40px; /* Increased top padding to accommodate fixed header */
+    padding: 80px 40px; /* Restored original padding */
+    margin-top: 50px; /* Added margin-top to separate from header */
     margin-bottom: 150px;
     min-height: 500px;
 
