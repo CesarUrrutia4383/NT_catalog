@@ -698,7 +698,9 @@ header .navbar a.boton {
 
   .hero {
     text-align: center;
-    padding: 30px 10px;
+    padding: 30px 5px;
+    max-width: 95vw;
+    margin: 0 auto;
   }
 
   .col-1 .titulo {
@@ -733,6 +735,28 @@ header .navbar a.boton {
     margin-bottom: 30px;
   }
 
+  .caracteristicas .grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .caracteristicas .grid .previews {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .caracteristicas .grid .previews .thumb {
+    position: static;
+    width: 80px;
+    height: 80px;
+    opacity: 1;
+  }
+
+  .caracteristicas .grid .previews .thumb.active {
+    opacity: 1;
+  }
+
   .mision-vision .titulo1 {
     margin-bottom: 30px;
   }
@@ -751,5 +775,35 @@ header .navbar a.boton {
 
   .footer .links {
     text-align: center;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 10px;
+  }
+
+  header .logo {
+    width: 150px;
+    height: 70px;
+    border-radius: 5px;
+  }
+
+  header .logo::before,
+  header .logo::after {
+    display: none;
+  }
+
+  header .navbar {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  header .navbar a {
+    font-size: 14px;
+    padding: 8px 12px;
   }
 }
