@@ -433,7 +433,16 @@ header .navbar a.boton {
   }
 
   .caracteristicas .grid .previews {
-    height: 200px;
+    height: auto;
+  }
+
+  .caracteristicas .grid .previews .thumb {
+    position: relative;
+    display: none;
+  }
+
+  .caracteristicas .grid .previews .thumb.active {
+    display: block;
   }
 
   .caracteristicas .grid .tabs .tab .icono {
@@ -559,7 +568,16 @@ header .navbar a.boton {
   }
 
   .caracteristicas .grid .previews {
-    height: 150px;
+    height: auto;
+  }
+
+  .caracteristicas .grid .previews .thumb {
+    position: relative;
+    display: none;
+  }
+
+  .caracteristicas .grid .previews .thumb.active {
+    display: block;
   }
 
   .caracteristicas .grid {

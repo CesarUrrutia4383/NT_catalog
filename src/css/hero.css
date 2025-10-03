@@ -242,7 +242,7 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             display: flex;
             flex-direction: column;
             gap: 30px;
-            padding: 150px 20px 60px 20px; /* Increased top padding further to move down more */
+            padding: 150px 20px 80px 20px; /* Increased height for hero in responsive */
             border-radius: 20px; /* ✅ Se conservan las esquinas */
             margin: 10px;
             align-items: center; /* Center horizontally */
