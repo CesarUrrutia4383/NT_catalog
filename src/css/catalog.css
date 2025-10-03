@@ -635,15 +635,21 @@
 @media (max-width: 768px) {
   .modal-producto-layout {
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
     justify-content: center;
   }
 
+  #modal-producto .modal-contenido {
+    padding: 1.5rem 1rem;
+    max-width: 90vw;
+    width: 90vw;
+  }
+
   .modal-producto-imagen {
-    width: 240px;
-    padding: 8px;
-    margin-top: 2rem;
+    width: 200px;
+    padding: 6px;
+    margin-top: 1rem;
   }
 
   .modal-producto-imagen img {
@@ -652,51 +658,15 @@
   }
 
   .modal-producto-info {
-    gap: 1.2rem;
+    gap: 1rem;
     max-width: 100%;
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
 
   .modal-producto-info h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    position: static;
-  }
-
-  .info-item {
-    padding: 0.8rem;
-  }
-
-  .info-label {
-    font-size: 0.9rem;
-  }
-
-  .info-value {
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  #modal-producto .modal-contenido {
-    padding: 1.5rem 1rem;
-    max-width: 95vw;
-  }
-
-  .modal-producto-imagen {
-    width: 200px;
-    padding: 6px;
-    margin-top: 1.5rem;
-  }
-
-  .modal-producto-imagen img {
-    width: 100%;
-    height: auto;
-  }
-
-  .modal-producto-info h3 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
     position: static;
   }
 
@@ -710,6 +680,73 @@
 
   .info-value {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #modal-producto .modal-contenido {
+    padding: 1rem 0.8rem;
+    max-width: 95vw;
+    width: 95vw;
+  }
+
+  .modal-producto-layout {
+    gap: 1rem;
+  }
+
+  .modal-producto-imagen {
+    width: 160px;
+    padding: 4px;
+    margin-top: 0.5rem;
+  }
+
+  .modal-producto-imagen img {
+    width: 100%;
+    height: auto;
+  }
+
+  .modal-producto-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+    position: static;
+  }
+
+  .info-item {
+    padding: 0.5rem;
+  }
+
+  .info-label {
+    font-size: 0.8rem;
+  }
+
+  .info-value {
+    font-size: 0.95rem;
+  }
+
+  .modal-acciones {
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
+
+  .cantidad-control {
+    gap: 0.3rem;
+  }
+
+  .cantidad-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+
+  #modal-cantidad {
+    width: 50px;
+    font-size: 1rem;
+  }
+
+  #agregar-carrito {
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    margin-left: 0.5rem;
   }
 }
 
@@ -1438,6 +1475,22 @@ input[type='number'] {
   height: auto;
   margin: 0 auto;
   padding: 2.5rem 2rem 2rem 2rem;
+}
+
+@media (max-width: 768px) {
+  #modal-carrito .modal-contenido {
+    max-width: 90vw;
+    width: 90vw;
+    padding: 1.5rem 1rem 1rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #modal-carrito .modal-contenido {
+    max-width: 95vw;
+    width: 95vw;
+    padding: 1rem 0.8rem 0.8rem 0.8rem;
+  }
 }
 
 /* Centrar el botón de cotizar */
