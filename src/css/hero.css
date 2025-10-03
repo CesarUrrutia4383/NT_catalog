@@ -3,8 +3,8 @@ html {
 }
 
 .hero {
-        background: #FF8F1C;
-background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
+    background: #FF8F1C;
+    background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
     display: grid;
     grid-template-columns: 1fr 1fr; /* Changed from 50% 50% to 1fr 1fr */
     gap: 20px;
@@ -13,9 +13,12 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
     position: relative;
     z-index: 1;
     padding: 80px 40px; /* Restored original padding */
-    margin-top: 150px; /* Increased margin-top to better separate from header */
+    margin-top: 0px; /* Removed margin-top to attach to header */
     margin-bottom: 150px;
     min-height: 500px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 
     .container-hero {
         max-width: 1200px;
