@@ -101,32 +101,3 @@
     max-height: 60px;
   }
 }
-
-/* Large screens */
-@media screen and (min-width: 1200px) {
-  .marcas {
-    padding: 50px 0;
-    margin-bottom: 150px;
-  }
-
-  .marcas .titulo1 {
-    margin-bottom: 50px;
-    font-size: 3rem;
-  }
-
-  .logos-grid {
-    gap: 40px;
-    padding: 40px 0 70px 0;
-  }
-
-  .logo-item {
-    min-width: 220px;
-    min-height: 130px;
-    padding: 12px 10px;
-  }
-
-  .logo-item img {
-    max-width: 200px;
-    max-height: 110px;
-  }
-}

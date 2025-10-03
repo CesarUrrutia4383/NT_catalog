@@ -12,7 +12,7 @@
   width: 250px;             /* ajusta tamaño */
   opacity: 0.1;             /* muy tenue para que no opaque */
   z-index: 1;               /* valor bajo para que quede atrás */
-  pointer-events: none;     
+  pointer-events: none;     /* para que no interfiera con clicks */
 }
 
 /* Contenedor principal del catálogo */
@@ -189,26 +189,19 @@
   align-items: center;
   justify-content: center;
   overflow-y: auto;
-  padding: 20px;
-  box-sizing: border-box;
 }
 /* Fondo y estilo del modal del carrito */
 .modal-contenido {
   background: #f9f9fc;
   border-radius: 18px;
   padding: 2.2rem 1.5rem 1.5rem 1.5rem;
-  max-width: 900px;
+  max-width: 480px;
   width: 96vw;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  border: 3px solid #ff8f1c;
+  border: 2px solid #ff8f1c;
   position: relative;
   text-align: center;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  overflow-y: auto;
-  max-height: 80vh;
 }
 .modal-cerrar {
   position: absolute;
@@ -1429,54 +1422,5 @@ input[type='number'] {
     left: 10px;
     padding: 10px 15px;
     font-size: 0.85rem;
-  }
-}
-
-/* Large screens */
-@media screen and (min-width: 1200px) {
-  .catalogo {
-    padding: 80px 50px;
-    max-width: 1400px;
-  }
-
-  .titulo1 {
-    font-size: 3.5rem;
-    margin-bottom: 50px;
-  }
-
-  .filtros {
-    gap: 30px;
-  }
-
-  .filtro {
-    min-width: 250px;
-  }
-
-  .productos-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-  }
-
-  .producto {
-    padding: 30px;
-  }
-
-  .producto img {
-    height: 250px;
-  }
-
-  .producto h3 {
-    font-size: 1.4rem;
-  }
-
-  .producto p {
-    font-size: 1rem;
-  }
-
-  .btn-carrito {
-    bottom: 40px;
-    right: 40px;
-    padding: 18px 30px;
-    font-size: 1.2rem;
   }
 }

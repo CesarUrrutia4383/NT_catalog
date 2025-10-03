@@ -60,7 +60,7 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             align-items: center;
             gap: 40px;
             margin-top: 50px;
-            font-size: 15px;
+            font-size: 15x;
 
             p {
                 display: flex;
@@ -232,14 +232,14 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
 
     /* Media queries para dispositivos móviles */
     @media screen and (max-width: 768px) {
-
+        
         &{
             display: flex;
             flex-direction: column;
             gap: 20px;
             padding: 60px 16px; /* ✅ Espacio lateral */
             border-radius: 20px; /* ✅ Se conservan las esquinas */
-            margin: 10px;
+            margin: 10px; 
 
             .col-1 {
                 order: 2;
@@ -250,10 +250,6 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
                     font-size: 30px;
                 }
 
-                .descripcion {
-                    font-size: 20px;
-                }
-
                 .botones {
                     justify-content: center;
                 }
@@ -262,7 +258,7 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
                     flex-direction: column;
                     gap: 20px;
                     justify-content: center;
-
+                    
                     p {
                         gap: 10px;
 
@@ -290,68 +286,6 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             margin-right: 0;
             text-align: center;
             align-self: center; /* ✅ Centra solo este botón */
-        }
-    }
-
-    @media screen and (max-width: 480px) {
-        & {
-            padding: 40px 12px;
-            margin: 5px;
-
-            .col-1 {
-                gap: 20px;
-
-                .titulo {
-                    font-size: 24px;
-                }
-
-                .descripcion {
-                    font-size: 16px;
-                }
-
-                .estadisticas {
-                    margin-top: 30px;
-                    gap: 15px;
-                }
-            }
-
-            .col-2 .slideshow {
-                width: 80%;
-            }
-        }
-    }
-
-    /* Large screens */
-    @media screen and (min-width: 1200px) {
-        & {
-            padding: 140px 100px;
-            margin-bottom: 180px;
-
-            .col-1 {
-                gap: 50px;
-
-                .titulo {
-                    font-size: 45px;
-                }
-
-                .descripcion {
-                    font-size: 28px;
-                }
-
-                .estadisticas {
-                    gap: 50px;
-                    margin-top: 60px;
-                }
-            }
-
-            .col-2 .slideshow {
-                width: 80%;
-                height: 700px;
-
-                .slide img {
-                    height: 700px;
-                }
-            }
         }
     }
 }
