@@ -12,7 +12,7 @@
   width: 250px;             /* ajusta tamaño */
   opacity: 0.1;             /* muy tenue para que no opaque */
   z-index: 1;               /* valor bajo para que quede atrás */
-  pointer-events: none;     /* para que no interfiera con clicks */
+  pointer-events: none;     
 }
 
 /* Contenedor principal del catálogo */
