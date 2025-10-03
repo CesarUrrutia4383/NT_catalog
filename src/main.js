@@ -12,8 +12,6 @@ import "./css/hero.css";
 import "./css/contacto.css";
 import "./css/catalog.css";
 import "./css/marcas.css";
-import "./css/responsive.css";
-import "./css/responsive-unified.css";
 
 // FUNCIONES DE JAVASCRIPT
 import "./js/video.js";
