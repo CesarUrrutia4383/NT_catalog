@@ -59,7 +59,7 @@ Description: Main page of the Neumatics Tool website, a company that sells and r
     <div class="contenedor-header">
       <header data-aos="fade-down">
         <!-- Logo -->
-        <a class="logo">
+        <a class="logo" href="#top">
           <img src="/assets/img/logo1.png" alt="Logo Neumatics Tool" />
         </a>
         <!-- Navegación -->
@@ -88,6 +88,38 @@ Description: Main page of the Neumatics Tool website, a company that sells and r
             </div>
           </a>
         </nav>
+        <!-- Hamburger Menu Button -->
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+          <a href="contact.html">Contacto</a>
+          <a href="#">Ayuda</a>
+          <a href="catalog.html" class="boton"
+            >Catálogo
+            <div class="icono">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6.364 13.5a.5.5 0 0 0 .5.5H13.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 13.5 1h-10A1.5 1.5 0 0 0 2 2.5v6.636a.5.5 0 1 0 1 0V2.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H6.864a.5.5 0 0 0-.5.5"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M11 5.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793l-8.147 8.146a.5.5 0 0 0 .708.708L10 6.707V10.5a.5.5 0 0 0 1 0z"
+                />
+              </svg>
+            </div>
+          </a>
+        </div>
       </header>
       <!-- SECCIÓN HERO -->
       <div class="hero" data-aos="fade-up">
@@ -584,6 +616,39 @@ Description: Main page of the Neumatics Tool website, a company that sells and r
           }
         } else {
           console.log("No se encontró el contenedor de logos.");
+        }
+      });
+    </script>
+    <script>
+      /**
+       * @fileoverview Script para el menú móvil (hamburger).
+       * @author Neumatics Tool
+       */
+      document.addEventListener('DOMContentLoaded', () => {
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (hamburger && mobileMenu) {
+          hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+          });
+
+          // Cerrar menú al hacer clic en un enlace
+          mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+              mobileMenu.classList.remove('active');
+              hamburger.classList.remove('active');
+            });
+          });
+
+          // Cerrar menú al hacer clic fuera
+          document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+              mobileMenu.classList.remove('active');
+              hamburger.classList.remove('active');
+            }
+          });
         }
       });
     </script>

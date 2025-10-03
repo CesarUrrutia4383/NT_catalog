@@ -1431,3 +1431,52 @@ input[type='number'] {
     font-size: 0.85rem;
   }
 }
+
+/* Large screens */
+@media screen and (min-width: 1200px) {
+  .catalogo {
+    padding: 80px 50px;
+    max-width: 1400px;
+  }
+
+  .titulo1 {
+    font-size: 3.5rem;
+    margin-bottom: 50px;
+  }
+
+  .filtros {
+    gap: 30px;
+  }
+
+  .filtro {
+    min-width: 250px;
+  }
+
+  .productos-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .producto {
+    padding: 30px;
+  }
+
+  .producto img {
+    height: 250px;
+  }
+
+  .producto h3 {
+    font-size: 1.4rem;
+  }
+
+  .producto p {
+    font-size: 1rem;
+  }
+
+  .btn-carrito {
+    bottom: 40px;
+    right: 40px;
+    padding: 18px 30px;
+    font-size: 1.2rem;
+  }
+}
