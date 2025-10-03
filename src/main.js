@@ -16,6 +16,7 @@ import "./css/header.css";
 import "./css/footer.css";
 import "./css/variables.css";
 import "./css/responsive.css";
+import "./css/responsive-unified.css";
 import "./css/mision-vision.css";
 
 // FUNCIONES DE JAVASCRIPT
