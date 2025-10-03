@@ -6,21 +6,27 @@ html {
         background: #FF8F1C;
 background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr 1fr; /* Changed from 50% 50% to 1fr 1fr */
     gap: 20px;
     border-radius: 20px;
     color: #ffffff;
     position: relative;
     z-index: 1;
-    padding: 120px 80px;
+    padding: 80px 40px; /* Reduced padding from 120px 80px */
     margin-bottom: 150px;
     min-height: 500px;
+
+    .container-hero {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: contents; /* So it doesn't affect grid */
+    }
 
     .col-1 {
         display: flex;
         flex-direction: column;
         gap: 40px;
-        margin-right: 20px;
+        /* Removed margin-right */
 
         .titulo {
             font-size: 38px;
@@ -258,10 +264,11 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
                 .botones {
                     justify-content: center;
                     gap: 20px;
+                    align-items: center;
                 }
 
                 .estadisticas {
-                    flex-direction: column;
+                    flex-direction: row;
                     gap: 20px;
                     justify-content: center;
                     margin-top: 40px;
@@ -299,7 +306,14 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             }
         }
         #btn-video {
-            margin-left: 0;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            align-self: center;
+            display: block;
+        }
+
+    }
 
     @media screen and (max-width: 480px) {
         & {
@@ -345,4 +359,3 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
         }
     }
 }
-    }}
