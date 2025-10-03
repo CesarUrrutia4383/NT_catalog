@@ -16,6 +16,9 @@ header {
   background-color: transparent;
   margin-top: 40px; /* Margin for top positioning */
   padding: 10px 0; /* Add padding for spacing */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .hero {
