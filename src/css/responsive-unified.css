@@ -12,9 +12,9 @@ body, html {
 
 header {
   position: relative;
-  z-index: 1000;
+  z-index: 0; /* Lower z-index to be behind hero */
   background-color: transparent;
-  margin-top: 40px; /* Margin for top positioning */
+  margin-top: 0; /* Reduce margin-top to attach closer to hero */
   padding: 10px 0; /* Add padding for spacing */
   display: flex;
   justify-content: space-between;
