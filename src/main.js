@@ -12,6 +12,9 @@ import "./css/hero.css";
 import "./css/contacto.css";
 import "./css/catalog.css";
 import "./css/marcas.css";
+import "./css/header.css";
+import "./css/footer.css";
+import "./css/variables.css";
 
 // FUNCIONES DE JAVASCRIPT
 import "./js/video.js";
