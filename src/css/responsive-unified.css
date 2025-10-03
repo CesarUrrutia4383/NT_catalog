@@ -214,7 +214,7 @@ header .navbar a.boton {
   border-radius: 5px;
   overflow: hidden;
   width: 100%;
-  min-height: 250px;
+  height: 250px;
   position: relative;
 }
 
@@ -433,7 +433,7 @@ header .navbar a.boton {
   }
 
   .caracteristicas .grid .previews {
-    min-height: 200px;
+    height: 300px;
   }
 
   .caracteristicas .grid .tabs .tab .icono {
@@ -559,7 +559,7 @@ header .navbar a.boton {
   }
 
   .caracteristicas .grid .previews {
-    height: 150px;
+    height: 250px;
   }
 
   .caracteristicas .grid {
