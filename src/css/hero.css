@@ -265,6 +265,7 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
                     justify-content: center;
                     gap: 20px;
                     align-items: center;
+                    flex-direction: row;
                 }
 
                 .estadisticas {
