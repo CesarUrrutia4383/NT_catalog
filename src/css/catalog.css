@@ -24,6 +24,7 @@
   margin-bottom: 60px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
 
@@ -77,6 +78,8 @@
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 2rem;
   padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 /* Tarjeta de producto individual */
@@ -122,22 +125,14 @@
   margin-bottom: 15px;
   border: 3px solid #ff8f1c;
   background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
-  padding: 15px;
+  padding: 0; /* Removed padding to eliminate black line */
   box-shadow: 0 4px 16px rgba(255, 143, 28, 0.2);
   transition: all 0.3s ease;
   position: relative;
 }
 
 .producto img::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #ff8f1c, #ff6b1c);
-  border-radius: 14px;
-  z-index: -1;
+  content: none; /* Removed to eliminate black line on left */
 }
 
 .producto img:hover {
@@ -182,26 +177,29 @@
   right: 0 !important;
   bottom: 0 !important;
   width: 100vw !important;
-  height: 100vh !important;
-  background: rgba(30,30,30,0.78) !important;
+  min-height: 100vh !important;
+  background: rgba(255, 255, 255, 0.95) !important; /* Changed from dark to light transparent */
   z-index: 2000 !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-y: auto;
+  overflow-y: auto !important;
+  padding: 20px;
 }
 /* Fondo y estilo del modal del carrito */
 .modal-contenido {
-  background: #f9f9fc;
+  background: #fff; /* Changed to pure white for warm look */
   border-radius: 18px;
   padding: 2.2rem 1.5rem 1.5rem 1.5rem;
   max-width: 480px;
   width: 96vw;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  border: 2px solid #ff8f1c;
+  box-shadow: 0 0 15px 3px rgba(255, 143, 28, 0.3); /* Warm orange glow */
+  border: 2px solid #ff8f1c; /* Orange border */
   position: relative;
   text-align: center;
   margin: 0 auto;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 .modal-cerrar {
   position: absolute;
@@ -486,39 +484,17 @@
 #modal-producto .modal-contenido {
   background: #f9f9fc;
   border-radius: 18px;
-  padding: 2rem;
-  max-width: 900px;
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 1000px;
   width: 96vw;
-  max-height: 90vh;
-  overflow: hidden; /* evita scroll general */
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   border: 3px solid #ff8f1c;
   position: relative;
+  text-align: center;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  max-height: none;
+  overflow: visible;
 }
-
-/* Contenedor de información con scroll propio */
-#modal-info {
-  flex: 1;
-  overflow-y: auto;
-  padding-bottom: 1rem;
-}
-
-/* Acciones siempre visibles al final */
-/* Acciones abajo fijas */
-#modal-producto .modal-acciones {
-  flex-shrink: 0;
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.7rem;
-}
-
-
 
 #modal-producto .modal-contenido::before {
   content: '';
@@ -530,6 +506,84 @@
   background: linear-gradient(45deg, #ff8f1c, #ff6b1c);
   border-radius: 20px;
   z-index: -1;
+}
+
+/* Nuevo layout horizontal para el modal de producto */
+.modal-producto-layout {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.modal-producto-imagen {
+  flex-shrink: 0;
+  width: 280px;
+  background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
+  border: 3px solid #ff8f1c;
+  /* Removed box-shadow to eliminate black line */
+  box-shadow: none;
+  border-radius: 15px;
+  padding-left: 0px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  /* Removed border-left: none to restore full border */
+}
+
+.modal-producto-imagen::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px; /* Reset to cover full border */
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(45deg, #ff8f1c, #ff6b1c);
+  border-radius: 17px;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.modal-producto-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  /* Removed box-shadow to eliminate black line */
+  box-shadow: none;
+  transition: transform 0.3s ease;
+}
+
+.modal-producto-imagen img:hover {
+  transform: scale(1.05);
+}
+
+.modal-producto-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 450px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.modal-producto-info h3 {
+  color: #ff8f1c;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(255, 143, 28, 0.1);
+  width: 100%;
 }
 
 /* Estilos para las etiquetas de información */
@@ -577,7 +631,87 @@
   font-style: italic;
 }
 
+/* Responsive para el modal de producto */
+@media (max-width: 768px) {
+  .modal-producto-layout {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+  }
 
+  .modal-producto-imagen {
+    width: 240px;
+    padding: 8px;
+    margin-top: 2rem;
+  }
+
+  .modal-producto-imagen img {
+    width: 100%;
+    height: auto;
+  }
+
+  .modal-producto-info {
+    gap: 1.2rem;
+    max-width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .modal-producto-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    position: static;
+  }
+
+  .info-item {
+    padding: 0.8rem;
+  }
+
+  .info-label {
+    font-size: 0.9rem;
+  }
+
+  .info-value {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #modal-producto .modal-contenido {
+    padding: 1.5rem 1rem;
+    max-width: 95vw;
+  }
+
+  .modal-producto-imagen {
+    width: 200px;
+    padding: 6px;
+    margin-top: 1.5rem;
+  }
+
+  .modal-producto-imagen img {
+    width: 100%;
+    height: auto;
+  }
+
+  .modal-producto-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    position: static;
+  }
+
+  .info-item {
+    padding: 0.6rem;
+  }
+
+  .info-label {
+    font-size: 0.85rem;
+  }
+
+  .info-value {
+    font-size: 1rem;
+  }
+}
 
 #modal-info img {
   width: 100%;
@@ -601,12 +735,11 @@
   margin-bottom: 0.3rem;
 }
 .modal-acciones {
+  margin-top: 1.2rem;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.7rem;
-  margin-bottom: 0.5rem;
 }
 .cantidad-control {
   display: flex;

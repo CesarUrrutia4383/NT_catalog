@@ -15,8 +15,8 @@ import "./css/marcas.css";
 import "./css/header.css";
 import "./css/footer.css";
 import "./css/variables.css";
-import "./css/normalize.css";
 import "./css/responsive.css";
+import "./css/mision-vision.css";
 
 // FUNCIONES DE JAVASCRIPT
 import "./js/video.js";

@@ -1,13 +1,7 @@
-/**
- * @fileoverview Estilos para la sección hero de la página principal.
- * Incluye layout de grid, slideshow, overlay de video y responsividad.
- */
-
 html {
   scroll-behavior: smooth;
 }
 
-/* Estilos para la sección hero */
 .hero {
         background: #FF8F1C;
 background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
@@ -22,14 +16,12 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
     margin-bottom: 150px;
     min-height: 500px;
 
-    /* Estilos para la columna izquierda */
     .col-1 {
         display: flex;
         flex-direction: column;
         gap: 40px;
         margin-right: 20px;
 
-        /* Estilos para el título */
         .titulo {
             font-size: 38px;
             font-weight: 800;
@@ -38,14 +30,12 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             color: #FFFFFF;
         }
 
-        /* Estilos para la descripción */
         .descripcion {
             font-size: 25px;
             line-height: 160%;
             margin-top: 10px;
         }
 
-        /* Estilos para los botones */
         .botones {
             display: flex;
             flex-direction: column; /* vertical */
@@ -54,7 +44,6 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             margin-top: 30px;
         }
 
-        /* Estilos para las estadísticas */
         .estadisticas {
             display: flex;
             align-items: center;
@@ -87,24 +76,21 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
         }
     }
 
-    /* Estilos para la columna derecha */
     .col-2 {
         position: relative;
 
-        /* Estilos para el slideshow */
         .slideshow {
             position: absolute;
             border-radius: 10px;
             width: 75%;
             height: 600px;
-            overflow: hidden;
+            overflow: hidden; 
             top: -50px;
             bottom: -150px;
             right: 10%;
             transform: translateX(5%);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
 
-            /* Estilos para los slides */
             .slides {
                 display: flex;
                 flex-wrap: nowrap;
@@ -121,7 +107,6 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
                 }
             }
 
-            /* Estilos para los indicadores */
             .indicadores {
                 width: 100%;
                 display: flex;
@@ -151,98 +136,111 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
         }
     }
 
-    /* Estilos para el overlay del video */
-    .overlay-video {
-      background: rgba(0, 0, 0, 0.8);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
+.overlay-video {
+  background: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 
-      /* Fade to transparent hacia la derecha */
-      mask-image: linear-gradient(to right, black 85%, transparent);
-      -webkit-mask-image: linear-gradient(to right, black 85%, transparent);
+  /* Fade to transparent hacia la derecha */
+  mask-image: linear-gradient(to right, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, black 85%, transparent);
 
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.overlay-video.active {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-video .video {
+  width: 95%;
+  max-width: 800px;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  animation: fadeScaleIn 0.3s ease;
+}
+
+@keyframes fadeScaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.overlay-video iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  border: none;
+}
+
+/* Botón cerrar fuera del video */
+.close-video-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  text-align: center;
+  line-height: 42px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.close-video-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+    @media screen and (max-width: 1024px) and (min-width: 769px) {
+        .hero {
+            padding: 100px 40px;
+
+            .col-2 .slideshow {
+                width: 80%;
+                height: 500px;
+
+                .slide img {
+                    height: 500px;
+                }
+            }
+        }
     }
 
-    .overlay-video.active {
-      display: flex;
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .overlay-video .video {
-      width: 95%;
-      max-width: 800px;
-      background: #000;
-      border-radius: 12px;
-      overflow: hidden;
-      animation: fadeScaleIn 0.3s ease;
-    }
-
-    @keyframes fadeScaleIn {
-      from {
-        transform: scale(0.9);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    .overlay-video iframe {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      display: block;
-      border: none;
-    }
-
-    /* Botón cerrar fuera del video */
-    .close-video-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 28px;
-      color: white;
-      background: rgba(0, 0, 0, 0.6);
-      border: none;
-      border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      text-align: center;
-      line-height: 42px;
-      cursor: pointer;
-      z-index: 1001;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .close-video-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.1);
-    }
-
-    /* Media queries para dispositivos móviles */
     @media screen and (max-width: 768px) {
-        
+
         &{
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            padding: 60px 16px; /* ✅ Espacio lateral */
+            gap: 30px;
+            padding: 60px 20px; /* ✅ Espacio lateral */
             border-radius: 20px; /* ✅ Se conservan las esquinas */
-            margin: 10px; 
+            margin: 10px;
 
             .col-1 {
-                order: 2;
+                order: 1;
                 text-align: center;
 
                 .titulo {
@@ -250,15 +248,21 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
                     font-size: 30px;
                 }
 
+                .descripcion {
+                    font-size: 22px;
+                }
+
                 .botones {
                     justify-content: center;
+                    gap: 20px;
                 }
 
                 .estadisticas {
                     flex-direction: column;
                     gap: 20px;
                     justify-content: center;
-                    
+                    margin-top: 40px;
+
                     p {
                         gap: 10px;
 
@@ -271,13 +275,22 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             }
 
             .col-2 {
-                order: 1;
+                order: 2;
                 display: flex;
                 justify-content: center;
+                align-items: center;
 
                 .slideshow {
                     position: relative;
-                    width: 60%;
+                    width: 100%;
+                    height: auto;
+                    max-height: 400px;
+                    border-radius: 10px;
+                }
+
+                .slides .slide img {
+                    height: 400px;
+                    object-fit: cover;
                 }
             }
         }
@@ -286,6 +299,50 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
             margin-right: 0;
             text-align: center;
             align-self: center; /* ✅ Centra solo este botón */
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        & {
+            padding: 40px 15px;
+            margin: 5px;
+
+            .col-1 {
+                .titulo {
+                    font-size: 24px;
+                }
+
+                .descripcion {
+                    font-size: 18px;
+                }
+
+                .botones {
+                    gap: 15px;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .estadisticas {
+                    margin-top: 30px;
+
+                    p {
+                        font-size: 14px;
+                        flex-direction: column;
+                        gap: 5px;
+                    }
+                }
+            }
+
+            .col-2 .slideshow {
+                width: 95%;
+                max-height: 300px;
+                border-radius: 8px;
+
+                .slide img {
+                    height: 300px;
+                    object-fit: cover;
+                }
+            }
         }
     }
 }

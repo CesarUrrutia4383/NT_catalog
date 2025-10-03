@@ -1,6 +1,6 @@
-/* Archivo CSS generado con todas las correcciones de estilos para dispositivos mviles */
+/* Unified responsive styles for Neumatics Tool website */
 
-/* Reglas generales para el cuerpo y el html */
+/* General rules for body and html */
 body, html {
   width: 100%;
   overflow-x: hidden;
@@ -12,7 +12,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Estilos para la seccion de marcas */
+/* Section: marcas */
 .marcas {
   padding: 40px 0;
   background-color: transparent;
@@ -33,7 +33,7 @@ html {
   box-shadow: none;
 }
 
-/* Estilos para la seccion de mision y vision */
+/* Section: mision-vision */
 .mision-vision .titulo1 {
   color: #FFFFFF;
 }
@@ -44,7 +44,7 @@ html {
   background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
   border-radius: 20px;
   color: #ffffff;
-  margin-bottom: 60px; /* Separación del footer */
+  margin-bottom: 60px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -89,7 +89,7 @@ html {
   line-height: 1.6;
 }
 
-/* Estilos para el header */
+/* Header styles */
 .contenedor-header {
   width: 90%;
   max-width: 1200px;
@@ -158,7 +158,7 @@ header .navbar a.boton {
   font-weight: 500;
 }
 
-/* Estilos para el slider */
+/* Slider styles */
 .col-2 {
   width: 100%;
   display: flex;
@@ -198,7 +198,7 @@ header .navbar a.boton {
   border-radius: 10px;
 }
 
-/* Estilos para la seccion de caracteristicas */
+/* Caracteristicas section */
 .caracteristicas {
   margin-top: 200px;
   margin-bottom: 100px;
@@ -277,7 +277,7 @@ header .navbar a.boton {
   gap: 10px;
 }
 
-/* Estilos para el footer */
+/* Footer styles */
 .footer {
   background: #FF8F1C;
   background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
@@ -330,7 +330,7 @@ header .navbar a.boton {
   transform: scale(1.1);
 }
 
-/* Media queries para hacer la pagina responsive */
+/* Media queries for responsiveness */
 @media screen and (max-width: 1024px) {
   .contenedor-header {
     width: 95%;
@@ -422,7 +422,7 @@ header .navbar a.boton {
 
   .slide img {
     border-radius: 0;
-    object-fit: contain; /* para que la imagen no se recorte y se vea completa */
+    object-fit: contain;
     height: 450px;
   }
 
