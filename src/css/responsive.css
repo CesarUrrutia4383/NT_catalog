@@ -782,12 +782,24 @@ header .navbar a.boton {
     align-items: center;
     gap: 15px;
     padding: 15px 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   header .logo {
     width: 150px;
     height: 70px;
     border-radius: 5px;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  header .logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
 
   header .logo::before,
