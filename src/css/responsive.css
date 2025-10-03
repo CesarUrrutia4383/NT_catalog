@@ -335,6 +335,137 @@ header .navbar a.boton {
   .contenedor-header {
     width: 95%;
   }
+}
+
+/* Estilos para el modal de producto */
+.modal-producto {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  max-width: 900px;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-contenido {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.modal-contenido .titulo {
+  grid-column: 1 / -1;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--naranja-primario);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-contenido .imagen {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.modal-contenido .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #333;
+  font-size: 1rem;
+  overflow-y: auto;
+  max-height: 60vh;
+  padding-right: 10px;
+}
+
+.modal-acciones {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 20px;
+  border-top: 1px solid #ddd;
+  background: #f9f9f9;
+  border-radius: 0 0 15px 15px;
+}
+
+.modal-acciones label {
+  font-weight: 600;
+}
+
+.modal-acciones input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.modal-acciones button {
+  background-color: var(--naranja-primario);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-acciones button:hover {
+  background-color: var(--naranja-primario-hover);
+}
+
+/* Estilos responsivos para el modal */
+@media screen and (max-width: 768px) {
+  .modal-producto {
+    width: 95vw;
+    max-height: 90vh;
+  }
+
+  .modal-contenido {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+
+  .modal-contenido .titulo {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+
+  .modal-contenido .imagen {
+    max-height: 250px;
+    margin-bottom: 15px;
+  }
+
+  .modal-contenido .info {
+    max-height: 40vh;
+    padding-right: 0;
+  }
+
+  .modal-acciones {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .modal-acciones button {
+    width: 100%;
+  }
+}
 
   header .navbar {
     gap: 25px;
@@ -368,7 +499,7 @@ header .navbar a.boton {
   .footer {
     padding: 18px;
   }
-}
+
 
 @media screen and (max-width: 768px) {
   .grid-mv {
