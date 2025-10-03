@@ -13,7 +13,7 @@ background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 9
     position: relative;
     z-index: 1;
     padding: 80px 40px; /* Restored original padding */
-    margin-top: 50px; /* Added margin-top to separate from header */
+    margin-top: 150px; /* Increased margin-top to better separate from header */
     margin-bottom: 150px;
     min-height: 500px;
 

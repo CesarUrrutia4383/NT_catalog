@@ -11,13 +11,10 @@ body, html {
 }
 
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  position: relative;
   z-index: 1000;
   background-color: transparent;
-  margin-top: 0; /* No margin for fixed position */
+  margin-top: 40px; /* Margin for top positioning */
   padding: 10px 0; /* Add padding for spacing */
 }
 
