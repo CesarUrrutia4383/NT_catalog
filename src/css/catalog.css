@@ -542,7 +542,7 @@
 
 .modal-producto-imagen {
   flex-shrink: 0;
-  width: 280px;
+  width: 400px;
   background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
   border: 3px solid #ff8f1c;
   /* Removed box-shadow to eliminate black line */
@@ -667,7 +667,7 @@
   }
 
   .modal-producto-imagen {
-    width: 200px;
+    width: 300px;
     padding: 6px;
     margin-top: 1rem;
   }
@@ -715,7 +715,7 @@
   }
 
   .modal-producto-imagen {
-    width: 160px;
+    width: 250px;
     padding: 4px;
     margin-top: 0.5rem;
   }
