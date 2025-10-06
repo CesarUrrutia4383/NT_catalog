@@ -213,8 +213,9 @@ header .navbar a.boton {
   border-radius: 5px;
   overflow: hidden;
   width: 100%;
-  height: 170%;
+  height: 560px;
   position: relative;
+  align-items: center;
 }
 
 .caracteristicas .grid .previews .thumb {
