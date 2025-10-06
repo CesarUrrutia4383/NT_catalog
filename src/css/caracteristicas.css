@@ -156,14 +156,16 @@ html {
   position: absolute;
   top: 0; left: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
   pointer-events: none;
 }
 
 .previews .thumb.active {
   opacity: 1;
   pointer-events: auto;
-  position: relative;
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
 }
 
 /* Para tabs, transición de fondo o color */
