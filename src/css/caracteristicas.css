@@ -6,135 +6,128 @@ html {
   margin-top: 200px;
   margin-bottom: 100px;
   padding: 0 20px;
+}
 
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
+.caracteristicas .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
 
-    .previews {
-      border-radius: 5px;
-      overflow: hidden;
-      width: 100%;
-      height: 300px;
-      position: relative;
+.caracteristicas .grid .previews {
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  height: 450px; /* Increased height from 300px to 450px */
+  position: relative;
+}
 
-      .thumb {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        vertical-align: top;
-        transition: 0.5s ease all;
+.caracteristicas .grid .previews .thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  vertical-align: top;
+  transition: 0.5s ease all;
+}
 
-        &.active {
-          opacity: 1;
-        }
-      }
-    }
+.caracteristicas .grid .previews .thumb.active {
+  opacity: 1;
+}
 
-    .tabs {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 15px;
+.caracteristicas .grid .tabs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
 
-      .tab {
-        background: #fff;
-        border-radius: 5px;
-        display: grid;
-        grid-template-columns: auto 1fr;
-        cursor: pointer;
-        overflow: hidden;
-        padding: 15px;
+.caracteristicas .grid .tabs .tab {
+  background: #fff;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 15px;
+}
 
-        &.active {
-          background: var(--naranja-primario-hover);
-          color: #fff;
+.caracteristicas .grid .tabs .tab.active {
+  background: var(--naranja-primario-hover);
+  color: #fff;
+}
 
-          .icono {
-            color: #ffffff;
-          }
-        }
+.caracteristicas .grid .tabs .tab.active .icono {
+  color: #ffffff;
+}
 
-        .icono {
-          display: flex;
-          align-items: center;
-          padding-left: 20px;
-          color: var(--naranja-secundario);
+.caracteristicas .grid .tabs .tab .icono {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  color: var(--naranja-secundario);
+}
 
-          svg {
-            width: 30px;
-            height: 30px;
-          }
-        }
+.caracteristicas .grid .tabs .tab .icono svg {
+  width: 30px;
+  height: 30px;
+}
 
-        .info {
-          padding: 20px;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
-      }
-    }
+.caracteristicas .grid .tabs .tab .info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .caracteristicas {
+    margin-top: 40px;
+    margin-bottom: 40px;
   }
 
-  @media screen and (max-width: 768px) {
-    & {
-      margin-top: 40px;
-      margin-bottom: 40px;
-
-      .grid {
-        .tabs {
-          .tab {
-            .icono {
-              display: none;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: 700px) {
-    & {
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-
-        .tabs {
-          grid-template-columns: 1fr;
-          gap: 10px;
-        }
-      }
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    & {
-      margin-top: 20px;
-      margin-bottom: 20px;
-
-      .grid {
-        gap: 10px;
-
-        .tabs .tab .info {
-          padding: 15px;
-
-          h3 {
-            font-size: 1.4rem;
-          }
-
-          p {
-            font-size: 0.9rem;
-          }
-        }
-      }
-    }
+  .caracteristicas .grid .tabs .tab .icono {
+    display: none;
   }
 }
+
+@media screen and (max-width: 700px) {
+  .caracteristicas .grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .caracteristicas .grid .tabs {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .caracteristicas {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .caracteristicas .grid {
+    gap: 10px;
+  }
+
+  .caracteristicas .grid .tabs .tab .info {
+    padding: 15px;
+  }
+
+  .caracteristicas .grid .tabs .tab .info h3 {
+    font-size: 1.4rem;
+  }
+
+  .caracteristicas .grid .tabs .tab .info p {
+    font-size: 0.9rem;
+  }
+}
+
 /* Para las imágenes previews */
 .previews .thumb {
   opacity: 0;
