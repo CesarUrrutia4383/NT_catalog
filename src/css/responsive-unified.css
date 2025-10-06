@@ -15,7 +15,7 @@ header {
   z-index: 0; /* Lower z-index to be behind hero */
   background-color: transparent;
   margin-top: 0; /* Reduce margin-top to attach closer to hero */
-  margin-bottom: -50px; /* Move header down behind hero */
+  margin-bottom: -25px; /* Move header down behind hero */
   padding: 10px 0; /* Add padding for spacing */
   display: flex;
   justify-content: space-between;
