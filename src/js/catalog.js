@@ -520,7 +520,14 @@ function validarCamposCotizacion() {
   if (codigoPais) codigoPais.addEventListener(evt, validarCamposCotizacion);
 });
 
+let isSubmitting = false;
+
 btnCotizarPDF.addEventListener('click', async (e) => {
+  if (isSubmitting) return; // Prevent double submission
+  isSubmitting = true;
+  btnCotizarPDF.disabled = true;
+  btnCotizarPDF.textContent = 'Generando cotización...';
+
   const nombreInput = document.getElementById('nombre-cliente');
   const telefonoInput = document.getElementById('telefono-cliente');
   const codigoPais = document.getElementById('codigo-pais');
@@ -561,7 +568,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   let destinoCorreo = [];
   if (servicio === 'venta') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
   else if (servicio === 'renta') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
-  else if (servicio === 'servicio') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
+  else if (servicio === 'mantenimiento') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
 
   let error = false;
   if (!nombreCliente) {
@@ -596,7 +603,8 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   }
   
   try {
-    const API_PDF_DOWNLOAD = import.meta.env.VITE_API_PDF_DOWNLOAD;
+    // Paso 1: Generar el PDF primero
+    console.log('Iniciando generación de PDF...');
     const carritoParaEnviar = carrito.map(item => ({
       id: item.id,
       nombre: item.nombre_producto || item.nombre,
@@ -605,25 +613,62 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       cantidad: item.cantidad
     }));
 
-    const response = await fetch(`${import.meta.env.VITE_API_PDF_DOWNLOAD}?descargar=1`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ carrito: carritoParaEnviar, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo, descripcion })
+    const pdfUrl = `${API_URL}/quote?descargar=1`;
+    console.log('URL para generar PDF:', pdfUrl);
+    console.log('Datos a enviar:', {
+      carrito: carritoParaEnviar,
+      nombre: nombreCliente,
+      telefono: telefonoCliente,
+      servicio,
+      destinoCorreo,
+      descripcion
     });
-    if (!response.ok) throw new Error('No se pudo generar el PDF');
-    const pdfBlob = await response.blob();
+
+    const pdfResponse = await fetch(pdfUrl, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/pdf',
+        'Origin': window.location.origin
+      },
+      mode: 'cors',
+      credentials: 'include',
+      body: JSON.stringify({
+        carrito: carritoParaEnviar,
+        nombre: nombreCliente,
+        telefono: telefonoCliente,
+        servicio,
+        destinoCorreo,
+        descripcion
+      })
+    });
+
+    if (!pdfResponse.ok) {
+      const errorData = await pdfResponse.text();
+      console.error('Error en la respuesta del PDF:', errorData);
+      throw new Error('No se pudo generar el PDF');
+    }
+
+    console.log('PDF generado correctamente, obteniendo blob...');
+    const pdfBlob = await pdfResponse.blob();
     const url = URL.createObjectURL(pdfBlob);
+    
+    // Mostrar el PDF en el modal
     const modalPDF = document.getElementById('modal-pdf');
     const iframePDF = document.getElementById('iframe-pdf');
     const btnDescargarPDF = document.getElementById('descargar-pdf');
+    
+    console.log('Mostrando PDF en el modal...');
     iframePDF.src = url;
     openModal(modalPDF);
+    
     btnDescargarPDF.onclick = () => {
       const a = document.createElement('a');
       a.href = url;
       a.download = 'cotizacion.pdf';
       a.click();
     };
+    
     document.getElementById('cerrar-modal-pdf').onclick = () => {
       closeModal(modalPDF);
       iframePDF.src = '';
@@ -631,25 +676,44 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     };
     
     enviarCotizacionBackend({ carrito: carritoParaEnviar, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo, descripcion })
-      .then(() => {
+      .then(async (response) => {
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Error al enviar la cotización');
+        }
+        const data = await response.json();
+        
         setTimeout(() => {
-          showToast('Cotización generada y enviada. La empresa se pondrá en contacto contigo.', 5500);
-          
-          carrito = [];
-          guardarCarrito();
-          actualizarCarritoCantidad();
-          mostrarCarrito();
-          nombreInput.value = '';
-          telefonoInput.value = '';
-          if (descripcionServicio) descripcionServicio.value = '';
+          if (data.success) {
+            showToast(data.message, 5500);
+            carrito = [];
+            guardarCarrito();
+            actualizarCarritoCantidad();
+            mostrarCarrito();
+            nombreInput.value = '';
+            telefonoInput.value = '';
+            if (descripcionServicio) descripcionServicio.value = '';
+          } else {
+            showToast('Error: ' + data.message);
+          }
+          isSubmitting = false;
+          btnCotizarPDF.disabled = false;
+          btnCotizarPDF.textContent = 'Cotizar';
         }, 300);
       })
-      .catch(() => {
-        showToast('Error al enviar la cotización. Intenta de nuevo más tarde.');
+      .catch((error) => {
+        console.error('Error al enviar cotización:', error);
+        showToast(`Error al enviar la cotización: ${error.message}`);
+        isSubmitting = false;
+        btnCotizarPDF.disabled = false;
+        btnCotizarPDF.textContent = 'Cotizar';
       });
     closeModal(modalCarrito);
   } catch (err) {
     showToast('No se pudo generar la previsualización del PDF.');
+    isSubmitting = false;
+    btnCotizarPDF.disabled = false;
+    btnCotizarPDF.textContent = 'Cotizar';
   }
 });
 
@@ -711,18 +775,32 @@ window.addEventListener('DOMContentLoaded', () => {
  * @returns {Promise<Response>} - Respuesta del fetch.
  */
 function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo, descripcion}) {
-  const carritoSimplificado = carrito.map(item => ({ id: item.id, nombre: item.nombre, marca: item.marca, proposito: item.proposito, cantidad: item.cantidad }));
+  const carritoSimplificado = carrito.map(item => ({ 
+    id: item.id, 
+    nombre: item.nombre_producto || item.nombre, 
+    marca: item.marca, 
+    proposito: item.proposito, 
+    cantidad: item.cantidad 
+  }));
+
+  const data = {
+    carrito: carritoSimplificado,
+    nombre,
+    telefono,
+    servicio,
+    destinoCorreo,
+    descripcion: descripcion || ''
+  };
+
+  console.log('Enviando datos al backend:', data);
+
   return fetch(import.meta.env.VITE_API_PDF, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      carrito: carritoSimplificado,
-      nombre,
-      telefono,
-      servicio,
-      destinoCorreo,
-      descripcion
-    })
+    headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(data)
   });
 }
 
