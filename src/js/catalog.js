@@ -5,6 +5,7 @@
  */
 
 const API_URL = import.meta.env.VITE_API_URL;
+const API_PDF_URL = import.meta.env.VITE_API_PDF;
 const grid = document.getElementById('productos-grid');
 const filtroMarca = document.getElementById('marca');
 const filtroProposito = document.getElementById('proposito');
@@ -613,7 +614,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       cantidad: item.cantidad
     }));
 
-    const pdfUrl = `${import.meta.env.VITE_API_PDF}?descargar=1`;
+    const pdfUrl = `${API_PDF_URL}?descargar=1`;
     console.log('URL para generar PDF:', pdfUrl);
     console.log('Datos a enviar:', {
       carrito: carritoParaEnviar,
@@ -628,9 +629,11 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'Accept': 'application/pdf'
+        'Accept': 'application/pdf',
+        'Origin': window.location.origin
       },
       mode: 'cors',
+      credentials: 'omit',
       body: JSON.stringify({
         carrito: carritoParaEnviar,
         nombre: nombreCliente,
@@ -792,14 +795,15 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
 
   console.log('Enviando datos al backend:', data);
 
-  return fetch(import.meta.env.VITE_API_PDF, {
+  return fetch(API_PDF_URL, {
     method: 'POST',
     headers: { 
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Origin': window.location.origin
     },
     mode: 'cors',
-    credentials: 'same-origin',
+    credentials: 'omit',
     body: JSON.stringify(data)
   });
 }
