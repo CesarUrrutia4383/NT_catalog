@@ -4,8 +4,9 @@
  * @author Neumatics Tool
  */
 
-const API_URL = import.meta.env.VITE_API_URL;
-const API_PDF_URL = import.meta.env.VITE_API_PDF;
+const API_URL = import.meta.env.VITE_API_URL || 'https://nt-backapis.onrender.com/routes/productos';
+const API_PDF_URL = import.meta.env.VITE_API_PDF || 'https://nt-backapis.onrender.com/routes/quote';
+console.log('API URLs:', { API_URL, API_PDF_URL });
 const grid = document.getElementById('productos-grid');
 const filtroMarca = document.getElementById('marca');
 const filtroProposito = document.getElementById('proposito');
@@ -77,10 +78,19 @@ function closeModal(modal) {
  */
 async function obtenerProductos() {
   try {
-    const res = await fetch(import.meta.env.VITE_API_URL);
+    const res = await fetch(API_URL, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      mode: 'cors',
+      credentials: 'omit'
+    });
     if (!res.ok) throw new Error('No se pudo obtener productos');
     return await res.json();
   } catch (e) {
+    console.error('Error al obtener productos:', e);
     showToast('Error al obtener productos');
     return [];
   }
@@ -614,34 +624,33 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       cantidad: item.cantidad
     }));
 
-    const pdfUrl = `${API_PDF_URL}?descargar=1`;
+    // Asegurarnos de que estamos usando HTTPS
+    const baseUrl = API_PDF_URL.replace('http://', 'https://');
+    const pdfUrl = `${baseUrl}?descargar=1`;
     console.log('URL para generar PDF:', pdfUrl);
-    console.log('Datos a enviar:', {
+    
+    const requestData = {
       carrito: carritoParaEnviar,
       nombre: nombreCliente,
       telefono: telefonoCliente,
       servicio,
       destinoCorreo,
       descripcion
-    });
+    };
+    
+    console.log('Datos a enviar:', requestData);
 
     const pdfResponse = await fetch(pdfUrl, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'Accept': 'application/pdf',
-        'Origin': window.location.origin
+        'Accept': 'application/pdf'
       },
       mode: 'cors',
-      credentials: 'omit',
-      body: JSON.stringify({
-        carrito: carritoParaEnviar,
-        nombre: nombreCliente,
-        telefono: telefonoCliente,
-        servicio,
-        destinoCorreo,
-        descripcion
-      })
+      cache: 'no-cache',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(requestData)
     });
 
     if (!pdfResponse.ok) {
@@ -795,15 +804,17 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
 
   console.log('Enviando datos al backend:', data);
 
-  return fetch(API_PDF_URL, {
+  const url = API_PDF_URL.replace('http://', 'https://');
+  return fetch(url, {
     method: 'POST',
     headers: { 
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Origin': window.location.origin
+      'Accept': 'application/json'
     },
     mode: 'cors',
-    credentials: 'omit',
+    cache: 'no-cache',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
     body: JSON.stringify(data)
   });
 }
