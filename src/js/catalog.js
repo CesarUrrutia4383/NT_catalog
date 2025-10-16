@@ -4,9 +4,10 @@
  * @author Neumatics Tool
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://nt-backapis.onrender.com/routes/productos';
-const API_PDF_URL = import.meta.env.VITE_API_PDF || 'https://nt-backapis.onrender.com/routes/quote';
-console.log('API URLs:', { API_URL, API_PDF_URL });
+// Forzar URLs de producción en Vercel
+const API_URL = 'https://nt-backapis.onrender.com/routes/productos';
+const API_PDF_URL = 'https://nt-backapis.onrender.com/routes/quote';
+console.log('API URLs de producción:', { API_URL, API_PDF_URL });
 const grid = document.getElementById('productos-grid');
 const filtroMarca = document.getElementById('marca');
 const filtroProposito = document.getElementById('proposito');
@@ -624,10 +625,9 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       cantidad: item.cantidad
     }));
 
-    // Asegurarnos de que estamos usando HTTPS
-    const baseUrl = API_PDF_URL.replace('http://', 'https://');
-    const pdfUrl = `${baseUrl}?descargar=1`;
-    console.log('URL para generar PDF:', pdfUrl);
+    // Usar directamente la URL de producción
+    const pdfUrl = 'https://nt-backapis.onrender.com/routes/quote?descargar=1';
+    console.log('URL para generar PDF (producción):', pdfUrl);
     
     const requestData = {
       carrito: carritoParaEnviar,
@@ -644,12 +644,13 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'Accept': 'application/pdf'
+        'Accept': 'application/pdf',
+        'Access-Control-Allow-Origin': '*'
       },
       mode: 'cors',
       cache: 'no-cache',
+      credentials: 'omit',
       redirect: 'follow',
-      referrerPolicy: 'no-referrer',
       body: JSON.stringify(requestData)
     });
 
@@ -804,17 +805,17 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
 
   console.log('Enviando datos al backend:', data);
 
-  const url = API_PDF_URL.replace('http://', 'https://');
-  return fetch(url, {
+  return fetch('https://nt-backapis.onrender.com/routes/quote', {
     method: 'POST',
     headers: { 
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     },
     mode: 'cors',
     cache: 'no-cache',
+    credentials: 'omit',
     redirect: 'follow',
-    referrerPolicy: 'no-referrer',
     body: JSON.stringify(data)
   });
 }
