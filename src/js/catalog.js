@@ -613,7 +613,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       cantidad: item.cantidad
     }));
 
-    const pdfUrl = `${API_URL}/quote?descargar=1`;
+    const pdfUrl = `${import.meta.env.VITE_API_PDF}?descargar=1`;
     console.log('URL para generar PDF:', pdfUrl);
     console.log('Datos a enviar:', {
       carrito: carritoParaEnviar,
@@ -628,11 +628,9 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'Accept': 'application/pdf',
-        'Origin': window.location.origin
+        'Accept': 'application/pdf'
       },
       mode: 'cors',
-      credentials: 'include',
       body: JSON.stringify({
         carrito: carritoParaEnviar,
         nombre: nombreCliente,
@@ -800,6 +798,8 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
+    mode: 'cors',
+    credentials: 'same-origin',
     body: JSON.stringify(data)
   });
 }
