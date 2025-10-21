@@ -76,7 +76,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof AOS !== 'undefined') {
         AOS.init({
             duration: 800, // Duración de la animación
-            once: true, // La animación solo ocurre una vez
+            once: false, // Permitir que las animaciones se repitan
+            mirror: false
         });
     }
 });

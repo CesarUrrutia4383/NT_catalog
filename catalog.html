@@ -308,10 +308,11 @@ El presente Aviso de Privacidad, así como el manejo en general de la Ley que ha
        * @description Inicializa la librería AOS (Animate On Scroll) con una duración de 500ms y se ejecuta una sola vez.
        * @see https://github.com/michalsnik/aos
        */
-      AOS.init({
-        duration: 500,
-        once: true
-      });
+        AOS.init({
+          duration: 600,
+          once: false,
+          mirror: false
+        });
     </script>
     <!-- Script principal de la aplicación -->
     <script type="module" src="/src/main.js"></script>

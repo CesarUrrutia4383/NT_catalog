@@ -36,7 +36,8 @@ import 'aos/dist/aos.css';
  */
 AOS.init({
   duration: 1000,
-  once: true
+  once: false,
+  mirror: false
 });
 
 /**

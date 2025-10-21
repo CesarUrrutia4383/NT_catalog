@@ -178,6 +178,15 @@ function mostrarProductos(productos) {
       grid.appendChild(card);
     }
   });
+  // Después de manipular el DOM de productos, refrescar AOS para recalcular posiciones
+  try {
+    if (window.AOS && typeof window.AOS.refresh === 'function') {
+      // refresh es suficientemente liviano y permite que las animaciones vuelvan a reproducirse
+      window.AOS.refresh();
+    }
+  } catch (e) {
+    console.warn('AOS refresh falló:', e);
+  }
 }
 
 // Variables para modal y carrito
@@ -876,6 +885,8 @@ async function actualizarCatalogo() {
   filtroProposito.value = propositoActual;
 
   filtrar(productos, false);
+  // Refrescar AOS luego de actualizar el listado dinámico
+  if (window.AOS && typeof window.AOS.refresh === 'function') window.AOS.refresh();
 }
 
 const servicioSelect = document.getElementById('servicio-solicitado');
