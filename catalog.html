@@ -128,23 +128,69 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
         background: #fff;
         border-radius: 10px;
         border: 1px solid #eee;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
       }
 
-      /* Make labels and inputs clearly visible */
+      /* Form styling: stack fields vertically so the button appears below */
+      .form-cotizacion {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        width: 100% !important;
+      }
+      .form-cotizacion .campo-grupo {
+        display: block !important;
+        flex-direction: column !important;
+      }
       .form-cotizacion .campo-grupo label {
-        color: #ff8f1c;
-        font-weight: 700;
-        display: block;
-        margin-bottom: 6px;
+        color: #ff8f1c !important;
+        font-weight: 700 !important;
+        margin-bottom: 6px !important;
       }
       .form-cotizacion .campo-grupo input,
       .form-cotizacion .campo-grupo textarea,
       .form-cotizacion .campo-grupo select {
-        color: #222;
-        background: #fff;
-        border: 1px solid #ddd;
-        box-shadow: none;
+        color: #222 !important;
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        padding: 8px 10px !important;
+        border-radius: 6px !important;
       }
+
+      .campo-telefono {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .campo-telefono select {
+        width: 110px;
+        padding: 8px 10px;
+        border-radius: 6px;
+      }
+      .campo-telefono input {
+        flex: 1;
+        padding: 8px 10px;
+        border-radius: 6px;
+      }
+
+      /* Cotizar button full width and positioned after fields */
+      #cotizar-pdf {
+        display: block !important;
+        width: 100% !important;
+        padding: 12px 16px !important;
+        background: linear-gradient(180deg,#ffb97a,#ff8f1c) !important;
+        color: #fff !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: 700 !important;
+        cursor: pointer !important;
+        align-self: stretch !important;
+        margin-top: 6px !important;
+      }
+      #cotizar-pdf:disabled { opacity: 0.6; cursor: not-allowed; }
 
       /* Responsive: stack modal columns on small screens */
       @media (max-width: 880px) {
@@ -293,10 +339,7 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
                 <label for="descripcion-servicio">Descripción del servicio solicitado:</label>
                 <textarea id="descripcion-servicio" rows="3" maxlength="300" placeholder="Describe brevemente lo que necesitas..."></textarea>
               </div>
-              <div class="campo-grupo" id="grupo-descripcion-servicio" style="display:none;">
-                <label for="descripcion-servicio">Descripción del servicio solicitado:</label>
-                <textarea id="descripcion-servicio" rows="3" maxlength="300" placeholder="Describe brevemente el servicio que necesitas..."></textarea>
-              </div>
+              <!-- (duplicate description group removed) -->
               <button id="cotizar-pdf" type="button">Cotizar (Generar PDF)</button>
             </form>
           </div>
@@ -429,65 +472,7 @@ El presente Aviso de Privacidad, así como el manejo en general de la Ley que ha
       </div>
     </div>
 
-    <!-- Modal del carrito -->
-    <div id="modal-carrito" class="modal-producto" style="display:none;">
-      <div class="modal-contenido">
-        <span class="modal-cerrar" id="cerrar-modal-carrito">&times;</span>
-        <h3>Carrito de Cotización</h3>
-        <div class="carrito-modal-flex">
-          <div class="carrito-modal-izq">
-            <div id="carrito-listado">
-              <!-- Aquí se listan los productos del carrito -->
-            </div>
-          </div>
-          <div class="carrito-modal-der">
-            <!-- Formulario de cotización -->
-            <form class="form-cotizacion" autocomplete="off" onsubmit="return false;">
-              <div class="campo-grupo">
-                <label for="nombre-cliente">Nombre:</label>
-                <input type="text" id="nombre-cliente" placeholder="Ej: Juan Pérez" required />
-              </div>
-              <div class="campo-grupo">
-                <label for="email-cliente">Correo electrónico (opcional):</label>
-                <input type="email" id="email-cliente" placeholder="Ej: juan.perez@email.com" />
-              </div>
-              <div class="campo-grupo">
-                <label for="telefono-cliente">Teléfono:</label>
-                <div class="campo-telefono">
-                  <select id="codigo-pais">
-                    <option value="52" data-flag="🇲🇽" selected>🇲🇽 +52</option>
-                    <option value="1" data-flag="🇺🇸">🇺🇸 +1</option>
-                    <option value="54" data-flag="🇦🇷">🇦🇷 +54</option>
-                    <option value="57" data-flag="🇨🇴">🇨🇴 +57</option>
-                    <option value="34" data-flag="🇪🇸">🇪🇸 +34</option>
-                    <option value="55" data-flag="🇧🇷">🇧🇷 +55</option>
-                    <option value="56" data-flag="🇨🇱">🇨🇱 +56</option>
-                    <option value="591" data-flag="🇧🇴">🇧🇴 +591</option>
-                    <option value="507" data-flag="🇵🇦">🇵🇦 +507</option>
-                    <option value="593" data-flag="🇪🇨">🇪🇨 +593</option>
-                  </select>
-                  <input type="tel" id="telefono-cliente" placeholder="1234567890" required />
-                </div>
-              </div>
-              <div class="campo-grupo">
-                <label for="tipo-cotizacion" required>Tipo de cotización:</label>
-                <select id="tipo-cotizacion" required>
-                  <option value="" selected>Selecciona el tipo</option>
-                  <option value="Compra">Compra</option>
-                  <option value="Renta">Renta</option>
-                  <option value="Servicio de mantenimiento">Servicio de mantenimiento</option>
-                </select>
-              </div>
-              <div class="campo-grupo" id="grupo-descripcion-servicio" style="display:none;">
-                <label for="descripcion-servicio">Descripción del servicio solicitado:</label>
-                <textarea id="descripcion-servicio" rows="3" maxlength="300" placeholder="Describe brevemente lo que necesitas..."></textarea>
-              </div>
-              <button id="cotizar-pdf" type="button">Cotizar (Generar PDF)</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Modal del carrito (single instance kept earlier in the file) -->
 
     <!-- Modal visor PDF -->
     <div id="modal-pdf" class="modal-producto" style="display:none; z-index:2000; background:rgba(0,0,0,0.7);">

@@ -1005,10 +1005,12 @@
   width: 100%;
   box-sizing: border-box;
 }
-#modal-carrito #cotizar-pdf {
+/* Ensure the Cotizar button sits below the form fields and stretches full width */
+#modal-carrito .form-cotizacion #cotizar-pdf {
   flex: 0 0 auto;
-  align-self: flex-start;
-  margin-top: 1.5rem;
+  align-self: stretch; /* place under fields */
+  width: 100%;
+  margin-top: 0.75rem;
   margin-bottom: 0.2rem;
   display: block;
 }
@@ -1517,9 +1519,43 @@ input[type='number'] {
 #modal-carrito .form-cotizacion {
   align-items: center;
 }
-#modal-carrito #cotizar-pdf {
-  align-self: center;
-  margin-top: 1.2rem;
+/* Fine-tune form spacing and button placement */
+#modal-carrito .form-cotizacion {
+  align-items: stretch; /* inputs expand, button will stretch too */
+  gap: 0.9rem;
+}
+#modal-carrito .form-cotizacion .campo-grupo {
+  margin-bottom: 0.2rem;
+}
+#modal-carrito .form-cotizacion label {
+  margin-bottom: 6px;
+  display: block;
+}
+#modal-carrito .form-cotizacion input,
+#modal-carrito .form-cotizacion select,
+#modal-carrito .form-cotizacion textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure the Cotizar button sits under the fields and has comfortable spacing */
+#modal-carrito .form-cotizacion #cotizar-pdf {
+  width: 100%;
+  align-self: stretch;
+  margin-top: 0.75rem;
+  padding: 12px 14px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(255,143,28,0.08);
+}
+
+/* On wider modal layouts, prevent the button from floating to the side */
+@media (min-width: 901px) {
+  #modal-carrito .form-cotizacion {
+    align-items: stretch;
+  }
+  #modal-carrito .form-cotizacion #cotizar-pdf {
+    align-self: stretch;
+  }
 }
 
 .info-producto-carrito {
