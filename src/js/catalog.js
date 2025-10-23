@@ -467,21 +467,35 @@ btnVerCarrito.addEventListener('click', () => {
     tipoCotizacion.value = filtroTipo.value;
   }
   
-  // Mostrar/ocultar descripción según el tipo
-  if (tipoCotizacion && descripcionServicio) {
-    descripcionServicio.style.display = tipoCotizacion.value === 'Servicio de mantenimiento' ? '' : 'none';
-  }
+  // Actualizar visibilidad del campo de descripción
+  actualizarCampoDescripcion(tipoCotizacion?.value || '');
   
   // ensure modal opens with the shared helper so overlay + box style apply
   openModal(modalCarrito);
 });
 
-// Manejar cambios en tipo de cotización
-document.getElementById('tipo-cotizacion')?.addEventListener('change', (e) => {
+// Manejar cambios en tipo de cotización y mostrar/ocultar campo de descripción
+function actualizarCampoDescripcion(tipoCotizacion) {
   const descripcionServicio = document.getElementById('grupo-descripcion-servicio');
-  if (descripcionServicio) {
-    descripcionServicio.style.display = e.target.value === 'Servicio de mantenimiento' ? '' : 'none';
+  const inputDescripcion = document.getElementById('descripcion-servicio');
+  
+  if (descripcionServicio && inputDescripcion) {
+    const mostrar = tipoCotizacion === 'Servicio de mantenimiento';
+    descripcionServicio.style.display = mostrar ? '' : 'none';
+    
+    // Si se oculta, limpiar el valor
+    if (!mostrar) {
+      inputDescripcion.value = '';
+    }
+    
+    // Actualizar requerido según visibilidad
+    inputDescripcion.required = mostrar;
   }
+}
+
+// Event listener para cambios en tipo de cotización
+document.getElementById('tipo-cotizacion')?.addEventListener('change', (e) => {
+  actualizarCampoDescripcion(e.target.value);
 });
 cerrarModalCarrito.addEventListener('click', () => {
   closeModal(modalCarrito);
@@ -562,6 +576,7 @@ function validarCamposCotizacion() {
   const nombreInput = document.getElementById('nombre-cliente');
   const emailInput = document.getElementById('email-cliente');
   const tipoCotizacion = document.getElementById('tipo-cotizacion');
+  const descripcionServicio = document.getElementById('descripcion-servicio');
   const btn = document.getElementById('cotizar-pdf');
   
   // Validar nombre
@@ -580,8 +595,13 @@ function validarCamposCotizacion() {
   // Validar tipo de cotización
   const tipoValido = tipoCotizacion.value !== '';
   
+  // Validar descripción cuando es servicio de mantenimiento
+  const descripcionValida = tipoCotizacion.value !== 'Servicio de mantenimiento' || 
+    (descripcionServicio && descripcionServicio.value.trim().length >= 10);
+  
   // Habilitar/deshabilitar botón según validación
-  const todosLosCamposValidos = nombreValido && emailValido && telefonoValido && tipoValido;
+  const todosLosCamposValidos = nombreValido && emailValido && telefonoValido && 
+    tipoValido && descripcionValida;
   
   if (todosLosCamposValidos) {
     btn.disabled = false;
