@@ -92,6 +92,17 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
           </div>
         </div>
 
+          <div class="filtro">
+              <label for="tipo">Deseas hacer una cotizacion de:</label>
+              <select id="tipo">
+                <option value="">Todos</option>
+                <option value="Compra">Compra</option>
+                <option value="Renta">Renta</option>
+                <option value="Servicio de mantenimiento">Servicio de mantenimiento</option>
+              </select>
+            </div>
+        
+
         <!-- Loader -->
         <div id="loader" style="display:none; text-align:center; padding:2rem;" data-aos="fade-in">
           <div class="spinner"></div>
@@ -145,6 +156,10 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
                 <input type="text" id="nombre-cliente" placeholder="Ej: Juan Pérez" required />
               </div>
               <div class="campo-grupo">
+                <label for="email-cliente">Correo electrónico:</label>
+                <input type="email" id="email-cliente" placeholder="Ej: juan.perez@email.com" required />
+              </div>
+              <div class="campo-grupo">
                 <label for="telefono-cliente">Teléfono:</label>
                 <select id="codigo-pais">
                   <option value="52" data-flag="🇲🇽" selected>🇲🇽 +52</option>
@@ -161,13 +176,17 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
                 <input type="tel" id="telefono-cliente" placeholder="1234567890" required />
               </div>
               <div class="campo-grupo">
-                <label for="servicio-solicitado" required>Servicio:</label>
-                <select id="servicio-solicitado">
-                  <option value="" selected>Selecciona un servicio</option>
-                  <option value="venta">Venta</option>
-                  <option value="renta">Renta</option>
-                  <option value="servicio">Órdenes de Servicio</option>
+                <label for="tipo-cotizacion" required>Tipo de cotización:</label>
+                <select id="tipo-cotizacion" required>
+                  <option value="" selected>Selecciona el tipo</option>
+                  <option value="Compra">Compra</option>
+                  <option value="Renta">Renta</option>
+                  <option value="Servicio de mantenimiento">Servicio de mantenimiento</option>
                 </select>
+              </div>
+              <div class="campo-grupo" id="grupo-descripcion-servicio" style="display:none;">
+                <label for="descripcion-servicio">Descripción del servicio solicitado:</label>
+                <textarea id="descripcion-servicio" rows="3" maxlength="300" placeholder="Describe brevemente lo que necesitas..."></textarea>
               </div>
               <div class="campo-grupo" id="grupo-descripcion-servicio" style="display:none;">
                 <label for="descripcion-servicio">Descripción del servicio solicitado:</label>

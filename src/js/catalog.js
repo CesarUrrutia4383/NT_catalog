@@ -11,6 +11,7 @@ console.log('API URLs de producción:', { API_URL, API_PDF_URL });
 const grid = document.getElementById('productos-grid');
 const filtroMarca = document.getElementById('marca');
 const filtroProposito = document.getElementById('proposito');
+const filtroTipo = document.getElementById('tipo');
 const cantidadProductos = document.getElementById('cantidad');
 const loader = document.getElementById('loader');
 const btnVerCarrito = document.getElementById('ver-carrito');
@@ -105,9 +106,13 @@ function llenarFiltros(productos) {
   const marcas = new Set();
   const propositos = new Set();
 
+  // Si el backend incluye el campo 'tipo' lo usamos para llenar las opciones dinámicamente
+  const tipos = new Set();
+
   productos.forEach(p => {
     marcas.add(p.marca);
     propositos.add(p.proposito);
+    if (p.tipo) tipos.add(p.tipo);
   });
 
   [...marcas].forEach(m => {
@@ -123,6 +128,21 @@ function llenarFiltros(productos) {
     option.textContent = p;
     filtroProposito.appendChild(option);
   });
+
+  // Llenar filtro tipo dinámicamente sólo si hay valores distintos en los datos.
+  // Mantener las opciones estáticas añadidas en HTML pero asegurarnos de no duplicar.
+  if (tipos.size > 0) {
+    // eliminar opciones que no queremos (excepto la primera 'Todos')
+    const existing = Array.from(filtroTipo.querySelectorAll('option')).map(o => o.value);
+    tipos.forEach(t => {
+      if (!existing.includes(t)) {
+        const opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = t;
+        filtroTipo.appendChild(opt);
+      }
+    });
+  }
 }
 
 /**
@@ -430,12 +450,38 @@ function actualizarBotonCotizar() {
 
 btnVerCarrito.addEventListener('click', () => {
   mostrarCarrito();
+  // Restablecer campos
   const codigoPais = document.getElementById('codigo-pais');
   const telefonoInput = document.getElementById('telefono-cliente');
+  const emailInput = document.getElementById('email-cliente');
+  const tipoCotizacion = document.getElementById('tipo-cotizacion');
+  const descripcionServicio = document.getElementById('grupo-descripcion-servicio');
+  
   if (codigoPais) codigoPais.value = '52';
   if (telefonoInput) telefonoInput.value = '';
+  if (emailInput) emailInput.value = '';
+  
+  // Sincronizar tipo de cotización con el filtro si hay uno seleccionado
+  const filtroTipo = document.getElementById('tipo');
+  if (filtroTipo && filtroTipo.value && tipoCotizacion) {
+    tipoCotizacion.value = filtroTipo.value;
+  }
+  
+  // Mostrar/ocultar descripción según el tipo
+  if (tipoCotizacion && descripcionServicio) {
+    descripcionServicio.style.display = tipoCotizacion.value === 'Servicio de mantenimiento' ? '' : 'none';
+  }
+  
   modalCarrito.classList.add('fade-in');
   setTimeout(() => modalCarrito.classList.remove('fade-in'), 700);
+});
+
+// Manejar cambios en tipo de cotización
+document.getElementById('tipo-cotizacion')?.addEventListener('change', (e) => {
+  const descripcionServicio = document.getElementById('grupo-descripcion-servicio');
+  if (descripcionServicio) {
+    descripcionServicio.style.display = e.target.value === 'Servicio de mantenimiento' ? '' : 'none';
+  }
 });
 cerrarModalCarrito.addEventListener('click', () => {
   modalCarrito.style.display = 'none';
@@ -514,16 +560,30 @@ actualizarMaxlength();
  */
 function validarCamposCotizacion() {
   const nombreInput = document.getElementById('nombre-cliente');
+  const emailInput = document.getElementById('email-cliente');
+  const tipoCotizacion = document.getElementById('tipo-cotizacion');
   const btn = document.getElementById('cotizar-pdf');
+  
+  // Validar nombre
   const nombreValido = nombreInput.value.trim().length > 0;
   
+  // Validar email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailValido = emailRegex.test(emailInput.value.trim());
+  
+  // Validar teléfono
   const codigo = codigoPais.value;
   const telefono = telefonoInput.value.trim();
   const longitudRequerida = longitudesTelefono[codigo] || 10;
-
   const telefonoValido = telefono.length === longitudRequerida;
 
-  if (nombreValido && telefonoValido) {
+  // Validar tipo de cotización
+  const tipoValido = tipoCotizacion.value !== '';
+  
+  // Habilitar/deshabilitar botón según validación
+  const todosLosCamposValidos = nombreValido && emailValido && telefonoValido && tipoValido;
+  
+  if (todosLosCamposValidos) {
     btn.disabled = false;
     btn.style.opacity = '1';
     btn.style.cursor = 'pointer';
@@ -558,14 +618,18 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   let telefono = telefonoInput.value.trim().replace(/\D/g, '');
   let codigo = codigoPais ? codigoPais.value : '52';
   
-  if (!nombreInput.value.trim() || (codigo === '52' ? telefono.length !== 10 : (telefono.length < 7 || telefono.length > 15))) {
+  const emailInput = document.getElementById('email-cliente');
+  if (!nombreInput.value.trim() || !emailInput.value.trim() || 
+      (codigo === '52' ? telefono.length !== 10 : (telefono.length < 7 || telefono.length > 15))) {
     e.preventDefault();
     validarCamposCotizacion();
     return;
   }
   
-  if (!carrito || carrito.length === 0) {
-    showToast('No hay productos en el carrito para cotizar.');
+  // Ya no requerimos productos en el carrito
+  const tipoCotizacion = document.getElementById('tipo-cotizacion');
+  if (!tipoCotizacion.value) {
+    showToast('Por favor seleccione el tipo de cotización.');
     return;
   }
   
@@ -587,9 +651,9 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   const telefonoCliente = `+${codigo} ${telefono}`;
   
   let destinoCorreo = [];
-  if (servicio === 'venta') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
+  if (servicio === 'compra') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
   else if (servicio === 'renta') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
-  else if (servicio === 'mantenimiento') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
+  else if (servicio === 'servicio de mantenimiento') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
 
   let error = false;
   if (!nombreCliente) {
@@ -638,16 +702,19 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     const pdfUrl = 'https://nt-backapis.onrender.com/routes/quote?descargar=1';
     console.log('URL para generar PDF (producción):', pdfUrl);
     
-    const requestData = {
-      carrito: carritoParaEnviar,
-      nombre: nombreCliente,
-      telefono: telefonoCliente,
-      servicio,
-      destinoCorreo,
-      descripcion
-    };
-    
-    console.log('Datos a enviar:', requestData);
+  const emailCliente = document.getElementById('email-cliente').value.trim();
+  const tipoCotizacion = document.getElementById('tipo-cotizacion').value;
+  
+  const requestData = {
+    carrito: carritoParaEnviar,
+    nombre: nombreCliente,
+    telefono: telefonoCliente,
+    email: emailCliente,
+    tipo_cotizacion: tipoCotizacion,
+    servicio,
+    destinoCorreo,
+    descripcion
+  };    console.log('Datos a enviar:', requestData);
 
     const pdfResponse = await fetch(pdfUrl, {
       method: 'POST',
@@ -745,6 +812,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
 function filtrar(productos, actualizarURL = true) {
   const marca = filtroMarca.value;
   const proposito = filtroProposito.value;
+  const tipo = filtroTipo ? filtroTipo.value : '';
 
   if (actualizarURL) {
     const params = new URLSearchParams(window.location.search);
@@ -758,13 +826,23 @@ function filtrar(productos, actualizarURL = true) {
     } else {
       params.delete('proposito');
     }
+    if (tipo) {
+      params.set('tipo', tipo);
+    } else {
+      params.delete('tipo');
+    }
     history.pushState({}, '', `${window.location.pathname}?${params.toString()}`);
   }
 
   const filtrados = productos.filter(p =>
     (marca === '' || p.marca === marca) &&
-    (proposito === '' || p.proposito === proposito)
+    (proposito === '' || p.proposito === proposito) &&
+    (tipo === '' || (p.tipo && p.tipo === tipo))
   );
+
+  // Actualizar opciones de filtros dependientes: cuando hay una marca seleccionada,
+  // los otros selects deben mostrar sólo opciones que existen para esa marca.
+  actualizarFiltrosDependientes(productos, marca);
 
   mostrarProductos(filtrados);
 }
@@ -776,6 +854,7 @@ function aplicarFiltrosDesdeURL() {
   const params = new URLSearchParams(window.location.search);
   const marca = params.get('marca');
   const proposito = params.get('proposito');
+  const tipo = params.get('tipo');
 
   if (marca) {
     filtroMarca.value = marca;
@@ -783,6 +862,48 @@ function aplicarFiltrosDesdeURL() {
   if (proposito) {
     filtroProposito.value = proposito;
   }
+  if (tipo && filtroTipo) {
+    filtroTipo.value = tipo;
+  }
+}
+
+/**
+ * Actualiza las opciones de los filtros dependientes con base en la marca seleccionada.
+ * Si no hay marca seleccionada, restaura todas las opciones previamente cargadas.
+ * @param {Array} productos
+ * @param {string} marcaSeleccionada
+ */
+function actualizarFiltrosDependientes(productos, marcaSeleccionada) {
+  // Recolectar valores válidos para propósito y tipo según la marca seleccionada
+  const propositosValidos = new Set();
+  const tiposValidos = new Set();
+
+  productos.forEach(p => {
+    if (!marcaSeleccionada || p.marca === marcaSeleccionada) {
+      if (p.proposito) propositosValidos.add(p.proposito);
+      if (p.tipo) tiposValidos.add(p.tipo);
+    }
+  });
+
+  // Función auxiliar para filtrar opciones de un select (mantener opción vacía)
+  function filtrarSelect(selectEl, validSet) {
+    const options = Array.from(selectEl.options);
+    options.forEach((opt, idx) => {
+      if (idx === 0) return; // mantener la opción 'Todos' / vacía
+      if (!validSet.has(opt.value)) {
+        opt.style.display = 'none';
+      } else {
+        opt.style.display = '';
+      }
+    });
+    // Si la opción actualmente seleccionada quedó oculta, resetear al valor vacío
+    if (selectEl.value && selectEl.querySelector(`option[value="${selectEl.value}"]`)?.style.display === 'none') {
+      selectEl.value = '';
+    }
+  }
+
+  filtrarSelect(filtroProposito, propositosValidos);
+  if (filtroTipo) filtrarSelect(filtroTipo, tiposValidos);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -841,6 +962,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   filtroMarca.addEventListener('change', () => filtrar(productos));
   filtroProposito.addEventListener('change', () => filtrar(productos));
+  if (filtroTipo) filtroTipo.addEventListener('change', () => filtrar(productos));
 });
 
 /**
@@ -879,6 +1001,11 @@ async function actualizarCatalogo() {
   
   filtroMarca.innerHTML = '<option value="">Todas</option>';
   filtroProposito.innerHTML = '<option value="">Todos</option>';
+  if (filtroTipo) {
+    // preservar las opciones estáticas (primera opción) y reiniciar las demás
+    const primera = filtroTipo.querySelector('option');
+    filtroTipo.innerHTML = primera ? primera.outerHTML : '<option value="">Todos</option>';
+  }
   llenarFiltros(productos);
 
   filtroMarca.value = marcaActual;
