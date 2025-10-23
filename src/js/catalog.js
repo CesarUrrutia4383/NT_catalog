@@ -567,9 +567,9 @@ function validarCamposCotizacion() {
   // Validar nombre
   const nombreValido = nombreInput.value.trim().length > 0;
   
-  // Validar email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const emailValido = emailRegex.test(emailInput.value.trim());
+  // Validar email (opcional)
+  const emailValue = emailInput.value.trim();
+  const emailValido = !emailValue || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
   
   // Validar teléfono
   const codigo = codigoPais.value;
@@ -619,7 +619,9 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   let codigo = codigoPais ? codigoPais.value : '52';
   
   const emailInput = document.getElementById('email-cliente');
-  if (!nombreInput.value.trim() || !emailInput.value.trim() || 
+  const emailValue = emailInput.value.trim();
+  if (!nombreInput.value.trim() || 
+      (emailValue && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) ||
       (codigo === '52' ? telefono.length !== 10 : (telefono.length < 7 || telefono.length > 15))) {
     e.preventDefault();
     validarCamposCotizacion();
