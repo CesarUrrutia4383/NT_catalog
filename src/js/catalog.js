@@ -972,7 +972,14 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
   });
 }
 
+// Inicialización cuando el DOM está listo
 document.addEventListener('DOMContentLoaded', async () => {
+  // Ocultar campo de descripción por defecto
+  const grupoDescripcion = document.getElementById('grupo-descripcion-servicio');
+  if (grupoDescripcion) {
+    grupoDescripcion.style.display = 'none';
+  }
+  
   loader.style.display = 'block';
   grid.style.display = 'none';
   const productos = await obtenerProductos();
