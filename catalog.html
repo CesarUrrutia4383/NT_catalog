@@ -147,41 +147,95 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
                 <!-- Aquí se listan los productos del carrito -->
               </div>
             </div>
-          </div>
-          <div class="carrito-modal-der">
+            <div class="carrito-modal-der">
             <!-- Formulario de cotización -->
             <form class="form-cotizacion" autocomplete="off" onsubmit="return false;">
               <style>
-                .campo-grupo input[type="text"],
-                .campo-grupo input[type="email"],
-                .campo-grupo input[type="tel"] {
-                  width: 100%;
-                  padding: 8px;
-                  border: 1px solid #ddd;
-                  border-radius: 4px;
+                .carrito-modal-flex {
+                  display: flex;
+                  gap: 20px;
+                  margin: 20px 0;
                 }
-                .campo-grupo input[type="email"] {
-                  min-width: 280px;
+                .carrito-modal-izq {
+                  flex: 1;
+                  min-width: 0;
                 }
-                .campo-grupo {
-                  margin-bottom: 15px;
+                .carrito-modal-der {
+                  width: 350px;
+                  min-width: 350px;
+                  padding: 20px;
+                  background: #f8f8f8;
+                  border-radius: 8px;
+                }
+                .form-cotizacion {
                   display: flex;
                   flex-direction: column;
-                  gap: 5px;
+                  gap: 15px;
+                }
+                .campo-grupo {
+                  margin-bottom: 5px;
                 }
                 .campo-grupo label {
+                  display: block;
+                  margin-bottom: 5px;
                   font-weight: 500;
+                  color: #333;
+                }
+                .campo-grupo input[type="text"],
+                .campo-grupo input[type="email"],
+                .campo-grupo input[type="tel"],
+                .campo-grupo select {
+                  width: 100%;
+                  padding: 8px 12px;
+                  border: 1px solid #ddd;
+                  border-radius: 4px;
+                  font-size: 14px;
+                }
+                .campo-grupo input[type="email"] {
+                  width: 100%;
                 }
                 .campo-telefono {
                   display: flex;
                   gap: 8px;
-                  align-items: center;
                 }
                 .campo-telefono select {
-                  width: auto;
+                  width: 120px;
                 }
                 .campo-telefono input {
                   flex: 1;
+                }
+                #cotizar-pdf {
+                  width: 100%;
+                  padding: 12px;
+                  background: #ff8f1c;
+                  color: white;
+                  border: none;
+                  border-radius: 4px;
+                  font-weight: bold;
+                  cursor: pointer;
+                  margin-top: 10px;
+                }
+                #cotizar-pdf:disabled {
+                  background: #ccc;
+                  cursor: not-allowed;
+                }
+                .carrito-table-responsive {
+                  overflow-x: auto;
+                  margin-bottom: 20px;
+                }
+                .carrito-table {
+                  width: 100%;
+                  border-collapse: collapse;
+                }
+                .carrito-table th,
+                .carrito-table td {
+                  padding: 12px;
+                  text-align: left;
+                  border-bottom: 1px solid #ddd;
+                }
+                .carrito-table th {
+                  background: #f4f4f4;
+                  font-weight: 600;
                 }
               </style>
               <div class="campo-grupo">
