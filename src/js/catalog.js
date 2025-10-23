@@ -472,8 +472,8 @@ btnVerCarrito.addEventListener('click', () => {
     descripcionServicio.style.display = tipoCotizacion.value === 'Servicio de mantenimiento' ? '' : 'none';
   }
   
-  modalCarrito.classList.add('fade-in');
-  setTimeout(() => modalCarrito.classList.remove('fade-in'), 700);
+  // ensure modal opens with the shared helper so overlay + box style apply
+  openModal(modalCarrito);
 });
 
 // Manejar cambios en tipo de cotización
@@ -484,10 +484,10 @@ document.getElementById('tipo-cotizacion')?.addEventListener('change', (e) => {
   }
 });
 cerrarModalCarrito.addEventListener('click', () => {
-  modalCarrito.style.display = 'none';
+  closeModal(modalCarrito);
 });
 window.addEventListener('click', (e) => {
-  if (e.target === modalCarrito) modalCarrito.style.display = 'none';
+  if (e.target === modalCarrito) closeModal(modalCarrito);
 });
 
 btnAgregarCarrito.addEventListener('click', () => {
