@@ -70,7 +70,10 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
           <a href="#">Ayuda</a>
         </nav>
       </header>
+    </div>
 
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
       <!-- SECCIÓN DE CATÁLOGO -->
       <section class="catalogo" id="catalogo" data-aos="fade-up">
         <h2 class="titulo1" data-aos="fade-down">Catálogo de Productos</h2>
@@ -297,10 +300,11 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
         </div>
       </div>
 
-      <!-- Contenedor de notificaciones toast -->
-      <div id="toast-container" style="position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:3000;display:flex;flex-direction:column;align-items:center;gap:0.5rem;"></div>
+      </section>
+    </main>
 
-      </div>
+    <!-- Contenedor de notificaciones toast -->
+    <div id="toast-container" style="position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:3000;display:flex;flex-direction:column;align-items:center;gap:0.5rem;"></div>
 
     <!-- PIE DE PÁGINA -->
     <footer class="footer">
@@ -395,19 +399,117 @@ El presente Aviso de Privacidad, así como el manejo en general de la Ley que ha
         </div>
       </div>
 
-      <script>
-        // Script para abrir/cerrar el modal de privacidad
-        document.getElementById('link-privacidad').onclick = function(e) {
-          e.preventDefault();
-          document.getElementById('modal-privacidad').style.display = 'flex';
-        };
-        document.getElementById('cerrar-modal-privacidad').onclick = function() {
-          document.getElementById('modal-privacidad').style.display = 'none';
-        };
-        window.addEventListener('click', function(e) {
-          if (e.target === document.getElementById('modal-privacidad')) document.getElementById('modal-privacidad').style.display = 'none';
-        });
-      </script>
+    <!-- MODALES -->
+    <!-- Modal del producto -->
+    <div id="modal-producto" class="modal-producto" style="display:none;">
+      <div class="modal-contenido">
+        <span class="modal-cerrar" id="cerrar-modal">&times;</span>
+        <div id="modal-info">
+          <!-- Aquí se inserta la info del producto -->
+        </div>
+        <div class="modal-acciones">
+          <label for="modal-cantidad">Cantidad:</label>
+          <input type="number" id="modal-cantidad" min="1" value="1" style="width:60px;">
+          <button id="agregar-carrito">Agregar al carrito</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal del carrito -->
+    <div id="modal-carrito" class="modal-producto" style="display:none;">
+      <div class="modal-contenido">
+        <span class="modal-cerrar" id="cerrar-modal-carrito">&times;</span>
+        <h3>Carrito de Cotización</h3>
+        <div class="carrito-modal-flex">
+          <div class="carrito-modal-izq">
+            <div id="carrito-listado">
+              <!-- Aquí se listan los productos del carrito -->
+            </div>
+          </div>
+          <div class="carrito-modal-der">
+            <!-- Formulario de cotización -->
+            <form class="form-cotizacion" autocomplete="off" onsubmit="return false;">
+              <div class="campo-grupo">
+                <label for="nombre-cliente">Nombre:</label>
+                <input type="text" id="nombre-cliente" placeholder="Ej: Juan Pérez" required />
+              </div>
+              <div class="campo-grupo">
+                <label for="email-cliente">Correo electrónico (opcional):</label>
+                <input type="email" id="email-cliente" placeholder="Ej: juan.perez@email.com" />
+              </div>
+              <div class="campo-grupo">
+                <label for="telefono-cliente">Teléfono:</label>
+                <div class="campo-telefono">
+                  <select id="codigo-pais">
+                    <option value="52" data-flag="🇲🇽" selected>🇲🇽 +52</option>
+                    <option value="1" data-flag="🇺🇸">🇺🇸 +1</option>
+                    <option value="54" data-flag="🇦🇷">🇦🇷 +54</option>
+                    <option value="57" data-flag="🇨🇴">🇨🇴 +57</option>
+                    <option value="34" data-flag="🇪🇸">🇪🇸 +34</option>
+                    <option value="55" data-flag="🇧🇷">🇧🇷 +55</option>
+                    <option value="56" data-flag="🇨🇱">🇨🇱 +56</option>
+                    <option value="591" data-flag="🇧🇴">🇧🇴 +591</option>
+                    <option value="507" data-flag="🇵🇦">🇵🇦 +507</option>
+                    <option value="593" data-flag="🇪🇨">🇪🇨 +593</option>
+                  </select>
+                  <input type="tel" id="telefono-cliente" placeholder="1234567890" required />
+                </div>
+              </div>
+              <div class="campo-grupo">
+                <label for="tipo-cotizacion" required>Tipo de cotización:</label>
+                <select id="tipo-cotizacion" required>
+                  <option value="" selected>Selecciona el tipo</option>
+                  <option value="Compra">Compra</option>
+                  <option value="Renta">Renta</option>
+                  <option value="Servicio de mantenimiento">Servicio de mantenimiento</option>
+                </select>
+              </div>
+              <div class="campo-grupo" id="grupo-descripcion-servicio" style="display:none;">
+                <label for="descripcion-servicio">Descripción del servicio solicitado:</label>
+                <textarea id="descripcion-servicio" rows="3" maxlength="300" placeholder="Describe brevemente lo que necesitas..."></textarea>
+              </div>
+              <button id="cotizar-pdf" type="button">Cotizar (Generar PDF)</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal visor PDF -->
+    <div id="modal-pdf" class="modal-producto" style="display:none; z-index:2000; background:rgba(0,0,0,0.7);">
+      <div class="modal-contenido" style="max-width:900px; width:98vw; padding:0;" data-aos="fade-up" data-aos-delay="100">
+        <span class="modal-cerrar" id="cerrar-modal-pdf" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
+        <iframe id="iframe-pdf" style="width:100%;height:80vh;border:none;display:block;"></iframe>
+        <div style="text-align:right;padding:1rem;">
+          <button id="descargar-pdf" style="background:#ff8f1c;color:#fff;border:none;border-radius:8px;padding:0.6rem 1.5rem;font-size:1.1rem;font-weight:bold;cursor:pointer;">Descargar PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Política de Privacidad -->
+    <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
+      <div class="modal-contenido" data-aos="fade-up" data-aos-delay="100">
+        <span class="modal-cerrar" id="cerrar-modal-privacidad">&times;</span>
+        <h2>Política de Privacidad</h2>
+        <div class="legal-content">
+          <!-- Contenido de la política de privacidad -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Script para abrir/cerrar el modal de privacidad
+      document.getElementById('link-privacidad').onclick = function(e) {
+        e.preventDefault();
+        document.getElementById('modal-privacidad').style.display = 'flex';
+      };
+      document.getElementById('cerrar-modal-privacidad').onclick = function() {
+        document.getElementById('modal-privacidad').style.display = 'none';
+      };
+      window.addEventListener('click', function(e) {
+        if (e.target === document.getElementById('modal-privacidad')) document.getElementById('modal-privacidad').style.display = 'none';
+      });
+    </script>
 
     <!-- SCRIPTS -->
     <!-- Script de AOS (Animate On Scroll) -->
