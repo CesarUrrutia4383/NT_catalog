@@ -18,13 +18,15 @@
 /* Contenedor principal del catálogo */
 .catalogo {
   position: relative;       /* necesario para controlar z-index */
-  z-index: 10;              /* más alto para que esté encima */
-  padding: 60px 20px;
+  z-index: 10;             /* más alto para que esté encima */
+  padding: 20px;
   background: linear-gradient(135deg, #fffaf4, #fff);
   margin-bottom: 60px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  max-width: 1200px;
+  margin: 2rem auto;
 }
 
 

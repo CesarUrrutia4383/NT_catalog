@@ -12,12 +12,13 @@ body, html {
 
 .contenedor-header {
   width: 100%;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   background: #fff;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   position: relative;
   z-index: 100;
+  max-width: calc(1200px + 4rem); /* Mismo ancho que el catálogo más padding */
 }
 
 header {
@@ -26,7 +27,7 @@ header {
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0.5rem 2rem; /* Ajustado para mejor espaciado */
   .logo {
     display: inline-block;
     background-color: #000000;
