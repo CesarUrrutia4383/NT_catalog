@@ -1795,6 +1795,31 @@ input[type='number'] {
   #modal-carrito .form-cotizacion .campo-grupo label { min-width: 0 !important; }
 }
 
+/* Even higher-specificity overrides to beat the earlier strong override selectors
+   (they used the same selector path and !important). Repeat the full selector
+   chain and place these rules at the end so they win. */
+#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono select,
+#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono #codigo-pais {
+  flex: 0 0 92px !important;
+  width: 92px !important;
+  min-width: 72px !important;
+}
+
+#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono input#telefono-cliente {
+  flex: 0 0 180px !important;
+  width: 180px !important;
+  max-width: 260px !important;
+  min-width: 140px !important;
+  padding: 0.4rem 0.6rem !important;
+}
+
+/* Email input with the same specificity path */
+#modal-carrito .form-cotizacion .campo-grupo input#email-cliente {
+  flex: 0 0 320px !important;
+  width: 320px !important;
+  max-width: calc(100% - 130px) !important;
+}
+
 
 /* Notificación de producto agregado al carrito */
 .notificacion-carrito {
