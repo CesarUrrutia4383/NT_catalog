@@ -14,8 +14,8 @@ body, html {
   width: 100%;
   padding: 0;
   position: absolute;
-  z-index: 100;
-  top: -20px; /* Posicionamiento sobre el catálogo */
+  z-index: 1; /* Reducido para que esté detrás del catálogo */
+  top: -100px; /* Movido aún más arriba */
   left: 0;
   right: 0;
 }
@@ -75,9 +75,8 @@ header {
     justify-content: flex-end;
     margin-left: auto;
     padding: 20px 40px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 0 0 0 20px;
-    box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: transparent; /* Quitado el fondo */
+    margin-top: 20px; /* Ajustado el margen superior */
 
     a {
       display: inline-flex;
