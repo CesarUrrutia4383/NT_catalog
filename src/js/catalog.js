@@ -1057,11 +1057,13 @@ const grupoDescripcionServicio = document.getElementById('grupo-descripcion-serv
 const descripcionServicio = document.getElementById('descripcion-servicio');
 if (servicioSelect) {
   servicioSelect.addEventListener('change', () => {
+    // Reutilizar la función central que controla visibilidad y required
+    // Mapear el valor del select 'servicio-solicitado' a la etiqueta usada
+    // por el select 'tipo-cotizacion' para mantener coherencia.
     if (servicioSelect.value === 'servicio') {
-      grupoDescripcionServicio.style.display = '';
+      actualizarCampoDescripcion('Servicio de mantenimiento');
     } else {
-      grupoDescripcionServicio.style.display = 'none';
-      descripcionServicio.value = '';
+      actualizarCampoDescripcion('');
     }
   });
 }
