@@ -1896,6 +1896,35 @@ input[type='number'] {
   margin-right: 0.6rem !important;
 }
 
+/* Specific styling for the Tipo de cotización group: always occupy its own row
+   with the label as left column and select filling the remaining space. */
+#modal-carrito .form-cotizacion .campo-grupo.campo-tipo {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-bottom: 0.9rem !important;
+}
+#modal-carrito .form-cotizacion .campo-grupo.campo-tipo label {
+  flex: 0 0 130px !important;
+  min-width: 130px !important;
+  text-align: left !important;
+}
+#modal-carrito .form-cotizacion .campo-grupo.campo-tipo select#tipo-cotizacion {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure the Cotizar button stays at the end of the form and stretches full width */
+#modal-carrito .form-cotizacion #cotizar-pdf {
+  order: 9999 !important;
+  display: block !important;
+  width: 100% !important;
+  margin-top: 0.9rem !important;
+}
+
 
 /* Notificación de producto agregado al carrito */
 .notificacion-carrito {
