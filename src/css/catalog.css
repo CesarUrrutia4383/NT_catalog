@@ -1926,6 +1926,37 @@ input[type='number'] {
   margin-top: 0.9rem !important;
 }
 
+/* EXTRA: strongest overrides to force Tipo and Cotizar into their own full-width rows
+   This clears floats, cancels any unexpected inline/absolute positioning and
+   forces the select and button to stack below the phone row across all viewports. */
+#modal-carrito .modal-contenido .form-cotizacion > .campo-grupo.campo-tipo {
+  display: block !important;
+  clear: both !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 0.6rem !important;
+}
+#modal-carrito .modal-contenido .form-cotizacion > .campo-grupo.campo-tipo label {
+  display: block !important;
+  width: 100% !important;
+  margin-bottom: 0.35rem !important;
+}
+#modal-carrito .modal-contenido .form-cotizacion > .campo-grupo.campo-tipo select#tipo-cotizacion {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: none !important;
+}
+
+/* Force the Cotizar button to clear floats and sit after all fields */
+#modal-carrito .modal-contenido .form-cotizacion #cotizar-pdf {
+  display: block !important;
+  clear: both !important;
+  width: 100% !important;
+  margin-top: 1rem !important;
+  order: 9999 !important;
+}
+
 
 /* Notificación de producto agregado al carrito */
 .notificacion-carrito {
