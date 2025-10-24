@@ -12,11 +12,11 @@ body, html {
 
 .contenedor-header {
   width: 100%;
-  margin: 1rem auto 0; /* Añadido margen superior */
+  margin: 3rem auto 0; /* Aumentado significativamente el margen superior */
   padding: 0;
   position: relative;
   z-index: 100;
-  max-width: calc(1200px + 4rem);
+  max-width: calc(1200px + 8rem); /* Aumentado el ancho máximo */
 }
 
 header {
@@ -26,7 +26,7 @@ header {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 1rem 40px; /* Aumentado el padding derecho e izquierdo y añadido padding vertical */
+  padding: 1.5rem 5rem; /* Aumentado significativamente el padding horizontal */
   .logo {
     display: flex;
     align-items: center;
@@ -36,7 +36,7 @@ header {
     width: auto;
     height: 110px;
     border-radius: 10px 0px 0px 0px;
-    margin-left: -3rem; /* Ajustado para mantener alineación con el nuevo padding */
+    margin-left: -5rem; /* Ajustado para mantener alineación con el nuevo padding */
     position: relative;
 
     img {
