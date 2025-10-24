@@ -12,13 +12,12 @@ body, html {
 
 .contenedor-header {
   width: 100%;
-  margin: 0 auto;
+  margin: 1rem auto 0; /* Añadido margen superior */
   padding: 0;
-  background: #fff;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   position: relative;
   z-index: 100;
-  max-width: calc(1200px + 4rem); /* Mismo ancho que el catálogo más padding */
+  max-width: calc(1200px + 4rem);
 }
 
 header {
@@ -28,7 +27,7 @@ header {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 1rem 3rem; /* Aumentado el padding derecho e izquierdo y añadido padding vertical */
   .logo {
     display: flex;
     align-items: center;
@@ -38,7 +37,7 @@ header {
     width: auto;
     height: 110px;
     border-radius: 10px 0px 0px 0px;
-    margin-left: -2rem; /* Para alinear con el borde del catálogo */
+    margin-left: -3rem; /* Ajustado para mantener alineación con el nuevo padding */
     position: relative;
 
     img {
