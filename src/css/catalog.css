@@ -1740,6 +1740,50 @@ input[type='number'] {
   max-width: 100% !important;
 }
 
+/* --- Focused overrides: center the small subtitle and tighten phone field --- */
+/* Center the 'Datos de Contacto' title inside the carrito modal only */
+#modal-carrito .subtitulo-contacto {
+  width: 100%;
+  text-align: center;
+  margin-top: 0.1rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Make the country-select compact and the phone input narrower and aligned beside label */
+#modal-carrito .campo-telefono select,
+#modal-carrito .campo-telefono #codigo-pais {
+  flex: 0 0 56px !important;
+  width: 56px !important;
+  min-width: 56px !important;
+  padding: 0.28rem 0.4rem !important;
+  font-size: 0.95rem !important;
+}
+
+#modal-carrito .campo-telefono input#telefono-cliente {
+  flex: 0 0 150px !important; /* fixed compact width */
+  width: 150px !important;
+  max-width: 150px !important;
+  min-width: 120px !important;
+  padding: 0.4rem 0.6rem !important;
+}
+
+/* Ensure the label remains on the same line and provides spacing for compact phone controls */
+#modal-carrito .form-cotizacion .campo-grupo label {
+  min-width: 110px !important;
+}
+
+/* Small screen: allow phone controls to expand under label when narrow */
+@media (max-width: 600px) {
+  #modal-carrito .campo-telefono select,
+  #modal-carrito .campo-telefono #codigo-pais,
+  #modal-carrito .campo-telefono input#telefono-cliente {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    min-width: 0 !important;
+  }
+  #modal-carrito .subtitulo-contacto { text-align: center; }
+}
+
 
 /* Notificación de producto agregado al carrito */
 .notificacion-carrito {
