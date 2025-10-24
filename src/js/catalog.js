@@ -450,6 +450,7 @@ function actualizarBotonCotizar() {
 
 btnVerCarrito.addEventListener('click', () => {
   mostrarCarrito();
+  
   // Restablecer campos
   const codigoPais = document.getElementById('codigo-pais');
   const telefonoInput = document.getElementById('telefono-cliente');
@@ -457,18 +458,16 @@ btnVerCarrito.addEventListener('click', () => {
   const tipoCotizacion = document.getElementById('tipo-cotizacion');
   const descripcionServicio = document.getElementById('grupo-descripcion-servicio');
   
+  // Limpiar todos los campos
   if (codigoPais) codigoPais.value = '52';
   if (telefonoInput) telefonoInput.value = '';
   if (emailInput) emailInput.value = '';
+  if (tipoCotizacion) tipoCotizacion.value = '';
   
-  // Sincronizar tipo de cotización con el filtro si hay uno seleccionado
-  const filtroTipo = document.getElementById('tipo');
-  if (filtroTipo && filtroTipo.value && tipoCotizacion) {
-    tipoCotizacion.value = filtroTipo.value;
+  // Ocultar descripción inicialmente
+  if (descripcionServicio) {
+    descripcionServicio.classList.remove('visible');
   }
-  
-  // Actualizar visibilidad del campo de descripción
-  actualizarCampoDescripcion(tipoCotizacion?.value || '');
   
   // ensure modal opens with the shared helper so overlay + box style apply
   openModal(modalCarrito);
@@ -481,10 +480,17 @@ function actualizarCampoDescripcion(tipoCotizacion) {
   
   if (descripcionServicio && inputDescripcion) {
     const mostrar = tipoCotizacion === 'Servicio de mantenimiento';
-    descripcionServicio.style.display = mostrar ? '' : 'none';
     
-    // Si se oculta, limpiar el valor
-    if (!mostrar) {
+    // Remover clase visible primero si existe
+    descripcionServicio.classList.remove('visible');
+    
+    if (mostrar) {
+      // Mostrar con animación
+      setTimeout(() => {
+        descripcionServicio.classList.add('visible');
+      }, 50);
+    } else {
+      // Limpiar el valor al ocultar
       inputDescripcion.value = '';
     }
     

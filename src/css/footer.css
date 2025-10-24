@@ -4,14 +4,17 @@ html {
 
 .footer {
     background: #FF8F1C;
-background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
+    background: linear-gradient(90deg, rgba(255, 143, 28, 1) 12%, rgb(253 206 156) 92%);
     color: #fff;
-    padding: 20px;
+    padding: 2rem;
     border-radius: 20px;
-    margin-bottom: 40px;
+    margin: 2rem auto 3rem auto;
+    max-width: 1200px;
+    width: calc(100% - 4rem);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 16px rgba(255,143,28,0.15);
 
     .logo{
         display: flex;
