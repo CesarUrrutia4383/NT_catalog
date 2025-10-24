@@ -7,29 +7,27 @@
 body, html {
   width: 100%;
   overflow-x: hidden;
-  padding-top: 130px; /* Espacio para el header fijo */
+  margin: 0;
+  padding: 0;
 }
 
 .contenedor-header {
   width: 100%;
   padding: 0;
-  position: fixed; /* Cambiado a fixed para que sea consistente en todas las páginas */
-  z-index: 1000; /* Aumentado para asegurar que esté sobre todo el contenido */
-  top: 0;
-  left: 0;
-  right: 0;
-  background: white; /* Fondo para asegurar que el contenido no se vea a través */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  position: relative;
+  margin: 0;
+  background: transparent;
+  z-index: -1; /* asegurar que el header esté por encima visualmente */
 }
 
 header {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Cambiado a center para mejor alineación */
+  align-items: flex-start;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 10px 2rem;
+  padding: 0;
   .logo {
     display: flex;
     align-items: center;

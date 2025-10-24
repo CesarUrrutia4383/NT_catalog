@@ -17,16 +17,15 @@
 
 /* Contenedor principal del catálogo */
 .catalogo {
-  position: relative;       /* necesario para controlar z-index */
-  z-index: 50;             /* Aumentado para estar sobre el header */
+  position: relative;
+  z-index: 0;
   padding: 20px;
   background: linear-gradient(135deg, #fffaf4, #fff);
-  margin-bottom: 60px;
+  margin: 10px auto 60px auto; /* espacio superior para evitar solapamiento con el header */
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   max-width: 1200px;
-  margin: 6rem auto 2rem auto; /* Aumentado el margen superior para dar espacio al header */
 }
 
 
@@ -79,7 +78,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 2rem;
-  padding-top: 20px;
   margin: 0 auto;
   max-width: 1200px;
 }
