@@ -12,11 +12,11 @@ body, html {
 
 .contenedor-header {
   width: 100%;
-  margin: 3rem auto 0; /* Aumentado significativamente el margen superior */
-  padding: 0;
+  margin: 0;
+  padding: 1rem 0;
   position: relative;
   z-index: 100;
-  max-width: calc(1200px + 8rem); /* Aumentado el ancho máximo */
+  background-color: #000;
 }
 
 header {
@@ -26,17 +26,14 @@ header {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 1.5rem 5rem; /* Aumentado significativamente el padding horizontal */
+  padding: 0 2rem; /* Aumentado significativamente el padding horizontal */
   .logo {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: #000000;
-    padding: 10px;
+    justify-content: flex-start;
+    padding: 0.5rem;
     width: auto;
-    height: 110px;
-    border-radius: 10px 0px 0px 0px;
-    margin-left: -5rem; /* Ajustado para mantener alineación con el nuevo padding */
+    height: 80px;
     position: relative;
 
     img {
@@ -68,22 +65,27 @@ header {
 
   .navbar {
     display: flex;
-    gap: 30px;
+    gap: 2rem;
     align-items: center;
     flex-wrap: nowrap;
     justify-content: flex-end;
-    margin-left: auto;
 
     a {
       display: inline-flex;
-      gap: 10px;
       align-items: center;
-      font-weight: 800;
-      border-radius: 5px;
-      white-space: nowrap;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
 
-      &.boton {
-        font-weight: 500;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      &.active {
+        background-color: #ff8f1c;
       }
     }
   }
@@ -91,9 +93,7 @@ header {
   @media screen and (max-width: 768px) {
     & {
       flex-direction: column;
-      align-items: stretch;
-      gap: 20px;
-      padding: 0;
+      padding: 1rem;
 
       .logo {
         margin: 0;
