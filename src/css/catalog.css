@@ -859,7 +859,7 @@
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   border: 3px solid #ff8f1c;
   position: relative;
-  text-align: center;
+  text-align: left; /* align modal content to the left */
   margin: 0 auto;
 }
 
@@ -1545,13 +1545,10 @@ input[type='number'] {
   }
 }
 
-/* Centrar el botón de cotizar */
 #modal-carrito .form-cotizacion {
-  align-items: center;
-}
-/* Fine-tune form spacing and button placement */
-#modal-carrito .form-cotizacion {
-  align-items: stretch; /* inputs expand, button will stretch too */
+  /* Left-align form content inside the carrito modal so labels and inputs
+     start at the left edge rather than being centered. */
+  align-items: flex-start;
   gap: 0.9rem;
 }
 #modal-carrito .form-cotizacion .campo-grupo {
@@ -1573,6 +1570,13 @@ input[type='number'] {
   width: auto;
   min-width: 0;
   box-sizing: border-box;
+}
+
+/* Make the phone input smaller than full width inside the modal */
+#modal-carrito .campo-telefono input#telefono-cliente {
+  flex: 0 0 220px; /* fixed-ish width while allowing responsive shrink */
+  max-width: 240px;
+  width: 220px;
 }
 
 /* Ensure the Cotizar button sits under the fields and has comfortable spacing */
