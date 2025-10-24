@@ -910,10 +910,27 @@
 #modal-carrito .campo-grupo label {
   font-weight: bold;
   color: #ff8f1c;
-  min-width: 110px;
+  min-width: 140px; /* keep labels aligned and consistent */
   margin-bottom: 0;
-  display: block;
+  display: inline-block; /* place inputs to the right on the same row */
   text-align: left;
+}
+
+/* Ensure the phone controls sit to the right of the label, aligned horizontally */
+#modal-carrito .campo-telefono {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  flex: 1 1 auto;
+}
+#modal-carrito .campo-telefono select {
+  flex: 0 0 92px;
+  width: 92px;
+}
+#modal-carrito .campo-telefono input#telefono-cliente {
+  flex: 1 1 auto;
+  min-width: 120px;
 }
 #modal-carrito .campo-grupo input,
 #modal-carrito .campo-grupo select {
