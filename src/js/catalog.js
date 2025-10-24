@@ -467,7 +467,15 @@ btnVerCarrito.addEventListener('click', () => {
   // Ocultar descripción inicialmente
   if (descripcionServicio) {
     descripcionServicio.classList.remove('visible');
+    descripcionServicio.style.display = 'none';
+    const inputDesc = document.getElementById('descripcion-servicio');
+    if (inputDesc) {
+      inputDesc.value = '';
+      inputDesc.required = false;
+    }
   }
+  // Asegurar estado inicial correcto según el valor actual del select
+  if (tipoCotizacion) actualizarCampoDescripcion(tipoCotizacion.value);
   
   // ensure modal opens with the shared helper so overlay + box style apply
   openModal(modalCarrito);
