@@ -993,6 +993,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   llenarFiltros(productos);
   aplicarFiltrosDesdeURL();
   filtrar(productos, false);
+  // Ensure description field initial state matches the current select value
+  // (hide if none selected). This prevents the description from showing
+  // on modal open due to any race conditions.
+  actualizarCampoDescripcion(document.getElementById('tipo-cotizacion')?.value || '');
   loader.style.display = 'none';
   grid.style.display = '';
 

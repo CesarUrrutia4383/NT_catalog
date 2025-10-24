@@ -974,6 +974,16 @@
   color: #333;
 }
 
+/* Force the description group hidden by default inside the carrito modal
+   and only show it when the JS adds the .visible class. Using higher
+   specificity prevents inline/CSS conflicts that made it visible on open. */
+#modal-carrito #grupo-descripcion-servicio {
+  display: none !important;
+}
+#modal-carrito #grupo-descripcion-servicio.visible {
+  display: block !important;
+}
+
 #descripcion-servicio {
   width: 100%;
   min-height: 80px;
@@ -1548,13 +1558,20 @@ input[type='number'] {
   margin-bottom: 0.2rem;
 }
 #modal-carrito .form-cotizacion label {
-  margin-bottom: 6px;
-  display: block;
+  /* Keep label and input on the same line inside the carrito form.
+     Use inline-block with a fixed min-width so the input can flex. */
+  margin-bottom: 0;
+  display: inline-block;
+  min-width: 110px;
 }
 #modal-carrito .form-cotizacion input,
 #modal-carrito .form-cotizacion select,
 #modal-carrito .form-cotizacion textarea {
-  width: 100%;
+  /* Use flex so inputs sit next to labels inside .campo-grupo (which is a flex row).
+     Avoid forcing width:100% which stacks inputs below labels. */
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
   box-sizing: border-box;
 }
 
