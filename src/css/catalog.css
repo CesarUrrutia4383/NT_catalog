@@ -1866,6 +1866,36 @@ input[type='number'] {
   width: auto !important;
 }
 
+/* Enforce form layout: make sure the form itself stacks rows and each campo-grupo
+   is a full-width block so the next row (Tipo de cotización) cannot appear on
+   the same horizontal line as the phone controls. */
+#modal-carrito .form-cotizacion {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 0.9rem !important;
+}
+
+#modal-carrito .form-cotizacion > .campo-grupo {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important; /* take full row */
+  box-sizing: border-box !important;
+}
+
+/* Make the Tipo de cotización field occupy the remaining width under its label */
+#modal-carrito .form-cotizacion > .campo-grupo select#tipo-cotizacion {
+  flex: 0 0 calc(100% - 140px) !important;
+  width: calc(100% - 140px) !important;
+  max-width: 100% !important;
+}
+
+/* Prevent the phone controls from forcing subsequent groups to float beside them */
+#modal-carrito .form-cotizacion > .campo-grupo > .campo-telefono {
+  margin-right: 0.6rem !important;
+}
+
 
 /* Notificación de producto agregado al carrito */
 .notificacion-carrito {
