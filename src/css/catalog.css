@@ -863,6 +863,12 @@
   margin: 0 auto;
 }
 
+/* Center only the cart modal title and the empty-cart paragraph */
+#modal-carrito .modal-contenido > h3,
+#modal-carrito #carrito-listado p {
+  text-align: center;
+}
+
 #modal-carrito .modal-contenido::before {
   content: '';
   position: absolute;
@@ -1215,10 +1221,11 @@ input[type='number'] {
 }
 
 #codigo-pais {
-  min-width: 110px;
-  width: auto;
-  padding: 0.4rem 1.2rem 0.4rem 0.6rem;
-  font-size: 1.08rem;
+  /* Make the country code select compact so the phone field is visible */
+  min-width: 72px;
+  width: 92px;
+  padding: 0.32rem 0.6rem 0.32rem 0.5rem;
+  font-size: 1rem;
   background: #fff;
   border: 2px solid #ff8f1c;
   border-radius: 8px;
@@ -1228,10 +1235,10 @@ input[type='number'] {
   box-shadow: 0 2px 8px rgba(255,143,28,0.07);
   margin-bottom: 0.5rem;
   appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%23ff8f1c" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7.293 7.293a1 1 0 011.414 0L10 8.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23ff8f1c" height="18" viewBox="0 0 20 20" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M7.293 7.293a1 1 0 011.414 0L10 8.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z"/></svg>');
   background-repeat: no-repeat;
-  background-position: right 0.7em top 50%;
-  background-size: 1.2em;
+  background-position: right 0.5em center;
+  background-size: 1em;
 }
 #codigo-pais option {
   background: #fff;
@@ -1249,6 +1256,22 @@ input[type='number'] {
   transition: border 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px rgba(255,143,28,0.07);
   margin-bottom: 0.5rem;
+}
+
+/* Compact country select inside the modal's phone field */
+#modal-carrito .campo-telefono select,
+#modal-carrito .campo-telefono #codigo-pais {
+  flex: 0 0 92px;
+  width: 92px;
+  min-width: 72px;
+}
+
+@media (max-width: 600px) {
+  #codigo-pais, #modal-carrito .campo-telefono select {
+    width: 100%;
+    flex: 1 1 100%;
+    min-width: 0;
+  }
 }
 #servicio-solicitado:focus {
   border-color: #ff8f1c;
