@@ -15,7 +15,7 @@ body, html {
   padding: 0;
   position: absolute;
   z-index: 1; /* Reducido para que esté detrás del catálogo */
-  top: -100px; /* Movido aún más arriba */
+  top: -50px; /* Reducido a la mitad */
   left: 0;
   right: 0;
 }
