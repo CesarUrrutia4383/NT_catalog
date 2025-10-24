@@ -1703,6 +1703,33 @@ input[type='number'] {
   }
 }
 
+/* Subtitle style for Datos de Contacto */
+.subtitulo-contacto {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ff8f1c;
+  margin: 0 0 0.6rem 0;
+}
+
+/* Strong override to force phone controls inline beside their label */
+#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 0.5rem !important;
+  align-items: center !important;
+  width: auto !important;
+}
+#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono select {
+  flex: 0 0 72px !important;
+  width: 72px !important;
+}
+#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono input#telefono-cliente {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  max-width: 100% !important;
+}
+
+
 /* Notificación de producto agregado al carrito */
 .notificacion-carrito {
   position: fixed;
