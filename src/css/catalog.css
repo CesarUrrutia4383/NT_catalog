@@ -921,6 +921,45 @@
   box-sizing: border-box;
 }
 
+/* Uniform sizes for modal inputs: make all text inputs the same width
+   while keeping the description textarea larger and rectangular. */
+#modal-carrito .campo-grupo label {
+  min-width: 140px; /* consistent label column */
+}
+#modal-carrito .campo-grupo input[type="text"],
+#modal-carrito .campo-grupo input[type="tel"],
+#modal-carrito .campo-grupo select,
+#modal-carrito .campo-grupo textarea {
+  flex: 0 0 360px; /* fixed visual width for form controls */
+  width: 360px;
+  max-width: calc(100% - 150px);
+  box-sizing: border-box;
+}
+
+/* Make the description textarea larger and rectangular */
+#modal-carrito #descripcion-servicio {
+  flex: 0 0 520px;
+  width: 520px;
+  max-width: 100%;
+  min-height: 140px;
+  padding: 0.9rem;
+  border-radius: 8px;
+}
+
+/* Responsive: on narrow screens inputs go full width under labels */
+@media (max-width: 900px) {
+  #modal-carrito .campo-grupo label { min-width: 100px; }
+  #modal-carrito .campo-grupo input[type="text"],
+  #modal-carrito .campo-grupo input[type="tel"],
+  #modal-carrito .campo-grupo select,
+  #modal-carrito .campo-grupo textarea,
+  #modal-carrito #descripcion-servicio {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 #modal-carrito .campo-grupo textarea {
   min-width: 120px;
   max-width: 180px;
