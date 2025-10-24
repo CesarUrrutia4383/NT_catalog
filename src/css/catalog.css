@@ -1820,6 +1820,52 @@ input[type='number'] {
   max-width: calc(100% - 130px) !important;
 }
 
+/* Force each campo-grupo to be a single horizontal row and add vertical spacing
+   so fields don't sit too close to each other. Prevent wrapping inside the row. */
+#modal-carrito .form-cotizacion .campo-grupo {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  width: 100% !important;
+  margin-bottom: 0.9rem !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Keep label as fixed left column and ensure there's space to its right */
+#modal-carrito .form-cotizacion .campo-grupo label {
+  flex: 0 0 130px !important;
+  min-width: 130px !important;
+  margin-right: 0.6rem !important;
+  text-align: left !important;
+}
+
+/* Make the phone controls container not expand full width; sit immediately after label */
+#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+}
+
+/* add a little breathing room between the phone controls and the next field */
+#modal-carrito .form-cotizacion .campo-grupo + .campo-grupo {
+  margin-top: 0.6rem !important;
+}
+
+/* Ensure Tipo de cotización always appears on its own row (full width) */
+#modal-carrito #tipo-cotizacion,
+#modal-carrito select#tipo-cotizacion {
+  display: inline-block !important;
+  width: calc(100% - 140px) !important; /* allow for label column */
+  max-width: 100% !important;
+}
+
+/* If any earlier rule set campo-telefono to width:100%, override it */
+#modal-carrito .campo-telefono[style],
+#modal-carrito .campo-telefono {
+  width: auto !important;
+}
+
 
 /* Notificación de producto agregado al carrito */
 .notificacion-carrito {
