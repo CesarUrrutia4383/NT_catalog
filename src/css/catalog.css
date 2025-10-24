@@ -1896,22 +1896,23 @@ input[type='number'] {
   margin-right: 0.6rem !important;
 }
 
-/* Specific styling for the Tipo de cotización group: always occupy its own row
-   with the label as left column and select filling the remaining space. */
+/* Specific styling for the Tipo de cotización group: force it to its own block
+   and stack label above the select so it always appears below the phone row. */
 #modal-carrito .form-cotizacion .campo-grupo.campo-tipo {
   display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
   width: 100% !important;
   margin-bottom: 0.9rem !important;
 }
 #modal-carrito .form-cotizacion .campo-grupo.campo-tipo label {
-  flex: 0 0 130px !important;
-  min-width: 130px !important;
+  display: block !important;
+  margin-bottom: 0.35rem !important;
   text-align: left !important;
+  color: #ff8f1c !important;
 }
 #modal-carrito .form-cotizacion .campo-grupo.campo-tipo select#tipo-cotizacion {
-  flex: 1 1 auto !important;
+  display: block !important;
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
