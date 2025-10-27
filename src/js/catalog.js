@@ -971,19 +971,109 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
 
   console.log('Enviando datos al backend:', data);
 
-  return fetch('https://nt-backapis.onrender.com/routes/quote', {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    },
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'omit',
-    redirect: 'follow',
-    body: JSON.stringify(data)
-  });
+  // Nuevo flujo: el backend devuelve pdfBase64 + correosDestino.
+  // Aquí solicitamos el PDF al backend y luego enviamos el correo desde el frontend
+  // usando EmailJS REST API. Debes configurar EmailJS y reemplazar los placeholders
+  // SERVICE_ID, TEMPLATE_ID y USER_ID con tus propios valores.
+
+  return (async () => {
+    const BACKEND_QUOTE_URL = 'https://nt-backapis.onrender.com/routes/quote';
+
+    const res = await fetch(BACKEND_QUOTE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'omit',
+      redirect: 'follow',
+      body: JSON.stringify(data)
+    });
+
+    if (!res.ok) {
+      const txt = await res.text();
+      console.error('Error generando PDF en backend:', txt);
+      return new Response(JSON.stringify({ ok: false, message: 'Error generando PDF', detail: txt }), { status: 500 });
+    }
+
+    const json = await res.json();
+    if (!json.pdfBase64) {
+      console.error('El backend no devolvió pdfBase64:', json);
+      return new Response(JSON.stringify({ ok: false, message: 'Backend no devolvió pdfBase64' }), { status: 500 });
+    }
+
+    const pdfBase64 = json.pdfBase64;
+    const correosDestino = json.correosDestino || destinoCorreo || [];
+
+    // Convertir base64 a Blob
+    const byteCharacters = atob(pdfBase64);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
+    const fileName = `NT_Cotizacion_${(nombre || 'cotizacion').replace(/\s+/g, '_')}.pdf`;
+
+    // EmailJS REST API - replace these placeholders with your own values
+    const EMAILJS_SERVICE_ID = 'YOUR_EMAILJS_SERVICE_ID';
+    const EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID';
+    const EMAILJS_USER_ID = 'YOUR_EMAILJS_USER_ID'; // public key / user id
+
+    // EmailJS permite enviar attachments codificados en base64 a través de su API REST
+    // enviando un campo 'attachments' con objetos { name, data } donde data es base64
+    // (si tu plan/plantilla lo soporta). Revisa la documentación de EmailJS si hay cambios.
+
+    // Preparar payload para EmailJS
+    const attachments = [
+      {
+        name: fileName,
+        data: pdfBase64
+      }
+    ];
+
+    // Enviar un correo por cada destinatario (puedes optimizar enviando todos en uno)
+    const results = [];
+    for (const to of correosDestino) {
+      const payload = {
+        service_id: EMAILJS_SERVICE_ID,
+        template_id: EMAILJS_TEMPLATE_ID,
+        user_id: EMAILJS_USER_ID,
+        template_params: {
+          to_email: to,
+          from_name: 'Neumatics Tool',
+          client_name: nombre,
+          client_phone: telefono,
+          servicio: servicio,
+          message: `Adjunto se encuentra la cotización solicitada por ${nombre}`
+        },
+        attachments
+      };
+
+      try {
+        const emailRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!emailRes.ok) {
+          const txt = await emailRes.text();
+          console.error('Error enviando email a', to, txt);
+          results.push({ to, ok: false, detail: txt });
+        } else {
+          results.push({ to, ok: true });
+        }
+      } catch (err) {
+        console.error('Excepción enviando email a', to, err);
+        results.push({ to, ok: false, detail: String(err) });
+      }
+    }
+
+    return new Response(JSON.stringify({ ok: true, results }), { status: 200 });
+  })();
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
