@@ -1820,22 +1820,24 @@ input[type='number'] {
   max-width: calc(100% - 130px) !important;
 }
 
-/* Force each campo-grupo to be a single horizontal row and add vertical spacing
-   so fields don't sit too close to each other. Prevent wrapping inside the row. */
+/* Force each campo-grupo to be a horizontal row but allow wrapping when space is constrained
+   This avoids pushing subsequent groups beside the phone controls and gives inputs breathing room.
+   Using wrap preserves side-by-side layout on wide screens but stacks cleanly on smaller ones.
+   NOTE: kept !important to override earlier strict rules but changed to wrap for improved UX. */
 #modal-carrito .form-cotizacion .campo-grupo {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
-  gap: 0.8rem !important;
+  gap: 0.9rem !important; /* a little more spacing between label and control */
   width: 100% !important;
   margin-bottom: 0.9rem !important;
-  flex-wrap: nowrap !important;
+  flex-wrap: wrap !important; /* allow wrapping to prevent crowding */
 }
 
-/* Keep label as fixed left column and ensure there's space to its right */
+/* Keep label as a left column but slightly reduce reserved width so inputs have more space */
 #modal-carrito .form-cotizacion .campo-grupo label {
-  flex: 0 0 130px !important;
-  min-width: 130px !important;
+  flex: 0 0 120px !important;
+  min-width: 110px !important;
   margin-right: 0.6rem !important;
   text-align: left !important;
 }
@@ -1850,6 +1852,20 @@ input[type='number'] {
 /* add a little breathing room between the phone controls and the next field */
 #modal-carrito .form-cotizacion .campo-grupo + .campo-grupo {
   margin-top: 0.6rem !important;
+}
+
+/* If the next group is the 'tipo' group, remove the extra gap so label sits directly above the select */
+#modal-carrito .form-cotizacion .campo-grupo + .campo-grupo.campo-tipo {
+  margin-top: 0 !important;
+}
+
+/* Ensure the tipo select has no top margin and compact vertical padding */
+#modal-carrito .form-cotizacion .campo-grupo.campo-tipo select#tipo-cotizacion,
+#modal-carrito .form-cotizacion .campo-grupo.campo-tipo select {
+  margin-top: 0 !important;
+  padding-top: 0.45rem !important;
+  padding-bottom: 0.45rem !important;
+  line-height: 1.2 !important;
 }
 
 /* Ensure Tipo de cotización always appears on its own row (full width) */
@@ -1907,7 +1923,7 @@ input[type='number'] {
 }
 #modal-carrito .form-cotizacion .campo-grupo.campo-tipo label {
   display: block !important;
-  margin-bottom: 0.35rem !important;
+  margin-bottom: -6.65rem !important; /* reduced gap to the select */
   text-align: left !important;
   color: #ff8f1c !important;
 }
@@ -1934,12 +1950,12 @@ input[type='number'] {
   clear: both !important;
   width: 100% !important;
   box-sizing: border-box !important;
-  margin-top: 0.6rem !important;
+  margin-top: 0.25rem !important; /* smaller gap above this group */
 }
 #modal-carrito .modal-contenido .form-cotizacion > .campo-grupo.campo-tipo label {
   display: block !important;
   width: 100% !important;
-  margin-bottom: 0.35rem !important;
+  margin-bottom: 0.15rem !important; /* match reduced spacing */
 }
 #modal-carrito .modal-contenido .form-cotizacion > .campo-grupo.campo-tipo select#tipo-cotizacion {
   display: block !important;
