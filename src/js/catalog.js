@@ -26,6 +26,9 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init({ duration: 600, once: false });
 
+// EmailJS configuration (fill values in src/js/emailjs-config.js)
+import { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_USER_ID } from './emailjs-config.js';
+
 /**
  * Valida si una URL es válida y pertenece a Cloudinary.
  * @param {string} url - La URL a validar.
@@ -267,7 +270,7 @@ function mostrarModalProducto(producto) {
   acciones.innerHTML = `
     <div class="cantidad-control" id="cantidad-control">
       <button type="button" class="cantidad-btn" id="btn-restar">-</button>
-      <input type="number" id="modal-cantidad" min="1" value="1" max="${producto.existencias || producto.cantidad}" />
+      <input type="number" id="modal-cantidad" min="1" value="1"/>
       <button type="button" class="cantidad-btn" id="btn-sumar">+</button>
     </div>
     <button id="agregar-carrito">Agregar al carrito</button>
@@ -1018,23 +1021,17 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
     const fileName = `NT_Cotizacion_${(nombre || 'cotizacion').replace(/\s+/g, '_')}.pdf`;
 
     // EmailJS REST API - replace these placeholders with your own values
-    const EMAILJS_SERVICE_ID = 'YOUR_EMAILJS_SERVICE_ID';
-    const EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID';
-    const EMAILJS_USER_ID = 'YOUR_EMAILJS_USER_ID'; // public key / user id
+    // Validar que EmailJS esté configurado (evita errores en runtime)
+    if (!EMAILJS_SERVICE_ID || EMAILJS_SERVICE_ID.startsWith('YOUR_') ||
+        !EMAILJS_TEMPLATE_ID || EMAILJS_TEMPLATE_ID.startsWith('YOUR_') ||
+        !EMAILJS_USER_ID || EMAILJS_USER_ID.startsWith('YOUR_')) {
+      console.warn('EmailJS no está configurado. Revisa src/js/emailjs-config.js');
+      return new Response(JSON.stringify({ ok: false, message: 'EmailJS no configurado' }), { status: 500 });
+    }
 
-    // EmailJS permite enviar attachments codificados en base64 a través de su API REST
-    // enviando un campo 'attachments' con objetos { name, data } donde data es base64
-    // (si tu plan/plantilla lo soporta). Revisa la documentación de EmailJS si hay cambios.
+    // Preparar attachments y payload para EmailJS (REST API)
+    const attachments = [ { name: fileName, data: pdfBase64 } ];
 
-    // Preparar payload para EmailJS
-    const attachments = [
-      {
-        name: fileName,
-        data: pdfBase64
-      }
-    ];
-
-    // Enviar un correo por cada destinatario (puedes optimizar enviando todos en uno)
     const results = [];
     for (const to of correosDestino) {
       const payload = {
