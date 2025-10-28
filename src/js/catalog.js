@@ -632,10 +632,20 @@ function validarCamposCotizacion() {
 }
 
 ['input', 'change'].forEach(evt => {
-  document.getElementById('nombre-cliente').addEventListener(evt, validarCamposCotizacion);
-  document.getElementById('telefono-cliente').addEventListener(evt, validarCamposCotizacion);
-  const codigoPais = document.getElementById('codigo-pais');
-  if (codigoPais) codigoPais.addEventListener(evt, validarCamposCotizacion);
+  // Adjuntar validarCamposCotizacion a todos los campos relevantes si existen.
+  // Evitar lanzar errores si algún elemento no está presente en el DOM.
+  [
+    'nombre-cliente',
+    'telefono-cliente',
+    'email-cliente',
+    'codigo-pais',
+    'tipo-cotizacion',
+    'descripcion-servicio',
+    'servicio-solicitado'
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(evt, validarCamposCotizacion);
+  });
 });
 
 let isSubmitting = false;
