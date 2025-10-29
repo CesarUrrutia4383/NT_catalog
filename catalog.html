@@ -356,6 +356,15 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
                 <label for="descripcion-servicio">Descripción del servicio solicitado:</label>
                 <textarea id="descripcion-servicio" rows="3" maxlength="300" placeholder="Describe brevemente lo que necesitas..."></textarea>
               </div>
+              <!-- Consentimiento para uso de datos: obligatorio para habilitar cotizar -->
+              <div class="campo-grupo" style="margin-top:8px;">
+                <label style="font-weight:600; font-size:0.95rem; display:flex; align-items:flex-start; gap:8px;">
+                  <input type="checkbox" id="acepta-datos" style="margin-right:8px; margin-top:4px;" />
+                  <span>Autorizo el uso de mis datos de contacto para la elaboración de la cotización y para ser contactado por Neumatics Tool. He leído la <a href="#" id="link-privacidad">Política de Privacidad</a> y acepto el tratamiento de mis datos conforme a ella.</span>
+                </label>
+                <div id="consent-tip" aria-live="polite" style="font-size:0.9rem;color:#666;margin-top:6px;margin-left:28px;">Complete los campos obligatorios para habilitar el consentimiento.</div>
+              </div>
+
               <!-- (duplicate description group removed) -->
               <button id="cotizar-pdf" type="button">Cotizar (Generar PDF)</button>
             </form>

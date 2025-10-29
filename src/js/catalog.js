@@ -477,6 +477,21 @@ btnVerCarrito.addEventListener('click', () => {
   if (telefonoInput) telefonoInput.value = '';
   if (emailInput) emailInput.value = '';
   if (tipoCotizacion) tipoCotizacion.value = '';
+  const aceptaDatos = document.getElementById('acepta-datos');
+  if (aceptaDatos) {
+    // Restaurar consentimiento de la sesión si existe y los campos están completos
+    try {
+      const stored = sessionStorage.getItem('consent_given');
+      if (stored === '1' && camposObligatoriosLlenos()) {
+        aceptaDatos.checked = true;
+      } else {
+        aceptaDatos.checked = false;
+        if (stored === '1') sessionStorage.removeItem('consent_given');
+      }
+    } catch (e) {
+      aceptaDatos.checked = false;
+    }
+  }
   
   // Ocultar descripción inicialmente
   if (descripcionServicio) {
@@ -519,6 +534,33 @@ function actualizarCampoDescripcion(tipoCotizacion) {
     // Actualizar requerido según visibilidad
     inputDescripcion.required = mostrar;
   }
+}
+
+/**
+ * Devuelve una lista de campos obligatorios que faltan o son inválidos (etiquetas en texto).
+ * @returns {string[]} lista de nombres de campos que faltan
+ */
+function camposFaltantes() {
+  const faltan = [];
+  const nombreInput = document.getElementById('nombre-cliente');
+  const telefonoInputLocal = document.getElementById('telefono-cliente');
+  const codigoPaisLocal = document.getElementById('codigo-pais');
+  const tipoCotizacion = document.getElementById('tipo-cotizacion');
+  const descripcionServicioLocal = document.getElementById('descripcion-servicio');
+
+  if (!nombreInput || !nombreInput.value.trim()) faltan.push('Nombre');
+  if (!telefonoInputLocal || !codigoPaisLocal) faltan.push('Teléfono');
+  else {
+    const codigo = codigoPaisLocal.value;
+    const telefono = telefonoInputLocal.value.trim().replace(/\D/g, '');
+    const longitud = longitudesTelefono[codigo] || 10;
+    if (telefono.length !== longitud) faltan.push('Teléfono (longitud incorrecta)');
+  }
+  if (!tipoCotizacion || !tipoCotizacion.value) faltan.push('Tipo de cotización');
+  if (tipoCotizacion && tipoCotizacion.value === 'Servicio de mantenimiento') {
+    if (!descripcionServicioLocal || descripcionServicioLocal.value.trim().length < 10) faltan.push('Descripción del servicio (mín. 10 caracteres)');
+  }
+  return faltan;
 }
 
 // Event listener para cambios en tipo de cotización
@@ -606,6 +648,7 @@ function validarCamposCotizacion() {
   const tipoCotizacion = document.getElementById('tipo-cotizacion');
   const descripcionServicio = document.getElementById('descripcion-servicio');
   const btn = document.getElementById('cotizar-pdf');
+  const aceptaDatos = document.getElementById('acepta-datos');
   
   // Validar nombre
   const nombreValido = nombreInput.value.trim().length > 0;
@@ -622,6 +665,9 @@ function validarCamposCotizacion() {
 
   // Validar tipo de cotización
   const tipoValido = tipoCotizacion.value !== '';
+
+  // Validar consentimiento (checkbox)
+  const aceptaValido = aceptaDatos ? aceptaDatos.checked : false;
   
   // Validar descripción cuando es servicio de mantenimiento
   const descripcionValida = tipoCotizacion.value !== 'Servicio de mantenimiento' || 
@@ -629,7 +675,7 @@ function validarCamposCotizacion() {
   
   // Habilitar/deshabilitar botón según validación
   const todosLosCamposValidos = nombreValido && emailValido && telefonoValido && 
-    tipoValido && descripcionValida;
+    tipoValido && descripcionValida && aceptaValido;
   
   if (todosLosCamposValidos) {
     btn.disabled = false;
@@ -658,6 +704,88 @@ function validarCamposCotizacion() {
     if (el) el.addEventListener(evt, validarCamposCotizacion);
   });
 });
+
+/**
+ * Verifica que los campos obligatorios (sin contar el checkbox de consentimiento)
+ * estén completos y con formato válido. Esto controla si el checkbox puede
+ * habilitarse para que el usuario lo marque.
+ * @returns {boolean}
+ */
+function camposObligatoriosLlenos() {
+  const nombreInput = document.getElementById('nombre-cliente');
+  const telefonoInputLocal = document.getElementById('telefono-cliente');
+  const codigoPaisLocal = document.getElementById('codigo-pais');
+  const tipoCotizacion = document.getElementById('tipo-cotizacion');
+  const descripcionServicioLocal = document.getElementById('descripcion-servicio');
+
+  if (!nombreInput || !telefonoInputLocal || !codigoPaisLocal || !tipoCotizacion) return false;
+
+  const nombreValido = nombreInput.value.trim().length > 0;
+  const codigo = codigoPaisLocal.value;
+  const telefono = telefonoInputLocal.value.trim().replace(/\D/g, '');
+  const longitudRequerida = longitudesTelefono[codigo] || 10;
+  const telefonoValido = telefono.length === longitudRequerida;
+  const tipoValido = tipoCotizacion.value !== '';
+  const descripcionValida = tipoCotizacion.value !== 'Servicio de mantenimiento' ||
+    (descripcionServicioLocal && descripcionServicioLocal.value.trim().length >= 10);
+
+  return nombreValido && telefonoValido && tipoValido && descripcionValida;
+}
+
+/**
+ * Habilita o deshabilita el checkbox de consentimiento según si los campos
+ * obligatorios están completos. También actualiza el estado del botón de
+ * cotizar a través de validarCamposCotizacion.
+ */
+function actualizarEstadoConsentimiento() {
+  const acepta = document.getElementById('acepta-datos');
+  const tipEl = document.getElementById('consent-tip');
+  if (!acepta) return;
+  try {
+    const ok = camposObligatoriosLlenos();
+    acepta.disabled = !ok;
+    // Si quedó deshabilitado, asegurarnos de desmarcarlo
+    if (!ok) acepta.checked = false;
+    // Mostrar mensaje de ayuda con campos faltantes
+    if (tipEl) {
+      if (ok) {
+        tipEl.textContent = 'Puede marcar la casilla de consentimiento.';
+        tipEl.style.color = '#3a3a3a';
+      } else {
+        const falta = camposFaltantes();
+        tipEl.textContent = falta.length ? `Faltan: ${falta.join(', ')}` : 'Complete los campos obligatorios para habilitar el consentimiento.';
+        tipEl.style.color = '#b14a00';
+      }
+    }
+  } catch (e) {
+    console.warn('Error actualizando estado de consentimiento:', e);
+    acepta.disabled = true;
+    acepta.checked = false;
+  }
+  // Re-evaluar el botón también
+  validarCamposCotizacion();
+}
+
+// Escuchar cambios en campos relevantes para actualizar si el checkbox puede activarse
+['nombre-cliente', 'telefono-cliente', 'codigo-pais', 'tipo-cotizacion', 'descripcion-servicio', 'email-cliente'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', actualizarEstadoConsentimiento);
+  if (el) el.addEventListener('change', actualizarEstadoConsentimiento);
+});
+
+// Si el checkbox existe, su cambio ya influye en validarCamposCotizacion via el listener agregado más arriba.
+
+// Also attach validator to the consent checkbox if present
+const aceptaEl = document.getElementById('acepta-datos');
+if (aceptaEl) {
+  aceptaEl.addEventListener('change', (e) => {
+    try {
+      if (e.target.checked) sessionStorage.setItem('consent_given', '1');
+      else sessionStorage.removeItem('consent_given');
+    } catch (err) { /* ignore storage errors */ }
+    validarCamposCotizacion();
+  });
+}
 
 let isSubmitting = false;
 
