@@ -117,6 +117,18 @@ function llenarFiltros(productos) {
     if (p.tipo) tipos.add(p.tipo);
   });
 
+  // Limpiar opciones dinámicas (mantener la primera opción por defecto)
+  function resetSelectKeepFirst(selectEl) {
+    if (!selectEl) return;
+    const first = selectEl.querySelector('option');
+    selectEl.innerHTML = '';
+    if (first) selectEl.appendChild(first.cloneNode(true));
+  }
+
+  resetSelectKeepFirst(filtroMarca);
+  resetSelectKeepFirst(filtroProposito);
+  if (filtroTipo) resetSelectKeepFirst(filtroTipo);
+
   [...marcas].forEach(m => {
     const option = document.createElement('option');
     option.value = m;
@@ -135,9 +147,9 @@ function llenarFiltros(productos) {
   // Mantener las opciones estáticas añadidas en HTML pero asegurarnos de no duplicar.
   if (tipos.size > 0) {
     // eliminar opciones que no queremos (excepto la primera 'Todos')
-    const existing = Array.from(filtroTipo.querySelectorAll('option')).map(o => o.value);
+    const existing = filtroTipo ? Array.from(filtroTipo.querySelectorAll('option')).map(o => o.value) : [];
     tipos.forEach(t => {
-      if (!existing.includes(t)) {
+      if (!existing.includes(t) && filtroTipo) {
         const opt = document.createElement('option');
         opt.value = t;
         opt.textContent = t;
@@ -889,7 +901,7 @@ function filtrar(productos, actualizarURL = true) {
 
   // Actualizar opciones de filtros dependientes: cuando hay una marca seleccionada,
   // los otros selects deben mostrar sólo opciones que existen para esa marca.
-  actualizarFiltrosDependientes(productos, marca);
+  actualizarFiltrosDependientes(productos);
 
   mostrarProductos(filtrados);
 }
@@ -921,19 +933,36 @@ function aplicarFiltrosDesdeURL() {
  * @param {string} marcaSeleccionada
  */
 function actualizarFiltrosDependientes(productos, marcaSeleccionada) {
-  // Recolectar valores válidos para propósito y tipo según la marca seleccionada
+  // Tomar selecciones actuales
+  const selMarca = filtroMarca ? filtroMarca.value : '';
+  const selProposito = filtroProposito ? filtroProposito.value : '';
+  const selTipo = filtroTipo ? filtroTipo.value : '';
+
+  const marcasValidos = new Set();
   const propositosValidos = new Set();
   const tiposValidos = new Set();
 
   productos.forEach(p => {
-    if (!marcaSeleccionada || p.marca === marcaSeleccionada) {
+    // Para que una marca sea válida, debe existir al menos un producto que cumpla
+    // con las otras dos selecciones (proposito y tipo)
+    if ((selProposito === '' || p.proposito === selProposito) && (selTipo === '' || p.tipo === selTipo)) {
+      if (p.marca) marcasValidos.add(p.marca);
+    }
+    // Para que un propósito sea válido, debe existir al menos un producto que cumpla
+    // con las otras dos selecciones (marca y tipo)
+    if ((selMarca === '' || p.marca === selMarca) && (selTipo === '' || p.tipo === selTipo)) {
       if (p.proposito) propositosValidos.add(p.proposito);
+    }
+    // Para que un tipo sea válido, debe existir al menos un producto que cumpla
+    // con las otras dos selecciones (marca y propósito)
+    if ((selMarca === '' || p.marca === selMarca) && (selProposito === '' || p.proposito === selProposito)) {
       if (p.tipo) tiposValidos.add(p.tipo);
     }
   });
 
   // Función auxiliar para filtrar opciones de un select (mantener opción vacía)
   function filtrarSelect(selectEl, validSet) {
+    if (!selectEl) return;
     const options = Array.from(selectEl.options);
     options.forEach((opt, idx) => {
       if (idx === 0) return; // mantener la opción 'Todos' / vacía
@@ -944,11 +973,17 @@ function actualizarFiltrosDependientes(productos, marcaSeleccionada) {
       }
     });
     // Si la opción actualmente seleccionada quedó oculta, resetear al valor vacío
-    if (selectEl.value && selectEl.querySelector(`option[value="${selectEl.value}"]`)?.style.display === 'none') {
+    const currentOption = selectEl.querySelector(`option[value="${selectEl.value}"]`);
+    if (selectEl.value && currentOption && currentOption.style.display === 'none') {
       selectEl.value = '';
+      // If tipo changed due to being invalidated, update localStorage
+      if (selectEl === filtroTipo) {
+        try { localStorage.removeItem('filtro_tipo'); } catch (e) { /* ignore */ }
+      }
     }
   }
 
+  filtrarSelect(filtroMarca, marcasValidos);
   filtrarSelect(filtroProposito, propositosValidos);
   if (filtroTipo) filtrarSelect(filtroTipo, tiposValidos);
 }
