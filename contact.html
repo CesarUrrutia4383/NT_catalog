@@ -171,6 +171,15 @@ Description: Contact page of the Neumatics Tool website, where the different bra
         </nav>
       </footer>
 
+      <!-- Modal Términos y Condiciones -->
+      <div id="modal-terminos" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7);">
+        <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem; position:relative;">
+          <span class="modal-cerrar" id="cerrar-modal-terminos" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
+          <h2>Términos y Condiciones</h2>
+          <p>Este es un texto de ejemplo para los Términos y Condiciones. Aquí puedes colocar toda la información legal relevante para el uso de tu sitio web, servicios, limitaciones de responsabilidad, etc.</p>
+        </div>
+      </div>
+
       <!-- MODAL DE POLÍTICA DE PRIVACIDAD -->
       <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
         <div class="modal-contenido">
@@ -271,23 +280,39 @@ El presente Aviso de Privacidad, así como el manejo en general de la Ley que ha
        */
       document.getElementById('link-privacidad').onclick = function(e) {
         e.preventDefault();
-        document.getElementById('modal-privacidad').style.display = 'flex';
+        const modal = document.getElementById('modal-privacidad');
+        if (modal) modal.style.display = 'flex';
       };
 
-      /**
-       * @description Cierra el modal de política de privacidad al hacer clic en el botón de cerrar.
-       */
-      document.getElementById('cerrar-modal-privacidad').onclick = function() {
-        document.getElementById('modal-privacidad').style.display = 'none';
+      const cerrarPrivacidad = document.getElementById('cerrar-modal-privacidad');
+      if (cerrarPrivacidad) cerrarPrivacidad.onclick = function() {
+        const modal = document.getElementById('modal-privacidad');
+        if (modal) modal.style.display = 'none';
       };
 
-      /**
-       * @description Cierra el modal de política de privacidad al hacer clic fuera de él.
-       * @param {Event} e - Evento de clic.
-       */
+      // Términos y Condiciones: abrir/cerrar
+      const linkTerminos = document.getElementById('link-terminos');
+      if (linkTerminos) {
+        linkTerminos.onclick = function(e) {
+          e.preventDefault();
+          const modal = document.getElementById('modal-terminos');
+          if (modal) modal.style.display = 'flex';
+        };
+      }
+      const cerrarTerminos = document.getElementById('cerrar-modal-terminos');
+      if (cerrarTerminos) cerrarTerminos.onclick = function() {
+        const modal = document.getElementById('modal-terminos');
+        if (modal) modal.style.display = 'none';
+      };
+
+      // Cerrar al hacer clic fuera de los modales
       window.addEventListener('click', function(e) {
-        if (e.target === document.getElementById('modal-privacidad')) document.getElementById('modal-privacidad').style.display = 'none';
+        const modalPriv = document.getElementById('modal-privacidad');
+        const modalTerm = document.getElementById('modal-terminos');
+        if (e.target === modalPriv && modalPriv) modalPriv.style.display = 'none';
+        if (e.target === modalTerm && modalTerm) modalTerm.style.display = 'none';
       });
+
       // Abrir visor PDF (Ayuda) desde header
       const linkAyuda = document.getElementById('link-ayuda');
       if (linkAyuda) {
