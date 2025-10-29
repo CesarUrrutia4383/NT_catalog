@@ -7,7 +7,6 @@
 // Forzar URLs de producción en Vercel
 const API_URL = 'https://nt-backapis.onrender.com/routes/productos';
 const API_PDF_URL = 'https://nt-backapis.onrender.com/routes/quote';
-console.log('API URLs de producción:', { API_URL, API_PDF_URL });
 const grid = document.getElementById('productos-grid');
 const filtroMarca = document.getElementById('marca');
 const filtroProposito = document.getElementById('proposito');
@@ -749,7 +748,6 @@ btnCotizarPDF.addEventListener('click', async (e) => {
 
     // Usar directamente la URL de producción
     const pdfUrl = 'https://nt-backapis.onrender.com/routes/quote?descargar=1';
-    console.log('URL para generar PDF (producción):', pdfUrl);
     
   const emailCliente = document.getElementById('email-cliente').value.trim();
   const tipoCotizacion = document.getElementById('tipo-cotizacion').value;
