@@ -230,7 +230,7 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
         <nav class="navbar" data-aos="fade-left">
             <a href="index.html">Inicio</a>
             <a href="contact.html">Contacto</a>
-          <a href="#">Ayuda</a>
+          <a href="#" id="link-ayuda">Ayuda</a>
         </nav>
       </header>
     </div>
@@ -525,6 +525,18 @@ El presente Aviso de Privacidad, así como el manejo en general de la Ley que ha
       window.addEventListener('click', function(e) {
         if (e.target === document.getElementById('modal-privacidad')) document.getElementById('modal-privacidad').style.display = 'none';
       });
+      // Abrir modal de Ayuda (visor PDF) desde el header
+      const linkAyuda = document.getElementById('link-ayuda');
+      if (linkAyuda) {
+        linkAyuda.addEventListener('click', function(e) {
+          e.preventDefault();
+          const modalPdf = document.getElementById('modal-pdf');
+          if (modalPdf) modalPdf.style.display = 'flex';
+        });
+      }
+      // Cerrar visor PDF
+      const cerrarPdf = document.getElementById('cerrar-modal-pdf');
+      if (cerrarPdf) cerrarPdf.addEventListener('click', function() { document.getElementById('modal-pdf').style.display = 'none'; });
     </script>
 
     <!-- SCRIPTS -->
