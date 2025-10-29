@@ -1087,6 +1087,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   const productos = await obtenerProductos();
   llenarFiltros(productos);
   aplicarFiltrosDesdeURL();
+  // Restaurar selección previa de 'tipo' desde localStorage si la URL no la sobrescribe
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const savedTipo = localStorage.getItem('filtro_tipo');
+    if (!params.get('tipo') && savedTipo && filtroTipo) {
+      // Solo asignar si la opción existe en el select para evitar valores inválidos
+      if (Array.from(filtroTipo.options).some(o => o.value === savedTipo)) {
+        filtroTipo.value = savedTipo;
+      }
+    }
+  } catch (err) {
+    console.warn('No se pudo restaurar filtro tipo desde localStorage:', err);
+  }
+
   filtrar(productos, false);
   // Ensure description field initial state matches the current select value
   // (hide if none selected). This prevents the description from showing
@@ -1097,7 +1111,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   filtroMarca.addEventListener('change', () => filtrar(productos));
   filtroProposito.addEventListener('change', () => filtrar(productos));
-  if (filtroTipo) filtroTipo.addEventListener('change', () => filtrar(productos));
+  if (filtroTipo) filtroTipo.addEventListener('change', () => {
+    try { localStorage.setItem('filtro_tipo', filtroTipo.value); } catch (e) { /* ignore */ }
+    filtrar(productos);
+  });
 });
 
 /**
@@ -1131,6 +1148,7 @@ setInterval(() => {
 async function actualizarCatalogo() {
   const marcaActual = filtroMarca.value;
   const propositoActual = filtroProposito.value;
+  const tipoActual = filtroTipo ? filtroTipo.value : '';
 
   const productos = await obtenerProductos();
   
@@ -1145,6 +1163,13 @@ async function actualizarCatalogo() {
 
   filtroMarca.value = marcaActual;
   filtroProposito.value = propositoActual;
+  // Restaurar selección de 'tipo' (preferir la selección actual, si existe; sino usar localStorage)
+  if (filtroTipo) {
+    const tipoToRestore = tipoActual || localStorage.getItem('filtro_tipo') || '';
+    if (tipoToRestore && Array.from(filtroTipo.options).some(o => o.value === tipoToRestore)) {
+      filtroTipo.value = tipoToRestore;
+    }
+  }
 
   filtrar(productos, false);
   // Refrescar AOS luego de actualizar el listado dinámico
