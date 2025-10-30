@@ -903,7 +903,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     descripcion
   };    console.log('Datos a enviar:', requestData);
 
-    const pdfResponse = await fetch(pdfUrl, {
+    const pdfResponse = await fetch(BACKEND_QUOTE_URL, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
