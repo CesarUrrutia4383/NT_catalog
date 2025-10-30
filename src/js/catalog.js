@@ -886,11 +886,11 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       cantidad: item.cantidad
     }));
 
-    // Usar directamente la URL de producción
-    const pdfUrl = 'https://nt-backapis.onrender.com/routes/quote?descargar=1';
+    // Usar la URL del backend según el entorno
+    const BACKEND_QUOTE_URL = import.meta.env.VITE_API_URL?.replace('/routes/productos', '/routes/quote') || 'http://localhost:4000/routes/quote';
     
-  const emailCliente = document.getElementById('email-cliente').value.trim();
-  const tipoCotizacion = document.getElementById('tipo-cotizacion').value;
+    const emailCliente = document.getElementById('email-cliente').value.trim();
+    const tipoCotizacion = document.getElementById('tipo-cotizacion').value;
   
   const requestData = {
     carrito: carritoParaEnviar,
@@ -1126,6 +1126,15 @@ window.addEventListener('DOMContentLoaded', () => {
  * @returns {Promise<Response>} - Respuesta del fetch.
  */
 function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo, descripcion}) {
+  console.log('🚀 Iniciando proceso de cotización:', { 
+    nombre, 
+    telefono,
+    servicio,
+    descripcion,
+    cantidadProductos: carrito.length,
+    correosDestino: destinoCorreo
+  });
+
   const carritoSimplificado = carrito.map(item => ({ 
     id: item.id, 
     nombre: item.nombre_producto || item.nombre, 
@@ -1151,7 +1160,8 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
   // SERVICE_ID, TEMPLATE_ID y USER_ID con tus propios valores.
 
   return (async () => {
-    const BACKEND_QUOTE_URL = 'https://nt-backapis.onrender.com/routes/quote';
+    const BACKEND_QUOTE_URL = import.meta.env.VITE_API_URL?.replace('/routes/productos', '/routes/quote') || 'http://localhost:4000/routes/quote';
+    console.log('📤 Solicitando PDF al backend:', BACKEND_QUOTE_URL);
 
     const res = await fetch(BACKEND_QUOTE_URL, {
       method: 'POST',
@@ -1168,18 +1178,30 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
 
     if (!res.ok) {
       const txt = await res.text();
-      console.error('Error generando PDF en backend:', txt);
+      console.error('❌ Error generando PDF en backend:', {
+        status: res.status,
+        statusText: res.statusText,
+        error: txt
+      });
       return new Response(JSON.stringify({ ok: false, message: 'Error generando PDF', detail: txt }), { status: 500 });
     }
 
+    console.log('✅ Respuesta del backend recibida');
     const json = await res.json();
     if (!json.pdfBase64) {
-      console.error('El backend no devolvió pdfBase64:', json);
+      console.error('❌ El backend no devolvió pdfBase64:', {
+        responseKeys: Object.keys(json),
+        responseSize: JSON.stringify(json).length
+      });
       return new Response(JSON.stringify({ ok: false, message: 'Backend no devolvió pdfBase64' }), { status: 500 });
     }
 
     const pdfBase64 = json.pdfBase64;
     const correosDestino = json.correosDestino || destinoCorreo || [];
+    console.log('📋 PDF recibido y correos destino:', {
+      pdfSize: pdfBase64.length,
+      correosDestino
+    });
 
     // Convertir base64 a Blob
     const byteCharacters = atob(pdfBase64);
@@ -1196,9 +1218,15 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
     if (!EMAILJS_SERVICE_ID || EMAILJS_SERVICE_ID.startsWith('YOUR_') ||
         !EMAILJS_TEMPLATE_ID || EMAILJS_TEMPLATE_ID.startsWith('YOUR_') ||
         !EMAILJS_USER_ID || EMAILJS_USER_ID.startsWith('YOUR_')) {
-      console.warn('EmailJS no está configurado. Revisa src/js/emailjs-config.js');
+      console.error('❌ EmailJS no está configurado:', {
+        serviceId: EMAILJS_SERVICE_ID ? '✅' : '❌',
+        templateId: EMAILJS_TEMPLATE_ID ? '✅' : '❌',
+        userId: EMAILJS_USER_ID ? '✅' : '❌'
+      });
       return new Response(JSON.stringify({ ok: false, message: 'EmailJS no configurado' }), { status: 500 });
     }
+    
+    console.log('✅ Configuración de EmailJS verificada');
 
     // Preparar attachments y payload para EmailJS (REST API)
     const attachments = [ { name: fileName, data: pdfBase64 } ];
@@ -1220,6 +1248,7 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
         attachments
       };
 
+      console.log('📧 Enviando correo a:', to);
       try {
         const emailRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
           method: 'POST',
@@ -1229,9 +1258,14 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
 
         if (!emailRes.ok) {
           const txt = await emailRes.text();
-          console.error('Error enviando email a', to, txt);
+          console.error('❌ Error enviando email:', {
+            destinatario: to,
+            status: emailRes.status,
+            error: txt
+          });
           results.push({ to, ok: false, detail: txt });
         } else {
+          console.log('✅ Correo enviado exitosamente a:', to);
           results.push({ to, ok: true });
         }
       } catch (err) {
