@@ -2216,3 +2216,112 @@ input[type='number'] {
     font-size: 0.85rem;
   }
 }
+
+/* =================== Additional responsive overrides =================== */
+/* These rules are appended to ensure consistent modal & cart behavior across devices. */
+
+/* Make overlay darker and consistent across browsers */
+.modal-producto,
+#modal-carrito {
+  background: rgba(0,0,0,0.56) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px !important;
+}
+
+/* Modal content global sizing */
+.modal-contenido {
+  box-sizing: border-box !important;
+  width: 92vw !important;
+  max-width: 920px !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  margin: 0 auto !important;
+}
+
+@media (min-width: 1200px) {
+  .modal-contenido { max-width: 1100px !important; width: 80vw !important; }
+}
+
+@media (min-width: 901px) and (max-width:1199px) {
+  .modal-contenido { max-width: 920px !important; width: 80vw !important; }
+}
+
+@media (max-width: 900px) {
+  .modal-contenido { max-width: 720px !important; width: 94vw !important; padding: 1.2rem !important; }
+}
+
+@media (max-width: 600px) {
+  /* Mobile: keep modal contained and scrollable without covering system UI */
+  .modal-contenido {
+    width: 96vw !important;
+    max-width: 96vw !important;
+    max-height: calc(100vh - 72px) !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+  }
+
+  /* Make close button easy to tap and visually distinct */
+  .modal-cerrar {
+    position: fixed !important;
+    top: 14px !important;
+    right: 14px !important;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.6rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #ff8f1c !important;
+    color: #fff !important;
+    border-radius: 50% !important;
+    z-index: 4000 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+  }
+
+  /* Stack form fields for touch devices */
+  #modal-carrito .form-cotizacion .campo-grupo {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  #modal-carrito .form-cotizacion .campo-grupo label {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin-bottom: 0.4rem !important;
+  }
+  #modal-carrito .form-cotizacion .campo-grupo input,
+  #modal-carrito .form-cotizacion .campo-grupo select,
+  #modal-carrito .form-cotizacion .campo-grupo textarea {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+
+  /* Reduce footprint of floating cart button on small screens */
+  .btn-carrito {
+    bottom: 12px !important;
+    right: 12px !important;
+    padding: 10px 14px !important;
+    font-size: 0.95rem !important;
+    border-radius: 40px !important;
+    z-index: 5000 !important;
+  }
+}
+
+/* Make sure floating cart button is always above modal elements */
+.btn-carrito { z-index: 5000 !important; }
+
+/* Better hit area for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .btn-carrito { padding: 12px 18px !important; }
+}
+
+/* Ensure stack order consistency */
+.modal-producto, #modal-carrito, #modal-pdf { z-index: 4000 !important; }
+#modal-pdf { z-index: 4500 !important; }
+
+/* Slight font-size boost on very small screens for readability */
+@media (max-width: 480px) {
+  input, select, textarea, button { font-size: 15px !important; }
+}
+
+/* End responsive overrides */
