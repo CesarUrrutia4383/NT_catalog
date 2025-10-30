@@ -241,7 +241,6 @@
   position: absolute;
   top: 15px;
   right: 15px;
-    z-index: 2100;
   font-size: 2rem;
   color: #ff8f1c;
   cursor: pointer;
@@ -250,64 +249,21 @@
 /* Ajuste de campos en el modal del carrito */
 .modal-acciones {
   display: flex;
-  border-radius: 15px !important;
-  position: relative !important;
-  z-index: 2100 !important;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.7rem;
   margin-bottom: 0.5rem;
 }
-
-/* Modal overlay rules (moved out of nested block) */
-#modal-carrito {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  background: rgba(0, 0, 0, 0.5) !important;
-  z-index: 2000 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow-y: auto !important;
-  padding: 10px !important;
-}
-
-/* Scrollable carrito listado */
-#carrito-listado {
-  max-height: 60vh !important;
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch !important;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-/* Inputs for name/phone */
 #nombre-cliente, #telefono-cliente {
   min-width: 120px;
   max-width: 180px;
   width: 100%;
-  max-height: 85vh !important;
   padding: 0.4rem 0.7rem;
   border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
   box-sizing: border-box;
-}
-
-/* Campo grupo adjustments (moved out of nested block) */
-.campo-grupo {
-  flex-direction: column !important;
-  align-items: stretch !important;
-}
-.campo-grupo input,
-.campo-grupo select {
-  width: 100% !important;
-  margin-top: 5px !important;
 }
 @media (max-width: 600px) {
   .modal-acciones {
@@ -338,7 +294,7 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(255, 143, 28, 0.3);
   position: relative;
-  z-index: 1500;
+  overflow: hidden;
 }
 
 #agregar-carrito::before {
@@ -398,72 +354,6 @@
   box-shadow: 0 6px 20px rgba(255, 143, 28, 0.4);
 }
 
-/* Mejoras para móviles */
-@media screen and (max-width: 768px) {
-  .modal-cerrar {
-    position: fixed !important;
-    top: 10px !important;
-    right: 10px !important;
-    background: #ff8f1c !important;
-    color: white !important;
-    width: 40px !important;
-    height: 40px !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    z-index: 2200 !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
-  }
-
-  .carrito-table-responsive {
-    margin: 0 -15px !important;
-    padding: 0 15px !important;
-    width: calc(100% + 30px) !important;
-  }
-
-  input[type="number"],
-  input[type="text"],
-  input[type="tel"],
-  select {
-    -webkit-appearance: none !important;
-    appearance: none !important;
-    font-size: 16px !important;
-  }
-
-  .btn-carrito {
-    transform: none !important;
-    transition: transform 0.3s ease, background-color 0.3s ease !important;
-  }
-
-  .btn-carrito:active {
-    transform: scale(0.95) !important;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .modal-cerrar {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 1.5rem !important;
-  }
-
-  .carrito-table-responsive {
-    margin: 0 -10px !important;
-    padding: 0 10px !important;
-    width: calc(100% + 20px) !important;
-  }
-
-  #modal-carrito .modal-contenido {
-    margin: 0 auto !important;
-    border-radius: 12px !important;
-  }
-
-  .btn-carrito {
-    padding: 8px 16px !important;
-    font-size: 0.9rem !important;
-  }
-}
 /* Botón de cotización destacado */
 #cotizar-pdf {
   background: linear-gradient(90deg, #ff8f1c 60%, #ffb347 100%);
@@ -2106,55 +1996,6 @@ input[type='number'] {
   border: 2px solid #fff;
 }
 
-/* Estilos para la sección de Política de Privacidad dentro de los modales */
-#modal-privacidad .modal-contenido .politica-privacidad {
-  text-align: left;
-  font-size: 0.98rem;
-  line-height: 1.5;
-  color: #222;
-  max-height: 70vh;
-  overflow: auto;
-  padding: 0.25rem 0.5rem;
-}
-
-#modal-privacidad .modal-contenido .politica-privacidad h3 {
-  font-size: 1.15rem;
-  color: #ff8f1c;
-  margin-bottom: 0.25rem;
-}
-
-#modal-privacidad .modal-contenido .politica-privacidad h4 {
-  font-size: 1rem;
-  margin: 0.5rem 0 0.25rem 0;
-  color: #333;
-}
-
-#modal-privacidad .modal-contenido .politica-privacidad ol,
-#modal-privacidad .modal-contenido .politica-privacidad ul {
-  margin-left: 1rem;
-  margin-bottom: 0.6rem;
-}
-
-@media (max-width: 768px) {
-  #modal-privacidad .modal-contenido {
-    width: 92vw !important;
-    padding: 1rem !important;
-  }
-  #modal-privacidad .modal-contenido .politica-privacidad {
-    font-size: 1rem !important;
-    max-height: 65vh !important;
-    padding-right: 6px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  #modal-privacidad .modal-contenido .politica-privacidad {
-    font-size: 1.02rem !important;
-    padding: 0.2rem !important;
-    max-height: 60vh !important;
-  }
-}
-
 .notificacion-carrito.mostrar {
   transform: translateX(0);
   opacity: 1;
@@ -2216,112 +2057,3 @@ input[type='number'] {
     font-size: 0.85rem;
   }
 }
-
-/* =================== Additional responsive overrides =================== */
-/* These rules are appended to ensure consistent modal & cart behavior across devices. */
-
-/* Make overlay darker and consistent across browsers */
-.modal-producto,
-#modal-carrito {
-  background: rgba(0,0,0,0.56) !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 12px !important;
-}
-
-/* Modal content global sizing */
-.modal-contenido {
-  box-sizing: border-box !important;
-  width: 92vw !important;
-  max-width: 920px !important;
-  max-height: 90vh !important;
-  overflow-y: auto !important;
-  margin: 0 auto !important;
-}
-
-@media (min-width: 1200px) {
-  .modal-contenido { max-width: 1100px !important; width: 80vw !important; }
-}
-
-@media (min-width: 901px) and (max-width:1199px) {
-  .modal-contenido { max-width: 920px !important; width: 80vw !important; }
-}
-
-@media (max-width: 900px) {
-  .modal-contenido { max-width: 720px !important; width: 94vw !important; padding: 1.2rem !important; }
-}
-
-@media (max-width: 600px) {
-  /* Mobile: keep modal contained and scrollable without covering system UI */
-  .modal-contenido {
-    width: 96vw !important;
-    max-width: 96vw !important;
-    max-height: calc(100vh - 72px) !important;
-    border-radius: 12px !important;
-    padding: 1rem !important;
-  }
-
-  /* Make close button easy to tap and visually distinct */
-  .modal-cerrar {
-    position: fixed !important;
-    top: 14px !important;
-    right: 14px !important;
-    width: 44px !important;
-    height: 44px !important;
-    font-size: 1.6rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: #ff8f1c !important;
-    color: #fff !important;
-    border-radius: 50% !important;
-    z-index: 4000 !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
-  }
-
-  /* Stack form fields for touch devices */
-  #modal-carrito .form-cotizacion .campo-grupo {
-    flex-direction: column !important;
-    align-items: stretch !important;
-  }
-  #modal-carrito .form-cotizacion .campo-grupo label {
-    width: 100% !important;
-    min-width: 0 !important;
-    margin-bottom: 0.4rem !important;
-  }
-  #modal-carrito .form-cotizacion .campo-grupo input,
-  #modal-carrito .form-cotizacion .campo-grupo select,
-  #modal-carrito .form-cotizacion .campo-grupo textarea {
-    width: 100% !important;
-    flex: 1 1 100% !important;
-  }
-
-  /* Reduce footprint of floating cart button on small screens */
-  .btn-carrito {
-    bottom: 12px !important;
-    right: 12px !important;
-    padding: 10px 14px !important;
-    font-size: 0.95rem !important;
-    border-radius: 40px !important;
-    z-index: 5000 !important;
-  }
-}
-
-/* Make sure floating cart button is always above modal elements */
-.btn-carrito { z-index: 5000 !important; }
-
-/* Better hit area for touch devices */
-@media (hover: none) and (pointer: coarse) {
-  .btn-carrito { padding: 12px 18px !important; }
-}
-
-/* Ensure stack order consistency */
-.modal-producto, #modal-carrito, #modal-pdf { z-index: 4000 !important; }
-#modal-pdf { z-index: 4500 !important; }
-
-/* Slight font-size boost on very small screens for readability */
-@media (max-width: 480px) {
-  input, select, textarea, button { font-size: 15px !important; }
-}
-
-/* End responsive overrides */
