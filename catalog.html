@@ -405,7 +405,7 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
       <nav class="links">
         <a href="#" id="link-terminos">Términos y Condiciones</a>
         <a href="#" id="link-privacidad">Política de Privacidad</a>
-  <a href="#" id="link-ayuda-footer">Ayuda</a>
+        <a href="#" id="link-ayuda">Ayuda</a>
         <div class="social-icons">
           <a href="https://www.facebook.com/profile.php?id=61578918880067" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -518,29 +518,27 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
         if (e.target === modalPriv && modalPriv) modalPriv.style.display = 'none';
         if (e.target === modalTerm && modalTerm) modalTerm.style.display = 'none';
       });
-      // Abrir modal de Ayuda (visor PDF) desde el header
+      // Abrir visor PDF (Ayuda) desde header
       const linkAyuda = document.getElementById('link-ayuda');
       if (linkAyuda) {
         linkAyuda.addEventListener('click', function(e) {
           e.preventDefault();
           const modalPdf = document.getElementById('modal-pdf');
-          const iframePdf = document.getElementById('iframe-pdf');
-          if (iframePdf) iframePdf.src = '/assets/pdf/ayuda.pdf';
           if (modalPdf) modalPdf.style.display = 'flex';
         });
       }
 
       // Abrir modal de Ayuda (visor PDF) desde el footer
-      const linkAyudaFooter = document.getElementById('link-ayuda-footer');
-      if (linkAyudaFooter) {
-        linkAyudaFooter.addEventListener('click', function(e) {
-          e.preventDefault();
-          const modalPdf = document.getElementById('modal-pdf');
-          const iframePdf = document.getElementById('iframe-pdf');
-          if (iframePdf) iframePdf.src = '/assets/pdf/ayuda.pdf';
-          if (modalPdf) modalPdf.style.display = 'flex';
-        });
-      }
+      <!-- Modal Visor de Ayuda (PDF) -->
+    <div id="modal-pdf" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
+      <div class="modal-contenido" style="max-width:980px; width:96vw; padding:0; background:#fff;">
+        <span class="modal-cerrar" id="cerrar-modal-pdf" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
+        <iframe id="iframe-pdf" style="width:100%;height:80vh;border:none;display:block;" src="/assets/pdf/ayuda.pdf"></iframe>
+        <div style="text-align:right;padding:1rem; background:#fff;">
+          <a id="descargar-pdf" href="/assets/pdf/ayuda.pdf" download style="background:#ff8f1c;color:#fff;border:none;border-radius:8px;padding:0.6rem 1.5rem;font-size:1.1rem;font-weight:bold;cursor:pointer;text-decoration:none;">Descargar PDF</a>
+        </div>
+      </div>
+    </div>
       // Cerrar visor PDF
       const cerrarPdf = document.getElementById('cerrar-modal-pdf');
       if (cerrarPdf) cerrarPdf.addEventListener('click', function() { document.getElementById('modal-pdf').style.display = 'none'; });
