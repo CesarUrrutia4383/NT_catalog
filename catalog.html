@@ -529,6 +529,18 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
           if (modalPdf) modalPdf.style.display = 'flex';
         });
       }
+
+      // Abrir modal de Ayuda (visor PDF) desde el footer
+      const linkAyudaFooter = document.getElementById('link-ayuda-footer');
+      if (linkAyudaFooter) {
+        linkAyudaFooter.addEventListener('click', function(e) {
+          e.preventDefault();
+          const modalPdf = document.getElementById('modal-pdf');
+          const iframePdf = document.getElementById('iframe-pdf');
+          if (iframePdf) iframePdf.src = '/assets/pdf/ayuda.pdf';
+          if (modalPdf) modalPdf.style.display = 'flex';
+        });
+      }
       // Cerrar visor PDF
       const cerrarPdf = document.getElementById('cerrar-modal-pdf');
       if (cerrarPdf) cerrarPdf.addEventListener('click', function() { document.getElementById('modal-pdf').style.display = 'none'; });
