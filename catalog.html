@@ -471,80 +471,7 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
           <span class="modal-cerrar" id="cerrar-modal-privacidad">&times;</span>
           <h2>Política de Privacidad</h2>
           <div class="legal-content">
-            <section class="politica-privacidad" style="text-align:left;max-height:70vh;overflow:auto;padding-right:8px;">
-              <h3 style="margin-top:0;">POLÍTICA DE PRIVACIDAD</h3>
-              <p><strong>Fecha de actualización:</strong> octubre de 2025</p>
-
-              <ol style="padding-left:1.1rem;">
-                <li>
-                  <h4>1. Introducción</h4>
-                  <p>Neumatics Tool valora la privacidad de los usuarios y el tratamiento responsable de los datos personales. La presente Política de Privacidad explica qué datos personales se recopilan a través del formulario de cotización, cómo se utilizan, con quién se comparten (en caso de ser necesario), cuáles son los derechos de los titulares y las medidas de seguridad aplicadas para su protección.</p>
-                </li>
-
-                <li>
-                  <h4>2. Datos que se recopilan</h4>
-                  <p>Para elaborar la cotización solicitada, se recopilan los siguientes datos proporcionados por el usuario:</p>
-                  <ul>
-                    <li>Nombre completo</li>
-                    <li>Correo electrónico</li>
-                    <li>Teléfono (incluyendo código de país)</li>
-                    <li>De manera opcional, el “tipo de cotización” seleccionado</li>
-                  </ul>
-                  <p><strong>Consentimiento:</strong> al marcar la casilla de autorización del formulario, el usuario acepta el uso de sus datos para elaborar la cotización y establecer contacto.</p>
-                  <p>No se solicitan datos altamente sensibles (como origen étnico, estado de salud, religión, entre otros). Neumatics Tool no recopila datos mediante publicidad, rastreo de terceros ni vinculación con redes sociales.</p>
-                </li>
-
-                <li>
-                  <h4>3. Finalidad del tratamiento</h4>
-                  <p>Los datos personales se utilizan exclusivamente para:</p>
-                  <ul>
-                    <li>Preparar y enviar la cotización solicitada.</li>
-                    <li>Contactar al usuario para aclarar información, completar la cotización o enviarla en formato PDF, según lo indicado en el formulario.</li>
-                    <li>Cumplir con obligaciones operativas internas (por ejemplo, gestión administrativa).</li>
-                  </ul>
-                  <p>Los datos no se utilizan para envíos masivos de marketing ni para la venta o renta de información a terceros.</p>
-                </li>
-
-                <li>
-                  <h4>4. Base legal del tratamiento</h4>
-                  <p>La base legal para el tratamiento de los datos personales es el consentimiento libre, informado y explícito otorgado por el usuario al marcar la casilla correspondiente en el formulario y enviar su información. Dicho consentimiento puede retirarse en cualquier momento mediante comunicación al responsable del tratamiento.</p>
-                </li>
-
-                <li>
-                  <h4>5. Retención de los datos</h4>
-                  <p>Los datos personales se conservarán durante el tiempo necesario para cumplir con la cotización solicitada y, posteriormente, durante el periodo que la ley exija o hasta que el titular solicite su eliminación, salvo que exista una obligación legal que impida su eliminación anticipada.</p>
-                </li>
-
-                <li>
-                  <h4>6. Divulgación a terceros</h4>
-                  <p>Neumatics Tool no comparte datos personales con terceros para fines de marketing. Podrá compartirlos únicamente si resulta necesario para cumplir con la cotización (por ejemplo, con un proveedor que suministre el producto solicitado), siempre con la autorización previa y expresa del titular en cada caso. Los datos personales no se venden ni se alquilan bajo ninguna circunstancia.</p>
-                </li>
-
-                <li>
-                  <h4>7. Seguridad de los datos</h4>
-                  <p>Neumatics Tool aplica medidas técnicas y organizativas razonables para proteger los datos personales contra acceso no autorizado, alteración, divulgación o destrucción. Sin embargo, se advierte que ningún método de transmisión por Internet o de almacenamiento electrónico es completamente seguro.</p>
-                </li>
-
-                <li>
-                  <h4>8. Derechos de los titulares</h4>
-                  <p>De acuerdo con la legislación aplicable, los titulares de los datos personales cuentan con los siguientes derechos:</p>
-                  <ul>
-                    <li>Acceder a sus datos y obtener una copia de los mismos.</li>
-                    <li>Rectificar datos inexactos o incompletos.</li>
-                    <li>Solicitar la eliminación (“derecho al olvido”), cuando proceda.</li>
-                    <li>Limitar el tratamiento de sus datos.</li>
-                    <li>Oponerse al tratamiento cuando existan motivos legítimos.</li>
-                    <li>Solicitar la portabilidad de los datos, si aplica.</li>
-                  </ul>
-                  <p>Para ejercer cualquiera de estos derechos, los titulares podrán comunicarse con el responsable del tratamiento al correo electrónico <strong>[indicar correo]</strong>, y su solicitud será atendida en el menor tiempo posible conforme a la legislación vigente.</p>
-                </li>
-
-                <li>
-                  <h4>9. Cambios en la política</h4>
-                  <p>Neumatics Tool podrá actualizar la presente Política de Privacidad cuando resulte necesario, ya sea por cambios legales o por modificaciones en sus prácticas. La versión actualizada será publicada en su sitio web, indicando la nueva fecha de actualización. Se recomienda revisar periódicamente esta política para mantenerse informado sobre posibles modificaciones.</p>
-                </li>
-              </ol>
-            </section>
+           
           </div>
         </div>
       </div>
@@ -597,6 +524,8 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
         linkAyuda.addEventListener('click', function(e) {
           e.preventDefault();
           const modalPdf = document.getElementById('modal-pdf');
+          const iframePdf = document.getElementById('iframe-pdf');
+          if (iframePdf) iframePdf.src = '/assets/pdf/ayuda.pdf';
           if (modalPdf) modalPdf.style.display = 'flex';
         });
       }
