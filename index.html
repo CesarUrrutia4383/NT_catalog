@@ -492,12 +492,12 @@ Description: Main page of the Neumatics Tool website, a company that sells and r
       </div>
     </div>
     <!-- MODAL DE POLÍTICA DE PRIVACIDAD -->
-      <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
-        <div class="modal-contenido">
+      <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center; overflow:hidden;">
+        <div class="modal-contenido" style="max-width:900px; width:92vw; max-height:calc(100vh - 120px); overflow:hidden; padding:1.25rem;">
           <span class="modal-cerrar" id="cerrar-modal-privacidad">&times;</span>
           <h2>Política de Privacidad</h2>
-          <div class="legal-content">
-            <section class="politica-privacidad" style="text-align:left;max-height:70vh;overflow:auto;padding-right:8px;">
+          <div class="legal-content" style="height:100%; overflow:hidden;">
+            <section class="politica-privacidad" style="text-align:left; height:100%; overflow-y:auto; padding-right:14px; box-sizing:content-box;">
               <h3 style="margin-top:0;">POLÍTICA DE PRIVACIDAD</h3>
               <p><strong>Fecha de actualización:</strong> octubre de 2025</p>
 
@@ -622,6 +622,7 @@ Description: Main page of the Neumatics Tool website, a company that sells and r
       document.getElementById('link-privacidad').onclick = function(e) {
         e.preventDefault();
         document.getElementById('modal-privacidad').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
       };
 
       /**
@@ -636,6 +637,7 @@ Description: Main page of the Neumatics Tool website, a company that sells and r
       */
       document.getElementById('cerrar-modal-privacidad').onclick = function() {
         document.getElementById('modal-privacidad').style.display = 'none';
+        document.body.style.overflow = '';
       };
 
       /**
@@ -643,8 +645,14 @@ Description: Main page of the Neumatics Tool website, a company that sells and r
        * @param {Event} e - Evento de clic.
        */
       window.addEventListener('click', function(e) {
-        if (e.target === document.getElementById('modal-terminos')) document.getElementById('modal-terminos').style.display = 'none';
-        if (e.target === document.getElementById('modal-privacidad')) document.getElementById('modal-privacidad').style.display = 'none';
+        if (e.target === document.getElementById('modal-terminos')) {
+          document.getElementById('modal-terminos').style.display = 'none';
+          document.body.style.overflow = '';
+        }
+        if (e.target === document.getElementById('modal-privacidad')) {
+          document.getElementById('modal-privacidad').style.display = 'none';
+          document.body.style.overflow = '';
+        }
       });
 
       // (Help modal handled by shared module)

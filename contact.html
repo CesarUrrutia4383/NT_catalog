@@ -241,12 +241,12 @@ Description: Contact page of the Neumatics Tool website, where the different bra
       </div>
 
       <!-- MODAL DE POLÍTICA DE PRIVACIDAD -->
-      <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
-        <div class="modal-contenido">
+      <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center; overflow:hidden;">
+        <div class="modal-contenido" style="max-width:900px; width:92vw; max-height:calc(100vh - 120px); overflow:hidden; padding:1.25rem;">
           <span class="modal-cerrar" id="cerrar-modal-privacidad">&times;</span>
           <h2>Política de Privacidad</h2>
-          <div class="legal-content">
-            <section class="politica-privacidad" style="text-align:left;max-height:70vh;overflow:auto;padding-right:8px;">
+          <div class="legal-content" style="height:100%; overflow:hidden;">
+            <section class="politica-privacidad" style="text-align:left; height:100%; overflow-y:auto; padding-right:14px; box-sizing:content-box;">
               <h3 style="margin-top:0;">POLÍTICA DE PRIVACIDAD</h3>
               <p><strong>Fecha de actualización:</strong> octubre de 2025</p>
 
@@ -365,13 +365,17 @@ Description: Contact page of the Neumatics Tool website, where the different bra
       document.getElementById('link-privacidad').onclick = function(e) {
         e.preventDefault();
         const modal = document.getElementById('modal-privacidad');
-        if (modal) modal.style.display = 'flex';
+        if (modal) {
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
       };
 
       const cerrarPrivacidad = document.getElementById('cerrar-modal-privacidad');
       if (cerrarPrivacidad) cerrarPrivacidad.onclick = function() {
         const modal = document.getElementById('modal-privacidad');
         if (modal) modal.style.display = 'none';
+        document.body.style.overflow = '';
       };
 
       // Términos y Condiciones: abrir/cerrar
@@ -393,8 +397,14 @@ Description: Contact page of the Neumatics Tool website, where the different bra
       window.addEventListener('click', function(e) {
         const modalPriv = document.getElementById('modal-privacidad');
         const modalTerm = document.getElementById('modal-terminos');
-        if (e.target === modalPriv && modalPriv) modalPriv.style.display = 'none';
-        if (e.target === modalTerm && modalTerm) modalTerm.style.display = 'none';
+        if (e.target === modalPriv && modalPriv) {
+          modalPriv.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+        if (e.target === modalTerm && modalTerm) {
+          modalTerm.style.display = 'none';
+          document.body.style.overflow = '';
+        }
       });
 
       // (Help modal handled by shared module)
