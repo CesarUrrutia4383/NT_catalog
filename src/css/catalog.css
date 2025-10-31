@@ -856,11 +856,14 @@
   padding: 2.5rem 2rem 2rem 2rem;
   max-width: 900px;
   width: 96vw;
+  max-height: 90vh; /* Limita la altura máxima al 90% del viewport */
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   border: 3px solid #ff8f1c;
   position: relative;
   text-align: left; /* align modal content to the left */
   margin: 0 auto;
+  overflow-y: auto; /* Habilita el scroll vertical */
+  overflow-x: hidden; /* Evita scroll horizontal */
 }
 
 /* Center only the cart modal title and the empty-cart paragraph */
@@ -883,9 +886,36 @@
 #carrito-listado, .carrito-table-responsive {
   flex: 1 1 auto;
   min-height: 120px;
-  max-height: 45vh;
-  overflow-y: auto;
+  max-height: 45vh; /* Altura máxima para la tabla */
+  overflow-y: auto; /* Habilita scroll vertical */
+  overflow-x: hidden; /* Evita scroll horizontal innecesario */
   margin-bottom: 2.2rem;
+  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+  scrollbar-width: thin; /* Scrollbar delgado en Firefox */
+  scrollbar-color: #ff8f1c #f0f0f0; /* Color del scrollbar en Firefox */
+}
+
+/* Estilo del scrollbar para Chrome/Safari */
+#carrito-listado::-webkit-scrollbar,
+.carrito-table-responsive::-webkit-scrollbar {
+  width: 8px;
+}
+
+#carrito-listado::-webkit-scrollbar-track,
+.carrito-table-responsive::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+#carrito-listado::-webkit-scrollbar-thumb,
+.carrito-table-responsive::-webkit-scrollbar-thumb {
+  background: #ff8f1c;
+  border-radius: 4px;
+}
+
+#carrito-listado::-webkit-scrollbar-thumb:hover,
+.carrito-table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #e67500;
 }
 #modal-carrito .modal-acciones {
   flex: 0 0 auto;
@@ -1616,14 +1646,20 @@ input[type='number'] {
   width: 96vw;
   height: auto;
   margin: 0 auto;
-  padding: 2.5rem 2rem 2rem 2rem;
+  padding: 3rem 2.8rem 2.5rem 2.8rem; /* Aumentado el padding en todos los lados */
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }
 
 @media (max-width: 768px) {
   #modal-carrito .modal-contenido {
     max-width: 90vw;
     width: 90vw;
-    padding: 1.5rem 1rem 1rem 1rem;
+    max-height: 85vh; /* Ligeramente menor en móviles para mejor visibilidad */
+    padding: 2.2rem 2rem 1.8rem 2rem; /* Padding proporcional para tablets */
+  }
+  
+  #carrito-listado, .carrito-table-responsive {
+    max-height: 40vh; /* Reduce la altura máxima de la tabla en móviles */
   }
 }
 
@@ -1631,7 +1667,7 @@ input[type='number'] {
   #modal-carrito .modal-contenido {
     max-width: 95vw;
     width: 95vw;
-    padding: 1rem 0.8rem 0.8rem 0.8rem;
+    padding: 1.8rem 1.5rem 1.5rem 1.5rem; /* Padding proporcional para móviles */
   }
 }
 

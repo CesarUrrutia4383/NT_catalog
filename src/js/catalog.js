@@ -47,10 +47,8 @@ function isValidCloudinaryUrl(url) {
  */
 function getImageUrl(producto) {
   if (producto.imagen_url && isValidCloudinaryUrl(producto.imagen_url)) {
-    console.log('Usando URL de Cloudinary:', producto.imagen_url);
     return producto.imagen_url;
   } else {
-    console.log('Usando imagen por defecto para:', producto.nombre_producto || producto.nombre);
     return '/assets/img/logo3.png';
   }
 }
@@ -862,7 +860,6 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   console.log('Verificando disponibilidad del carrito:', carrito);
   for (const item of carrito) {
     const stockDisponible = item.stock_disponible || item.existencias || item.cantidad_disponible || item.cantidad || 0;
-    console.log(`Producto: ${item.nombre_producto || item.nombre}, Cantidad solicitada: ${item.cantidad}, Stock disponible: ${stockDisponible}`);
     if (item.cantidad > stockDisponible) {
       console.log('❌ Stock insuficiente');
       disponibilidadOk = false;
