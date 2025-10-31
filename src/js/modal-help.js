@@ -10,7 +10,12 @@
 const HELP_PDF_PATH = '/assets/pdf/ayuda.pdf';
 
 function ensureHelpModal() {
-  if (!document.getElementById('modal-pdf')) {
+  return new Promise((resolve) => {
+    if (document.getElementById('modal-pdf')) {
+      resolve();
+      return;
+    }
+
     const modalHTML = `
       <div id="modal-pdf" class="modal-producto" style="display:none; z-index:2000; background:rgba(0,0,0,0.7);">
         <div class="modal-contenido" style="max-width:980px; width:96vw; padding:0; background:#fff; display:flex; flex-direction:column;">
@@ -22,8 +27,27 @@ function ensureHelpModal() {
         </div>
       </div>
     `;
-    document.body.insertAdjacentHTML('beforeend', modalHTML);
-  }
+
+    // Ensure body exists before adding modal
+    if (document.body) {
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      resolve();
+    } else {
+      // If body doesn't exist yet, wait for it
+      const observer = new MutationObserver((mutations, obs) => {
+        if (document.body) {
+          document.body.insertAdjacentHTML('beforeend', modalHTML);
+          obs.disconnect();
+          resolve();
+        }
+      });
+      
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    }
+  });
 }
 
 function lockBodyScroll() {
@@ -113,10 +137,60 @@ function initHelpBindings() {
   });
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initHelpBindings);
-} else {
-  initHelpBindings();
+// Initialize when DOM is ready and modal exists
+async function init() {
+  await ensureHelpModal(); // Esperar a que el modal exista
+  initHelpBindings();     // Luego adjuntar los listeners
 }
+
+// Function to attach help link handlers
+function attachHelpLinkHandlers() {
+  const helpLinks = document.querySelectorAll('[id^="link-ayuda"]');
+  helpLinks.forEach(link => {
+    if (!link.dataset.helpHandlerAttached) {
+      link.addEventListener('click', openHelpModal);
+      link.dataset.helpHandlerAttached = 'true';
+    }
+  });
+}
+
+// Run initialization
+function tryInit() {
+  init().then(() => {
+    attachHelpLinkHandlers();
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', tryInit);
+} else {
+  tryInit();
+}
+
+// Also watch for dynamically added help links
+const observer = new MutationObserver((mutations) => {
+  for (const mutation of mutations) {
+    if (mutation.addedNodes.length) {
+      attachHelpLinkHandlers();
+    }
+  }
+});
+
+// Start observing once DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  });
+} else {
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+}
+
+export { init as initHelpModal };
 
 export default {};
