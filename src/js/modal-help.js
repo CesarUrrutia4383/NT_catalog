@@ -11,14 +11,65 @@ const HELP_PDF_PATH = '/assets/pdf/ayuda.pdf';
 
 function ensureHelpModal() {
   return new Promise((resolve) => {
+    // Add base styles if they don't exist
+    if (!document.getElementById('modal-help-styles')) {
+      const styleSheet = document.createElement('style');
+      styleSheet.id = 'modal-help-styles';
+      styleSheet.textContent = `
+        .modal-producto {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          display: none;
+          align-items: center !important;
+          justify-content: center !important;
+          background-color: rgba(0,0,0,0.45) !important;
+          z-index: 4000 !important;
+          padding: 24px !important;
+          overflow: hidden !important;
+          width: 100vw !important;
+          height: 100vh !important;
+        }
+
+        .modal-producto.fade-in {
+          display: flex !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        .modal-producto.fade-out {
+          opacity: 0 !important;
+          transition: opacity .25s ease-out !important;
+        }
+
+        .modal-producto .modal-contenido {
+          position: relative !important;
+          max-width: 980px !important;
+          width: 96vw !important;
+          max-height: 90vh !important;
+          background: #fafafa !important;
+          border-radius: 12px !important;
+          border: 4px solid #ff8f1c !important;
+          box-shadow: 0 12px 36px rgba(0,0,0,0.18) !important;
+          padding: 0 !important;
+          display: flex !important;
+          flex-direction: column !important;
+        }
+      `;
+      document.head.appendChild(styleSheet);
+    }
+
+    // Check if modal exists
     if (document.getElementById('modal-pdf')) {
       resolve();
       return;
     }
 
     const modalHTML = `
-      <div id="modal-pdf" class="modal-producto" style="display:none; z-index:2000; background:rgba(0,0,0,0.7);">
-        <div class="modal-contenido" style="max-width:980px; width:96vw; padding:0; background:#fff; display:flex; flex-direction:column;">
+      <div id="modal-pdf" class="modal-producto" style="display:none;">
+        <div class="modal-contenido">
           <span class="modal-cerrar" id="cerrar-modal-pdf" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em;border:2px solid #ff8f1c;">&times;</span>
           <iframe id="iframe-pdf" style="width:100%;height:80vh;border:none;display:block;"></iframe>
           <div style="text-align:right;padding:1rem; background:#fff;">
@@ -117,10 +168,8 @@ function closeHelpModal() {
 function initHelpBindings() {
   ensureHelpModal();
 
-  const linkAyudaHeader = document.getElementById('link-ayuda-header');
-  const linkAyudaFooter = document.getElementById('link-ayuda-footer');
-
-  [linkAyudaHeader, linkAyudaFooter].forEach(link => {
+  const helpLinks = document.querySelectorAll('[id^="link-ayuda"]');
+  helpLinks.forEach(link => {
     if (!link) return;
     // ensure single listener
     link.removeEventListener('click', openHelpModal);

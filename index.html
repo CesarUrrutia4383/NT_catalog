@@ -423,6 +423,42 @@ Description: Main page of the Neumatics Tool website, a company that sells and r
       </footer>
     </div>
     <!-- MODALES -->
+    <!-- Estilos base para modales -->
+    <style>
+      .modal-producto {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.45);
+        z-index: 4000;
+        padding: 24px;
+        overflow: hidden;
+      }
+
+      .modal-producto.fade-in {
+        display: flex !important;
+      }
+
+      .modal-producto.fade-out {
+        opacity: 0;
+        transition: opacity .25s ease-out;
+      }
+
+      .modal-producto .modal-contenido {
+        position: relative;
+        width: min(96vw, 1100px);
+        max-height: 90vh;
+        overflow: hidden;
+        background: #fafafa;
+        border-radius: 12px;
+        border: 4px solid #ff8f1c;
+        box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+        padding: 22px;
+      }
+    </style>
+
     <!-- Modal Términos y Condiciones -->
     <div id="modal-terminos" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7);">
       <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem; position:relative;">
