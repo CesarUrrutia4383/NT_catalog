@@ -904,8 +904,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'Accept': 'application/pdf',
-        'Access-Control-Allow-Origin': '*'
+        'Accept': 'application/json',
       },
       mode: 'cors',
       cache: 'no-cache',
@@ -921,7 +920,20 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     }
 
     console.log('PDF generado correctamente, obteniendo blob...');
-    const pdfBlob = await pdfResponse.blob();
+    const responseData = await pdfResponse.json();
+    
+    if (!responseData.pdfBase64) {
+      throw new Error('No se recibió el PDF en base64 del servidor');
+    }
+
+    // Convertir base64 a Blob
+    const byteCharacters = atob(responseData.pdfBase64);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
     const url = URL.createObjectURL(pdfBlob);
     
     // Mostrar el PDF en el modal
@@ -1226,7 +1238,11 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
     console.log('✅ Configuración de EmailJS verificada');
 
     // Preparar attachments y payload para EmailJS (REST API)
-    const attachments = [ { name: fileName, data: pdfBase64 } ];
+    const attachments = [{
+      name: fileName,
+      data: pdfBase64,
+      type: 'application/pdf'
+    }];
 
     const results = [];
     for (const to of correosDestino) {
