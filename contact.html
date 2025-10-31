@@ -57,43 +57,6 @@ Description: Contact page of the Neumatics Tool website, where the different bra
     <script defer data-domain="www.neumaticstool.com" src="https://analytics.vercel-insights.com/script.js"></script>
   </head>
   <body>
-    <!-- MODALES -->
-    <!-- Estilos base para modales -->
-    <style>
-      .modal-producto {
-        position: fixed;
-        inset: 0;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0,0,0,0.45);
-        z-index: 4000;
-        padding: 24px;
-        overflow: hidden;
-      }
-
-      .modal-producto.fade-in {
-        display: flex !important;
-      }
-
-      .modal-producto.fade-out {
-        opacity: 0;
-        transition: opacity .25s ease-out;
-      }
-
-      .modal-producto .modal-contenido {
-        position: relative;
-        width: min(96vw, 1100px);
-        max-height: 90vh;
-        overflow: hidden;
-        background: #fafafa;
-        border-radius: 12px;
-        border: 4px solid #ff8f1c;
-        box-shadow: 0 12px 36px rgba(0,0,0,0.18);
-        padding: 22px;
-      }
-    </style>
-
     <!-- ENCABEZADO -->
     <div class="contenedor-header">
       <header data-aos="fade-down">
@@ -205,12 +168,49 @@ Description: Contact page of the Neumatics Tool website, where the different bra
           </div>
         </nav>
       </footer>
+    </div>
+<!-- MODALES -->
+    <!-- Estilos base para modales -->
+    <style>
+      .modal-producto {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.45);
+        z-index: 4000;
+        padding: 24px;
+        overflow: hidden;
+      }
 
-      <!-- Modal Términos y Condiciones -->
-      <div id="modal-terminos" class="modal-producto">
-        <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem;">
-          <span class="modal-cerrar" id="cerrar-modal-terminos" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
-          <h2>Términos y Condiciones</h2>
+      .modal-producto.fade-in {
+        display: flex !important;
+      }
+
+      .modal-producto.fade-out {
+        opacity: 0;
+        transition: opacity .25s ease-out;
+      }
+
+      .modal-producto .modal-contenido {
+        position: relative;
+        width: min(96vw, 1100px);
+        max-height: 90vh;
+        overflow: hidden;
+        background: #fafafa;
+        border-radius: 12px;
+        border: 4px solid #ff8f1c;
+        box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+        padding: 22px;
+      }
+    </style>
+
+    <!-- Modal Términos y Condiciones -->
+    <div id="modal-terminos" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7);">
+      <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem; position:relative;">
+        <span class="modal-cerrar" id="cerrar-modal-terminos" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
+        <h2>Términos y Condiciones</h2>
         <div class="legal-content">
           <section class="terminos-condiciones" style="text-align:left;max-height:70vh;overflow:auto;padding-right:8px;">
             <p><strong>Fecha de última actualización:</strong> octubre de 2025</p>
@@ -271,14 +271,13 @@ Description: Contact page of the Neumatics Tool website, where the different bra
               </li>
             </ol>
           </section>
-        </div>        
-        </div>
+        </div>      
       </div>
-
-      <!-- MODAL DE POLÍTICA DE PRIVACIDAD -->
-      <div id="modal-privacidad" class="modal-producto">
+    </div>
+    <!-- MODAL DE POLÍTICA DE PRIVACIDAD -->
+      <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center; overflow:hidden;">
         <div class="modal-contenido" style="max-width:900px; width:92vw; max-height:calc(100vh - 120px); overflow:hidden; padding:1.25rem; display:flex; flex-direction:column;">
-          <span class="modal-cerrar" id="cerrar-modal-privacidad" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
+          <span class="modal-cerrar" id="cerrar-modal-privacidad">&times;</span>
           <h2>Política de Privacidad</h2>
           <div class="legal-content" style="flex:1; min-height:0; overflow:auto;">
             <section class="politica-privacidad" style="text-align:left; padding-right:14px; box-sizing:content-box; min-height:0;">
@@ -359,35 +358,22 @@ Description: Contact page of the Neumatics Tool website, where the different bra
           </div>
         </div>
       </div>
-      <!-- Modal Visor de Ayuda (PDF) -->
-      <div id="modal-pdf" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center;">
-        <div class="modal-contenido" style="max-width:980px; width:96vw; padding:0; background:#fff;">
-            <span class="modal-cerrar" id="cerrar-modal-pdf" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
-            <iframe id="iframe-pdf" style="width:100%;height:80vh;border:none;display:block;"></iframe>
-            <div style="text-align:right;padding:1rem; background:#fff;">
-              <a id="descargar-pdf" download style="background:#ff8f1c;color:#fff;border:none;border-radius:8px;padding:0.6rem 1.5rem;font-size:1.1rem;font-weight:bold;cursor:pointer;text-decoration:none;">Descargar PDF</a>
-            </div>
-          </div>
-      </div>
-
-    </div>
-
     <!-- SCRIPTS -->
     <!-- Script de AOS (Animate On Scroll) -->
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
       /**
-       * @description Inicializa la librería AOS (Animate On Scroll) con una duración de 500ms y se ejecuta una sola vez.
+       * @description Inicializa la librería AOS (Animate On Scroll) con una duración de 500ms y se ejecuta cada vez que se hace scroll.
        * @see https://github.com/michalsnik/aos
        */
       AOS.init({
         duration: 500,
-        once: true
+        once: false
       });
     </script>
     <!-- Script principal de la aplicación -->
     <script type="module" src="/src/main.js"></script>
-  <script>
+    <script>
       /**
        * @fileoverview Script para abrir y cerrar los modales de términos y condiciones y política de privacidad.
        * @author Neumatics Tool
@@ -442,91 +428,76 @@ Description: Contact page of the Neumatics Tool website, where the different bra
         }
       });
 
-      // Help modal handled by shared modal-help.js module
+      // (Help modal handled by shared module)
     </script>
     <script>
       /**
-       * @fileoverview Script para el carrusel de sucursales.
+       * @fileoverview Script para animar los logos de las marcas.
        * @author Neumatics Tool
        */
-      document.addEventListener('DOMContentLoaded', function () {
-          const slides = document.querySelectorAll('.carrusel-slide');
-          const sucursales = document.querySelectorAll('.sucursal');
-          let currentSlide = 0;
-          let intervalId;
-          let timeoutId;
+      document.addEventListener('DOMContentLoaded', () => {
+        const logosContainer = document.querySelector('.logos-grid');
 
-        /**
-         * @description Muestra el slide y la información de la sucursal correspondiente al índice.
-         * @param {number} index - Índice del slide a mostrar.
-         */
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
+        if (logosContainer) {
+          const logoItems = Array.from(logosContainer.querySelectorAll('.logo-item'));
+          let currentIndex = 0;
+
+          /**
+           * @description Activa el logo correspondiente al índice actual.
+           * @param {number} index - Índice del logo a activar.
+           */
+          function setActiveLogo(index) {
+            logoItems.forEach((logo, i) => {
+              logo.classList.toggle('active', i === index);
             });
-            sucursales.forEach((sucursal, i) => {
-                sucursal.classList.toggle('active', i === index);
-            });
-        }
+          }
 
-        /**
-         * @description Muestra el siguiente slide en el carrusel.
-         */
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        /**
-         * @description Inicia el carrusel.
-         */
-        function startCarousel() {
-            stopCarousel(); // Asegurarse de que no haya intervalos duplicados
-            intervalId = setInterval(nextSlide, 5000); // Cambia de slide cada 5 segundos
-        }
-
-        /**
-         * @description Detiene el carrusel.
-         */
-        function stopCarousel() {
-            clearInterval(intervalId);
-        }
-
-        /**
-         * @description Reinicia el timeout del carrusel.
-         */
-        function resetCarouselTimeout() {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                startCarousel();
-            }, 10000); // Reiniciar después de 10 segundos de inactividad
-        }
-
-        // Iniciar el carrusel
-        if (slides.length > 0) {
-            showSlide(currentSlide);
-            startCarousel();
-        }
-
-        // Manejar clics en las tarjetas de sucursal
-        sucursales.forEach((sucursal, index) => {
-            sucursal.addEventListener('click', () => {
-                stopCarousel();
-                currentSlide = index;
-                showSlide(currentSlide);
-                resetCarouselTimeout();
-            });
-        });
-
-        // Inicializar AOS
-        if (typeof AOS !== 'undefined') {
-            AOS.init({
-                duration: 800, // Duración de la animación
-                once: true, // La animación solo ocurre una vez
-            });
+          if (logoItems.length > 0) {
+            // Inicia la animación
+            setInterval(() => {
+              currentIndex = (currentIndex + 1) % logoItems.length;
+              setActiveLogo(currentIndex);
+            }, 1000);
+          } else {
+            console.log("No se encontraron logos para animar.");
+          }
+        } else {
+          console.log("No se encontró el contenedor de logos.");
         }
       });
     </script>
-    <script type="module" src="/src/js/modal-help.js"></script>
+    <script>
+      /**
+       * @fileoverview Script para el menú móvil (hamburger).
+       * @author Neumatics Tool
+       */
+      document.addEventListener('DOMContentLoaded', () => {
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (hamburger && mobileMenu) {
+          hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+          });
+
+          // Cerrar menú al hacer clic en un enlace
+          mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+              mobileMenu.classList.remove('active');
+              hamburger.classList.remove('active');
+            });
+          });
+
+          // Cerrar menú al hacer clic fuera
+          document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+              mobileMenu.classList.remove('active');
+              hamburger.classList.remove('active');
+            }
+          });
+        }
+      });
+</script>
   </body>
 </html>
