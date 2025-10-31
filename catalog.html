@@ -209,6 +209,24 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
       }
       #cotizar-pdf:disabled { opacity: 0.6; cursor: not-allowed; }
 
+      /* Estilos para el botón de descarga del PDF */
+      .btn-descargar {
+        background: linear-gradient(180deg,#ffb97a,#ff8f1c);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-descargar:hover {
+        background: linear-gradient(180deg,#ff8f1c,#ffb97a);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(255,143,28,0.3);
+      }
+
       /* Responsive: stack modal columns on small screens */
       @media (max-width: 880px) {
         .carrito-modal-flex { flex-direction: column; }
@@ -761,11 +779,16 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
         </div>
       </div>
     </div>
+    <!-- Modal para mostrar el PDF -->
+    <div id="modal-pdf" class="modal-producto" style="display:none;">
+      <div class="modal-contenido">
+        <span class="modal-cerrar" id="cerrar-modal-pdf">&times;</span>
+        <h3>Vista previa de la cotización</h3>
+        <iframe id="iframe-pdf" style="width:100%; height:80vh; border:none;"></iframe>
+        <div style="margin-top:1rem; text-align:right;">
+          <button id="descargar-pdf" class="btn-descargar">Descargar PDF</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
-
-
-
-
-   
-          
