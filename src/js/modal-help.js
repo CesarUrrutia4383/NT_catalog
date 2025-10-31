@@ -113,8 +113,10 @@ function unlockBodyScroll() {
 
 function openHelpModal(e) {
   if (e && e.preventDefault) e.preventDefault();
+  // Ensure modal exists (will inject if missing)
   ensureHelpModal();
 
+  // Open the PDF help modal (consistent behavior with catalog.html)
   const modal = document.getElementById('modal-pdf');
   const iframe = document.getElementById('iframe-pdf');
   const descargar = document.getElementById('descargar-pdf');

@@ -67,7 +67,6 @@ Description: Contact page of the Neumatics Tool website, where the different bra
         <!-- Navegación -->
         <nav class="navbar" data-aos="fade-left">
             <a href="index.html">Inicio</a>
-          <a href="#" id="link-ayuda-header">Ayuda</a>
           <a href="catalog.html" class="boton">
             Catálogo
             <div class="icono">
@@ -150,7 +149,6 @@ Description: Contact page of the Neumatics Tool website, where the different bra
         <nav class="links">
           <a href="#" id="link-terminos">Términos y Condiciones</a>
           <a href="#" id="link-privacidad">Política de Privacidad</a>
-          <a href="#" id="link-ayuda-footer">Ayuda</a>
           <div class="social-icons">
             <a href="https://www.facebook.com/profile.php?id=61578918880067" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
@@ -407,27 +405,7 @@ Description: Contact page of the Neumatics Tool website, where the different bra
         }
       });
 
-      // Función para abrir el modal de ayuda
-      function openModal() {
-        document.querySelector('.modal-producto').style.display = 'flex';
-      }
-
-      // Función para cerrar el modal de ayuda
-      function closeModal() {
-        document.querySelector('.modal-producto').style.display = 'none';
-      }
-
-      // Evento para el enlace de ayuda en el encabezado
-      document.getElementById('link-ayuda-header').addEventListener('click', openModal);
-
-      // Evento para el botón de cerrar en el modal
-      document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('modal-cerrar')) {
-          closeModal();
-        }
-      });
-
-      // (Help modal handled by shared module)
+      // Help modal handled by shared modal-help.js module
     </script>
     <script>
       /**
