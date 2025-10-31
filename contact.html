@@ -57,6 +57,43 @@ Description: Contact page of the Neumatics Tool website, where the different bra
     <script defer data-domain="www.neumaticstool.com" src="https://analytics.vercel-insights.com/script.js"></script>
   </head>
   <body>
+    <!-- MODALES -->
+    <!-- Estilos base para modales -->
+    <style>
+      .modal-producto {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.45);
+        z-index: 4000;
+        padding: 24px;
+        overflow: hidden;
+      }
+
+      .modal-producto.fade-in {
+        display: flex !important;
+      }
+
+      .modal-producto.fade-out {
+        opacity: 0;
+        transition: opacity .25s ease-out;
+      }
+
+      .modal-producto .modal-contenido {
+        position: relative;
+        width: min(96vw, 1100px);
+        max-height: 90vh;
+        overflow: hidden;
+        background: #fafafa;
+        border-radius: 12px;
+        border: 4px solid #ff8f1c;
+        box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+        padding: 22px;
+      }
+    </style>
+
     <!-- ENCABEZADO -->
     <div class="contenedor-header">
       <header data-aos="fade-down">
@@ -170,8 +207,8 @@ Description: Contact page of the Neumatics Tool website, where the different bra
       </footer>
 
       <!-- Modal Términos y Condiciones -->
-      <div id="modal-terminos" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7);">
-        <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem; position:relative;">
+      <div id="modal-terminos" class="modal-producto">
+        <div class="modal-contenido" style="max-width:700px; width:96vw; padding:2rem;">
           <span class="modal-cerrar" id="cerrar-modal-terminos" style="position:absolute;top:18px;right:24px;font-size:2.2rem;z-index:3100;cursor:pointer;background:#fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);padding:0.2em 0.5em 0.2em 0.5em;border:2px solid #ff8f1c;transition:background 0.2s,color 0.2s;">&times;</span>
           <h2>Términos y Condiciones</h2>
         <div class="legal-content">
@@ -239,7 +276,7 @@ Description: Contact page of the Neumatics Tool website, where the different bra
       </div>
 
       <!-- MODAL DE POLÍTICA DE PRIVACIDAD -->
-      <div id="modal-privacidad" class="modal-producto" style="display:none; z-index:3000; background:rgba(0,0,0,0.7); position:fixed; top:0; left:0; width:100vw; height:100vh; align-items:center; justify-content:center; overflow:hidden;">
+      <div id="modal-privacidad" class="modal-producto">
         <div class="modal-contenido" style="max-width:900px; width:92vw; max-height:calc(100vh - 120px); overflow:hidden; padding:1.25rem; display:flex; flex-direction:column;">
           <span class="modal-cerrar" id="cerrar-modal-privacidad">&times;</span>
           <h2>Política de Privacidad</h2>
@@ -352,9 +389,18 @@ Description: Contact page of the Neumatics Tool website, where the different bra
     <script type="module" src="/src/main.js"></script>
   <script>
       /**
-       * @fileoverview Script para abrir y cerrar el modal de política de privacidad.
+       * @fileoverview Script para abrir y cerrar los modales de términos y condiciones y política de privacidad.
        * @author Neumatics Tool
        */
+
+      /**
+       * @description Abre el modal de términos y condiciones al hacer clic en el enlace correspondiente.
+       * @param {Event} e - Evento de clic.
+       */
+      document.getElementById('link-terminos').onclick = function(e) {
+        e.preventDefault();
+        document.getElementById('modal-terminos').style.display = 'flex';
+      };
 
       /**
        * @description Abre el modal de política de privacidad al hacer clic en el enlace correspondiente.
@@ -362,45 +408,36 @@ Description: Contact page of the Neumatics Tool website, where the different bra
        */
       document.getElementById('link-privacidad').onclick = function(e) {
         e.preventDefault();
-        const modal = document.getElementById('modal-privacidad');
-        if (modal) {
-          modal.style.display = 'flex';
-          document.body.style.overflow = 'hidden';
-        }
+        document.getElementById('modal-privacidad').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
       };
 
-      const cerrarPrivacidad = document.getElementById('cerrar-modal-privacidad');
-      if (cerrarPrivacidad) cerrarPrivacidad.onclick = function() {
-        const modal = document.getElementById('modal-privacidad');
-        if (modal) modal.style.display = 'none';
+      /**
+      * @description Cierra el modal de términos y condiciones al hacer clic en el botón de cerrar.
+      */
+      document.getElementById('cerrar-modal-terminos').onclick = function() {
+        document.getElementById('modal-terminos').style.display = 'none';
+      };
+
+      /**
+      * @description Cierra el modal de política de privacidad al hacer clic en el botón de cerrar.
+      */
+      document.getElementById('cerrar-modal-privacidad').onclick = function() {
+        document.getElementById('modal-privacidad').style.display = 'none';
         document.body.style.overflow = '';
       };
 
-      // Términos y Condiciones: abrir/cerrar
-      const linkTerminos = document.getElementById('link-terminos');
-      if (linkTerminos) {
-        linkTerminos.onclick = function(e) {
-          e.preventDefault();
-          const modal = document.getElementById('modal-terminos');
-          if (modal) modal.style.display = 'flex';
-        };
-      }
-      const cerrarTerminos = document.getElementById('cerrar-modal-terminos');
-      if (cerrarTerminos) cerrarTerminos.onclick = function() {
-        const modal = document.getElementById('modal-terminos');
-        if (modal) modal.style.display = 'none';
-      };
-
-      // Cerrar al hacer clic fuera de los modales
+      /**
+       * @description Cierra los modales al hacer clic fuera de ellos.
+       * @param {Event} e - Evento de clic.
+       */
       window.addEventListener('click', function(e) {
-        const modalPriv = document.getElementById('modal-privacidad');
-        const modalTerm = document.getElementById('modal-terminos');
-        if (e.target === modalPriv && modalPriv) {
-          modalPriv.style.display = 'none';
+        if (e.target === document.getElementById('modal-terminos')) {
+          document.getElementById('modal-terminos').style.display = 'none';
           document.body.style.overflow = '';
         }
-        if (e.target === modalTerm && modalTerm) {
-          modalTerm.style.display = 'none';
+        if (e.target === document.getElementById('modal-privacidad')) {
+          document.getElementById('modal-privacidad').style.display = 'none';
           document.body.style.overflow = '';
         }
       });
