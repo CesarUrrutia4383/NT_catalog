@@ -763,5 +763,26 @@ Description: Main page of the Neumatics Tool website, a company that sells and r
       });
 </script>
     <script type="module" src="/src/js/modal-help.js"></script>
+    <script>
+  // Función para abrir el modal de ayuda
+  function openModal() {
+    document.querySelector('.modal-producto').style.display = 'flex';
+  }
+
+  // Función para cerrar el modal de ayuda
+  function closeModal() {
+    document.querySelector('.modal-producto').style.display = 'none';
+  }
+
+  // Evento para el enlace de ayuda en el encabezado
+  document.getElementById('link-ayuda-header').addEventListener('click', openModal);
+
+  // Evento para el botón de cerrar en el modal
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('modal-cerrar')) {
+      closeModal();
+    }
+  });
+</script>
   </body>
 </html>

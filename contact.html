@@ -407,6 +407,26 @@ Description: Contact page of the Neumatics Tool website, where the different bra
         }
       });
 
+      // Función para abrir el modal de ayuda
+      function openModal() {
+        document.querySelector('.modal-producto').style.display = 'flex';
+      }
+
+      // Función para cerrar el modal de ayuda
+      function closeModal() {
+        document.querySelector('.modal-producto').style.display = 'none';
+      }
+
+      // Evento para el enlace de ayuda en el encabezado
+      document.getElementById('link-ayuda-header').addEventListener('click', openModal);
+
+      // Evento para el botón de cerrar en el modal
+      document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('modal-cerrar')) {
+          closeModal();
+        }
+      });
+
       // (Help modal handled by shared module)
     </script>
     <script>
