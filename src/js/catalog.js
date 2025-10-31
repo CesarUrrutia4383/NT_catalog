@@ -1262,29 +1262,61 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
       };
 
       console.log('📧 Enviando correo a:', to);
-      try {
-        const emailRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
+        try {
+          // Log payload size and sample (avoid logging full base64 to keep console manageable)
+          const smallPayloadLog = Object.assign({}, payload, { attachments: payload.attachments ? `[${payload.attachments.length} attachments]` : [] });
+          console.log('📨 EmailJS payload (summary):', smallPayloadLog);
 
-        if (!emailRes.ok) {
-          const txt = await emailRes.text();
-          console.error('❌ Error enviando email:', {
-            destinatario: to,
-            status: emailRes.status,
-            error: txt
+          const emailRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
           });
-          results.push({ to, ok: false, detail: txt });
-        } else {
-          console.log('✅ Correo enviado exitosamente a:', to);
-          results.push({ to, ok: true });
+
+          const respText = await emailRes.text().catch(() => null);
+          if (!emailRes.ok) {
+            console.error('❌ Error enviando email (primera tentativa):', {
+              destinatario: to,
+              status: emailRes.status,
+              statusText: emailRes.statusText,
+              body: respText
+            });
+
+            // Si es un 400, intentamos reintentar sin attachments para aislar el problema
+            if (emailRes.status === 400) {
+              console.log('🔁 Intentando reintento SIN adjuntos para aislar causa (status 400)');
+              const payloadNoAttach = Object.assign({}, payload);
+              delete payloadNoAttach.attachments;
+              try {
+                console.log('📨 EmailJS payload (no attachments):', payloadNoAttach);
+                const retryRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payloadNoAttach)
+                });
+                const retryText = await retryRes.text().catch(() => null);
+                if (!retryRes.ok) {
+                  console.error('❌ Reintento SIN adjuntos falló:', { status: retryRes.status, body: retryText });
+                  results.push({ to, ok: false, detail: `initial:${respText} | retry:${retryText}` });
+                } else {
+                  console.log('✅ Reintento SIN adjuntos exitoso para', to);
+                  results.push({ to, ok: true, note: 'sent without attachments' });
+                }
+              } catch (retryErr) {
+                console.error('Excepción durante reintento SIN adjuntos:', retryErr);
+                results.push({ to, ok: false, detail: String(retryErr) });
+              }
+            } else {
+              results.push({ to, ok: false, detail: respText });
+            }
+          } else {
+            console.log('✅ Correo enviado exitosamente a:', to, 'response:', respText);
+            results.push({ to, ok: true });
+          }
+        } catch (err) {
+          console.error('Excepción enviando email a', to, err);
+          results.push({ to, ok: false, detail: String(err) });
         }
-      } catch (err) {
-        console.error('Excepción enviando email a', to, err);
-        results.push({ to, ok: false, detail: String(err) });
-      }
     }
 
     return new Response(JSON.stringify({ ok: true, results }), { status: 200 });
