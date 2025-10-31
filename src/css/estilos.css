@@ -73,14 +73,22 @@ a {
 #modal-privacidad .modal-contenido {
     max-width: 900px;
     max-height: 80vh;
-    overflow-y: auto;
+    /* prevent modal content from producing an outer scrollbar; inner block handles scrolling */
+    overflow: hidden;
     padding: 20px;
 }
 
 #modal-privacidad .legal-content {
+    /* The legal content should handle vertical scrolling */
     max-height: 60vh;
     overflow-y: auto;
     font-size: 1rem;
     color: #333;
     padding-right: 15px;
+}
+
+/* Ensure the general modal overlay doesn't create a second scrollbar */
+.modal-producto {
+    /* overlay covers viewport; keep it hidden from producing scrollbars */
+    overflow: hidden !important;
 }
