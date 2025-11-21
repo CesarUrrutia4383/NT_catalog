@@ -320,15 +320,15 @@ function mostrarModalProducto(producto) {
     guardarCarrito();
     mostrarNotificacionProducto(productoActual, cantidad);
   };
-  modal.style.display = 'flex';
+  openModal(modal);
 }
 
 cerrarModal.addEventListener('click', () => {
-  modal.style.display = 'none';
+  closeModal(modal);
 });
 
 window.addEventListener('click', (e) => {
-  if (e.target === modal) modal.style.display = 'none';
+  if (e.target === modal) closeModal(modal);
 });
 
 btnAgregarCarrito.addEventListener('click', () => {
