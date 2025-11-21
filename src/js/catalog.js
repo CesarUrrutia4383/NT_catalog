@@ -1041,17 +1041,16 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     };
 
     // Note: we do NOT call enviarCotizacionBackend / EmailJS here anymore — the user will send via their mail app
-    // Vaciar el carrito tras generar la cotización para evitar que los productos queden en el carrito
-    carrito = [];
-    guardarCarrito();
-    actualizarCarritoCantidad();
-    actualizarBotonCotizar();
-    // Cerrar modal de carrito y restablecer estado del botón de cotizar
-    closeModal(modalCarrito);
-    isSubmitting = false;
-    btnCotizarPDF.disabled = false;
-    btnCotizarPDF.textContent = 'Cotizar (Generar PDF)';
-    showToast('Cotización generada. El carrito ha sido vaciado.');
+    // Cerrar modal de carrito y forzar recarga para reiniciar por completo la interfaz
+    try { closeModal(modalCarrito); } catch (e) { /* ignore */ }
+    try { closeModal(modalPDF); } catch (e) { /* ignore */ }
+    showToast('Cotización generada. Recargando la página para reiniciar la interfaz...', 2500);
+    // Liberar el object URL y recargar tras una pequeña espera para permitir animaciones
+    setTimeout(() => {
+      try { URL.revokeObjectURL(url); } catch (e) { /* ignore */ }
+      // Forzar recarga completa
+      window.location.reload();
+    }, 700);
   } catch (err) {
     showToast('No se pudo generar la previsualización del PDF.');
     isSubmitting = false;
