@@ -979,18 +979,8 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       bodyLines.push('Saludos,\nNeumatics Tool');
       const body = bodyLines.join('\n');
 
-      // Try Web Share API with files (best on mobile)
-      try {
-        if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
-          await navigator.share({ files: [pdfFile], title: subject, text: body });
-          showToast('Se abrió la app de correo/compartir. Complete el envío desde allí.');
-          closeModal(modalPDF);
-          return;
-        }
-      } catch (shareErr) {
-        console.warn('Web Share API falló o fue cancelado:', shareErr);
-        // continue to server send fallback
-      }
+      // Nota: suprimimos el intento de abrir el cliente de correo (Web Share/mailto)
+      // para forzar que el backend realice el envío. Se evita redirigir al mailto.
 
       // Fallback: enviar automáticamente desde el servidor usando la función
       // centralizada `enviarCotizacionBackend` que delega al endpoint `/send`.
@@ -1021,6 +1011,13 @@ btnCotizarPDF.addEventListener('click', async (e) => {
           console.log('Envío desde servidor exitoso:', sendJson);
           showToast('Correo enviado correctamente desde el servidor.');
           closeModal(modalPDF);
+          // Reiniciar carrito en memoria y en localStorage antes de recargar
+          try {
+            carrito = [];
+            guardarCarrito();
+            actualizarCarritoCantidad();
+            actualizarBotonCotizar();
+          } catch (e) { console.warn('No se pudo limpiar carrito:', e); }
           // Después de un envío exitoso, revocar el URL y recargar para reiniciar la interfaz
           setTimeout(() => {
             try { URL.revokeObjectURL(url); } catch (e) { /* ignore */ }
