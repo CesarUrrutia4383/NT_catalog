@@ -944,53 +944,103 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     console.log('Mostrando PDF en el modal...');
     iframePDF.src = url;
     openModal(modalPDF);
-    
+
+    // Prepare filename and blob for sharing
+    const fileName = `NT_Cotizacion_${(nombreCliente || 'cotizacion').replace(/\s+/g, '_')}.pdf`;
+    const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+    // Download handler
     btnDescargarPDF.onclick = () => {
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'cotizacion.pdf';
+      a.download = fileName;
       a.click();
     };
-    
+
+    // New: Send via client (try Web Share API with files). If not possible, SEND via server automatically.
+    const btnEnviarPorCorreo = document.getElementById('enviar-por-correo');
+    btnEnviarPorCorreo.onclick = async () => {
+      const subject = `Cotización - ${nombreCliente || ''}`;
+      const bodyLines = [];
+      bodyLines.push(`Hola,`);
+      bodyLines.push('Adjunto encontrará la cotización solicitada.');
+      bodyLines.push('');
+      bodyLines.push(`Cliente: ${nombreCliente || ''}`);
+      bodyLines.push(`Teléfono: ${telefonoCliente || ''}`);
+      bodyLines.push(`Tipo: ${tipoCotizacion || ''}`);
+      if (descripcion) bodyLines.push('');
+      if (descripcion) bodyLines.push(`Descripción: ${descripcion}`);
+      bodyLines.push('');
+      bodyLines.push('Saludos,\nNeumatics Tool');
+      const body = bodyLines.join('\n');
+
+      // Try Web Share API with files (best on mobile)
+      try {
+        if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+          await navigator.share({ files: [pdfFile], title: subject, text: body });
+          showToast('Se abrió la app de correo/compartir. Complete el envío desde allí.');
+          closeModal(modalPDF);
+          return;
+        }
+      } catch (shareErr) {
+        console.warn('Web Share API falló o fue cancelado:', shareErr);
+        // continue to server send fallback
+      }
+
+      // Fallback: enviar automáticamente desde el servidor
+      try {
+        btnEnviarPorCorreo.disabled = true;
+        btnEnviarPorCorreo.textContent = 'Enviando...';
+        showToast('Intentando envío automático desde el servidor...');
+
+        const BACKEND_SEND_URL = BACKEND_QUOTE_URL + '/send';
+        const sendPayload = {
+          pdfBase64: responseData.pdfBase64,
+          nombre: nombreCliente,
+          telefono: telefonoCliente,
+          servicio,
+          correosDestino: destinoCorreo
+        };
+
+        console.log('Enviando petición al servidor para envío de correo:', BACKEND_SEND_URL, { size: responseData.pdfBase64.length });
+
+        const sendRes = await fetch(BACKEND_SEND_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          mode: 'cors',
+          body: JSON.stringify(sendPayload)
+        });
+
+        const sendJson = await sendRes.json().catch(() => null);
+        if (!sendRes.ok) {
+          console.error('Error enviando desde servidor:', sendRes.status, sendJson);
+          showToast('No se pudo enviar desde el servidor. Intente descargar y enviar manualmente.');
+          // fallback: allow user to download
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = fileName;
+          a.click();
+        } else {
+          console.log('Envío desde servidor exitoso:', sendJson);
+          showToast('Correo enviado correctamente desde el servidor.');
+          closeModal(modalPDF);
+        }
+      } catch (err) {
+        console.error('Excepción al enviar desde servidor:', err);
+        showToast('Error en envío automático. Descargue el PDF y envíe manualmente.');
+      } finally {
+        btnEnviarPorCorreo.disabled = false;
+        btnEnviarPorCorreo.textContent = 'Enviar por correo';
+      }
+    };
+
     document.getElementById('cerrar-modal-pdf').onclick = () => {
       closeModal(modalPDF);
       iframePDF.src = '';
       URL.revokeObjectURL(url);
     };
-    
-    enviarCotizacionBackend({ carrito: carritoParaEnviar, nombre: nombreCliente, telefono: telefonoCliente, servicio, destinoCorreo, descripcion })
-      .then(async (response) => {
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Error al enviar la cotización');
-        }
-        const data = await response.json();
-        
-        setTimeout(() => {
-          if (data.success) {
-            showToast(data.message, 5500);
-            carrito = [];
-            guardarCarrito();
-            actualizarCarritoCantidad();
-            mostrarCarrito();
-            nombreInput.value = '';
-            telefonoInput.value = '';
-            if (descripcionServicio) descripcionServicio.value = '';
-          } else {
-            showToast('Error: ' + data.message);
-          }
-          isSubmitting = false;
-          btnCotizarPDF.disabled = false;
-          btnCotizarPDF.textContent = 'Cotizar';
-        }, 300);
-      })
-      .catch((error) => {
-        console.error('Error al enviar cotización:', error);
-        showToast(`Error al enviar la cotización: ${error.message}`);
-        isSubmitting = false;
-        btnCotizarPDF.disabled = false;
-        btnCotizarPDF.textContent = 'Cotizar';
-      });
+
+    // Note: we do NOT call enviarCotizacionBackend / EmailJS here anymore — the user will send via their mail app
     closeModal(modalCarrito);
   } catch (err) {
     showToast('No se pudo generar la previsualización del PDF.');
