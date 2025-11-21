@@ -955,6 +955,11 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       a.href = url;
       a.download = fileName;
       a.click();
+      // Después de la descarga, revocar el URL y recargar para reiniciar la interfaz
+      setTimeout(() => {
+        try { URL.revokeObjectURL(url); } catch (e) { /* ignore */ }
+        window.location.reload();
+      }, 700);
     };
 
     // New: Send via client (try Web Share API with files). If not possible, SEND via server automatically.
@@ -1016,6 +1021,11 @@ btnCotizarPDF.addEventListener('click', async (e) => {
           console.log('Envío desde servidor exitoso:', sendJson);
           showToast('Correo enviado correctamente desde el servidor.');
           closeModal(modalPDF);
+          // Después de un envío exitoso, revocar el URL y recargar para reiniciar la interfaz
+          setTimeout(() => {
+            try { URL.revokeObjectURL(url); } catch (e) { /* ignore */ }
+            window.location.reload();
+          }, 700);
         }
       } catch (err) {
         console.error('Excepción al enviar desde servidor:', err);
@@ -1032,17 +1042,9 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       URL.revokeObjectURL(url);
     };
 
-    // Note: we do NOT call enviarCotizacionBackend / EmailJS here anymore — the user will send via their mail app
-    // Cerrar modal de carrito y forzar recarga para reiniciar por completo la interfaz
-    try { closeModal(modalCarrito); } catch (e) { /* ignore */ }
-    try { closeModal(modalPDF); } catch (e) { /* ignore */ }
-    showToast('Cotización generada. Recargando la página para reiniciar la interfaz...', 2500);
-    // Liberar el object URL y recargar tras una pequeña espera para permitir animaciones
-    setTimeout(() => {
-      try { URL.revokeObjectURL(url); } catch (e) { /* ignore */ }
-      // Forzar recarga completa
-      window.location.reload();
-    }, 700);
+    // Nota: no recargamos ni cerramos la interfaz aquí. La recarga se realiza
+    // únicamente después de que el usuario descargue el PDF o el servidor
+    // confirme el envío del correo (ver handlers arriba).
   } catch (err) {
     showToast('No se pudo generar la previsualización del PDF.');
     isSubmitting = false;
