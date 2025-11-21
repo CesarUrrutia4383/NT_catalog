@@ -97,15 +97,18 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
 
       .modal-producto .modal-contenido {
         position: relative;
-        width: min(96vw, 1100px);
-        max-height: 90vh;
-        /* keep inner box from scrolling; inner .legal-content will handle it */
-        overflow: hidden;
+        /* Make the modal larger but keep some viewport padding */
+        width: min(98vw, 1280px);
+        max-width: 1280px;
+        max-height: calc(100vh - 48px);
+        display: flex;
+        flex-direction: column;
         background: #fafafa;
         border-radius: 12px;
         border: 4px solid #ff8f1c;
         box-shadow: 0 12px 36px rgba(0,0,0,0.18);
-        padding: 22px;
+        padding: 18px;
+        overflow: hidden;
       }
 
       .modal-producto .modal-cerrar {
@@ -460,14 +463,33 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
 
       .modal-producto .modal-contenido {
         position: relative;
-        width: min(96vw, 1100px);
-        max-height: 90vh;
-        overflow: hidden;
+        width: min(98vw, 1280px);
+        max-width: 1280px;
+        max-height: calc(100vh - 48px);
+        display: flex;
+        flex-direction: column;
         background: #fafafa;
         border-radius: 12px;
         border: 4px solid #ff8f1c;
         box-shadow: 0 12px 36px rgba(0,0,0,0.18);
-        padding: 22px;
+        padding: 18px;
+        overflow: hidden;
+      }
+
+      /* iframe inside PDF modal should expand to fill available space */
+      #iframe-pdf {
+        width: 100%;
+        flex: 1 1 auto;
+        min-height: 0;
+        border: none;
+      }
+
+      .modal-pdf-footer {
+        margin-top: 12px;
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        align-items: center;
       }
     </style>
 
@@ -783,9 +805,9 @@ Description: Catalog page of the Neumatics Tool website, where the products for 
     <div id="modal-pdf" class="modal-producto" style="display:none;">
       <div class="modal-contenido">
         <span class="modal-cerrar" id="cerrar-modal-pdf">&times;</span>
-        <h3>Vista previa de la cotización</h3>
-        <iframe id="iframe-pdf" style="width:100%; height:80vh; border:none;"></iframe>
-        <div style="margin-top:1rem; text-align:right; display:flex; gap:8px; justify-content:flex-end;">
+        <h3 style="margin:0 0 8px 0;">Vista previa de la cotización</h3>
+        <iframe id="iframe-pdf"></iframe>
+        <div class="modal-pdf-footer">
           <button id="enviar-por-correo" class="btn-descargar">Enviar por correo</button>
           <button id="descargar-pdf" class="btn-descargar">Descargar PDF</button>
         </div>
