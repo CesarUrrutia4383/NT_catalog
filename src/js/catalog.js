@@ -26,7 +26,7 @@ import 'aos/dist/aos.css';
 AOS.init({ duration: 600, once: false });
 
 // EmailJS configuration (fill values in src/js/emailjs-config.js)
-import { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_USER_ID } from './emailjs-config.js';
+// Frontend email sending removed. Emails are sent exclusively by the backend.
 
 /**
  * Valida si una URL es válida y pertenece a Cloudinary.
@@ -987,28 +987,20 @@ btnCotizarPDF.addEventListener('click', async (e) => {
         // continue to server send fallback
       }
 
-      // Fallback: enviar automáticamente desde el servidor
+      // Fallback: enviar automáticamente desde el servidor usando la función
+      // centralizada `enviarCotizacionBackend` que delega al endpoint `/send`.
       try {
         btnEnviarPorCorreo.disabled = true;
         btnEnviarPorCorreo.textContent = 'Enviando...';
         showToast('Intentando envío automático desde el servidor...');
 
-        const BACKEND_SEND_URL = BACKEND_QUOTE_URL + '/send';
-        const sendPayload = {
-          pdfBase64: responseData.pdfBase64,
+        const sendRes = await enviarCotizacionBackend({
+          carrito: carritoParaEnviar,
           nombre: nombreCliente,
           telefono: telefonoCliente,
           servicio,
-          correosDestino: destinoCorreo
-        };
-
-        console.log('Enviando petición al servidor para envío de correo:', BACKEND_SEND_URL, { size: responseData.pdfBase64.length });
-
-        const sendRes = await fetch(BACKEND_SEND_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          mode: 'cors',
-          body: JSON.stringify(sendPayload)
+          destinoCorreo: destinoCorreo,
+          descripcion
         });
 
         const sendJson = await sendRes.json().catch(() => null);
@@ -1193,25 +1185,18 @@ window.addEventListener('DOMContentLoaded', () => {
  * @param {object} data - Datos de la cotización.
  * @returns {Promise<Response>} - Respuesta del fetch.
  */
-function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo, descripcion}) {
-  console.log('🚀 Iniciando proceso de cotización:', { 
-    nombre, 
-    telefono,
-    servicio,
-    descripcion,
-    cantidadProductos: carrito.length,
-    correosDestino: destinoCorreo
-  });
-
-  const carritoSimplificado = carrito.map(item => ({ 
-    id: item.id, 
-    nombre: item.nombre_producto || item.nombre, 
-    marca: item.marca, 
-    proposito: item.proposito, 
-    cantidad: item.cantidad 
+async function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo, descripcion}) {
+  // Delegar completamente al backend: el servidor se encargará de generar el PDF
+  // y de enviar el correo (usando puertos/servicios configurados en render).
+  const carritoSimplificado = carrito.map(item => ({
+    id: item.id,
+    nombre: item.nombre_producto || item.nombre,
+    marca: item.marca,
+    proposito: item.proposito,
+    cantidad: item.cantidad
   }));
 
-  const data = {
+  const payload = {
     carrito: carritoSimplificado,
     nombre,
     telefono,
@@ -1220,166 +1205,21 @@ function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCo
     descripcion: descripcion || ''
   };
 
-  console.log('Enviando datos al backend:', data);
+  const BACKEND_QUOTE_URL = import.meta.env.VITE_API_URL?.replace('/routes/productos', '/routes/quote') || 'http://localhost:4000/routes/quote';
+  const sendUrl = BACKEND_QUOTE_URL + '/send';
 
-  // Nuevo flujo: el backend devuelve pdfBase64 + correosDestino.
-  // Aquí solicitamos el PDF al backend y luego enviamos el correo desde el frontend
-  // usando EmailJS REST API. Debes configurar EmailJS y reemplazar los placeholders
-  // SERVICE_ID, TEMPLATE_ID y USER_ID con tus propios valores.
-
-  return (async () => {
-    const BACKEND_QUOTE_URL = import.meta.env.VITE_API_URL?.replace('/routes/productos', '/routes/quote') || 'http://localhost:4000/routes/quote';
-    console.log('📤 Solicitando PDF al backend:', BACKEND_QUOTE_URL);
-
-    const res = await fetch(BACKEND_QUOTE_URL, {
+  try {
+    const res = await fetch(sendUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'omit',
-      redirect: 'follow',
-      body: JSON.stringify(data)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      mode: 'cors'
     });
-
-    if (!res.ok) {
-      const txt = await res.text();
-      console.error('❌ Error generando PDF en backend:', {
-        status: res.status,
-        statusText: res.statusText,
-        error: txt
-      });
-      return new Response(JSON.stringify({ ok: false, message: 'Error generando PDF', detail: txt }), { status: 500 });
-    }
-
-    console.log('✅ Respuesta del backend recibida');
-    const json = await res.json();
-    if (!json.pdfBase64) {
-      console.error('❌ El backend no devolvió pdfBase64:', {
-        responseKeys: Object.keys(json),
-        responseSize: JSON.stringify(json).length
-      });
-      return new Response(JSON.stringify({ ok: false, message: 'Backend no devolvió pdfBase64' }), { status: 500 });
-    }
-
-    const pdfBase64 = json.pdfBase64;
-    const correosDestino = json.correosDestino || destinoCorreo || [];
-    console.log('📋 PDF recibido y correos destino:', {
-      pdfSize: pdfBase64.length,
-      correosDestino
-    });
-
-    // Convertir base64 a Blob
-    const byteCharacters = atob(pdfBase64);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
-    const fileName = `NT_Cotizacion_${(nombre || 'cotizacion').replace(/\s+/g, '_')}.pdf`;
-
-    // EmailJS REST API - replace these placeholders with your own values
-    // Validar que EmailJS esté configurado (evita errores en runtime)
-    if (!EMAILJS_SERVICE_ID || EMAILJS_SERVICE_ID.startsWith('YOUR_') ||
-        !EMAILJS_TEMPLATE_ID || EMAILJS_TEMPLATE_ID.startsWith('YOUR_') ||
-        !EMAILJS_USER_ID || EMAILJS_USER_ID.startsWith('YOUR_')) {
-      console.error('❌ EmailJS no está configurado:', {
-        serviceId: EMAILJS_SERVICE_ID ? '✅' : '❌',
-        templateId: EMAILJS_TEMPLATE_ID ? '✅' : '❌',
-        userId: EMAILJS_USER_ID ? '✅' : '❌'
-      });
-      return new Response(JSON.stringify({ ok: false, message: 'EmailJS no configurado' }), { status: 500 });
-    }
-    
-    console.log('✅ Configuración de EmailJS verificada');
-
-    // Preparar attachments y payload para EmailJS (REST API)
-    const attachments = [{
-      name: fileName,
-      data: pdfBase64,
-      type: 'application/pdf'
-    }];
-
-    const results = [];
-    for (const to of correosDestino) {
-      const payload = {
-        service_id: EMAILJS_SERVICE_ID,
-        template_id: EMAILJS_TEMPLATE_ID,
-        user_id: EMAILJS_USER_ID,
-        template_params: {
-          to_email: to,
-          from_name: 'Neumatics Tool',
-          client_name: nombre,
-          client_phone: telefono,
-          servicio: servicio,
-          message: `Adjunto se encuentra la cotización solicitada por ${nombre}`
-        },
-        attachments
-      };
-
-      console.log('📧 Enviando correo a:', to);
-        try {
-          // Log payload size and sample (avoid logging full base64 to keep console manageable)
-          const smallPayloadLog = Object.assign({}, payload, { attachments: payload.attachments ? `[${payload.attachments.length} attachments]` : [] });
-          console.log('📨 EmailJS payload (summary):', smallPayloadLog);
-
-          const emailRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-
-          const respText = await emailRes.text().catch(() => null);
-          if (!emailRes.ok) {
-            console.error('❌ Error enviando email (primera tentativa):', {
-              destinatario: to,
-              status: emailRes.status,
-              statusText: emailRes.statusText,
-              body: respText
-            });
-
-            // Si es un 400, intentamos reintentar sin attachments para aislar el problema
-            if (emailRes.status === 400) {
-              console.log('🔁 Intentando reintento SIN adjuntos para aislar causa (status 400)');
-              const payloadNoAttach = Object.assign({}, payload);
-              delete payloadNoAttach.attachments;
-              try {
-                console.log('📨 EmailJS payload (no attachments):', payloadNoAttach);
-                const retryRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(payloadNoAttach)
-                });
-                const retryText = await retryRes.text().catch(() => null);
-                if (!retryRes.ok) {
-                  console.error('❌ Reintento SIN adjuntos falló:', { status: retryRes.status, body: retryText });
-                  results.push({ to, ok: false, detail: `initial:${respText} | retry:${retryText}` });
-                } else {
-                  console.log('✅ Reintento SIN adjuntos exitoso para', to);
-                  results.push({ to, ok: true, note: 'sent without attachments' });
-                }
-              } catch (retryErr) {
-                console.error('Excepción durante reintento SIN adjuntos:', retryErr);
-                results.push({ to, ok: false, detail: String(retryErr) });
-              }
-            } else {
-              results.push({ to, ok: false, detail: respText });
-            }
-          } else {
-            console.log('✅ Correo enviado exitosamente a:', to, 'response:', respText);
-            results.push({ to, ok: true });
-          }
-        } catch (err) {
-          console.error('Excepción enviando email a', to, err);
-          results.push({ to, ok: false, detail: String(err) });
-        }
-    }
-
-    return new Response(JSON.stringify({ ok: true, results }), { status: 200 });
-  })();
+    return res;
+  } catch (err) {
+    console.error('Error delegando envío al backend:', err);
+    throw err;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
