@@ -354,6 +354,20 @@
   box-shadow: 0 6px 20px rgba(255, 143, 28, 0.4);
 }
 
+@media (max-width: 768px) {
+  .btn-carrito {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    bottom: 20px;
+    width: max-content;
+  }
+  .btn-carrito:hover {
+    transform: translateX(-50%) translateY(-2px);
+  }
+}
+
+
 /* Botón de cotización destacado */
 #cotizar-pdf {
   background: linear-gradient(90deg, #ff8f1c 60%, #ffb347 100%);
