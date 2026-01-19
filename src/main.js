@@ -25,6 +25,7 @@ import "./js/slideshow.js";
 import "./js/caracteristicas.js";
 import "./js/aos_init.js";
 import "./js/catalog.js";
+import "./js/contact-carousel.js";
 
 // AOS PARA ANIMACIONES
 import AOS from 'aos';
@@ -46,12 +47,12 @@ AOS.init({
  */
 
 // Deshabilitar menú contextual derecho
-document.addEventListener('contextmenu', function(e) {
+document.addEventListener('contextmenu', function (e) {
   e.preventDefault();
 });
 
 // Deshabilitar atajos de teclado para herramientas de desarrollador
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
   // F12
   if (e.keyCode === 123) {
     e.preventDefault();
