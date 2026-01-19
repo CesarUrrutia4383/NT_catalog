@@ -1,54 +1,60 @@
 /**
- * @fileoverview Logic for the Contact page carousel.
- * Handles the auto-rotation of branch images and synchronization with the branch info list.
+ * @fileoverview Lógica para el carrusel de la página de contacto.
+ * Maneja la rotación automática de las imágenes de las sucursales y su sincronización con la lista de información.
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+// Encapsular en una función para ejecutar cuando el DOM esté listo
+function initContactCarousel() {
     const carruselContainer = document.querySelector('.sucursales-carrusel');
-    // Exit if not on the contact page or if the carousel structure is missing
-    if (!carruselContainer) return;
+    // Salir si no estamos en la página de contacto o si falta la estructura del carrusel
+    if (!carruselContainer) {
+        return;
+    }
 
     const slides = Array.from(document.querySelectorAll('.carrusel-slide'));
     const sucursales = Array.from(document.querySelectorAll('.sucursal'));
 
-    if (slides.length === 0 || sucursales.length === 0) return;
+    if (slides.length === 0 || sucursales.length === 0) {
+        console.warn('Lógica del carrusel: No se encontraron elementos slides o sucursales.');
+        return;
+    }
 
     let currentIndex = 0;
     let intervalId;
-    const intervalTime = 4000; // 4 seconds
+    const intervalTime = 4000; // 4 segundos
 
     /**
-     * Activates the slide and sucursal info at the given index.
-     * @param {number} index - Index of the slide to show.
+     * Activa el slide y la información de la sucursal en el índice dado.
+     * @param {number} index - Índice del slide a mostrar.
      */
     function showSlide(index) {
-        // Wrap around index
+        // Normalizar índice
         if (index >= slides.length) index = 0;
         if (index < 0) index = slides.length - 1;
 
         currentIndex = index;
 
-        // Remove active class from all
+        // Eliminar clase active de todos
         slides.forEach(slide => slide.classList.remove('active'));
         sucursales.forEach(sucursal => sucursal.classList.remove('active'));
 
-        // Add active class to current
+        // Agregar clase active al actual
         if (slides[currentIndex]) slides[currentIndex].classList.add('active');
         if (sucursales[currentIndex]) sucursales[currentIndex].classList.add('active');
     }
 
     /**
-     * Starts the auto-rotation timer.
+     * Inicia el temporizador de rotación automática.
      */
     function startTimer() {
-        stopTimer(); // Ensure no duplicates
+        stopTimer(); // Asegurar que no haya duplicados
         intervalId = setInterval(() => {
             showSlide(currentIndex + 1);
         }, intervalTime);
     }
 
     /**
-     * Stops the auto-rotation timer.
+     * Detiene el temporizador de rotación automática.
      */
     function stopTimer() {
         if (intervalId) {
@@ -57,20 +63,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Add click events to sucursales to switch manually
+    // Agregar eventos de clic a las sucursales para cambiar manualmente
     sucursales.forEach((sucursal, index) => {
         sucursal.addEventListener('click', () => {
             stopTimer();
             showSlide(index);
-            startTimer(); // Restart timer after manual interaction
+            startTimer(); // Reiniciar temporizador después de interacción manual
         });
-
-        // Add hover effect pause? Optional, but often nice.
-        // Let's keep it simple: clicking sets it.
     });
 
-    // Initialize
-    // Ensure the first one is active matches logic (HTML might already have it, but good to enforce)
-    showSlide(0);
+    // Verificar cuál está activo actualmente en HTML para establecer el estado inicial correctamente
+    const initialActive = slides.findIndex(s => s.classList.contains('active'));
+    currentIndex = initialActive >= 0 ? initialActive : 0;
+
+    // Forzar consistencia del estado inicial
+    showSlide(currentIndex);
     startTimer();
-});
+}
+
+// Ejecutar función init cuando el DOM esté listo, cubriendo estados de carga y ya cargado
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactCarousel);
+} else {
+    initContactCarousel();
+}

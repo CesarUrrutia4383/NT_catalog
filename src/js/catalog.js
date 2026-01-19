@@ -25,8 +25,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init({ duration: 600, once: false });
 
-// EmailJS configuration (fill values in src/js/emailjs-config.js)
-// Frontend email sending removed. Emails are sent exclusively by the backend.
+// Configuración de EmailJS (rellenar valores en src/js/emailjs-config.js)
+// El envío de correo electrónico desde el frontend fue eliminado. Los correos son enviados exclusivamente por el backend.
 
 /**
  * Valida si una URL es válida y pertenece a Cloudinary.
@@ -42,8 +42,8 @@ function isValidCloudinaryUrl(url) {
 
 /**
  * Obtiene la URL de la imagen para un producto, con fallback a una imagen por defecto.
- * @param {object} producto - El objeto producto.
- * @returns {string} - La URL de la imagen.
+ * @param {object} producto - El objeto producto con sus detalles.
+ * @returns {string} - La URL de la imagen procesada o el fallback.
  */
 function getImageUrl(producto) {
   if (producto.imagen_url && isValidCloudinaryUrl(producto.imagen_url)) {
@@ -54,8 +54,8 @@ function getImageUrl(producto) {
 }
 
 /**
- * Abre un modal con animación de fade-in.
- * @param {HTMLElement} modal - El elemento modal a abrir.
+ * Abre un modal con animación de desvanecimiento (fade-in).
+ * @param {HTMLElement} modal - El elemento del modal a abrir.
  */
 function openModal(modal) {
   modal.style.display = 'flex';
@@ -65,8 +65,8 @@ function openModal(modal) {
 }
 
 /**
- * Cierra un modal con animación de fade-out.
- * @param {HTMLElement} modal - El elemento modal a cerrar.
+ * Cierra un modal con animación de desvanecimiento (fade-out).
+ * @param {HTMLElement} modal - El elemento del modal a cerrar.
  */
 function closeModal(modal) {
   modal.classList.remove('fade-in');
@@ -75,8 +75,8 @@ function closeModal(modal) {
 }
 
 /**
- * Obtiene los productos desde la API.
- * @returns {Promise<Array>} - Promesa que resuelve en un array de productos.
+ * Obtiene el listado de productos desde la API.
+ * @returns {Promise<Array>} - Promesa que resuelve en un arreglo de objetos de productos.
  */
 async function obtenerProductos() {
   try {
@@ -99,14 +99,14 @@ async function obtenerProductos() {
 }
 
 /**
- * Llena los filtros de marca y propósito con los valores disponibles.
- * @param {Array} productos - Array de productos.
+ * Pobla los selectores de filtros con las marcas y propósitos disponibles en los productos.
+ * @param {Array} productos - Arreglo de productos para extraer los filtros únicos.
  */
 function llenarFiltros(productos) {
   const marcas = new Set();
   const propositos = new Set();
 
-  // Si el backend incluye el campo 'tipo' lo usamos para llenar las opciones dinámicamente
+  // Si el backend incluye el campo 'tipo', lo usamos para llenar las opciones dinámicamente
   const tipos = new Set();
 
   productos.forEach(p => {
@@ -115,7 +115,7 @@ function llenarFiltros(productos) {
     if (p.tipo) tipos.add(p.tipo);
   });
 
-  // Limpiar opciones dinámicas (mantener la primera opción por defecto)
+  // Función interna para limpiar las opciones dinámicas manteniendo la primera opción (por defecto)
   function resetSelectKeepFirst(selectEl) {
     if (!selectEl) return;
     const first = selectEl.querySelector('option');
@@ -141,10 +141,9 @@ function llenarFiltros(productos) {
     filtroProposito.appendChild(option);
   });
 
-  // Llenar filtro tipo dinámicamente sólo si hay valores distintos en los datos.
-  // Mantener las opciones estáticas añadidas en HTML pero asegurarnos de no duplicar.
+  // Llenar filtro tipo dinámicamente solo si hay valores distintos en los datos.
+  // Mantiene las opciones estáticas añadidas en HTML pero asegura no duplicar.
   if (tipos.size > 0) {
-    // eliminar opciones que no queremos (excepto la primera 'Todos')
     const existing = filtroTipo ? Array.from(filtroTipo.querySelectorAll('option')).map(o => o.value) : [];
     tipos.forEach(t => {
       if (!existing.includes(t) && filtroTipo) {
@@ -158,8 +157,9 @@ function llenarFiltros(productos) {
 }
 
 /**
- * Muestra los productos en el grid.
- * @param {Array} productos - Array de productos.
+ * Renderiza las tarjetas de productos en el grid del catálogo.
+ * Crea elementos DOM para nuevos productos y elimina los que ya no existen, optimizando el redibujado.
+ * @param {Array} productos - Arreglo de productos a mostrar.
  */
 function mostrarProductos(productos) {
   const existingProductCards = Array.from(grid.children);
@@ -190,13 +190,13 @@ function mostrarProductos(productos) {
       if (card.innerHTML.trim() !== newInnerHTML.trim()) {
         card.innerHTML = newInnerHTML;
       }
-      // Asegurarse de que el event listener siga funcionando (aunque ya debería estar)
+      // Asegurarse de que el event listener siga funcionando
       card.onclick = () => mostrarModalProducto(p);
     } else {
       // Crear nueva tarjeta si no existe
       card = document.createElement('div');
       card.className = 'producto';
-      card.dataset.productId = p.id; // Añadir un data-attribute para identificar el producto
+      card.dataset.productId = p.id; // Añadir un atributo de datos para identificar el producto
       card.setAttribute('data-aos', 'fade-up');
       card.setAttribute('data-aos-delay', '50');
       const imagen = getImageUrl(p);
@@ -213,7 +213,6 @@ function mostrarProductos(productos) {
   // Después de manipular el DOM de productos, refrescar AOS para recalcular posiciones
   try {
     if (window.AOS && typeof window.AOS.refresh === 'function') {
-      // refresh es suficientemente liviano y permite que las animaciones vuelvan a reproducirse
       window.AOS.refresh();
     }
   } catch (e) {
@@ -232,8 +231,8 @@ let productoActual = null;
 let carrito = [];
 
 /**
- * Muestra el modal con la información del producto.
- * @param {object} producto - El objeto producto.
+ * Muestra el modal con la información detallada del producto seleccionado.
+ * @param {object} producto - El objeto producto a mostrar.
  */
 function mostrarModalProducto(producto) {
   productoActual = producto;
@@ -358,7 +357,7 @@ btnAgregarCarrito.addEventListener('click', () => {
 });
 
 /**
- * Actualiza el indicador de cantidad en el carrito.
+ * Actualiza el indicador numérico de cantidad total de productos en el carrito.
  */
 function actualizarCarritoCantidad() {
   const total = carrito.reduce((sum, item) => sum + item.cantidad, 0);
@@ -366,7 +365,8 @@ function actualizarCarritoCantidad() {
 }
 
 /**
- * Muestra el modal del carrito de compras.
+ * Renderiza y muestra el modal del carrito de compras con la tabla de productos.
+ * Agrega oyentes de eventos para modificar cantidades o eliminar productos.
  */
 function mostrarCarrito() {
   if (carrito.length === 0) {
@@ -445,7 +445,7 @@ function mostrarCarrito() {
 }
 
 /**
- * Actualiza el estado del botón de cotizar según el contenido del carrito.
+ * Habilita o deshabilita el botón de cotizar basándose en si el carrito tiene productos.
  */
 function actualizarBotonCotizar() {
   const btn = document.getElementById('cotizar-pdf');
@@ -463,7 +463,7 @@ function actualizarBotonCotizar() {
 btnVerCarrito.addEventListener('click', () => {
   mostrarCarrito();
 
-  // Restablecer campos
+  // Restablecer campos del formulario
   const codigoPais = document.getElementById('codigo-pais');
   const telefonoInput = document.getElementById('telefono-cliente');
   const emailInput = document.getElementById('email-cliente');
@@ -474,11 +474,11 @@ btnVerCarrito.addEventListener('click', () => {
   if (codigoPais) codigoPais.value = '52';
   if (telefonoInput) telefonoInput.value = '';
   if (emailInput) emailInput.value = '';
-  // Auto-fill Type based on cart content
+  // Auto-rellenar tipo basado en el contenido del carrito
   if (tipoCotizacion) {
-    // Check if any item is for 'Renta'
+    // Comprobar si algún item es para 'Renta'
     const hayRenta = carrito && carrito.some(i => i.proposito && i.proposito.toLowerCase().includes('renta'));
-    // Default to 'Compra' unless 'Renta' is detected
+    // Por defecto 'Compra' a menos que se detecte 'Renta'
     tipoCotizacion.value = hayRenta ? 'Renta' : 'Compra';
   }
   const aceptaDatos = document.getElementById('acepta-datos');
@@ -510,7 +510,7 @@ btnVerCarrito.addEventListener('click', () => {
   // Asegurar estado inicial correcto según el valor actual del select
   if (tipoCotizacion) actualizarCampoDescripcion(tipoCotizacion.value);
 
-  // ensure modal opens with the shared helper so overlay + box style apply
+  // Asegurar que el modal se abre con los estilos compartidos
   openModal(modalCarrito);
 });
 
@@ -541,8 +541,9 @@ function actualizarCampoDescripcion(tipoCotizacion) {
 }
 
 /**
- * Devuelve una lista de campos obligatorios que faltan o son inválidos (etiquetas en texto).
- * @returns {string[]} lista de nombres de campos que faltan
+ * Devuelve una lista de nombres de campos obligatorios que faltan o son inválidos.
+ * Usado para feedback al usuario.
+ * @returns {string[]} Lista de etiquetas de campos faltantes.
  */
 function camposFaltantes() {
   const faltan = [];
@@ -583,14 +584,14 @@ btnAgregarCarrito.addEventListener('click', () => {
 });
 
 /**
- * Guarda el carrito de compras en localStorage.
+ * Guarda el carrito actual en localStorage.
  */
 function guardarCarrito() {
   localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
 /**
- * Carga el carrito de compras desde localStorage.
+ * Carga el carrito desde localStorage, si existe.
  */
 function cargarCarrito() {
   const data = localStorage.getItem('carrito');
@@ -624,7 +625,7 @@ const longitudesTelefono = {
 };
 
 /**
- * Actualiza el atributo maxlength del input de teléfono según el país seleccionado.
+ * Actualiza el atributo maxlength del input de teléfono según el código de país seleccionado.
  */
 function actualizarMaxlength() {
   const codigo = codigoPais.value;
@@ -644,7 +645,7 @@ codigoPais.addEventListener('change', () => {
 actualizarMaxlength();
 
 /**
- * Valida los campos del formulario de cotización y habilita/deshabilita el botón de cotizar.
+ * Valida todos los campos del formulario de cotización y habilita o deshabilita el botón de envío.
  */
 function validarCamposCotizacion() {
   const nombreInput = document.getElementById('nombre-cliente');
@@ -657,7 +658,7 @@ function validarCamposCotizacion() {
   // Validar nombre
   const nombreValido = nombreInput.value.trim().length > 0;
 
-  // Validar email (opcional)
+  // Validar email (opcional pero chequea formato si existe)
   const emailValue = emailInput.value.trim();
   const emailValido = !emailValue || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
 
@@ -710,10 +711,9 @@ function validarCamposCotizacion() {
 });
 
 /**
- * Verifica que los campos obligatorios (sin contar el checkbox de consentimiento)
- * estén completos y con formato válido. Esto controla si el checkbox puede
- * habilitarse para que el usuario lo marque.
- * @returns {boolean}
+ * Verifica si los campos obligatorios (excluyendo el consentimiento) están completos y válidos.
+ * Controla si el checkbox de consentimiento debe habilitarse.
+ * @returns {boolean} True si los campos requeridos están llenos y válidos.
  */
 function camposObligatoriosLlenos() {
   const nombreInput = document.getElementById('nombre-cliente');
@@ -737,9 +737,8 @@ function camposObligatoriosLlenos() {
 }
 
 /**
- * Habilita o deshabilita el checkbox de consentimiento según si los campos
- * obligatorios están completos. También actualiza el estado del botón de
- * cotizar a través de validarCamposCotizacion.
+ * Actualiza el estado del checkbox de consentimiento (habilitado/deshabilitado)
+ * y muestra mensajes de ayuda si faltan campos.
  */
 function actualizarEstadoConsentimiento() {
   const acepta = document.getElementById('acepta-datos');
@@ -777,16 +776,14 @@ function actualizarEstadoConsentimiento() {
   if (el) el.addEventListener('change', actualizarEstadoConsentimiento);
 });
 
-// Si el checkbox existe, su cambio ya influye en validarCamposCotizacion via el listener agregado más arriba.
-
-// Also attach validator to the consent checkbox if present
+// Adjuntar validación al checkbox de consentimiento por separado
 const aceptaEl = document.getElementById('acepta-datos');
 if (aceptaEl) {
   aceptaEl.addEventListener('change', (e) => {
     try {
       if (e.target.checked) sessionStorage.setItem('consent_given', '1');
       else sessionStorage.removeItem('consent_given');
-    } catch (err) { /* ignore storage errors */ }
+    } catch (err) { /* ignorar errores de almacenamiento */ }
     validarCamposCotizacion();
   });
 }
@@ -794,7 +791,7 @@ if (aceptaEl) {
 let isSubmitting = false;
 
 btnCotizarPDF.addEventListener('click', async (e) => {
-  if (isSubmitting) return; // Prevent double submission
+  if (isSubmitting) return; // Prevenir doble envío
   isSubmitting = true;
   btnCotizarPDF.disabled = true;
   btnCotizarPDF.textContent = 'Generando cotización...';
@@ -818,7 +815,9 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     return;
   }
 
-  // Ya no requerimos productos en el carrito
+  // Ya no requerimos productos en el carrito para cotizaciones de servicios puros,
+  // pero el botón probablemente estaría deshabilitado si el carrito está vacío en la lógica actual.
+  // Suponemos que la validación anterior del botón cubre esto.
   const tipoCotizacion = document.getElementById('tipo-cotizacion');
   if (!tipoCotizacion.value) {
     showToast('Por favor seleccione el tipo de cotización.');
@@ -893,14 +892,15 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     const BACKEND_QUOTE_URL = import.meta.env.VITE_API_URL?.replace('/routes/productos', '/routes/quote') || 'http://localhost:4000/routes/quote';
 
     const emailCliente = document.getElementById('email-cliente').value.trim();
-    const tipoCotizacion = document.getElementById('tipo-cotizacion').value;
+    // Re-leer tipo por si cambió
+    const tipoCotizacionValor = document.getElementById('tipo-cotizacion').value;
 
     const requestData = {
       carrito: carritoParaEnviar,
       nombre: nombreCliente,
       telefono: telefonoCliente,
       email: emailCliente,
-      tipo_cotizacion: tipoCotizacion,
+      tipo_cotizacion: tipoCotizacionValor,
       servicio,
       destinoCorreo,
       descripcion
@@ -924,7 +924,6 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       throw new Error('No se pudo generar el PDF');
     }
 
-
     const responseData = await pdfResponse.json();
 
     if (!responseData.pdfBase64) {
@@ -946,47 +945,28 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     const iframePDF = document.getElementById('iframe-pdf');
     const btnDescargarPDF = document.getElementById('descargar-pdf');
 
-
     iframePDF.src = url;
     openModal(modalPDF);
 
-    // Prepare filename and blob for sharing
+    // Preparar nombre de archivo y blob para compartir
     const fileName = `NT_Cotizacion_${(nombreCliente || 'cotizacion').replace(/\s+/g, '_')}.pdf`;
-    const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
 
-    // Download handler
+    // Manejador de descarga
     btnDescargarPDF.onclick = () => {
       const a = document.createElement('a');
       a.href = url;
       a.download = fileName;
       a.click();
-      // Después de la descarga, revocar el URL y recargar para reiniciar la interfaz
+      // Después de la descarga, revocar el URL y recargar para reiniciar la interfaz y limpiar carrito
       setTimeout(() => {
         try { URL.revokeObjectURL(url); } catch (e) { /* ignore */ }
         window.location.reload();
       }, 700);
     };
 
-    // New: Send via client (try Web Share API with files). If not possible, SEND via server automatically.
+    // Nuevo: Enviar vía cliente o Servidor.
     const btnEnviarPorCorreo = document.getElementById('enviar-por-correo');
     btnEnviarPorCorreo.onclick = async () => {
-      const subject = `Cotización - ${nombreCliente || ''}`;
-      const bodyLines = [];
-      bodyLines.push(`Hola,`);
-      bodyLines.push('Adjunto encontrará la cotización solicitada.');
-      bodyLines.push('');
-      bodyLines.push(`Cliente: ${nombreCliente || ''}`);
-      bodyLines.push(`Teléfono: ${telefonoCliente || ''}`);
-      bodyLines.push(`Tipo: ${tipoCotizacion || ''}`);
-      if (descripcion) bodyLines.push('');
-      if (descripcion) bodyLines.push(`Descripción: ${descripcion}`);
-      bodyLines.push('');
-      bodyLines.push('Saludos,\nNeumatics Tool');
-      const body = bodyLines.join('\n');
-
-      // Nota: suprimimos el intento de abrir el cliente de correo (Web Share/mailto)
-      // para forzar que el backend realice el envío. Se evita redirigir al mailto.
-
       // Fallback: enviar automáticamente desde el servidor usando la función
       // centralizada `enviarCotizacionBackend` que delega al endpoint `/send`.
       try {
@@ -1004,23 +984,22 @@ btnCotizarPDF.addEventListener('click', async (e) => {
           descripcion
         });
 
-        const sendJson = await sendRes.json().catch(() => null);
+        // const sendJson = await sendRes.json().catch(() => null); // No usado actualmente
         if (!sendRes.ok) {
           showToast('No se pudo enviar desde el servidor. Intente descargar y enviar manualmente.');
-          // fallback: allow user to download
+          // fallback: permitir al usuario descargar
           const a = document.createElement('a');
           a.href = url;
           a.download = fileName;
           a.click();
         } else {
-
           showToast('Correo enviado correctamente desde el servidor.', 10000);
           closeModal(modalPDF);
           // Reiniciar carrito en memoria y en localStorage antes de recargar
           try {
             carrito = [];
-            localStorage.removeItem('carrito'); // Explicitly remove cart from localStorage
-            guardarCarrito(); // Save empty cart
+            localStorage.removeItem('carrito'); // Eliminar explícitamente el carrito
+            guardarCarrito(); // Guardar carrito vacío
             actualizarCarritoCantidad();
             actualizarBotonCotizar();
           } catch (e) { /* ignore */ }
@@ -1028,7 +1007,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
           setTimeout(() => {
             try { URL.revokeObjectURL(url); } catch (e) { /* ignore */ }
             window.location.reload();
-          }, 1500); // Increased delay to ensure cart clearing is visible
+          }, 1500); // Retardo aumentado para asegurar que el usuario vea el toast
         }
       } catch (err) {
         showToast('Error en envío automático. Descargue el PDF y envíe manualmente.');
@@ -1046,7 +1025,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
 
     // Nota: no recargamos ni cerramos la interfaz aquí. La recarga se realiza
     // únicamente después de que el usuario descargue el PDF o el servidor
-    // confirme el envío del correo (ver handlers arriba).
+    // confirme el envío del correo.
   } catch (err) {
     showToast('No se pudo generar la previsualización del PDF.');
     isSubmitting = false;
@@ -1056,7 +1035,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
 });
 
 /**
- * Filtra los productos según la marca y propósito seleccionados.
+ * Filtra los productos según la marca, propósito y tipo seleccionados.
  * @param {Array} productos - Array de productos.
  * @param {boolean} [actualizarURL=true] - Indica si se debe actualizar la URL con los parámetros de filtro.
  */
@@ -1091,15 +1070,14 @@ function filtrar(productos, actualizarURL = true) {
     (tipo === '' || (p.tipo && p.tipo === tipo))
   );
 
-  // Actualizar opciones de filtros dependientes: cuando hay una marca seleccionada,
-  // los otros selects deben mostrar sólo opciones que existen para esa marca.
+  // Actualizar opciones de filtros dependientes
   actualizarFiltrosDependientes(productos);
 
   mostrarProductos(filtrados);
 }
 
 /**
- * Aplica los filtros desde los parámetros de la URL.
+ * Lee los parámetros de la URL y aplica los filtros correspondientes al cargar la página.
  */
 function aplicarFiltrosDesdeURL() {
   const params = new URLSearchParams(window.location.search);
@@ -1119,12 +1097,11 @@ function aplicarFiltrosDesdeURL() {
 }
 
 /**
- * Actualiza las opciones de los filtros dependientes con base en la marca seleccionada.
- * Si no hay marca seleccionada, restaura todas las opciones previamente cargadas.
- * @param {Array} productos
- * @param {string} marcaSeleccionada
+ * Actualiza la visibilidad de las opciones de los filtros basándose en la selección actual
+ * para asegurar que solo se muestren combinaciones válidas.
+ * @param {Array} productos - La lista completa de productos.
  */
-function actualizarFiltrosDependientes(productos, marcaSeleccionada) {
+function actualizarFiltrosDependientes(productos) {
   // Tomar selecciones actuales
   const selMarca = filtroMarca ? filtroMarca.value : '';
   const selProposito = filtroProposito ? filtroProposito.value : '';
@@ -1135,24 +1112,21 @@ function actualizarFiltrosDependientes(productos, marcaSeleccionada) {
   const tiposValidos = new Set();
 
   productos.forEach(p => {
-    // Para que una marca sea válida, debe existir al menos un producto que cumpla
-    // con las otras dos selecciones (proposito y tipo)
+    // Validar marca
     if ((selProposito === '' || p.proposito === selProposito) && (selTipo === '' || p.tipo === selTipo)) {
       if (p.marca) marcasValidos.add(p.marca);
     }
-    // Para que un propósito sea válido, debe existir al menos un producto que cumpla
-    // con las otras dos selecciones (marca y tipo)
+    // Validar propósito
     if ((selMarca === '' || p.marca === selMarca) && (selTipo === '' || p.tipo === selTipo)) {
       if (p.proposito) propositosValidos.add(p.proposito);
     }
-    // Para que un tipo sea válido, debe existir al menos un producto que cumpla
-    // con las otras dos selecciones (marca y propósito)
+    // Validar tipo
     if ((selMarca === '' || p.marca === selMarca) && (selProposito === '' || p.proposito === selProposito)) {
       if (p.tipo) tiposValidos.add(p.tipo);
     }
   });
 
-  // Función auxiliar para filtrar opciones de un select (mantener opción vacía)
+  // Función auxiliar para filtrar opciones de un elemento select
   function filtrarSelect(selectEl, validSet) {
     if (!selectEl) return;
     const options = Array.from(selectEl.options);
@@ -1164,11 +1138,10 @@ function actualizarFiltrosDependientes(productos, marcaSeleccionada) {
         opt.style.display = '';
       }
     });
-    // Si la opción actualmente seleccionada quedó oculta, resetear al valor vacío
+    // Si la opción seleccionada quedó oculta, resetear.
     const currentOption = selectEl.querySelector(`option[value="${selectEl.value}"]`);
     if (selectEl.value && currentOption && currentOption.style.display === 'none') {
       selectEl.value = '';
-      // If tipo changed due to being invalidated, update localStorage
       if (selectEl === filtroTipo) {
         try { localStorage.removeItem('filtro_tipo'); } catch (e) { /* ignore */ }
       }
@@ -1185,13 +1158,13 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Envía la cotización al backend.
- * @param {object} data - Datos de la cotización.
- * @returns {Promise<Response>} - Respuesta del fetch.
+ * Envía la solicitud de cotización al endpoint del backend.
+ * @param {object} data - Datos de la cotización a enviar.
+ * @returns {Promise<Response>} - Promesa con la respuesta del servidor.
  */
 async function enviarCotizacionBackend({ carrito, nombre, telefono, email, servicio, destinoCorreo, descripcion }) {
   // Delegar completamente al backend: el servidor se encargará de generar el PDF
-  // y de enviar el correo (usando puertos/servicios configurados en render).
+  // y de enviar el correo.
   const carritoSimplificado = carrito.map(item => ({
     id: item.id,
     nombre: item.nombre_producto || item.nombre,
@@ -1237,7 +1210,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
     const savedTipo = localStorage.getItem('filtro_tipo');
     if (!params.get('tipo') && savedTipo && filtroTipo) {
-      // Solo asignar si la opción existe en el select para evitar valores inválidos
+      // Solo asignar si la opción existe
       if (Array.from(filtroTipo.options).some(o => o.value === savedTipo)) {
         filtroTipo.value = savedTipo;
       }
@@ -1247,9 +1220,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   filtrar(productos, false);
-  // Ensure description field initial state matches the current select value
-  // (hide if none selected). This prevents the description from showing
-  // on modal open due to any race conditions.
+  // Asegurar que el estado inicial del campo descripción coincida con el valor actual del select
   actualizarCampoDescripcion(document.getElementById('tipo-cotizacion')?.value || '');
   loader.style.display = 'none';
   grid.style.display = '';
@@ -1263,9 +1234,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 /**
- * Muestra una notificación tipo toast.
- * @param {string} msg - Mensaje a mostrar.
- * @param {number} [duration=5500] - Duración del toast en milisegundos.
+ * Muestra una notificación emergente (toast) en la interfaz.
+ * @param {string} msg - El mensaje a mostrar.
+ * @param {number} [duration=5500] - Duración en milisegundos antes de desaparecer.
  */
 function showToast(msg, duration = 5500) {
   const container = document.getElementById('toast-container');
@@ -1281,14 +1252,14 @@ function showToast(msg, duration = 5500) {
 }
 
 /**
- * Actualiza el catálogo automáticamente cada 30 segundos.
+ * Actualiza el catálogo de productos periódicamente.
  */
 setInterval(() => {
   actualizarCatalogo();
 }, 30000); // 30,000 ms = 30 segundos
 
 /**
- * Obtiene los productos y actualiza el catálogo.
+ * Obtiene nuevamente los productos del servidor y actualiza la interfaz, preservando filtros.
  */
 async function actualizarCatalogo() {
   const marcaActual = filtroMarca.value;
@@ -1308,7 +1279,7 @@ async function actualizarCatalogo() {
 
   filtroMarca.value = marcaActual;
   filtroProposito.value = propositoActual;
-  // Restaurar selección de 'tipo' (preferir la selección actual, si existe; sino usar localStorage)
+  // Restaurar selección de 'tipo'
   if (filtroTipo) {
     const tipoToRestore = tipoActual || localStorage.getItem('filtro_tipo') || '';
     if (tipoToRestore && Array.from(filtroTipo.options).some(o => o.value === tipoToRestore)) {
@@ -1327,8 +1298,6 @@ const descripcionServicio = document.getElementById('descripcion-servicio');
 if (servicioSelect) {
   servicioSelect.addEventListener('change', () => {
     // Reutilizar la función central que controla visibilidad y required
-    // Mapear el valor del select 'servicio-solicitado' a la etiqueta usada
-    // por el select 'tipo-cotizacion' para mantener coherencia.
     if (servicioSelect.value === 'servicio') {
       actualizarCampoDescripcion('Servicio de mantenimiento');
     } else {
@@ -1343,8 +1312,8 @@ cerrarModalCarrito.addEventListener('click', () => {
 });
 
 /**
- * Muestra una notificación cuando un producto es agregado al carrito.
- * @param {object} producto - El objeto producto.
+ * Muestra una notificación visual en la esquina cuando se agrega un producto al carrito.
+ * @param {object} producto - El producto agregado.
  * @param {number} cantidad - La cantidad agregada.
  */
 function mostrarNotificacionProducto(producto, cantidad) {

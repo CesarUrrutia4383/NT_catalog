@@ -1,17 +1,22 @@
 /*
-  Robust modal-help initializer
-  - Ensures a single modal exists (injects if missing)
-  - Attaches listeners after DOM ready
-  - Handles opening/closing from any page (header/footer links)
-  - Locks body scroll when modal is open and restores it on close
-  - Re-queries modal elements at runtime to avoid stale refs
+  Inicializador robusto del modal de ayuda
+  - Asegura que exista un único modal (lo inyecta si falta)
+  - Adjunta oyentes después de que el DOM esté listo
+  - Maneja la apertura/cierre desde cualquier página (enlaces en encabezado/pie de página)
+  - Bloquea el desplazamiento del cuerpo cuando el modal está abierto y lo restaura al cerrar
+  - Vuelve a consultar los elementos del modal en tiempo de ejecución para evitar referencias obsoletas
 */
 
 const HELP_PDF_PATH = '/assets/pdf/ayuda.pdf';
 
+/**
+ * Asegura que el modal de ayuda exista en el DOM.
+ * Si no existe, lo crea e inyecta junto con sus estilos.
+ * @returns {Promise<void>} Promesa que se resuelve cuando el modal está listo.
+ */
 function ensureHelpModal() {
   return new Promise((resolve) => {
-    // Add base styles if they don't exist
+    // Agregar estilos base si no existen
     if (!document.getElementById('modal-help-styles')) {
       const styleSheet = document.createElement('style');
       styleSheet.id = 'modal-help-styles';
@@ -61,7 +66,7 @@ function ensureHelpModal() {
       document.head.appendChild(styleSheet);
     }
 
-    // Check if modal exists
+    // Comprobar si el modal ya existe
     if (document.getElementById('modal-pdf')) {
       resolve();
       return;
@@ -79,12 +84,12 @@ function ensureHelpModal() {
       </div>
     `;
 
-    // Ensure body exists before adding modal
+    // Asegurar que el body exista antes de agregar el modal
     if (document.body) {
       document.body.insertAdjacentHTML('beforeend', modalHTML);
       resolve();
     } else {
-      // If body doesn't exist yet, wait for it
+      // Si el body aún no existe, esperar por él
       const observer = new MutationObserver((mutations, obs) => {
         if (document.body) {
           document.body.insertAdjacentHTML('beforeend', modalHTML);
@@ -92,7 +97,7 @@ function ensureHelpModal() {
           resolve();
         }
       });
-      
+
       observer.observe(document.documentElement, {
         childList: true,
         subtree: true
@@ -101,29 +106,39 @@ function ensureHelpModal() {
   });
 }
 
+/**
+ * Bloquea el desplazamiento del cuerpo de la página.
+ */
 function lockBodyScroll() {
   document.documentElement.style.overflow = 'hidden';
   document.body.style.overflow = 'hidden';
 }
 
+/**
+ * Desbloquea el desplazamiento del cuerpo de la página.
+ */
 function unlockBodyScroll() {
   document.documentElement.style.overflow = '';
   document.body.style.overflow = '';
 }
 
+/**
+ * Abre el modal de ayuda cargando el PDF correspondiente.
+ * @param {Event} e - El evento que disparó la acción.
+ */
 function openHelpModal(e) {
   if (e && e.preventDefault) e.preventDefault();
-  // Ensure modal exists (will inject if missing)
+  // Asegurar que el modal existe (inyectarlo si falta)
   ensureHelpModal();
 
-  // Open the PDF help modal (consistent behavior with catalog.html)
+  // Abrir el modal de ayuda PDF (comportamiento consistente)
   const modal = document.getElementById('modal-pdf');
   const iframe = document.getElementById('iframe-pdf');
   const descargar = document.getElementById('descargar-pdf');
   const cerrar = document.getElementById('cerrar-modal-pdf');
 
   if (iframe) {
-    // set src only when opening to avoid preloading issues
+    // Establecer src solo al abrir para evitar problemas de precarga
     iframe.src = HELP_PDF_PATH;
   }
 
@@ -139,22 +154,25 @@ function openHelpModal(e) {
     lockBodyScroll();
   }
 
-  // attach/refresh close handlers
+  // Adjuntar/refrescar manejadores de cierre
   if (cerrar) {
-    cerrar.onclick = function(evt) {
+    cerrar.onclick = function (evt) {
       evt.stopPropagation();
       closeHelpModal();
     };
   }
 
-  // clicking overlay closes
+  // Cerrar al hacer clic en la superposición (overlay)
   if (modal) {
-    modal.onclick = function(evt) {
+    modal.onclick = function (evt) {
       if (evt.target === modal) closeHelpModal();
     };
   }
 }
 
+/**
+ * Cierra el modal de ayuda.
+ */
 function closeHelpModal() {
   const modal = document.getElementById('modal-pdf');
   const iframe = document.getElementById('iframe-pdf');
@@ -167,34 +185,37 @@ function closeHelpModal() {
   unlockBodyScroll();
 }
 
+/**
+ * Inicializa los enlaces de ayuda y eventos globales.
+ */
 function initHelpBindings() {
   ensureHelpModal();
 
   const helpLinks = document.querySelectorAll('[id^="link-ayuda"]');
   helpLinks.forEach(link => {
     if (!link) return;
-    // ensure single listener
+    // Asegurar oyente único
     link.removeEventListener('click', openHelpModal);
     link.addEventListener('click', openHelpModal);
   });
 
-  // ensure close button (in case modal existed in DOM already)
+  // Asegurar botón de cierre (en caso de que el modal ya existiera en el DOM)
   const cerrar = document.getElementById('cerrar-modal-pdf');
   if (cerrar) cerrar.onclick = (e) => { e.stopPropagation(); closeHelpModal(); };
 
-  // also allow ESC to close
-  window.addEventListener('keydown', function(e) {
+  // Permitir cerrar con tecla ESC
+  window.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeHelpModal();
   });
 }
 
-// Initialize when DOM is ready and modal exists
+// Inicializar cuando el DOM esté listo y el modal exista
 async function init() {
   await ensureHelpModal(); // Esperar a que el modal exista
   initHelpBindings();     // Luego adjuntar los listeners
 }
 
-// Function to attach help link handlers
+// Función para adjuntar manejadores a los enlaces de ayuda
 function attachHelpLinkHandlers() {
   const helpLinks = document.querySelectorAll('[id^="link-ayuda"]');
   helpLinks.forEach(link => {
@@ -205,7 +226,7 @@ function attachHelpLinkHandlers() {
   });
 }
 
-// Run initialization
+// Ejecutar inicialización
 function tryInit() {
   init().then(() => {
     attachHelpLinkHandlers();
@@ -218,7 +239,7 @@ if (document.readyState === 'loading') {
   tryInit();
 }
 
-// Also watch for dynamically added help links
+// Observar también enlaces de ayuda agregados dinámicamente
 const observer = new MutationObserver((mutations) => {
   for (const mutation of mutations) {
     if (mutation.addedNodes.length) {
@@ -227,7 +248,7 @@ const observer = new MutationObserver((mutations) => {
   }
 });
 
-// Start observing once DOM is ready
+// Comenzar a observar una vez que el DOM esté listo
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     observer.observe(document.body, {
