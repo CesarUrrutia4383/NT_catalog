@@ -998,6 +998,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
           carrito: carritoParaEnviar,
           nombre: nombreCliente,
           telefono: telefonoCliente,
+          email: emailCliente,
           servicio,
           destinoCorreo: destinoCorreo,
           descripcion
@@ -1188,7 +1189,7 @@ window.addEventListener('DOMContentLoaded', () => {
  * @param {object} data - Datos de la cotización.
  * @returns {Promise<Response>} - Respuesta del fetch.
  */
-async function enviarCotizacionBackend({ carrito, nombre, telefono, servicio, destinoCorreo, descripcion }) {
+async function enviarCotizacionBackend({ carrito, nombre, telefono, email, servicio, destinoCorreo, descripcion }) {
   // Delegar completamente al backend: el servidor se encargará de generar el PDF
   // y de enviar el correo (usando puertos/servicios configurados en render).
   const carritoSimplificado = carrito.map(item => ({
@@ -1203,6 +1204,7 @@ async function enviarCotizacionBackend({ carrito, nombre, telefono, servicio, de
     carrito: carritoSimplificado,
     nombre,
     telefono,
+    email,
     servicio,
     destinoCorreo,
     descripcion: descripcion || ''
