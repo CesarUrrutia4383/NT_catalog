@@ -508,6 +508,107 @@ Description: Contact page of the Neumatics Tool website, where the different bra
   <script type="module" src="/src/main.js"></script>
   <script>
     /**
+     * @fileoverview Lógica para el carrusel de la página de contacto (Inline).
+     */
+    (function () {
+      // Función de inicialización
+      function initContactCarousel() {
+        console.log('Iniciando carrusel de contacto (inline)...');
+        const carruselContainer = document.querySelector('.sucursales-carrusel');
+
+        if (!carruselContainer) {
+          console.warn('Contenedor del carrusel no encontrado');
+          return;
+        }
+
+        const slides = Array.from(document.querySelectorAll('.carrusel-slide'));
+        const sucursales = Array.from(document.querySelectorAll('.sucursal'));
+
+        if (slides.length === 0 || sucursales.length === 0) {
+          console.warn('Slides o sucursales no encontradas');
+          return;
+        }
+
+        let currentIndex = 0;
+        let intervalId;
+        const intervalTime = 4000;
+
+        function showSlide(index) {
+          if (index >= slides.length) index = 0;
+          if (index < 0) index = slides.length - 1;
+
+          currentIndex = index;
+
+          // Resetear todos
+          slides.forEach(slide => {
+            slide.classList.remove('active');
+            // Forzar estilos inline para asegurar visibilidad
+            slide.style.opacity = '0';
+            slide.style.zIndex = '0';
+            slide.style.position = 'absolute';
+            slide.style.top = '0';
+            slide.style.left = '0';
+            slide.style.width = '100%';
+            slide.style.height = '100%';
+            slide.style.pointerEvents = 'none';
+            slide.style.transition = 'opacity 0.5s ease-in-out';
+          });
+          sucursales.forEach(sucursal => sucursal.classList.remove('active'));
+
+          // Activar actual
+          if (slides[currentIndex]) {
+            slides[currentIndex].classList.add('active');
+            slides[currentIndex].style.opacity = '1';
+            slides[currentIndex].style.zIndex = '10';
+            slides[currentIndex].style.pointerEvents = 'auto';
+            // Remover filtro de AOS si existe para evitar conflictos
+            slides[currentIndex].removeAttribute('data-aos');
+            slides[currentIndex].style.visibility = 'visible';
+          }
+          if (sucursales[currentIndex]) {
+            sucursales[currentIndex].classList.add('active');
+          }
+        }
+
+        function startTimer() {
+          stopTimer();
+          intervalId = setInterval(() => {
+            showSlide(currentIndex + 1);
+          }, intervalTime);
+        }
+
+        function stopTimer() {
+          if (intervalId) clearInterval(intervalId);
+        }
+
+        // Event Listeners
+        sucursales.forEach((sucursal, index) => {
+          sucursal.style.cursor = 'pointer'; // Asegurar cursor de mano
+          sucursal.addEventListener('click', () => {
+            console.log('Click en sucursal:', index);
+            stopTimer();
+            showSlide(index);
+            startTimer();
+          });
+        });
+
+        // Inicializar
+        const initialActive = slides.findIndex(s => s.classList.contains('active'));
+        currentIndex = initialActive >= 0 ? initialActive : 0;
+        showSlide(currentIndex);
+        startTimer();
+      }
+
+      // Ejecutar
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initContactCarousel);
+      } else {
+        initContactCarousel();
+      }
+    })();
+  </script>
+  <script>
+    /**
      * @fileoverview Script para animar los logos de las marcas.
      * @author Neumatics Tool
      */
