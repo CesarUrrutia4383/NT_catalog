@@ -40,7 +40,13 @@ function initContactCarousel() {
             slide.classList.remove('active');
             slide.style.opacity = '0';
             slide.style.zIndex = '0';
-            slide.style.transition = 'opacity 1s ease-in-out'; // Asegurar transición suave
+            slide.style.pointerEvents = 'none'; // Evitar clics en slides invisibles
+            slide.style.transition = 'opacity 0.5s ease-in-out';
+            slide.style.position = 'absolute'; // Asegurar posición absoluta
+            slide.style.top = '0';
+            slide.style.left = '0';
+            slide.style.width = '100%';
+            slide.style.height = '100%';
         });
         sucursales.forEach(sucursal => sucursal.classList.remove('active'));
 
@@ -49,6 +55,7 @@ function initContactCarousel() {
             slides[currentIndex].classList.add('active');
             slides[currentIndex].style.opacity = '1';
             slides[currentIndex].style.zIndex = '10';
+            slides[currentIndex].style.pointerEvents = 'auto';
         }
         if (sucursales[currentIndex]) sucursales[currentIndex].classList.add('active');
     }
