@@ -5,14 +5,21 @@
 
 /* Logo de la página en el catálogo */
 .logo-page {
-  position: absolute;       /* o fixed, según conveniencia */
-  top: 40px;                /* ajusta según donde quieres que aparezca */
-  left: 50%;                /* para centrar horizontalmente */
+  position: absolute;
+  /* o fixed, según conveniencia */
+  top: 40px;
+  /* ajusta según donde quieres que aparezca */
+  left: 50%;
+  /* para centrar horizontalmente */
   transform: translateX(-50%);
-  width: 250px;             /* ajusta tamaño */
-  opacity: 0.1;             /* muy tenue para que no opaque */
-  z-index: 1;               /* valor bajo para que quede atrás */
-  pointer-events: none;     /* para que no interfiera con clicks */
+  width: 250px;
+  /* ajusta tamaño */
+  opacity: 0.1;
+  /* muy tenue para que no opaque */
+  z-index: 1;
+  /* valor bajo para que quede atrás */
+  pointer-events: none;
+  /* para que no interfiera con clicks */
 }
 
 /* Contenedor principal del catálogo */
@@ -21,7 +28,8 @@
   z-index: 0;
   padding: 20px;
   background: linear-gradient(135deg, #fffaf4, #fff);
-  margin: 10px auto 60px auto; /* espacio superior para evitar solapamiento con el header */
+  margin: 10px auto 60px auto;
+  /* espacio superior para evitar solapamiento con el header */
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
@@ -87,7 +95,7 @@
   background: #ffffff;
   border-radius: 20px;
   padding: 25px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.07);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.07);
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
   border: 2px solid transparent;
@@ -122,7 +130,8 @@
   /* Small square thumbnails that behave like 1080x1080 source images but display small in cards */
   aspect-ratio: 1 / 1;
   height: auto;
-  max-width: 220px; /* keeps the thumbnail compact */
+  max-width: 220px;
+  /* keeps the thumbnail compact */
   overflow: hidden;
   border-radius: 12px;
   background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
@@ -130,45 +139,63 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto; /* center the thumbnail in the card */
+  margin: 0 auto;
+  /* center the thumbnail in the card */
 }
+
 .producto .producto-imagen img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* fill container and avoid empty side spaces */
-  object-position: center center; /* focus center when cropping */
+  object-fit: cover;
+  /* fill container and avoid empty side spaces */
+  object-position: center center;
+  /* focus center when cropping */
   display: block;
   transition: transform 0.35s ease;
 }
-.producto .producto-imagen img:hover { transform: scale(1.04); }
+
+.producto .producto-imagen img:hover {
+  transform: scale(1.04);
+}
 
 /* Fallback for existing markup where images are direct children of .producto
    This keeps changes CSS-only (no template edits). */
-.producto > img,
+.producto>img,
 .producto img {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1; /* enforce square */
+  aspect-ratio: 1 / 1;
+  /* enforce square */
   height: auto;
   max-width: 220px;
-  object-fit: cover; /* remove empty side spaces and fill container */
-  object-position: center center; /* focus center when cropping */
+  object-fit: cover;
+  /* remove empty side spaces and fill container */
+  object-position: center center;
+  /* focus center when cropping */
   border-radius: 12px;
   border: 3px solid #ff8f1c;
   background: linear-gradient(135deg, #fff7e6 0%, #fff0d6 100%);
   transition: transform 0.35s ease;
-  margin: 0 auto; /* center thumbnail in card */
+  margin: 0 auto;
+  /* center thumbnail in card */
 }
-.producto > img:hover,
-.producto img:hover { transform: scale(1.04); }
+
+.producto>img:hover,
+.producto img:hover {
+  transform: scale(1.04);
+}
 
 @media (max-width: 480px) {
-  .producto > img,
-  .producto img { max-width: 160px; }
+
+  .producto>img,
+  .producto img {
+    max-width: 160px;
+  }
 }
 
 .producto img::before {
-  content: none; /* Removed to eliminate black line on left */
+  content: none;
+  /* Removed to eliminate black line on left */
 }
 
 .producto img:hover {
@@ -201,8 +228,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Modal de producto ampliado */
@@ -214,7 +246,8 @@
   bottom: 0 !important;
   width: 100vw !important;
   min-height: 100vh !important;
-  background: rgba(255, 255, 255, 0.95) !important; /* Changed from dark to light transparent */
+  background: rgba(255, 255, 255, 0.95) !important;
+  /* Changed from dark to light transparent */
   z-index: 2000 !important;
   display: flex;
   align-items: center;
@@ -222,21 +255,26 @@
   overflow-y: auto !important;
   padding: 20px;
 }
+
 /* Fondo y estilo del modal del carrito */
 .modal-contenido {
-  background: #fff; /* Changed to pure white for warm look */
+  background: #fff;
+  /* Changed to pure white for warm look */
   border-radius: 18px;
   padding: 2.2rem 1.5rem 1.5rem 1.5rem;
   max-width: 480px;
   width: 96vw;
-  box-shadow: 0 0 15px 3px rgba(255, 143, 28, 0.3); /* Warm orange glow */
-  border: 2px solid #ff8f1c; /* Orange border */
+  box-shadow: 0 0 15px 3px rgba(255, 143, 28, 0.3);
+  /* Warm orange glow */
+  border: 2px solid #ff8f1c;
+  /* Orange border */
   position: relative;
   text-align: center;
   margin: 0 auto;
   max-height: 90vh;
   overflow-y: auto;
 }
+
 .modal-cerrar {
   position: absolute;
   top: 15px;
@@ -244,8 +282,10 @@
   font-size: 2rem;
   color: #ff8f1c;
   cursor: pointer;
-  z-index: 100; /* Asegura que el botón esté siempre encima */
+  z-index: 100;
+  /* Asegura que el botón esté siempre encima */
 }
+
 /* Ajuste de campos en el modal del carrito */
 .modal-acciones {
   display: flex;
@@ -255,7 +295,9 @@
   gap: 0.7rem;
   margin-bottom: 0.5rem;
 }
-#nombre-cliente, #telefono-cliente {
+
+#nombre-cliente,
+#telefono-cliente {
   min-width: 120px;
   max-width: 180px;
   width: 100%;
@@ -265,23 +307,28 @@
   font-size: 1rem;
   box-sizing: border-box;
 }
+
 @media (max-width: 600px) {
   .modal-acciones {
     flex-direction: column;
     align-items: stretch;
     gap: 0.5rem;
   }
-  #nombre-cliente, #telefono-cliente {
+
+  #nombre-cliente,
+  #telefono-cliente {
     max-width: 100%;
     min-width: 0;
   }
 }
+
 #modal-cantidad {
   padding: 0.3rem 0.5rem;
   border-radius: 8px;
   border: 1px solid #ccc;
   width: 60px;
 }
+
 #agregar-carrito {
   background: linear-gradient(135deg, #ff8f1c 0%, #ff6b1c 100%);
   color: white;
@@ -304,7 +351,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.5s ease;
 }
 
@@ -362,6 +409,7 @@
     bottom: 20px;
     width: max-content;
   }
+
   .btn-carrito:hover {
     transform: translateX(-50%) translateY(-2px);
   }
@@ -377,15 +425,17 @@
   padding: 0.7rem 2.2rem;
   font-size: 1.1rem;
   font-weight: bold;
-  box-shadow: 0 2px 8px rgba(255,143,28,0.13);
+  box-shadow: 0 2px 8px rgba(255, 143, 28, 0.13);
   cursor: pointer;
   margin-top: 0.5rem;
   transition: background 0.2s, transform 0.2s, opacity 0.3s, box-shadow 0.3s;
 }
+
 #cotizar-pdf:hover {
   background: linear-gradient(90deg, #e67500 60%, #ff8f1c 100%);
   transform: scale(1.05);
 }
+
 #cotizar-pdf:disabled {
   filter: grayscale(0.3) brightness(0.95);
   box-shadow: none;
@@ -399,43 +449,52 @@
   border-spacing: 0;
   margin-bottom: 1rem;
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   border-radius: 10px;
   overflow: hidden;
   font-size: 1.04rem;
 }
-#carrito-listado th, #carrito-listado td {
+
+#carrito-listado th,
+#carrito-listado td {
   border-bottom: 1px solid #f2f2f2;
   padding: 0.7rem 0.5rem;
   text-align: left;
   font-size: 1.04rem;
 }
+
 #carrito-listado th {
   background: #ff8f1c;
   color: #fff;
   font-weight: bold;
   border-bottom: 2px solid #ff8f1c;
 }
+
 #carrito-listado tr:last-child td {
   border-bottom: none;
 }
+
 #carrito-listado td {
   background: #fff;
 }
+
 .cantidad-editar {
   display: flex;
   align-items: center;
   gap: 0.3rem;
 }
+
 /* Eliminar flechas de los inputs de cantidad */
 .cantidad-editar input[type='number']::-webkit-inner-spin-button,
 .cantidad-editar input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 .cantidad-editar input[type='number'] {
   -moz-appearance: textfield;
 }
+
 .cantidad-editar input[type='number'] {
   width: 48px;
   padding: 0.2rem 0.3rem;
@@ -444,6 +503,7 @@
   text-align: center;
   font-size: 1rem;
 }
+
 .cantidad-editar button {
   background: #ff8f1c;
   color: #fff;
@@ -454,9 +514,11 @@
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .cantidad-editar button:hover {
   background: #e67500;
 }
+
 #carrito-listado .eliminar-producto {
   background: #e74c3c;
   color: #fff;
@@ -467,16 +529,31 @@
   font-size: 0.95rem;
   transition: background 0.2s;
 }
+
 #carrito-listado .eliminar-producto:hover {
   background: #c0392b;
 }
+
 @media (max-width: 600px) {
-  #carrito-listado table, #carrito-listado thead, #carrito-listado tbody, #carrito-listado th, #carrito-listado td, #carrito-listado tr {
+
+  #carrito-listado table,
+  #carrito-listado thead,
+  #carrito-listado tbody,
+  #carrito-listado th,
+  #carrito-listado td,
+  #carrito-listado tr {
     display: block;
     width: 100%;
   }
-  #carrito-listado tr { margin-bottom: 1rem; }
-  #carrito-listado th { display: none; }
+
+  #carrito-listado tr {
+    margin-bottom: 1rem;
+  }
+
+  #carrito-listado th {
+    display: none;
+  }
+
   #carrito-listado td {
     border: none;
     position: relative;
@@ -484,6 +561,7 @@
     min-height: 2.2em;
     box-sizing: border-box;
   }
+
   #carrito-listado td:before {
     position: absolute;
     left: 0.7rem;
@@ -498,36 +576,63 @@
 
 /* Animación modal fade-in */
 .modal-producto {
-  animation: modalFadeIn 0.35s cubic-bezier(.4,0,.2,1);
+  animation: modalFadeIn 0.35s cubic-bezier(.4, 0, .2, 1);
 }
+
 @keyframes modalFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Animación slide-up para el contenido del modal */
 .modal-contenido {
-  animation: modalSlideUp 0.5s cubic-bezier(.4,0,.2,1);
+  animation: modalSlideUp 0.5s cubic-bezier(.4, 0, .2, 1);
 }
+
 @keyframes modalSlideUp {
-  from { transform: translateY(60px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Animaciones generales de fade para la página */
 .fade-in {
-  animation: modalFadeIn 0.35s cubic-bezier(.4,0,.2,1);
+  animation: modalFadeIn 0.35s cubic-bezier(.4, 0, .2, 1);
 }
+
 .fade-out {
-  animation: modalFadeOut 0.35s cubic-bezier(.4,0,.2,1);
+  animation: modalFadeOut 0.35s cubic-bezier(.4, 0, .2, 1);
 }
+
 @keyframes modalFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
+
 @keyframes modalFadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 /* Modal de producto seleccionado */
@@ -537,7 +642,7 @@
   padding: 2.5rem 2rem 2rem 2rem;
   max-width: 1000px;
   width: 96vw;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   border: 3px solid #ff8f1c;
   position: relative;
   text-align: center;
@@ -548,21 +653,24 @@
 
 @media (max-width: 768px) {
   #modal-producto .modal-contenido {
-    max-height: 75vh;
+    max-height: 85vh;
     overflow-y: auto;
-    padding: 1rem 0.8rem;
-    max-width: 80vw;
-    width: 80vw;
+    padding: 1.5rem 1rem;
+    max-width: 90vw;
+    width: 90vw;
+    margin: auto;
+    /* Ensure centering works vertically/horizontally in flexbox */
   }
 }
 
 @media (max-width: 480px) {
   #modal-producto .modal-contenido {
-    max-height: 80vh;
+    max-height: 85vh;
     overflow-y: auto;
-    padding: 0.8rem 0.6rem;
-    max-width: 85vw;
-    width: 85vw;
+    padding: 1rem 0.8rem;
+    max-width: 92vw;
+    width: 92vw;
+    margin: auto;
   }
 }
 
@@ -612,7 +720,8 @@
   content: '';
   position: absolute;
   top: -3px;
-  left: -3px; /* Reset to cover full border */
+  left: -3px;
+  /* Reset to cover full border */
   right: -3px;
   bottom: -3px;
   background: linear-gradient(45deg, #ff8f1c, #ff6b1c);
@@ -671,7 +780,7 @@
 .info-item:hover {
   background: #fff0d6;
   transform: translateX(4px);
-  box-shadow: 0 2px 8px rgba(255,143,28,0.1);
+  box-shadow: 0 2px 8px rgba(255, 143, 28, 0.1);
 }
 
 .info-label {
@@ -754,36 +863,74 @@
 }
 
 @media (max-width: 480px) {
-  .producto .producto-imagen { height: 160px; }
+  .producto .producto-imagen {
+    height: 160px;
+  }
+
   #modal-producto .modal-contenido {
     padding: 1rem 0.8rem;
     max-width: 95vw;
     width: 95vw;
   }
 
-  .modal-producto-layout { gap: 1rem; }
+  .modal-producto-layout {
+    gap: 1rem;
+  }
 
-  .modal-producto-imagen { width: 250px; padding: 4px; margin-top: 0.5rem; }
+  .modal-producto-imagen {
+    width: 250px;
+    padding: 4px;
+    margin-top: 0.5rem;
+  }
 
-  .modal-producto-imagen img { width: 100%; height: auto; }
+  .modal-producto-imagen img {
+    width: 100%;
+    height: auto;
+  }
 
-  .modal-producto-info h3 { font-size: 1.2rem; margin-bottom: 0.6rem; position: static; }
+  .modal-producto-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+    position: static;
+  }
 
-  .info-item { padding: 0.5rem; }
+  .info-item {
+    padding: 0.5rem;
+  }
 
-  .info-label { font-size: 0.8rem; }
+  .info-label {
+    font-size: 0.8rem;
+  }
 
-  .info-value { font-size: 0.95rem; }
+  .info-value {
+    font-size: 0.95rem;
+  }
 
-  .modal-acciones { margin-top: 1rem; gap: 0.5rem; }
+  .modal-acciones {
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
 
-  .cantidad-control { gap: 0.3rem; }
+  .cantidad-control {
+    gap: 0.3rem;
+  }
 
-  .cantidad-btn { width: 32px; height: 32px; font-size: 1.1rem; }
+  .cantidad-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
 
-  #modal-cantidad { width: 50px; font-size: 1rem; }
+  #modal-cantidad {
+    width: 50px;
+    font-size: 1rem;
+  }
 
-  #agregar-carrito { padding: 0.5rem 1.2rem; font-size: 1rem; margin-left: 0.5rem; }
+  #agregar-carrito {
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    margin-left: 0.5rem;
+  }
 }
 
 #modal-info img {
@@ -807,6 +954,7 @@
   font-size: 1.05rem;
   margin-bottom: 0.3rem;
 }
+
 .modal-acciones {
   margin-top: 1.2rem;
   display: flex;
@@ -814,11 +962,13 @@
   justify-content: center;
   gap: 0.7rem;
 }
+
 .cantidad-control {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
+
 .cantidad-btn {
   background: #ff8f1c;
   color: #fff;
@@ -830,12 +980,14 @@
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
-  box-shadow: 0 2px 8px rgba(255,143,28,0.10);
+  box-shadow: 0 2px 8px rgba(255, 143, 28, 0.10);
 }
+
 .cantidad-btn:hover {
   background: #e67500;
   transform: scale(1.08);
 }
+
 #modal-cantidad {
   width: 60px;
   text-align: center;
@@ -845,6 +997,7 @@
   padding: 0.4rem 0.2rem;
   margin: 0 0.2rem;
 }
+
 #agregar-carrito {
   background: linear-gradient(90deg, #ff8f1c 60%, #ffb347 100%);
   color: #fff;
@@ -853,11 +1006,12 @@
   padding: 0.6rem 1.6rem;
   font-size: 1.1rem;
   font-weight: bold;
-  box-shadow: 0 2px 8px rgba(255,143,28,0.13);
+  box-shadow: 0 2px 8px rgba(255, 143, 28, 0.13);
   cursor: pointer;
   margin-left: 1rem;
   transition: background 0.2s, transform 0.2s;
 }
+
 #agregar-carrito:hover {
   background: linear-gradient(90deg, #e67500 60%, #ff8f1c 100%);
   transform: scale(1.05);
@@ -870,18 +1024,22 @@
   padding: 2.5rem 2rem 2rem 2rem;
   max-width: 900px;
   width: 96vw;
-  max-height: 90vh; /* Limita la altura máxima al 90% del viewport */
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  max-height: 90vh;
+  /* Limita la altura máxima al 90% del viewport */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   border: 3px solid #ff8f1c;
   position: relative;
-  text-align: left; /* align modal content to the left */
+  text-align: left;
+  /* align modal content to the left */
   margin: 0 auto;
-  overflow-y: auto; /* Habilita el scroll vertical */
-  overflow-x: hidden; /* Evita scroll horizontal */
+  overflow-y: auto;
+  /* Habilita el scroll vertical */
+  overflow-x: hidden;
+  /* Evita scroll horizontal */
 }
 
 /* Center only the cart modal title and the empty-cart paragraph */
-#modal-carrito .modal-contenido > h3,
+#modal-carrito .modal-contenido>h3,
 #modal-carrito #carrito-listado p {
   text-align: center;
 }
@@ -897,16 +1055,24 @@
   border-radius: 20px;
   z-index: -1;
 }
-#carrito-listado, .carrito-table-responsive {
+
+#carrito-listado,
+.carrito-table-responsive {
   flex: 1 1 auto;
   min-height: 120px;
-  max-height: 45vh; /* Altura máxima para la tabla */
-  overflow-y: auto; /* Habilita scroll vertical */
-  overflow-x: hidden; /* Evita scroll horizontal innecesario */
+  max-height: 45vh;
+  /* Altura máxima para la tabla */
+  overflow-y: auto;
+  /* Habilita scroll vertical */
+  overflow-x: hidden;
+  /* Evita scroll horizontal innecesario */
   margin-bottom: 2.2rem;
-  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
-  scrollbar-width: thin; /* Scrollbar delgado en Firefox */
-  scrollbar-color: #ff8f1c #f0f0f0; /* Color del scrollbar en Firefox */
+  -webkit-overflow-scrolling: touch;
+  /* Scroll suave en iOS */
+  scrollbar-width: thin;
+  /* Scrollbar delgado en Firefox */
+  scrollbar-color: #ff8f1c #f0f0f0;
+  /* Color del scrollbar en Firefox */
 }
 
 /* Estilo del scrollbar para Chrome/Safari */
@@ -931,6 +1097,7 @@
 .carrito-table-responsive::-webkit-scrollbar-thumb:hover {
   background: #e67500;
 }
+
 #modal-carrito .modal-acciones {
   flex: 0 0 auto;
   width: 100%;
@@ -942,6 +1109,7 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
+
 #modal-carrito .campo-grupo {
   display: flex;
   flex-direction: row;
@@ -951,12 +1119,15 @@
   margin-bottom: 0;
   justify-content: flex-start;
 }
+
 #modal-carrito .campo-grupo label {
   font-weight: bold;
   color: #ff8f1c;
-  min-width: 140px; /* keep labels aligned and consistent */
+  min-width: 140px;
+  /* keep labels aligned and consistent */
   margin-bottom: 0;
-  display: inline-block; /* place inputs to the right on the same row */
+  display: inline-block;
+  /* place inputs to the right on the same row */
   text-align: left;
 }
 
@@ -970,10 +1141,12 @@
   flex: 1 1 auto;
   width: 100%;
 }
+
 #modal-carrito .campo-telefono select {
   flex: 0 0 72px;
   width: 72px;
 }
+
 #modal-carrito .campo-telefono input#telefono-cliente,
 #modal-carrito .campo-telefono input[type="tel"] {
   flex: 1 1 auto;
@@ -987,6 +1160,7 @@
 #modal-carrito .campo-telefono select {
   max-width: 100%;
 }
+
 #modal-carrito .campo-grupo input,
 #modal-carrito .campo-grupo select {
   min-width: 120px;
@@ -1002,13 +1176,16 @@
 /* Uniform sizes for modal inputs: make all text inputs the same width
    while keeping the description textarea larger and rectangular. */
 #modal-carrito .campo-grupo label {
-  min-width: 140px; /* consistent label column */
+  min-width: 140px;
+  /* consistent label column */
 }
+
 #modal-carrito .campo-grupo input[type="text"],
 #modal-carrito .campo-grupo input[type="tel"],
 #modal-carrito .campo-grupo select,
 #modal-carrito .campo-grupo textarea {
-  flex: 0 0 360px; /* fixed visual width for form controls */
+  flex: 0 0 360px;
+  /* fixed visual width for form controls */
   width: 360px;
   max-width: calc(100% - 150px);
   box-sizing: border-box;
@@ -1026,7 +1203,10 @@
 
 /* Responsive: on narrow screens inputs go full width under labels */
 @media (max-width: 900px) {
-  #modal-carrito .campo-grupo label { min-width: 100px; }
+  #modal-carrito .campo-grupo label {
+    min-width: 100px;
+  }
+
   #modal-carrito .campo-grupo input[type="text"],
   #modal-carrito .campo-grupo input[type="tel"],
   #modal-carrito .campo-grupo select,
@@ -1078,6 +1258,7 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1097,6 +1278,7 @@
 #modal-carrito #grupo-descripcion-servicio {
   display: none !important;
 }
+
 #modal-carrito #grupo-descripcion-servicio.visible {
   display: block !important;
 }
@@ -1131,18 +1313,22 @@
   width: 100%;
   flex-wrap: wrap;
 }
+
 #modal-carrito .grupo-contacto .campo-grupo {
   flex: 1 1 180px;
   min-width: 120px;
   margin-bottom: 0;
 }
+
 #modal-carrito .grupo-servicio {
   width: 100%;
   margin-top: 0.2rem;
 }
+
 #modal-carrito .grupo-servicio .campo-grupo {
   width: 100%;
 }
+
 #modal-carrito input[type="text"],
 #modal-carrito input[type="tel"],
 #modal-carrito select {
@@ -1152,15 +1338,18 @@
   width: 100%;
   box-sizing: border-box;
 }
+
 /* Ensure the Cotizar button sits below the form fields and stretches full width */
 #modal-carrito .form-cotizacion #cotizar-pdf {
   flex: 0 0 auto;
-  align-self: stretch; /* place under fields */
+  align-self: stretch;
+  /* place under fields */
   width: 100%;
   margin-top: 0.75rem;
   margin-bottom: 0.2rem;
   display: block;
 }
+
 @media (max-width: 900px) {
   #modal-carrito .modal-contenido {
     max-width: 95vw;
@@ -1189,6 +1378,7 @@ input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 input[type='number'] {
   -moz-appearance: textfield;
 }
@@ -1197,23 +1387,29 @@ input[type='number'] {
 #modal-pdf {
   border-radius: 0 !important;
 }
+
 #modal-pdf .modal-contenido {
   border-radius: 22px !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   background: #fff;
   overflow: hidden;
   position: relative;
 }
+
 @media (max-width: 700px) {
-  #modal-pdf, #modal-pdf .modal-contenido {
+
+  #modal-pdf,
+  #modal-pdf .modal-contenido {
     border-radius: 0 !important;
   }
+
   #modal-pdf .modal-cerrar {
     width: 38px;
     height: 38px;
     font-size: 1.7rem;
   }
 }
+
 #modal-pdf iframe {
   width: 100%;
   height: 80vh;
@@ -1223,10 +1419,11 @@ input[type='number'] {
   background: #f9f9fc;
   border-radius: 0 0 16px 16px;
 }
+
 #modal-pdf .modal-cerrar {
   background: #fff;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
   border: 2px solid #ff8f1c;
   color: #ff8f1c;
   font-size: 2.2rem;
@@ -1238,11 +1435,13 @@ input[type='number'] {
   justify-content: center;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
+
 #modal-pdf .modal-cerrar:hover {
   background: #ff8f1c;
   color: #fff;
-  box-shadow: 0 4px 16px rgba(255,143,28,0.13);
+  box-shadow: 0 4px 16px rgba(255, 143, 28, 0.13);
 }
+
 #modal-pdf #descargar-pdf {
   background: #ff8f1c;
   color: #fff;
@@ -1255,6 +1454,7 @@ input[type='number'] {
   margin: 1rem 1.5rem 1rem auto;
   transition: background 0.2s;
 }
+
 #modal-pdf #descargar-pdf:hover {
   background: #e67500;
 }
@@ -1265,7 +1465,7 @@ input[type='number'] {
   color: #fff;
   padding: 1rem 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 0.5rem;
@@ -1274,11 +1474,19 @@ input[type='number'] {
   text-align: center;
   opacity: 0.97;
   z-index: 3001;
-  animation: toastIn 0.4s cubic-bezier(.4,0,.2,1);
+  animation: toastIn 0.4s cubic-bezier(.4, 0, .2, 1);
 }
+
 @keyframes toastIn {
-  from { opacity: 0; transform: translateY(-30px) scale(0.95); }
-  to { opacity: 0.97; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+
+  to {
+    opacity: 0.97;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Animaciones AOS para la página */
@@ -1286,8 +1494,9 @@ input[type='number'] {
   opacity: 0;
   transition-property: opacity, transform;
   transition-duration: 0.7s;
-  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
+
 [data-aos].aos-animate {
   opacity: 1;
 }
@@ -1304,7 +1513,7 @@ input[type='number'] {
   color: #333;
   outline: none;
   transition: border 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(255,143,28,0.07);
+  box-shadow: 0 2px 8px rgba(255, 143, 28, 0.07);
   margin-bottom: 0.5rem;
   appearance: none;
   background-image: url('data:image/svg+xml;utf8,<svg fill="%23ff8f1c" height="18" viewBox="0 0 20 20" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M7.293 7.293a1 1 0 011.414 0L10 8.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z"/></svg>');
@@ -1312,11 +1521,13 @@ input[type='number'] {
   background-position: right 0.5em center;
   background-size: 1em;
 }
+
 #codigo-pais option {
   background: #fff;
   color: #333;
   font-size: 1.08rem;
 }
+
 #servicio-solicitado {
   background: #fff;
   border: 2px solid #ff8f1c;
@@ -1326,7 +1537,7 @@ input[type='number'] {
   color: #333;
   outline: none;
   transition: border 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(255,143,28,0.07);
+  box-shadow: 0 2px 8px rgba(255, 143, 28, 0.07);
   margin-bottom: 0.5rem;
 }
 
@@ -1339,16 +1550,20 @@ input[type='number'] {
 }
 
 @media (max-width: 600px) {
-  #codigo-pais, #modal-carrito .campo-telefono select {
+
+  #codigo-pais,
+  #modal-carrito .campo-telefono select {
     width: 100%;
     flex: 1 1 100%;
     min-width: 0;
   }
 }
+
 #servicio-solicitado:focus {
   border-color: #ff8f1c;
   box-shadow: 0 0 0 2px #ff8f1c33;
 }
+
 #servicio-solicitado option {
   background: #fff;
   color: #333;
@@ -1362,6 +1577,7 @@ input[type='number'] {
   max-width: 100%;
   box-sizing: border-box;
 }
+
 .carrito-flex-item {
   display: flex;
   flex-wrap: wrap;
@@ -1369,14 +1585,17 @@ input[type='number'] {
   background: #f8f8f8;
   border-radius: 10px;
   padding: 0.8rem 1.1rem;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
   gap: 1.2rem;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
 }
-.carrito-flex-nombre, .carrito-flex-marca, .carrito-flex-proposito {
+
+.carrito-flex-nombre,
+.carrito-flex-marca,
+.carrito-flex-proposito {
   flex: 1 1 120px;
   max-width: 180px;
   overflow: hidden;
@@ -1386,14 +1605,18 @@ input[type='number'] {
   font-size: 1.08rem;
   box-sizing: border-box;
 }
+
 .carrito-flex-nombre {
   font-weight: bold;
   color: #222;
 }
-.carrito-flex-marca, .carrito-flex-proposito {
+
+.carrito-flex-marca,
+.carrito-flex-proposito {
   color: #444;
   font-size: 1rem;
 }
+
 .carrito-flex-cantidad {
   flex: 1 1 100px;
   display: flex;
@@ -1403,6 +1626,7 @@ input[type='number'] {
   max-width: 140px;
   box-sizing: border-box;
 }
+
 .carrito-flex-cantidad input[type="number"] {
   width: 54px;
   text-align: center;
@@ -1411,6 +1635,7 @@ input[type='number'] {
   padding: 0.3rem 0.4rem;
   font-size: 1.1rem;
 }
+
 .carrito-flex-cantidad button {
   background: #ff8f1c;
   color: #fff;
@@ -1426,9 +1651,11 @@ input[type='number'] {
   align-items: center;
   justify-content: center;
 }
+
 .carrito-flex-cantidad button:hover {
   background: #e67600;
 }
+
 .carrito-flex-eliminar {
   flex: 0 0 80px;
   display: flex;
@@ -1437,6 +1664,7 @@ input[type='number'] {
   max-width: 90px;
   box-sizing: border-box;
 }
+
 .carrito-flex-eliminar button {
   background: #e74c3c;
   color: #fff;
@@ -1447,15 +1675,18 @@ input[type='number'] {
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .carrito-flex-eliminar button:hover {
   background: #c0392b;
 }
+
 @media (max-width: 900px) {
   .carrito-flex-item {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 }
+
 @media (max-width: 700px) {
   .carrito-flex-item {
     flex-direction: column;
@@ -1463,11 +1694,17 @@ input[type='number'] {
     gap: 0.5rem;
     padding: 0.7rem 0.5rem;
   }
-  .carrito-flex-nombre, .carrito-flex-marca, .carrito-flex-proposito, .carrito-flex-cantidad, .carrito-flex-eliminar {
+
+  .carrito-flex-nombre,
+  .carrito-flex-marca,
+  .carrito-flex-proposito,
+  .carrito-flex-cantidad,
+  .carrito-flex-eliminar {
     flex: 1 1 100%;
     width: 100%;
     min-width: 0;
   }
+
   .carrito-flex-eliminar {
     justify-content: flex-start;
   }
@@ -1478,6 +1715,7 @@ input[type='number'] {
   overflow-x: auto;
   margin-bottom: 1rem;
 }
+
 .carrito-table {
   width: 100%;
   border-collapse: separate;
@@ -1485,10 +1723,11 @@ input[type='number'] {
   background: #fff;
   font-size: 1.07rem;
   min-width: 520px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.09);
   border-radius: 14px;
   overflow: hidden;
 }
+
 .carrito-table thead th {
   background: linear-gradient(90deg, #ff8f1c 80%, #ffb347 100%);
   color: #fff;
@@ -1501,6 +1740,7 @@ input[type='number'] {
   border-bottom: 2px solid #fff2e0;
   letter-spacing: 0.02em;
 }
+
 .carrito-table tbody td {
   background: #fdf6f0;
   color: #222;
@@ -1511,14 +1751,17 @@ input[type='number'] {
   word-break: break-word;
   font-size: 1.06rem;
 }
+
 .carrito-table tbody tr:last-child td {
   border-bottom: none;
 }
+
 .carrito-cantidad-control {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
+
 .carrito-cantidad-control input[type="number"] {
   width: 52px;
   text-align: center;
@@ -1528,8 +1771,9 @@ input[type='number'] {
   font-size: 1.13rem;
   background: #fff;
   color: #222;
-  box-shadow: 0 1px 2px rgba(255,143,28,0.07);
+  box-shadow: 0 1px 2px rgba(255, 143, 28, 0.07);
 }
+
 .carrito-cantidad-control button {
   background: linear-gradient(90deg, #ff8f1c 80%, #ffb347 100%);
   color: #fff;
@@ -1544,11 +1788,13 @@ input[type='number'] {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 4px rgba(255,143,28,0.08);
+  box-shadow: 0 1px 4px rgba(255, 143, 28, 0.08);
 }
+
 .carrito-cantidad-control button:hover {
   background: #e67600;
 }
+
 .carrito-td-eliminar button {
   background: #e74c3c;
   color: #fff;
@@ -1558,34 +1804,42 @@ input[type='number'] {
   font-size: 1.13rem;
   cursor: pointer;
   transition: background 0.2s;
-  box-shadow: 0 1px 4px rgba(231,76,60,0.09);
+  box-shadow: 0 1px 4px rgba(231, 76, 60, 0.09);
 }
+
 .carrito-td-eliminar button:hover {
   background: #c0392b;
 }
+
 @media (max-width: 700px) {
   .carrito-table {
     min-width: 0;
     font-size: 0.98rem;
   }
+
   .carrito-table-responsive {
     padding: 0;
     margin-bottom: 0.5rem;
   }
-  .carrito-table thead th, .carrito-table tbody td {
+
+  .carrito-table thead th,
+  .carrito-table tbody td {
     padding: 0.5rem 0.2rem;
     font-size: 0.97rem;
   }
+
   .carrito-cantidad-control input[type="number"] {
     width: 38px;
     font-size: 0.97rem;
   }
+
   .carrito-cantidad-control button {
     min-width: 26px;
     min-height: 26px;
     font-size: 1rem;
     padding: 0.1rem 0.4rem;
   }
+
   .carrito-td-eliminar button {
     padding: 0.2rem 0.6rem;
     font-size: 0.97rem;
@@ -1647,7 +1901,9 @@ input[type='number'] {
     flex-direction: column;
     gap: 1.2rem;
   }
-  .carrito-modal-izq, .carrito-modal-der {
+
+  .carrito-modal-izq,
+  .carrito-modal-der {
     min-width: 0;
     width: 100%;
   }
@@ -1660,20 +1916,26 @@ input[type='number'] {
   width: 96vw;
   height: auto;
   margin: 0 auto;
-  padding: 3rem 2.8rem 2.5rem 2.8rem; /* Aumentado el padding en todos los lados */
-  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+  padding: 3rem 2.8rem 2.5rem 2.8rem;
+  /* Aumentado el padding en todos los lados */
+  box-sizing: border-box;
+  /* Asegura que el padding no afecte el ancho total */
 }
 
 @media (max-width: 768px) {
   #modal-carrito .modal-contenido {
     max-width: 90vw;
     width: 90vw;
-    max-height: 85vh; /* Ligeramente menor en móviles para mejor visibilidad */
-    padding: 2.2rem 2rem 1.8rem 2rem; /* Padding proporcional para tablets */
+    max-height: 85vh;
+    /* Ligeramente menor en móviles para mejor visibilidad */
+    padding: 2.2rem 2rem 1.8rem 2rem;
+    /* Padding proporcional para tablets */
   }
-  
-  #carrito-listado, .carrito-table-responsive {
-    max-height: 40vh; /* Reduce la altura máxima de la tabla en móviles */
+
+  #carrito-listado,
+  .carrito-table-responsive {
+    max-height: 40vh;
+    /* Reduce la altura máxima de la tabla en móviles */
   }
 }
 
@@ -1681,7 +1943,8 @@ input[type='number'] {
   #modal-carrito .modal-contenido {
     max-width: 95vw;
     width: 95vw;
-    padding: 1.8rem 1.5rem 1.5rem 1.5rem; /* Padding proporcional para móviles */
+    padding: 1.8rem 1.5rem 1.5rem 1.5rem;
+    /* Padding proporcional para móviles */
   }
 }
 
@@ -1691,9 +1954,11 @@ input[type='number'] {
   align-items: flex-start;
   gap: 0.9rem;
 }
+
 #modal-carrito .form-cotizacion .campo-grupo {
   margin-bottom: 0.2rem;
 }
+
 #modal-carrito .form-cotizacion label {
   /* Keep label and input on the same line inside the carrito form.
      Use inline-block with a fixed min-width so the input can flex. */
@@ -1701,6 +1966,7 @@ input[type='number'] {
   display: inline-block;
   min-width: 110px;
 }
+
 #modal-carrito .form-cotizacion input,
 #modal-carrito .form-cotizacion select,
 #modal-carrito .form-cotizacion textarea {
@@ -1714,7 +1980,8 @@ input[type='number'] {
 
 /* Make the phone input smaller than full width inside the modal */
 #modal-carrito .campo-telefono input#telefono-cliente {
-  flex: 0 0 220px; /* fixed-ish width while allowing responsive shrink */
+  flex: 0 0 220px;
+  /* fixed-ish width while allowing responsive shrink */
   max-width: 240px;
   width: 220px;
 }
@@ -1726,7 +1993,7 @@ input[type='number'] {
   margin-top: 0.75rem;
   padding: 12px 14px;
   border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(255,143,28,0.08);
+  box-shadow: 0 6px 18px rgba(255, 143, 28, 0.08);
 }
 
 /* On wider modal layouts, prevent the button from floating to the side */
@@ -1734,6 +2001,7 @@ input[type='number'] {
   #modal-carrito .form-cotizacion {
     align-items: stretch;
   }
+
   #modal-carrito .form-cotizacion #cotizar-pdf {
     align-self: stretch;
   }
@@ -1773,18 +2041,20 @@ input[type='number'] {
 }
 
 /* Strong override to force phone controls inline beside their label */
-#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono {
+#modal-carrito .form-cotizacion .campo-grupo>.campo-telefono {
   display: flex !important;
   flex-direction: row !important;
   gap: 0.5rem !important;
   align-items: center !important;
   width: auto !important;
 }
-#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono select {
+
+#modal-carrito .form-cotizacion .campo-grupo>.campo-telefono select {
   flex: 0 0 72px !important;
   width: 72px !important;
 }
-#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono input#telefono-cliente {
+
+#modal-carrito .form-cotizacion .campo-grupo>.campo-telefono input#telefono-cliente {
   flex: 1 1 auto !important;
   width: auto !important;
   max-width: 100% !important;
@@ -1812,7 +2082,8 @@ input[type='number'] {
 
 /* Make the phone input compact (but not tiny) so it doesn't stretch full modal width */
 #modal-carrito .campo-telefono input#telefono-cliente {
-  flex: 0 0 180px !important; /* compact fixed width */
+  flex: 0 0 180px !important;
+  /* compact fixed width */
   width: 180px !important;
   max-width: 260px !important;
   min-width: 140px !important;
@@ -1833,6 +2104,7 @@ input[type='number'] {
 
 /* Mobile: stack phone/email under label and make full width */
 @media (max-width: 600px) {
+
   #modal-carrito .campo-telefono select,
   #modal-carrito .campo-telefono #codigo-pais,
   #modal-carrito .campo-telefono input#telefono-cliente,
@@ -1841,21 +2113,27 @@ input[type='number'] {
     flex: 1 1 100% !important;
     min-width: 0 !important;
   }
-  #modal-carrito .subtitulo-contacto { text-align: center; }
-  #modal-carrito .form-cotizacion .campo-grupo label { min-width: 0 !important; }
+
+  #modal-carrito .subtitulo-contacto {
+    text-align: center;
+  }
+
+  #modal-carrito .form-cotizacion .campo-grupo label {
+    min-width: 0 !important;
+  }
 }
 
 /* Even higher-specificity overrides to beat the earlier strong override selectors
    (they used the same selector path and !important). Repeat the full selector
    chain and place these rules at the end so they win. */
-#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono select,
-#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono #codigo-pais {
+#modal-carrito .form-cotizacion .campo-grupo>.campo-telefono select,
+#modal-carrito .form-cotizacion .campo-grupo>.campo-telefono #codigo-pais {
   flex: 0 0 92px !important;
   width: 92px !important;
   min-width: 72px !important;
 }
 
-#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono input#telefono-cliente {
+#modal-carrito .form-cotizacion .campo-grupo>.campo-telefono input#telefono-cliente {
   flex: 0 0 180px !important;
   width: 180px !important;
   max-width: 260px !important;
@@ -1878,10 +2156,12 @@ input[type='number'] {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
-  gap: 0.9rem !important; /* a little more spacing between label and control */
+  gap: 0.9rem !important;
+  /* a little more spacing between label and control */
   width: 100% !important;
   margin-bottom: 0.9rem !important;
-  flex-wrap: wrap !important; /* allow wrapping to prevent crowding */
+  flex-wrap: wrap !important;
+  /* allow wrapping to prevent crowding */
 }
 
 /* Keep label as a left column but slightly reduce reserved width so inputs have more space */
@@ -1893,19 +2173,19 @@ input[type='number'] {
 }
 
 /* Make the phone controls container not expand full width; sit immediately after label */
-#modal-carrito .form-cotizacion .campo-grupo > .campo-telefono {
+#modal-carrito .form-cotizacion .campo-grupo>.campo-telefono {
   flex: 0 0 auto !important;
   width: auto !important;
   min-width: 0 !important;
 }
 
 /* add a little breathing room between the phone controls and the next field */
-#modal-carrito .form-cotizacion .campo-grupo + .campo-grupo {
+#modal-carrito .form-cotizacion .campo-grupo+.campo-grupo {
   margin-top: 0.6rem !important;
 }
 
 /* If the next group is the 'tipo' group, remove the extra gap so label sits directly above the select */
-#modal-carrito .form-cotizacion .campo-grupo + .campo-grupo.campo-tipo {
+#modal-carrito .form-cotizacion .campo-grupo+.campo-grupo.campo-tipo {
   margin-top: 0 !important;
 }
 
@@ -1922,7 +2202,8 @@ input[type='number'] {
 #modal-carrito #tipo-cotizacion,
 #modal-carrito select#tipo-cotizacion {
   display: inline-block !important;
-  width: calc(100% - 140px) !important; /* allow for label column */
+  width: calc(100% - 140px) !important;
+  /* allow for label column */
   max-width: 100% !important;
 }
 
@@ -1942,23 +2223,24 @@ input[type='number'] {
   gap: 0.9rem !important;
 }
 
-#modal-carrito .form-cotizacion > .campo-grupo {
+#modal-carrito .form-cotizacion>.campo-grupo {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
-  width: 100% !important; /* take full row */
+  width: 100% !important;
+  /* take full row */
   box-sizing: border-box !important;
 }
 
 /* Make the Tipo de cotización field occupy the remaining width under its label */
-#modal-carrito .form-cotizacion > .campo-grupo select#tipo-cotizacion {
+#modal-carrito .form-cotizacion>.campo-grupo select#tipo-cotizacion {
   flex: 0 0 calc(100% - 140px) !important;
   width: calc(100% - 140px) !important;
   max-width: 100% !important;
 }
 
 /* Prevent the phone controls from forcing subsequent groups to float beside them */
-#modal-carrito .form-cotizacion > .campo-grupo > .campo-telefono {
+#modal-carrito .form-cotizacion>.campo-grupo>.campo-telefono {
   margin-right: 0.6rem !important;
 }
 
@@ -1971,12 +2253,15 @@ input[type='number'] {
   width: 100% !important;
   margin-bottom: 0.9rem !important;
 }
+
 #modal-carrito .form-cotizacion .campo-grupo.campo-tipo label {
   display: block !important;
-  margin-bottom: -6.65rem !important; /* reduced gap to the select */
+  margin-bottom: -6.65rem !important;
+  /* reduced gap to the select */
   text-align: left !important;
   color: #ff8f1c !important;
 }
+
 #modal-carrito .form-cotizacion .campo-grupo.campo-tipo select#tipo-cotizacion {
   display: block !important;
   width: 100% !important;
@@ -1995,19 +2280,23 @@ input[type='number'] {
 /* EXTRA: strongest overrides to force Tipo and Cotizar into their own full-width rows
    This clears floats, cancels any unexpected inline/absolute positioning and
    forces the select and button to stack below the phone row across all viewports. */
-#modal-carrito .modal-contenido .form-cotizacion > .campo-grupo.campo-tipo {
+#modal-carrito .modal-contenido .form-cotizacion>.campo-grupo.campo-tipo {
   display: block !important;
   clear: both !important;
   width: 100% !important;
   box-sizing: border-box !important;
-  margin-top: 0.25rem !important; /* smaller gap above this group */
+  margin-top: 0.25rem !important;
+  /* smaller gap above this group */
 }
-#modal-carrito .modal-contenido .form-cotizacion > .campo-grupo.campo-tipo label {
+
+#modal-carrito .modal-contenido .form-cotizacion>.campo-grupo.campo-tipo label {
   display: block !important;
   width: 100% !important;
-  margin-bottom: 0.15rem !important; /* match reduced spacing */
+  margin-bottom: 0.15rem !important;
+  /* match reduced spacing */
 }
-#modal-carrito .modal-contenido .form-cotizacion > .campo-grupo.campo-tipo select#tipo-cotizacion {
+
+#modal-carrito .modal-contenido .form-cotizacion>.campo-grupo.campo-tipo select#tipo-cotizacion {
   display: block !important;
   width: 100% !important;
   max-width: 100% !important;
@@ -2057,12 +2346,19 @@ input[type='number'] {
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-10px);
   }
+
   60% {
     transform: translateY(-5px);
   }
@@ -2077,6 +2373,7 @@ input[type='number'] {
     opacity: 0;
     transform: translateX(20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -2438,7 +2735,7 @@ input[type='number'] {
     font-size: 0.8rem;
   }
 
-  .producto > img,
+  .producto>img,
   .producto img {
     max-width: 140px;
   }
@@ -2576,6 +2873,7 @@ input[type='number'] {
 
 /* Touch device improvements */
 @media (hover: none) and (pointer: coarse) {
+
   /* Increase touch targets for better usability */
   .modal-cerrar {
     min-width: 44px;
