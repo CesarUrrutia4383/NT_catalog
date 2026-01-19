@@ -20,6 +20,10 @@ const carritoListado = document.getElementById('carrito-listado');
 const btnCotizarPDF = document.getElementById('cotizar-pdf');
 const carritoCantidad = document.getElementById('carrito-cantidad');
 
+// Guard clause: If we are not on the catalog page (grid is missing), stop specific catalog logic.
+// However, we must allow some shared logic if needed, but for now we wrap the page-specific parts.
+const isCatalogPage = !!grid;
+
 // Inicializa AOS para animaciones
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -1200,6 +1204,8 @@ async function enviarCotizacionBackend({ carrito, nombre, telefono, email, servi
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  if (!isCatalogPage) return; // Exit if not on catalog page
+
   loader.style.display = 'block';
   grid.style.display = 'none';
   const productos = await obtenerProductos();
@@ -1254,9 +1260,11 @@ function showToast(msg, duration = 5500) {
 /**
  * Actualiza el catálogo de productos periódicamente.
  */
-setInterval(() => {
-  actualizarCatalogo();
-}, 30000); // 30,000 ms = 30 segundos
+if (isCatalogPage) {
+  setInterval(() => {
+    actualizarCatalogo();
+  }, 30000); // 30,000 ms = 30 segundos
+}
 
 /**
  * Obtiene nuevamente los productos del servidor y actualiza la interfaz, preservando filtros.
