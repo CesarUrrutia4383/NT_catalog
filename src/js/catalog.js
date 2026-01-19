@@ -1012,7 +1012,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
           a.download = fileName;
           a.click();
         } else {
-        } else {
+
           showToast('Correo enviado correctamente desde el servidor.', 10000);
           closeModal(modalPDF);
           // Reiniciar carrito en memoria y en localStorage antes de recargar
