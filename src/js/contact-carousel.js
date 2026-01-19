@@ -34,12 +34,22 @@ function initContactCarousel() {
 
         currentIndex = index;
 
-        // Eliminar clase active de todos
-        slides.forEach(slide => slide.classList.remove('active'));
+        // Eliminar clase active de todos y forzar estilos en línea
+        // Esto asegura que la visibilidad y el z-index sean correctos independientemente de especificidad CSS o conflictos
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+            slide.style.opacity = '0';
+            slide.style.zIndex = '0';
+            slide.style.transition = 'opacity 1s ease-in-out'; // Asegurar transición suave
+        });
         sucursales.forEach(sucursal => sucursal.classList.remove('active'));
 
-        // Agregar clase active al actual
-        if (slides[currentIndex]) slides[currentIndex].classList.add('active');
+        // Agregar clase active al actual y forzar estilos visibles
+        if (slides[currentIndex]) {
+            slides[currentIndex].classList.add('active');
+            slides[currentIndex].style.opacity = '1';
+            slides[currentIndex].style.zIndex = '10';
+        }
         if (sucursales[currentIndex]) sucursales[currentIndex].classList.add('active');
     }
 
