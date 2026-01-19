@@ -2093,3 +2093,505 @@ input[type='number'] {
     font-size: 0.85rem;
   }
 }
+
+/* ========================================================================
+   RESPONSIVE STYLES FOR CATALOG PAGE - COMPREHENSIVE MOBILE FIXES
+   ======================================================================== */
+
+/* Tablet Landscape - 1024px and below */
+@media screen and (max-width: 1024px) {
+  .catalogo {
+    padding: 15px;
+    margin: 8px auto 50px auto;
+  }
+
+  .productos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .filtros {
+    gap: 1.5rem;
+  }
+
+  .btn-carrito {
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* Tablet Portrait - 768px and below */
+@media screen and (max-width: 768px) {
+  .catalogo {
+    padding: 12px;
+    margin: 5px auto 40px auto;
+    border-radius: 15px;
+  }
+
+  .catalogo .titulo1 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  .filtros {
+    gap: 1rem;
+    margin-bottom: 25px;
+  }
+
+  .filtro {
+    min-width: 160px;
+  }
+
+  .productos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .producto {
+    padding: 20px;
+  }
+
+  .producto h3 {
+    font-size: 1.1rem;
+  }
+
+  .producto p {
+    font-size: 0.9rem;
+  }
+
+  /* Modal adjustments for tablets */
+  .modal-contenido {
+    max-width: 90vw;
+    width: 90vw;
+    padding: 2rem 1.2rem 1.2rem 1.2rem;
+  }
+
+  /* Cart button adjustments */
+  .btn-carrito {
+    bottom: 15px;
+    right: 15px;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+  }
+
+  /* Cart table responsive improvements */
+  .carrito-table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #carrito-listado table {
+    font-size: 0.95rem;
+  }
+
+  #carrito-listado th,
+  #carrito-listado td {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Large Phone - 600px and below */
+@media screen and (max-width: 600px) {
+  .catalogo {
+    padding: 10px;
+    margin: 3px auto 30px auto;
+    border-radius: 12px;
+  }
+
+  .catalogo .titulo1 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
+
+  .filtros {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 20px;
+  }
+
+  .filtro {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .filtro select {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+  }
+
+  .productos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .producto {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .producto h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .producto p {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+
+  /* Modal improvements for mobile */
+  .modal-contenido {
+    max-width: 95vw;
+    width: 95vw;
+    padding: 1.8rem 1rem 1rem 1rem;
+    max-height: 85vh;
+  }
+
+  .modal-cerrar {
+    top: 10px;
+    right: 10px;
+    font-size: 1.8rem;
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Cart button mobile adjustments */
+  .btn-carrito {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+    width: calc(100% - 24px);
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 40px;
+    text-align: center;
+  }
+
+  /* Cart table mobile layout - stack vertically */
+  #carrito-listado table,
+  #carrito-listado thead,
+  #carrito-listado tbody,
+  #carrito-listado th,
+  #carrito-listado td,
+  #carrito-listado tr {
+    display: block;
+    width: 100%;
+  }
+
+  #carrito-listado thead {
+    display: none;
+  }
+
+  #carrito-listado tr {
+    margin-bottom: 1rem;
+    border: 2px solid #ff8f1c;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: #fff;
+  }
+
+  #carrito-listado td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    min-height: 2.2em;
+    text-align: right;
+  }
+
+  #carrito-listado td:before {
+    position: absolute;
+    left: 0.5rem;
+    top: 0.5rem;
+    width: 45%;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #ff8f1c;
+    text-align: left;
+  }
+
+  #carrito-listado .carrito-td-producto:before {
+    content: "Producto:";
+  }
+
+  #carrito-listado .carrito-td-marca:before {
+    content: "Marca:";
+  }
+
+  #carrito-listado .carrito-td-proposito:before {
+    content: "Propósito:";
+  }
+
+  #carrito-listado .carrito-td-cantidad:before {
+    content: "Cantidad:";
+  }
+
+  #carrito-listado .carrito-td-eliminar:before {
+    content: "Eliminar:";
+  }
+
+  /* Cart quantity controls mobile */
+  .carrito-cantidad-control {
+    justify-content: flex-end;
+  }
+
+  .carrito-cantidad-control button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-size: 1rem;
+  }
+
+  .carrito-cantidad-control input {
+    width: 50px;
+    padding: 0.3rem;
+    font-size: 0.9rem;
+  }
+
+  /* Cotizar button mobile */
+  #cotizar-pdf {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.05rem;
+    margin-top: 1rem;
+  }
+
+  /* Toast notifications mobile */
+  #toast-container {
+    top: 12px !important;
+    left: 12px !important;
+    right: 12px !important;
+    transform: none !important;
+    width: calc(100% - 24px);
+  }
+
+  #toast-container .toast {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+}
+
+/* Small Phone - 480px and below */
+@media screen and (max-width: 480px) {
+  .catalogo {
+    padding: 8px;
+    margin: 2px auto 25px auto;
+    border-radius: 10px;
+  }
+
+  .catalogo .titulo1 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .filtros {
+    gap: 0.6rem;
+    margin-bottom: 15px;
+  }
+
+  .filtro label {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+
+  .filtro select {
+    padding: 7px 10px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+  }
+
+  .productos-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .producto {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .producto h3 {
+    font-size: 0.95rem;
+  }
+
+  .producto p {
+    font-size: 0.8rem;
+  }
+
+  .producto > img,
+  .producto img {
+    max-width: 140px;
+  }
+
+  /* Modal extra small screens */
+  .modal-contenido {
+    max-width: 98vw;
+    width: 98vw;
+    padding: 1.5rem 0.8rem 0.8rem 0.8rem;
+    max-height: 90vh;
+    border-radius: 15px;
+  }
+
+  .modal-cerrar {
+    top: 8px;
+    right: 8px;
+    font-size: 1.6rem;
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Cart button very small screens */
+  .btn-carrito {
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+    width: calc(100% - 20px);
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+
+  /* Form fields mobile */
+  #modal-carrito input,
+  #modal-carrito select {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  #modal-carrito label {
+    font-size: 0.9rem;
+  }
+
+  /* Cotizar button small screens */
+  #cotizar-pdf {
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+  }
+
+  /* Toast very small screens */
+  #toast-container {
+    top: 10px !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: calc(100% - 20px);
+  }
+
+  #toast-container .toast {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+
+  /* PDF Modal mobile */
+  #modal-pdf .modal-contenido {
+    max-width: 98vw;
+    width: 98vw;
+    padding: 1rem 0.5rem;
+  }
+
+  #modal-pdf iframe {
+    height: 70vh;
+    min-height: 300px;
+  }
+
+  #modal-pdf #descargar-pdf,
+  #modal-pdf #enviar-por-correo {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Extra Small Screens - 375px and below */
+@media screen and (max-width: 375px) {
+  .catalogo .titulo1 {
+    font-size: 1.3rem;
+  }
+
+  .productos-grid {
+    gap: 0.6rem;
+  }
+
+  .producto {
+    padding: 10px;
+  }
+
+  .producto h3 {
+    font-size: 0.9rem;
+  }
+
+  .producto p {
+    font-size: 0.75rem;
+  }
+
+  .modal-contenido {
+    padding: 1.2rem 0.6rem 0.6rem 0.6rem;
+  }
+
+  #toast-container .toast {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
+/* Landscape orientation fixes for phones */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .modal-contenido {
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+
+  #modal-pdf iframe {
+    height: 60vh;
+    min-height: 250px;
+  }
+
+  .btn-carrito {
+    bottom: 8px;
+    right: 8px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch targets for better usability */
+  .modal-cerrar {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .btn-carrito {
+    min-height: 44px;
+  }
+
+  #cotizar-pdf {
+    min-height: 44px;
+  }
+
+  .carrito-cantidad-control button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .eliminar-producto {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Remove hover effects on touch devices */
+  .producto:hover {
+    transform: none;
+  }
+
+  .producto:active {
+    transform: scale(0.98);
+  }
+}

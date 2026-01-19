@@ -35,7 +35,7 @@ AOS.init({ duration: 600, once: false });
  */
 function isValidCloudinaryUrl(url) {
   if (!url) return false;
-  
+
   const cloudinaryPattern = /^https:\/\/res\.cloudinary\.com\/[^\/]+\/image\/upload\/.*$/;
   return cloudinaryPattern.test(url);
 }
@@ -237,14 +237,14 @@ let carrito = [];
  */
 function mostrarModalProducto(producto) {
   productoActual = producto;
-  
+
   console.log('Producto en modal:', {
     nombre: producto.nombre_producto || producto.nombre,
     imagen_url: producto.imagen_url,
     tiene_imagen: !!producto.imagen_url,
     es_url_valida: isValidCloudinaryUrl(producto.imagen_url)
   });
-  
+
   const imagen = getImageUrl(producto);
   modalInfo.innerHTML = `
     <h3 class="modal-producto-titulo">${producto.nombre_producto || producto.nombre}</h3>
@@ -274,7 +274,7 @@ function mostrarModalProducto(producto) {
       </div>
     </div>
   `;
-  
+
   const acciones = modalInfo.parentElement.querySelector('.modal-acciones');
   acciones.innerHTML = `
     <div class="cantidad-control" id="cantidad-control">
@@ -284,7 +284,7 @@ function mostrarModalProducto(producto) {
     </div>
     <button id="agregar-carrito">Agregar al carrito</button>
   `;
-  
+
   document.getElementById('btn-restar').onclick = () => {
     const input = document.getElementById('modal-cantidad');
     let val = parseInt(input.value, 10) || 1;
@@ -302,13 +302,13 @@ function mostrarModalProducto(producto) {
       showToast('No hay suficientes unidades disponibles.');
       return;
     }
-    
+
     const idx = carrito.findIndex(item => item.id === productoActual.id);
     if (idx > -1) {
       carrito[idx].cantidad += cantidad;
     } else {
-      const nuevoItem = { 
-        ...productoActual, 
+      const nuevoItem = {
+        ...productoActual,
         cantidad,
         stock_disponible: productoActual.existencias || productoActual.cantidad || productoActual.cantidad_disponible || 0
       };
@@ -334,21 +334,21 @@ window.addEventListener('click', (e) => {
 btnAgregarCarrito.addEventListener('click', () => {
   const cantidad = parseInt(inputCantidad.value, 10);
   if (!productoActual || isNaN(cantidad) || cantidad < 1) return;
-      if (cantidad > (productoActual.existencias || productoActual.cantidad)) {
+  if (cantidad > (productoActual.existencias || productoActual.cantidad)) {
     showToast('No hay suficientes unidades disponibles.');
     return;
   }
-  
+
   const idx = carrito.findIndex(item => item.id === productoActual.id);
   if (idx > -1) {
     carrito[idx].cantidad += cantidad;
   } else {
-    const nuevoItem = { 
-      ...productoActual, 
+    const nuevoItem = {
+      ...productoActual,
       cantidad,
       stock_disponible: productoActual.existencias || productoActual.cantidad || productoActual.cantidad_disponible || 0
     };
-    console.log('Agregando producto al carrito (btn):', nuevoItem);
+
     carrito.push(nuevoItem);
   }
   modal.style.display = 'none';
@@ -392,7 +392,7 @@ function mostrarCarrito() {
     `).join('');
     tabla += '</tbody></table></div>';
     carritoListado.innerHTML = tabla;
-    
+
     document.querySelectorAll('.restar-cantidad').forEach(btn => {
       btn.addEventListener('click', () => {
         const idx = parseInt(btn.getAttribute('data-idx'), 10);
@@ -462,19 +462,25 @@ function actualizarBotonCotizar() {
 
 btnVerCarrito.addEventListener('click', () => {
   mostrarCarrito();
-  
+
   // Restablecer campos
   const codigoPais = document.getElementById('codigo-pais');
   const telefonoInput = document.getElementById('telefono-cliente');
   const emailInput = document.getElementById('email-cliente');
   const tipoCotizacion = document.getElementById('tipo-cotizacion');
   const descripcionServicio = document.getElementById('grupo-descripcion-servicio');
-  
+
   // Limpiar todos los campos
   if (codigoPais) codigoPais.value = '52';
   if (telefonoInput) telefonoInput.value = '';
   if (emailInput) emailInput.value = '';
-  if (tipoCotizacion) tipoCotizacion.value = '';
+  // Auto-fill Type based on cart content
+  if (tipoCotizacion) {
+    // Check if any item is for 'Renta'
+    const hayRenta = carrito && carrito.some(i => i.proposito && i.proposito.toLowerCase().includes('renta'));
+    // Default to 'Compra' unless 'Renta' is detected
+    tipoCotizacion.value = hayRenta ? 'Renta' : 'Compra';
+  }
   const aceptaDatos = document.getElementById('acepta-datos');
   if (aceptaDatos) {
     // Restaurar consentimiento de la sesión si existe y los campos están completos
@@ -490,7 +496,7 @@ btnVerCarrito.addEventListener('click', () => {
       aceptaDatos.checked = false;
     }
   }
-  
+
   // Ocultar descripción inicialmente
   if (descripcionServicio) {
     descripcionServicio.classList.remove('visible');
@@ -503,7 +509,7 @@ btnVerCarrito.addEventListener('click', () => {
   }
   // Asegurar estado inicial correcto según el valor actual del select
   if (tipoCotizacion) actualizarCampoDescripcion(tipoCotizacion.value);
-  
+
   // ensure modal opens with the shared helper so overlay + box style apply
   openModal(modalCarrito);
 });
@@ -512,13 +518,13 @@ btnVerCarrito.addEventListener('click', () => {
 function actualizarCampoDescripcion(tipoCotizacion) {
   const descripcionServicio = document.getElementById('grupo-descripcion-servicio');
   const inputDescripcion = document.getElementById('descripcion-servicio');
-  
+
   if (descripcionServicio && inputDescripcion) {
     const mostrar = tipoCotizacion === 'Servicio de mantenimiento';
-    
+
     // Remover clase visible primero si existe
     descripcionServicio.classList.remove('visible');
-    
+
     if (mostrar) {
       // Mostrar con animación
       setTimeout(() => {
@@ -528,7 +534,7 @@ function actualizarCampoDescripcion(tipoCotizacion) {
       // Limpiar el valor al ocultar
       inputDescripcion.value = '';
     }
-    
+
     // Actualizar requerido según visibilidad
     inputDescripcion.required = mostrar;
   }
@@ -630,7 +636,7 @@ telefonoInput.addEventListener('input', () => {
 });
 
 codigoPais.addEventListener('change', () => {
-  telefonoInput.value = ''; 
+  telefonoInput.value = '';
   actualizarMaxlength();
   validarCamposCotizacion();
 });
@@ -647,14 +653,14 @@ function validarCamposCotizacion() {
   const descripcionServicio = document.getElementById('descripcion-servicio');
   const btn = document.getElementById('cotizar-pdf');
   const aceptaDatos = document.getElementById('acepta-datos');
-  
+
   // Validar nombre
   const nombreValido = nombreInput.value.trim().length > 0;
-  
+
   // Validar email (opcional)
   const emailValue = emailInput.value.trim();
   const emailValido = !emailValue || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
-  
+
   // Validar teléfono
   const codigo = codigoPais.value;
   const telefono = telefonoInput.value.trim();
@@ -666,15 +672,15 @@ function validarCamposCotizacion() {
 
   // Validar consentimiento (checkbox)
   const aceptaValido = aceptaDatos ? aceptaDatos.checked : false;
-  
+
   // Validar descripción cuando es servicio de mantenimiento
-  const descripcionValida = tipoCotizacion.value !== 'Servicio de mantenimiento' || 
+  const descripcionValida = tipoCotizacion.value !== 'Servicio de mantenimiento' ||
     (descripcionServicio && descripcionServicio.value.trim().length >= 10);
-  
+
   // Habilitar/deshabilitar botón según validación
-  const todosLosCamposValidos = nombreValido && emailValido && telefonoValido && 
+  const todosLosCamposValidos = nombreValido && emailValido && telefonoValido &&
     tipoValido && descripcionValida && aceptaValido;
-  
+
   if (todosLosCamposValidos) {
     btn.disabled = false;
     btn.style.opacity = '1';
@@ -801,24 +807,24 @@ btnCotizarPDF.addEventListener('click', async (e) => {
   const servicio = servicioSelect ? servicioSelect.value : 'venta';
   let telefono = telefonoInput.value.trim().replace(/\D/g, '');
   let codigo = codigoPais ? codigoPais.value : '52';
-  
+
   const emailInput = document.getElementById('email-cliente');
   const emailValue = emailInput.value.trim();
-  if (!nombreInput.value.trim() || 
-      (emailValue && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) ||
-      (codigo === '52' ? telefono.length !== 10 : (telefono.length < 7 || telefono.length > 15))) {
+  if (!nombreInput.value.trim() ||
+    (emailValue && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) ||
+    (codigo === '52' ? telefono.length !== 10 : (telefono.length < 7 || telefono.length > 15))) {
     e.preventDefault();
     validarCamposCotizacion();
     return;
   }
-  
+
   // Ya no requerimos productos en el carrito
   const tipoCotizacion = document.getElementById('tipo-cotizacion');
   if (!tipoCotizacion.value) {
     showToast('Por favor seleccione el tipo de cotización.');
     return;
   }
-  
+
   let descripcion = '';
   if (servicio === 'servicio') {
     descripcion = descripcionServicio ? descripcionServicio.value.trim() : '';
@@ -832,10 +838,10 @@ btnCotizarPDF.addEventListener('click', async (e) => {
       return;
     }
   }
-  
+
   const nombreCliente = nombreInput.value.trim();
   const telefonoCliente = `+${codigo} ${telefono}`;
-  
+
   let destinoCorreo = [];
   if (servicio === 'compra') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
   else if (servicio === 'renta') destinoCorreo = ['cesar_urrutia_dev4383@proton.me'];
@@ -855,7 +861,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     error = true;
   }
   if (error) return;
-  
+
   let disponibilidadOk = true;
   console.log('Verificando disponibilidad del carrito:', carrito);
   for (const item of carrito) {
@@ -871,7 +877,7 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     showToast('Uno o más productos no tienen suficiente disponibilidad.');
     return;
   }
-  
+
   try {
     // Paso 1: Generar el PDF primero
     console.log('Iniciando generación de PDF...');
@@ -885,24 +891,24 @@ btnCotizarPDF.addEventListener('click', async (e) => {
 
     // Usar la URL del backend según el entorno
     const BACKEND_QUOTE_URL = import.meta.env.VITE_API_URL?.replace('/routes/productos', '/routes/quote') || 'http://localhost:4000/routes/quote';
-    
+
     const emailCliente = document.getElementById('email-cliente').value.trim();
     const tipoCotizacion = document.getElementById('tipo-cotizacion').value;
-  
-  const requestData = {
-    carrito: carritoParaEnviar,
-    nombre: nombreCliente,
-    telefono: telefonoCliente,
-    email: emailCliente,
-    tipo_cotizacion: tipoCotizacion,
-    servicio,
-    destinoCorreo,
-    descripcion
-  };    console.log('Datos a enviar:', requestData);
+
+    const requestData = {
+      carrito: carritoParaEnviar,
+      nombre: nombreCliente,
+      telefono: telefonoCliente,
+      email: emailCliente,
+      tipo_cotizacion: tipoCotizacion,
+      servicio,
+      destinoCorreo,
+      descripcion
+    };
 
     const pdfResponse = await fetch(BACKEND_QUOTE_URL, {
       method: 'POST',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
@@ -915,13 +921,12 @@ btnCotizarPDF.addEventListener('click', async (e) => {
 
     if (!pdfResponse.ok) {
       const errorData = await pdfResponse.text();
-      console.error('Error en la respuesta del PDF:', errorData);
       throw new Error('No se pudo generar el PDF');
     }
 
-    console.log('PDF generado correctamente, obteniendo blob...');
+
     const responseData = await pdfResponse.json();
-    
+
     if (!responseData.pdfBase64) {
       throw new Error('No se recibió el PDF en base64 del servidor');
     }
@@ -935,13 +940,13 @@ btnCotizarPDF.addEventListener('click', async (e) => {
     const byteArray = new Uint8Array(byteNumbers);
     const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
     const url = URL.createObjectURL(pdfBlob);
-    
+
     // Mostrar el PDF en el modal
     const modalPDF = document.getElementById('modal-pdf');
     const iframePDF = document.getElementById('iframe-pdf');
     const btnDescargarPDF = document.getElementById('descargar-pdf');
-    
-    console.log('Mostrando PDF en el modal...');
+
+
     iframePDF.src = url;
     openModal(modalPDF);
 
@@ -1000,7 +1005,6 @@ btnCotizarPDF.addEventListener('click', async (e) => {
 
         const sendJson = await sendRes.json().catch(() => null);
         if (!sendRes.ok) {
-          console.error('Error enviando desde servidor:', sendRes.status, sendJson);
           showToast('No se pudo enviar desde el servidor. Intente descargar y enviar manualmente.');
           // fallback: allow user to download
           const a = document.createElement('a');
@@ -1008,24 +1012,24 @@ btnCotizarPDF.addEventListener('click', async (e) => {
           a.download = fileName;
           a.click();
         } else {
-          console.log('Envío desde servidor exitoso:', sendJson);
-          showToast('Correo enviado correctamente desde el servidor.');
+        } else {
+          showToast('Correo enviado correctamente desde el servidor.', 10000);
           closeModal(modalPDF);
           // Reiniciar carrito en memoria y en localStorage antes de recargar
           try {
             carrito = [];
-            guardarCarrito();
+            localStorage.removeItem('carrito'); // Explicitly remove cart from localStorage
+            guardarCarrito(); // Save empty cart
             actualizarCarritoCantidad();
             actualizarBotonCotizar();
-          } catch (e) { console.warn('No se pudo limpiar carrito:', e); }
+          } catch (e) { /* ignore */ }
           // Después de un envío exitoso, revocar el URL y recargar para reiniciar la interfaz
           setTimeout(() => {
             try { URL.revokeObjectURL(url); } catch (e) { /* ignore */ }
             window.location.reload();
-          }, 700);
+          }, 1500); // Increased delay to ensure cart clearing is visible
         }
       } catch (err) {
-        console.error('Excepción al enviar desde servidor:', err);
         showToast('Error en envío automático. Descargue el PDF y envíe manualmente.');
       } finally {
         btnEnviarPorCorreo.disabled = false;
@@ -1184,7 +1188,7 @@ window.addEventListener('DOMContentLoaded', () => {
  * @param {object} data - Datos de la cotización.
  * @returns {Promise<Response>} - Respuesta del fetch.
  */
-async function enviarCotizacionBackend({carrito, nombre, telefono, servicio, destinoCorreo, descripcion}) {
+async function enviarCotizacionBackend({ carrito, nombre, telefono, servicio, destinoCorreo, descripcion }) {
   // Delegar completamente al backend: el servidor se encargará de generar el PDF
   // y de enviar el correo (usando puertos/servicios configurados en render).
   const carritoSimplificado = carrito.map(item => ({
@@ -1216,7 +1220,6 @@ async function enviarCotizacionBackend({carrito, nombre, telefono, servicio, des
     });
     return res;
   } catch (err) {
-    console.error('Error delegando envío al backend:', err);
     throw err;
   }
 }
@@ -1238,7 +1241,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
   } catch (err) {
-    console.warn('No se pudo restaurar filtro tipo desde localStorage:', err);
+    /* ignore */
   }
 
   filtrar(productos, false);
@@ -1291,7 +1294,7 @@ async function actualizarCatalogo() {
   const tipoActual = filtroTipo ? filtroTipo.value : '';
 
   const productos = await obtenerProductos();
-  
+
   filtroMarca.innerHTML = '<option value="">Todas</option>';
   filtroProposito.innerHTML = '<option value="">Todos</option>';
   if (filtroTipo) {
